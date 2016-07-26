@@ -1,10 +1,23 @@
 # Melody Map
 Easily locate concerts
+Designed not only to keep you informed when your favorite bands come to your area,
+but also to help you discover new artists that you might enjoy.
 
 ## Features
-- Google Map with concert locations
 - Spotify abilities to pre-listen to artist
-
+- Local, which populates any shows in the area based on your GPS location
+- Artists, which lists your favorites as well as recommendations based on your musical tastes
+- Venues, which shows upcoming concerts at your favorite spots
+- Once you dive down into individual concerts, you can mark favorites,
+  save concerts to your calendar, share over social networking
+  (Facebook, Twitter, email), and map the location
+- RSVP to shows, purchase tickets via Songkick
+- Provides a useful Spotify plug-in that provides a personalized concert calendar based on your playlists.
+- Inspire spontaneity by providing exclusive deals on last-minute concert tickets.
+- Provides sample songs from artists
+- show off which concerts they’ve attended will dig the built in Foursquare functionality,
+  which handily keeps track of all past shows for future reminiscing.
+  
 ## Motivation
 
 
@@ -25,7 +38,7 @@ React, redux, immutable.js, express.js
 
 ***https://www.toptal.com/react/react-redux-and-immutablejs***
 
-***https://www.toptal.com/react/react-redux-and-immutablejs***
+***http://survivejs.com/react/***
 
 ***https://www.udemy.com/react-redux***
 
