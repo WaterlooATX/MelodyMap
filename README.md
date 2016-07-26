@@ -1,17 +1,23 @@
-# App Name
+# Melody Map
+Easily locate concerts
 
 ## Features
-- a
-- b
-- c
-- d
+- Google Map with concert locations
+- Spotify abilities to pre-listen to artist
 
 ## Motivation
 
+
+## Vision
+Songkick with streamlined UX and a focus on map appearance and listening to the music
+
+
 ## User Stories
 
+
 ## Stack
-react redux immutable.js
+React, redux, immutable.js, express.js
+
 ## React/Redux Application Design Lessons
 ***http://www.jeremyzerr.com/sites/default/files/React-Redux-Design-Lessons-Learned.pdf***
 ***http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html***
@@ -22,8 +28,8 @@ react redux immutable.js
 
 Run the following commands in the command line to deploy app locally
 ```
-$ git clone https://github.com/WaterlooATXs/AppName
-$ cd appName
+$ git clone https://github.com/WaterlooATXs/melodyMap
+$ cd melodyMap
 $ npm install
 ```
 
