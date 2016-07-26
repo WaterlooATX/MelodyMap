@@ -20,8 +20,14 @@ React, redux, immutable.js, express.js
 
 ## React/Redux Application Design Lessons
 ***http://www.jeremyzerr.com/sites/default/files/React-Redux-Design-Lessons-Learned.pdf***
+
 ***http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html***
+
 ***https://www.toptal.com/react/react-redux-and-immutablejs***
+
+***https://www.toptal.com/react/react-redux-and-immutablejs***
+
+***https://www.udemy.com/react-redux***
 
 
 ## Installation
