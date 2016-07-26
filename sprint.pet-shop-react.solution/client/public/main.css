@@ -1,0 +1,18 @@
+.pet {
+  background:#eee;
+  float:left;
+  margin:1rem;
+  padding:0 1rem;
+  height:320px;
+  width:200px
+}
+
+.pet img {
+  max-width: 100%;
+}
+
+.auth-panel .error {
+  background-color: #fdd;
+  border-color: #a00;
+  padding: 1rem;
+}
