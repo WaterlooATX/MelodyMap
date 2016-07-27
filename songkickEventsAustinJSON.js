@@ -1,4 +1,6 @@
-{
+// import eventData from './'
+export default function() {
+ return {
    "resultsPage":{
       "status":"ok",
       "results":{
@@ -3378,4 +3380,5 @@
          "metroAreaId":9179
       }
    }
+}
 }
