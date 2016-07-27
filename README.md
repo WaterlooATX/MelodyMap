@@ -51,7 +51,15 @@ Run the following commands in the command line to deploy app locally
 $ git clone https://github.com/WaterlooATXs/melodyMap
 $ cd melodyMap
 $ npm install
+
 ```
+
+## To start the server
+> npm start
+
+## To lint the client folder
+> npm run lint
+
 
 Open your browser to ***http://localhost:1337*** to view!
 

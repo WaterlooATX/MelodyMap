@@ -1,0 +1,80 @@
+extends: airbnb
+plugins:
+  - react
+ecmaFeatures:
+  jsx: true
+env:
+  es6: true
+  browser: true
+  node: true
+  jest: true
+settings:
+  import/resolver: webpack
+globals:
+  google: false
+  twttr: true
+  Auth0: false
+rules:
+  consistent-return: off
+  comma-dangle:
+    - error
+    - never
+  no-trailing-spaces:
+    - error
+    - skipBlankLines: true
+  no-confusing-arrow:
+    - error
+    - allowParens: true
+  block-spacing:
+    - error
+    - never
+  arrow-spacing:
+    - error
+    - before: true
+      after: true
+  object-curly-spacing: off
+  space-in-parens:
+    - error
+    - never
+  space-before-function-paren:
+    - error
+    - never
+  space-before-blocks:
+    - error
+    - always
+  keyword-spacing:
+    - error
+    - before: true
+      after: true
+  jsx-quotes: off
+  quotes:
+    - error
+    - single
+    - avoidEscape: true
+      allowTemplateLiterals: true
+  global-require: off
+  react/jsx-closing-bracket-location: off
+  import/no-unresolved: off
+  react/react-in-jsx-scope: off
+  no-irregular-whitespace: off
+  no-unused-expressions:
+    - error
+    - allowShortCircuit: true
+      allowTernary: true
+  no-underscore-dangle:
+    - error
+    - allowAfterThis: true
+      allow:
+        - _handleNestedListToggle
+        - _disableDisplay
+        - _DEPRECATION_NOTICE
+        - __IS_SMOOTH_SCROLLING
+        - __scroll__direction
+        - __CA_DELAYED_MODAL
+        - _wq
+        - __dataID__
+        - _fbq
+        - _hsq
+  no-param-reassign:
+    - error
+    - props: false
