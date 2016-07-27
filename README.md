@@ -68,6 +68,9 @@ Open your browser to ***http://localhost:1337*** to view!
 Refer to ***http://www.songkick.com/developer*** for documentation.
 ***https://groups.google.com/forum/#!forum/songkick-api***
 
+A small javascript library (for NodeJS) to interface with the SongKick API
+***https://github.com/MrJaeger/songkick-api***
+
 ## Style Guide
 
 Please reference ***https://github.com/airbnb/javascript*** for style.
