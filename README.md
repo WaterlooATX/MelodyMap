@@ -17,7 +17,7 @@ but also to help you discover new artists that you might enjoy.
 - Provides sample songs from artists
 - show off which concerts they’ve attended will dig the built in Foursquare functionality,
   which handily keeps track of all past shows for future reminiscing.
-  
+
 ## Motivation
 
 
@@ -43,6 +43,7 @@ React, redux, immutable.js, express.js
 ***https://www.udemy.com/react-redux***
 
 
+
 ## Installation
 
 Run the following commands in the command line to deploy app locally
@@ -57,6 +58,7 @@ Open your browser to ***http://localhost:1337*** to view!
 ## API Reference
 
 Refer to ***http://www.songkick.com/developer*** for documentation.
+***https://groups.google.com/forum/#!forum/songkick-api***
 
 ## Style Guide
 
