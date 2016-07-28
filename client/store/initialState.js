@@ -2,5 +2,5 @@
 // Used as default parameters for reducers.
 
 export default {
-  textField: ''
+  shows: []
 };

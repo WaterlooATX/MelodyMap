@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
+import showReducer from './reducer_fetchShows'
 
-import textField from './textField';
+const rootReducer = combineReducers({
+  shows: showReducer
+})
 
-export default combineReducers({
-  textField
-});
+export default rootReducer;
