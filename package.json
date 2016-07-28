@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A boiler plate with basic examples of react-router and react-redux",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "nodemon server/server.js",
     "lint": "node ./node_modules/eslint/bin/eslint.js ./client"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "browserify-middleware": "^7.0.0",
     "express": "^4.14.0",
     "middleware": "^1.0.0",
+    "nodemon": "^1.10.0",
     "react": "^15.1.0",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
