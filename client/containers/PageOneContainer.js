@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { UPDATE_TEXT, CLEAR_TEXT } from '../actions';
+import { UPDATE_TEXT, CLEAR_TEXT } from '../actions/actions';
 import PageOne from '../components/pageOne';
 
 const mapState = (store) => ({
