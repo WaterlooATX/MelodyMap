@@ -45,7 +45,7 @@ export function fetchShows() {
   // }
   //
   // console.log('fetchShows body', body);
-  console.log(austinEvents)
+  console.log(austinEvents);
 
   //const request = axios.get(body)// url?
 
