@@ -1,7 +1,13 @@
 {
-  "name": "boilerplate",
+  "name": "Melody Map",
   "version": "1.0.0",
-  "description": "A boiler plate with basic examples of react-router and react-redux",
+  "author": "WaterlooATX",
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/WaterlooATX/MelodyMap.git"
+    },
+  "description": "Easily locate concerts Designed not only to keep you informed when your favorite bands come to your area, but also to help you discover new artists that you might enjoy.",
+  "license": "ISC",
   "scripts": {
     "start": "nodemon server/server.js",
     "lint": "node ./node_modules/eslint/bin/eslint.js ./client"
