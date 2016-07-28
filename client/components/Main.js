@@ -1,5 +1,7 @@
 import React from 'react';
-import ShowList from '../containers/ShowList'
+import ShowList from '../containers/ShowList';
+import GoogleMap from '../containers/GoogleMap';
+
 
 export default function Main() {
   return (
@@ -9,7 +11,7 @@ export default function Main() {
           <ShowList />
         </div>
         <div className="col-sm-4 sidenav">
-          <p>Google Map</p>
+          <GoogleMap />
         </div>
       </div>
     </div>

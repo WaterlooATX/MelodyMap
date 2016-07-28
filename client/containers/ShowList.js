@@ -14,7 +14,12 @@ class ShowList extends Component {
   }
 
   render() {
-    return null;
+
+    //console.log('shows from store', this.props.shows);
+    return (
+      <div>
+      </div>
+    )
   }
 }
 
