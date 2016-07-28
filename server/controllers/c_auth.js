@@ -1,5 +1,5 @@
 var express = require('express'),
-	m_auth = require('../models/auth'),
+	m_auth = require('../models/m_auth'),
 	router = express.Router();
 
 

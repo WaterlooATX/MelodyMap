@@ -2,12 +2,13 @@ var express = require('express');
 var browserify = require('browserify-middleware');
 var path = require('path');
 
-const ROUTES = require('./routes');
 var app = express();
-ROUTES(app);
+
 
 
 var port = process.env.PORT || 4000;
+
+app.use(require('./controllers'));
 
 var assetFolder = path.join(__dirname, '..', 'client','public');
 
