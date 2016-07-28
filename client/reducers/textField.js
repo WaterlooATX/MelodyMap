@@ -1,5 +1,5 @@
 import initialState from '../store/initialState';
-import { UPDATE_TEXT, CLEAR_TEXT } from '../actions/actions';
+import { UPDATE_TEXT, CLEAR_TEXT } from '../actions/actions'
 
 export default (state = initialState.textField, action) => {
   switch (action.type) {
