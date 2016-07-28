@@ -8,13 +8,13 @@ class ShowList extends Component {
     super(props)
   }
 
+  componentDidMount() {
+    this.props.fetchShows()
+    console.log('shows from store', this.props.shows);
+  }
 
   render() {
-
-    //console.log('shows from store', this.props.shows);
-    return (
-      <div>{this.props.fetchShows()}</div>
-    )
+    return null;
   }
 }
 
