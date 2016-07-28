@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import App from './components/App';
+import ReduxPromise from 'redux-promise'
 
+import {createStore, applyMiddleware} from 'redux';
 
-import configureStore from './store/configureStore';
+import reducers from './reducers'
+//import configureStore from './store/configureStore';
 
-const store = configureStore();
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
+//const store = configureStore();
 
 // Render to DOM
 ReactDOM.render(
-  (<Provider store={store}>
+  (<Provider store={createStoreWithMiddleware(reducers)}>
         <Router history={browserHistory}>
           <Route path='/' component={App} />
         </Router>
