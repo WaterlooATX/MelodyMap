@@ -5,8 +5,10 @@ var express = require('express'),
 
 
 //declare some route that connects to client model
-router.get('', function(req,res){
-	m_songkick.getInfo()
-		.then()
+router.get('/test', function(req,res){
+	m_songkick.getTonightLocalInfo()
+		.then(function(data){
+			res.send("Here's Data from the Controller: ", data)})
 })
+
 module.exports = router;

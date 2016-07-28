@@ -1,6 +1,7 @@
 var express = require('express');
 var browserify = require('browserify-middleware');
 var path = require('path');
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -9,6 +10,7 @@ var app = express();
 var port = process.env.PORT || 4000;
 
 app.use(require('./controllers'));
+app.use(bodyParser.json());
 
 var assetFolder = path.join(__dirname, '..', 'client','public');
 
