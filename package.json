@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "babelify": "^7.3.0",
+    "body-parser": "^1.15.2",
     "browserify-middleware": "^7.0.0",
     "express": "^4.14.0",
     "middleware": "^1.0.0",
