@@ -16,7 +16,23 @@ export default class DrawMap extends Component {
     }
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state= {
+      currMarker: false
+    }
+  }
+
+  handleMarkerClick(show) {
+    console.log("CLICKSHOW", show)
+    this.setState({currMarker: show});
+  }
+
   render() {
+    console.log('show this.props.shows in GOOGLEMAP', this.props.shows);
+    console.log('ahhhhhhhhhh', this.state)
+
     return (
       <div>
         <GoogleMapLoader
@@ -30,13 +46,20 @@ export default class DrawMap extends Component {
                     <Marker
                       key={index}
                       position={{lat: show.venue.lat, lng: show.venue.lng}}
-                      clickable={true}
-                      title={"Hello"}
+                      title ={show.venue.displayName}
+                      onClick={this.handleMarkerClick.bind(this, show)}
                     >
-                      <InfoWindow
 
-                      />
+                    {this.state.currMarker === show
+                      ?
+                       <InfoWindow
+                        content = {show.venue.displayName}
+                        />
+                      : null
+                    }
+
                     </Marker>
+
                   );
                 })
                 : null
