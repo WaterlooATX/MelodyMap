@@ -1,8 +1,8 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import Show from "../components/Show"
+import Show from "./Show"
 
-class ShowList extends Component {
+export default class ShowList extends Component {
 
   _createShows() {
     const shows = this.props.shows[0];
@@ -30,9 +30,3 @@ class ShowList extends Component {
     )
   }
 }
-
-function mapStateToProps(state) {
-  return { shows: state.shows}
-}
-
-export default connect(mapStateToProps)(ShowList)

@@ -1,17 +1,17 @@
 import React from 'react';
-import ShowList from '../containers/ShowList';
-import GoogleMap from '../containers/GoogleMap';
+import ShowList from './ShowList';
+import GoogleMap from './GoogleMap';
 
 
-export default function Main() {
+export default function Main(props) {
   return (
     <div className="container-fluid text-center">
       <div className="row content">
         <div className="col-sm-8 text-left Main">
-          <ShowList />
+          <ShowList shows={props.shows}/>
         </div>
         <div className="col-sm-4 sidenav">
-          <GoogleMap />
+          <GoogleMap shows={props.shows}/>
         </div>
       </div>
     </div>

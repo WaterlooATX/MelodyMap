@@ -1,13 +1,7 @@
 import React, {Component} from "react"
-import {connect} from "react-redux"
-import {bindActionCreators} from 'redux'
-import { fetchShows } from '../actions/shows'
-import NavLogin from '../components/NavLogin'
+import NavLogin from './NavLogin'
 
-class NavBar extends Component {
-  componentDidMount() {
-    this.props.fetchShows()
-  }
+export default class NavBar extends Component {
   render () {
     return (
       <nav className="navbar navbar-inverse">
@@ -37,9 +31,3 @@ class NavBar extends Component {
     )
   }
 }
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchShows}, dispatch)
-}
-
-export default connect(null, mapDispatchToProps)(NavBar);
