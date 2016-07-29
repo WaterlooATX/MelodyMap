@@ -2,7 +2,6 @@ import React from 'react';
 
 export default function NavLogin() {
   return (
-      <li><p className="navbar-text">Already have an account?</p></li>
       <li className="dropdown">
         <a href="#" className="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span className="caret"></span></a>
     <ul id="login-dp" className="dropdown-menu">

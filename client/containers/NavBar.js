@@ -1,7 +1,8 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import {bindActionCreators} from 'redux';
-import { fetchShows } from '../actions/shows';
+import {bindActionCreators} from 'redux'
+import { fetchShows } from '../actions/shows'
+import NavLogin from '../components/NavLogin'
 
 class NavBar extends Component {
   componentDidMount() {
@@ -27,7 +28,8 @@ class NavBar extends Component {
               <li><a href="#">Venues</a></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
+              {/* <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li> */}
+              <NavLogin/>
             </ul>
           </div>
         </div>
