@@ -9,23 +9,10 @@ export default class DrawMap extends Component {
 // const austinEvents = this.props.shows[0].resultsPage.results.event;
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state= {
-      currMarker: false
-    }
-  }
-
-  handleMarkerClick(show) {
-    console.log("CLICKSHOW", show)
-    this.setState({currMarker: show});
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state= {
-      currMarker: false
+      currMarker: null
     }
   }
 
@@ -35,9 +22,6 @@ export default class DrawMap extends Component {
   }
 
   render() {
-    console.log('show this.props.shows in GOOGLEMAP', this.props.shows);
-    console.log('ahhhhhhhhhh', this.state)
-
     return (
       <div>
         <GoogleMapLoader
