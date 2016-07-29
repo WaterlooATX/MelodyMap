@@ -5,8 +5,9 @@ import Show from "../components/Show"
 class ShowList extends Component {
 
   _createShows() {
-    if(this.props.shows[0]) {
-      return this.props.shows[0].resultsPage.results.event.map(show => {
+    const shows = this.props.shows[0];
+    if(shows) {
+      return shows.resultsPage.results.event.map(show => {
         return <Show
                 key={show.id}
                 displayName={show.displayName}
