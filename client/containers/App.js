@@ -4,20 +4,22 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
 import {fetchShows} from '../actions/shows'
-import {fetchGeoLocation} from '../actions/shows'
 
 class App extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      location: {long: "-97.7431" , lat: "30.2669444"}
+    }
   }
 
   componentDidMount() {
-    this.props.fetchGeoLocation()
-    navigator.geolocation.getCurrentPosition((position) => this.props.fetchShows(position));
+    navigator.geolocation.getCurrentPosition((geo) => this.setState({location: {long: geo.coords.longitude , lat: geo.coords.latitude} }));
+    this.props.fetchShows(this.state.location);
   }
+
   render() {
-    console.log("this.props.location", this.props.location)
     return (
       <div>
         <NavBar />
@@ -30,10 +32,10 @@ class App extends Component {
 
 // hey i want to set this
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchShows,fetchGeoLocation}, dispatch)
+  return bindActionCreators({fetchShows}, dispatch)
 }
 // i want to read this
 function mapStateToProps(state) {
-  return { shows: state.shows, location: state.location}
+  return { shows: state.shows }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
