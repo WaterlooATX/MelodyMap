@@ -1,5 +1,6 @@
 import axios from 'axios';
 export const FETCH_SHOWS = 'FETCH_SHOWS';
+export const FETCH_GEOLOCATION = 'FETCH_GEOLOCATION';
 
 export function fetchShows(geo) {
   //const shows = axios.post("/fetchShows", {long: "-97.7431" , lat: "30.2669444"}).then((data) => console.log("axios.get(/test)", data))
@@ -10,6 +11,26 @@ export function fetchShows(geo) {
   // }
   return {
     type: FETCH_SHOWS,
-    payload :  axios.post("/fetchShows", {long: geo.coords.longitude , lat: geo.coords.latitude})
+    payload:  axios.post("/fetchShows", {long: geo.coords.longitude , lat: geo.coords.latitude})
+  }
+}
+
+export function fetchGeoLocation() {
+  var getPosition = function (options) {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
+}
+
+// getPosition()
+//   .then((position) => {
+//     console.log(position);
+//   })
+//   .catch((err) => {
+//     console.error(err.message);
+//   });
+  return {
+    type: FETCH_GEOLOCATION,
+    payload: getPosition()
   }
 }
