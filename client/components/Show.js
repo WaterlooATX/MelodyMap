@@ -4,16 +4,7 @@ import {bindActionCreators} from 'redux';
 import { fetchShows } from '../actions/shows';
 import AustinJSON from '../../songkickEventsAustinJSON';
 
-
-class Show extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
-    this.props.fetchShows()
-  }
-
+export default function Show() {
   render() {
     return (
       <div className="list-group">
@@ -37,9 +28,3 @@ class Show extends Component {
     )
   }
 }
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchShows}, dispatch)
-}
-
-export default connect(null, mapDispatchToProps)(ShowList);

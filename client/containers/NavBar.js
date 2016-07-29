@@ -6,7 +6,6 @@ import { fetchShows } from '../actions/shows';
 class NavBar extends Component {
   componentDidMount() {
     this.props.fetchShows()
-    console.log('shows from store', this.props.shows);
   }
   render () {
     return (
