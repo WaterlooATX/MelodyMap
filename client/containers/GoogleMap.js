@@ -15,9 +15,9 @@ class DrawMap extends Component {
     return (
       <div>
         <GoogleMapLoader
-          containerElement={ <div style={{height: '300px'}} /> }
+          containerElement={ <div style={{height: '95vh'}} /> }
           googleMapElement={
-            <GoogleMap defaultZoom={12} defaultCenter={{lat: 30.307182, lng: -97.755996}} >
+            <GoogleMap defaultZoom={12} defaultCenter={{lat: 30.2747, lng: -97.7404}} >
               {
                 this.props.shows[0]
                 ? this.props.shows[0].resultsPage.results.event.map( (show, index) => {
