@@ -10,7 +10,7 @@ export default (props) => {
     <div>
 
       <GoogleMapLoader
-        containerElement={ <div style={{height: '1000px'}} /> }
+        containerElement={ <div style={{height: '95vh'}} /> }
         googleMapElement={
           <GoogleMap defaultZoom={12} defaultCenter={{lat: 30.307182, lng: -97.755996}} />
         }
