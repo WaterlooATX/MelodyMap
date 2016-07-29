@@ -1,6 +1,6 @@
 // Austin Coords: 30.2672° N, 97.7431° W
 import React, {Component} from 'react';
-import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 // import AustinJSON from '../../songkickEventsAustinJSON';
 // const austinEvents = AustinJSON().resultsPage.results.event;
 import {connect} from 'react-redux';
@@ -10,8 +10,22 @@ import {connect} from 'react-redux';
 class DrawMap extends Component {
 // const austinEvents = this.props.shows[0].resultsPage.results.event;
 
+  constructor(props) {
+    super(props);
+
+    this.state= {
+      currMarker: false
+    }
+  }
+
+  handleMarkerClick(show) {
+    console.log("CLICKSHOW", show)
+    this.setState({currMarker: show});
+  }
+
   render() {
     console.log('show this.props.shows in GOOGLEMAP', this.props.shows);
+    console.log('ahhhhhhhhhh', this.state)
     return (
       <div>
         <GoogleMapLoader
@@ -24,7 +38,20 @@ class DrawMap extends Component {
                   return (
                     <Marker
                       position={{lat: show.venue.lat, lng: show.venue.lng}}
-                    />
+                      title ={show.venue.displayName}
+                      onClick={this.handleMarkerClick.bind(this, show)}
+                    >
+
+                    {this.state.currMarker === show
+                      ?
+                       <InfoWindow
+                        content = {show.venue.displayName}
+                        />
+                      : null
+                    }
+
+                    </Marker>
+
                   );
                 })
                 : null
