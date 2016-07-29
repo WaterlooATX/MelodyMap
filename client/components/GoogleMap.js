@@ -1,9 +1,20 @@
 // Austin Coords: 30.2672° N, 97.7431° W
 import React, {Component} from 'react';
-import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+// import AustinJSON from '../../songkickEventsAustinJSON';
+// const austinEvents = AustinJSON().resultsPage.results.event;
+import {connect} from 'react-redux';
 
 export default class DrawMap extends Component {
 // const austinEvents = this.props.shows[0].resultsPage.results.event;
+
+  constructor(props) {
+    super(props)
+
+    state: {
+
+    }
+  }
 
   render() {
     return (
@@ -19,7 +30,13 @@ export default class DrawMap extends Component {
                     <Marker
                       key={index}
                       position={{lat: show.venue.lat, lng: show.venue.lng}}
-                    />
+                      clickable={true}
+                      title={"Hello"}
+                    >
+                      <InfoWindow
+
+                      />
+                    </Marker>
                   );
                 })
                 : null
