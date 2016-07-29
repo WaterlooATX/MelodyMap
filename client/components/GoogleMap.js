@@ -27,14 +27,14 @@ export default class DrawMap extends Component {
         <GoogleMapLoader
           containerElement={ <div style={{height: '95vh'}} /> }
           googleMapElement={
-            <GoogleMap defaultZoom={12} defaultCenter={{lat: 30.2747, lng: -97.7404}} >
+            <GoogleMap defaultZoom={15} defaultCenter={{lat: 30.2747, lng: -97.7404}} >
               {
                 this.props.shows[0]
                 ? this.props.shows[0].map( (show, index) => {
                   return (
                     <Marker
                       key={index}
-                      position={{lat: show.venue.lat, lng: show.venue.lng}}
+                      position={{lat: Number(show.venue.lat), lng: Number(show.venue.lng)}}
                       title ={show.venue.displayName}
                       onClick={this.handleMarkerClick.bind(this, show)}
                     >
