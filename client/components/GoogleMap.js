@@ -9,14 +9,6 @@ export default class DrawMap extends Component {
 // const austinEvents = this.props.shows[0].resultsPage.results.event;
 
   constructor(props) {
-    super(props)
-
-    state: {
-
-    }
-  }
-
-  constructor(props) {
     super(props);
 
     this.state= {
