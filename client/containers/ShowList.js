@@ -1,27 +1,30 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-
+import Show from "../components/Show"
 
 class ShowList extends Component {
 
+  _createShows() {
+    if(this.props.shows[0]) {
+      return this.props.shows[0].resultsPage.results.event.map(show => {
+        return <Show
+                key={show.id}
+                displayName={show.displayName}
+                venu={show.venue.displayName}
+                startDate={show.start.date}
+                city={show.location.city}
+                />
+      })
+
+    } else {
+      return <h1>loading</h1>
+    }
+  }
+
   render() {
-    console.log('shows from store', this.props.shows);
     return (
       <div className="list-group">
-      {
-        this.props.shows[0]
-        ? this.props.shows[0].resultsPage.results.event.map(show => {
-          return (
-            <div key={show.id} className="list-group-item">
-              <div className="show-name list-group-item-heading"><h4> { show.displayName }</h4></div>
-              <div className="show-venue"><h6> { show.venue.displayName }</h6></div>
-              <div className="show-date"><h6> { show.start.date }</h6></div>
-              <div className="show-location"><h6> { show.location.city }</h6></div>
-            </div>
-          )
-        })
-        : null
-      }
+        {this._createShows()}
       </div>
     )
   }
