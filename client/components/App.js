@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './NavBar';
+import NavBar from '../containers/NavBar';
 import Main from './Main';
 
 export default function App() {
