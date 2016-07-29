@@ -1,12 +1,8 @@
-// Austin Coords: 30.2672° N, 97.7431° W
 import React, {Component} from 'react';
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
-// import AustinJSON from '../../songkickEventsAustinJSON';
-// const austinEvents = AustinJSON().resultsPage.results.event;
 import {connect} from 'react-redux';
 
 export default class DrawMap extends Component {
-// const austinEvents = this.props.shows[0].resultsPage.results.event;
 
   constructor(props) {
     super(props)
@@ -27,7 +23,7 @@ export default class DrawMap extends Component {
         <GoogleMapLoader
           containerElement={ <div style={{height: '95vh'}} /> }
           googleMapElement={
-            <GoogleMap defaultZoom={15} defaultCenter={{lat: 30.2747, lng: -97.7404}} >
+            <GoogleMap defaultZoom={15} defaultCenter={{lat: this.props.location.lat, lng: this.props.location.long}} >
               {
                 this.props.shows[0]
                 ? this.props.shows[0].map( (show, index) => {

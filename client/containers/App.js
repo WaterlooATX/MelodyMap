@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      location: {long: "-97.7431" , lat: "30.2669444"}
+      location: {long: -97.7431 , lat: 30.2669444}
     }
   }
 
@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        <Main shows={this.props.shows} />
+        <Main shows={this.props.shows} location={this.state.location} />
       </div>
     );
   }

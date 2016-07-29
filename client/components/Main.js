@@ -8,10 +8,10 @@ export default function Main(props) {
     <div className="container-fluid text-center">
       <div className="row content">
         <div className="col-sm-8 text-left Main">
-          <ShowList shows={props.shows}/>
+          <ShowList shows={props.shows} location={props.location}/>
         </div>
         <div className="col-sm-4 sidenav">
-          <GoogleMap shows={props.shows}/>
+          <GoogleMap shows={props.shows} location={props.location}/>
         </div>
       </div>
     </div>
