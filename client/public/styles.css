@@ -1,7 +1,7 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
-  margin-bottom: 0;
-  border-radius: 0;
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -9,7 +9,7 @@
 
 /* Set gray background color and 100% height */
 .sidenav {
-  padding-top: 20px;
+  padding: 0px !important;
   background-color: #f1f1f1;
   height: 100%;
 }
@@ -25,7 +25,7 @@ footer {
 @media screen and (max-width: 767px) {
   .sidenav {
     height: auto;
-    padding: 15px;
+    padding: 0px;
   }
   .row.content {height:auto;}
 }
