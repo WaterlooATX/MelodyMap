@@ -61,3 +61,8 @@ export default class DrawMap extends Component {
     );
   }
 }
+
+// hey i want to set this
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({fetchShows,fetchGeoLocation}, dispatch)
+}

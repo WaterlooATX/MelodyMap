@@ -11,26 +11,6 @@ export function fetchShows(geo) {
   // }
   return {
     type: FETCH_SHOWS,
-    payload:  axios.post("/fetchShows", {long: geo.coords.longitude , lat: geo.coords.latitude})
-  }
-}
-
-export function fetchGeoLocation() {
-  var getPosition = function (options) {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject, options);
-  });
-}
-
-// getPosition()
-//   .then((position) => {
-//     console.log(position);
-//   })
-//   .catch((err) => {
-//     console.error(err.message);
-//   });
-  return {
-    type: FETCH_GEOLOCATION,
-    payload: getPosition()
+    payload:  axios.post("/fetchShows", {long: geo.long , lat: geo.lat})
   }
 }
