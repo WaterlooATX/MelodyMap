@@ -5,14 +5,11 @@ var client = new Songkick('J4PGT8rVCHdtcfcG') //API KEY
 
 var store = [];
 
-exports.getTonightLocalInfo = () => {
-	//return databse get info
-	client.searchEvents({
-		location: 'ip: 192.168.1.196', //my ip adress
-		min_date: '2016-07-30',
-		max_date: '2016-07-31'
-	}).then(function(data){
-		console.log("here's data from the model: ", data)
-		return data;
-	})
+exports.getTonightLocalInfo = (coords) => {
+	// Search based on a songkick metro area id
+	// austin 'geo:30.2669444,-97.7431'
+	// `geo:${coords.lat},${coords.long}`
+	return client.searchEvents({
+         "location": `geo:${coords.lat},${coords.long}`
+     }).then((data) => data)
 }

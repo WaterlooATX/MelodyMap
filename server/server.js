@@ -1,11 +1,10 @@
 var express = require('express');
+var Songkick = require("./models/m_songkick");
 var browserify = require('browserify-middleware');
 var path = require('path');
 var bodyParser = require('body-parser');
 
 var app = express();
-
-
 
 var port = process.env.PORT || 4000;
 
@@ -24,8 +23,16 @@ app.get('/app-bundle.js',
   })
 );
 
+//declare some route that connects to client model
+app.post('/fetchShows', function(req,res){
+  console.log("/fetchShows");
+	Songkick.getTonightLocalInfo(req.body).then((data) => {
+    res.send(data)
+  })
+})
+
 // Wild card route for client side routing.
-	// do we need this? 
+	// do we need this?
 app.get('/*', function(req, res){
   res.sendFile( assetFolder + '/index.html' );
 })

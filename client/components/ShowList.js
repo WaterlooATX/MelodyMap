@@ -7,7 +7,7 @@ export default class ShowList extends Component {
   _createShows() {
     const shows = this.props.shows[0];
     if(shows) {
-      return shows.resultsPage.results.event.map(show => {
+      return shows.map(show => {
         return <Show
                 key={show.id}
                 displayName={show.displayName}

@@ -14,7 +14,7 @@ export default class DrawMap extends Component {
             <GoogleMap defaultZoom={12} defaultCenter={{lat: 30.2747, lng: -97.7404}} >
               {
                 this.props.shows[0]
-                ? this.props.shows[0].resultsPage.results.event.map( (show, index) => {
+                ? this.props.shows[0].map( (show, index) => {
                   return (
                     <Marker
                       key={index}
