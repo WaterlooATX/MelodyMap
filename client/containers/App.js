@@ -5,12 +5,22 @@ import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
 import {fetchShows} from '../actions/shows'
 
+
+
 var called = false
 function App(props) {
 
+  const getLocationFetchShows = () =>  {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => props.fetchShows(position));
+      } else {
+        console.log("Geolocation is not supported by this browser.")
+      }
+  }
+
   // only call once
   if(!called) {
-    props.fetchShows()
+    getLocationFetchShows()
     called = true
   }
 
