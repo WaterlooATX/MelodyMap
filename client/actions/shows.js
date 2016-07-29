@@ -1,7 +1,4 @@
 import axios from 'axios';
-import AustinJSON from '../../songkickEventsAustinJSON'
-const austinEvents = AustinJSON().resultsPage.results.event;
-
 export const FETCH_SHOWS = 'FETCH_SHOWS';
 
 // getLocation();
@@ -15,8 +12,9 @@ function getLocation() {
     }
 }
 // export function fetchShows(position, start, end) {
+
 export function fetchShows() {
-  console.log('hey')
+
   // let pos = position || {};
   // if (!position) {
   //   console.log('asking for geolocation..')
@@ -45,13 +43,12 @@ export function fetchShows() {
   // }
   //
   // console.log('fetchShows body', body);
-  console.log(austinEvents);
 
   //const request = axios.get(body)// url?
 
   // redux middleware sends promise
   return {
     type: FETCH_SHOWS,
-    payload : austinEvents
+    payload : axios.get(`http://api.songkick.com/api/3.0/events.json?location=geo:30.2669444,-97.7431&apikey=J4PGT8rVCHdtcfcG`)
   }
 }
