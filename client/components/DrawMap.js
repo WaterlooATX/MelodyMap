@@ -33,41 +33,43 @@ class DrawMap extends Component {
   }
 
   render() {
-
     var styles = [
-  {
-    stylers: [
-      { hue: '#00ffe6' },
-      { saturation: -20 }
-    ]
-  },{
-    featureType: 'road',
-    elementType: 'geometry',
-    stylers: [
-      { lightness: 100 },
-      { visibility: 'simplified' }
-    ]
-  },{
-    featureType: 'road',
-    elementType: 'labels',
-    stylers: [
-      { visibility: 'off' }
-    ]
-  }
-];
+      {
+        stylers: [
+          { hue: '#00ffe6' },
+          { saturation: -20 }
+        ]
+      },{
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [
+          { lightness: 100 },
+          { visibility: 'simplified' }
+        ]
+      },{
+        featureType: 'road',
+        elementType: 'labels',
+        stylers: [
+          { visibility: 'off' }
+        ]
+      }
+    ];
 
-    return (
-      <GoogleMapLoader
-        containerElement={ <div style={{height: '95vh'}} /> }
-        googleMapElement={
-          <GoogleMap defaultZoom={15}
-          defaultOptions={{styles: styles}} center = {this._setCenter()}>
-            {this.props.shows[0] ? this._createMarkers() : null}
-          </GoogleMap>
-        }
-      />
-    )
+    if (this.props.location) {
+      return (
+        <GoogleMapLoader
+          containerElement={ <div style={{height: '95vh'}} /> }
+          googleMapElement={
+            <GoogleMap defaultZoom={15}
+            defaultOptions={{styles: styles}} center = {this._setCenter()}>
+              {this.props.shows[0] ? this._createMarkers() : null}
+            </GoogleMap>
+          }
+        />
+      )
+    }
   }
+
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
