@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux'
+import {selectShow} from '../actions/select_show'
 
-export default class DrawMap extends Component {
+class DrawMap extends Component {
 
   constructor(props) {
     super(props)
-
-    this.state= {
-      currMarker: null
-    }
   }
 
-  handleMarkerClick(show) {
-    console.log("CLICKSHOW", show)
-    this.setState({currMarker: show});
+  handleMarkerClick (show) {
+    this.props.selectShow(show)
   }
 
   render() {
@@ -35,10 +32,10 @@ export default class DrawMap extends Component {
                       onClick={this.handleMarkerClick.bind(this, show)}
                     >
 
-                    {this.state.currMarker === show
+                    {this.props.selectedShow === show
                       ?
                        <InfoWindow
-                        content = {show.venue.displayName}
+                        content = {show.displayName}
                         />
                       : null
                     }
@@ -58,7 +55,15 @@ export default class DrawMap extends Component {
   }
 }
 
-// hey i want to set this
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchShows,fetchGeoLocation}, dispatch)
+  return bindActionCreators({selectShow: selectShow}, dispatch)
 }
+// read / write
+function mapStateToProps(state) {
+  //console.log("mapStateToProps", state.shows,state.selectShow)
+  return {
+           shows: state.shows,
+           selectedShow: state.selectedShow
+         }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(DrawMap);

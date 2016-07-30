@@ -4,6 +4,7 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
 import {fetchShows} from '../actions/shows'
+import {selectShow} from '../actions/select_show'
 
 class App extends Component {
 
@@ -23,7 +24,7 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        <Main shows={this.props.shows} location={this.state.location} />
+        <Main shows={this.props.shows} location={this.state.location} selectedShow={this.props.selectedShow} />
       </div>
     );
   }
@@ -36,6 +37,6 @@ function mapDispatchToProps(dispatch) {
 }
 // i want to read this
 function mapStateToProps(state) {
-  return { shows: state.shows }
+  return { shows: state.shows, selectedShow: state.selectedShow}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);
