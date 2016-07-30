@@ -4,7 +4,6 @@ import DrawMap from './DrawMap';
 
 
 export default function Main(props) {
-  console.log('main props', props);
   return (
     <div className="container-fluid text-center">
       <div className="row content">
