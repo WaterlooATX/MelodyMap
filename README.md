@@ -72,7 +72,13 @@ Open your browser to ***http://localhost:1337*** to view!
 ## API Reference
 
 Refer to ***http://www.songkick.com/developer*** for documentation.
+
 ***https://groups.google.com/forum/#!forum/songkick-api***
+
+***https://developer.spotify.com/web-api/***
+
+A Node.js wrapper for Spotify's Web API. 
+***https://github.com/thelinmichael/spotify-web-api-node***
 
 A small javascript library (for NodeJS) to interface with the SongKick API
 ***https://github.com/MrJaeger/songkick-api***

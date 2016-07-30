@@ -32,7 +32,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 // hey i want to set this

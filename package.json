@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "author": "WaterlooATX",
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/WaterlooATX/MelodyMap.git"
-    },
+    "type": "git",
+    "url": "git+https://github.com/WaterlooATX/MelodyMap.git"
+  },
   "description": "Easily locate concerts Designed not only to keep you informed when your favorite bands come to your area, but also to help you discover new artists that you might enjoy.",
   "license": "ISC",
   "scripts": {
@@ -44,6 +44,7 @@
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-promise": "^0.5.3",
-    "songkick-api": "0.0.2"
+    "songkick-api": "0.0.2",
+    "spotify-web-api-node": "^2.3.5"
   }
 }

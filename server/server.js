@@ -3,6 +3,7 @@ var Songkick = require("./models/m_songkick");
 var browserify = require('browserify-middleware');
 var path = require('path');
 var bodyParser = require('body-parser');
+var Spotify = require("./models/m_spotifyApi")
 
 var app = express();
 
