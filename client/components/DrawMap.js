@@ -5,11 +5,7 @@ import {bindActionCreators} from 'redux'
 import {selectShow} from '../actions/select_show'
 
 class DrawMap extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
+  
   handleMarkerClick (show) {
     this.props.selectShow(show)
   }

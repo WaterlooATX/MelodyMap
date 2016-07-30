@@ -1,6 +1,6 @@
 import React from 'react';
 import ShowList from './ShowList';
-import GoogleMap from './GoogleMap';
+import DrawMap from './DrawMap';
 
 
 export default function Main(props) {
@@ -11,7 +11,7 @@ export default function Main(props) {
           <ShowList shows={props.shows} location={props.location}/>
         </div>
         <div className="col-sm-4 sidenav">
-          <GoogleMap shows={props.shows} location={props.location} selectedShow={props.selectedShow}/>
+          <DrawMap shows={props.shows} location={props.location} selectedShow={props.selectedShow}/>
         </div>
       </div>
     </div>
