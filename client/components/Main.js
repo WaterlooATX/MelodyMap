@@ -11,7 +11,7 @@ export default function Main(props) {
           <ShowList shows={props.shows} location={props.location}/>
         </div>
         <div className="col-sm-4 sidenav">
-          <GoogleMap shows={props.shows} location={props.location}/>
+          <GoogleMap shows={props.shows} location={props.location} selectedShow={props.selectedShow}/>
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import showReducer from './reducer_fetchShows'
-import locationReducer from './reducer_location'
+import selectShowReducer from './reducer_selectShow'
 
 const rootReducer = combineReducers({
   shows: showReducer,
-  location: locationReducer
+  selectedShow: selectShowReducer
 })
 
 export default rootReducer;
