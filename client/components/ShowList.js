@@ -24,9 +24,6 @@ export default class ShowList extends Component {
     }
   }
 
-      })
-  }
-
   render() {
     this._highlightShow()
     return (
