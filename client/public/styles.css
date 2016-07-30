@@ -109,7 +109,8 @@ footer {
 /* ----------------------------------------------------- */
 
 .glyphicon-cd {
-  font-size: 3em;
+  margin-bottom: 40px;
+  font-size: 15em;
   -webkit-animation-name:             rotate; 
   -webkit-animation-duration:         1s; 
   -webkit-animation-iteration-count:  infinite;
@@ -126,11 +127,11 @@ footer {
 }
 
 .spinner h1 {
-  display: inline;
+  /*display: inline;*/
   vertical-align: top;
 }
 
 .spinner {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 80px;
 }
