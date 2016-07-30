@@ -29,6 +29,7 @@ export default class ShowList extends Component {
   }
 
   render() {
+    this._highlightShow()
     return (
       <div className="list-group">
         {this._createShows()}
