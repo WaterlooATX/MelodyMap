@@ -5,6 +5,7 @@ import Show from "./Show"
 export default class ShowList extends Component {
   _createShows() {
     const shows = this.props.shows[0];
+    if (shows) {
       return shows.map(show => {
         return <Show
                 // Test if show is selected in props and send results is props to <Show />
@@ -28,7 +29,6 @@ export default class ShowList extends Component {
   }
 
   render() {
-    this._highlightShow()
     return (
       <div className="list-group">
         {this._createShows()}
