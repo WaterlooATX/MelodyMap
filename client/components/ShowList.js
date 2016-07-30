@@ -3,12 +3,13 @@ import {connect} from "react-redux"
 import Show from "./Show"
 
 export default class ShowList extends Component {
-
   _createShows() {
     const shows = this.props.shows[0];
-    if(shows) {
+    if (shows) {
       return shows.map(show => {
         return <Show
+                // Test if show is selected in props and send results is props to <Show />
+                selected={(this.props.selectedShow === show) ? true : false}
                 key={show.id}
                 displayName={show.displayName}
                 venu={show.venue.displayName}
@@ -24,7 +25,11 @@ export default class ShowList extends Component {
     }
   }
 
+      })
+  }
+
   render() {
+    this._highlightShow()
     return (
       <div className="list-group">
         {this._createShows()}
@@ -32,3 +37,12 @@ export default class ShowList extends Component {
     )
   }
 }
+
+
+function mapStateToProps(state) {
+  return {selectedShow: state.selectedShow}
+}
+
+export default connect(mapStateToProps)(ShowList);
+
+
