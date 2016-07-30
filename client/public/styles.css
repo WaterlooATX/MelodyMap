@@ -53,6 +53,7 @@ footer {
 }
 
 /* ------------------------Nav Bar Login---------------- */
+/* ----------------------------------------------------- */
 #login-dp{
     min-width: 250px;
     padding: 14px 14px 0;
@@ -102,4 +103,34 @@ footer {
         background-color:Qinherit;
         border-top:0 none;
     }
+}
+
+/* ----------------------Loading Spinner---------------- */
+/* ----------------------------------------------------- */
+
+.glyphicon-cd {
+  font-size: 3em;
+  -webkit-animation-name:             rotate; 
+  -webkit-animation-duration:         1s; 
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-animation-timing-function:  linear;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to { 
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.spinner h1 {
+  display: inline;
+  vertical-align: top;
+}
+
+.spinner {
+  text-align: center;
+  margin-top: 20px;
 }
