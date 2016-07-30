@@ -1,6 +1,5 @@
 import axios from 'axios';
 export const FETCH_SHOWS = 'FETCH_SHOWS';
-export const FETCH_GEOLOCATION = 'FETCH_GEOLOCATION';
 
 export function fetchShows(geo) {
   //const shows = axios.post("/fetchShows", {long: "-97.7431" , lat: "30.2669444"}).then((data) => console.log("axios.get(/test)", data))
