@@ -1,7 +1,15 @@
 import React from "react"
 export default(props) => {
+
+  // Tests selected show in redux state and conditionally sets
+  // inline style property for show list item if it is selected show
+  let checkSelected = function(propsSelected) {
+    return (propsSelected) ?
+      "active list-group-item" : "list-group-item";
+  }
+
   return (
-    <div key={props.id} className="list-group-item">
+    <div key={props.id} className={checkSelected(props.selected)}>
       <div className="show-name list-group-item-heading">
         <h4>{props.displayName}</h4>
       </div>
