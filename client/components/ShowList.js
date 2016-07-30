@@ -1,21 +1,31 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
 import Show from "./Show"
+import {fetchShows} from '../actions/shows'
 
 export default class ShowList extends Component {
+
+  render() {
+    return (
+      <div className="list-group">
+        {this._createShows()}
+      </div>
+    )
+  }
+
   _createShows() {
     const shows = this.props.shows[0];
     if (shows) {
       return shows.map(show => {
         return <Show
-                // Test if show is selected in props and send results is props to <Show />
-                selected={(this.props.selectedShow === show) ? true : false}
-                key={show.id}
-                displayName={show.displayName}
-                venu={show.venue.displayName}
-                startDate={show.start.date}
-                city={show.location.city}
-                />
+          // Test if show is selected in props and send results is props to <Show />
+          selected={(this.props.selectedShow === show) ? true : false}
+          key={show.id}
+          displayName={show.displayName}
+          venu={show.venue.displayName}
+          startDate={show.start.date}
+          city={show.location.city}
+        />
       })
 
     } else {
@@ -25,13 +35,6 @@ export default class ShowList extends Component {
     }
   }
 
-  render() {
-    return (
-      <div className="list-group">
-        {this._createShows()}
-      </div>
-    )
-  }
 }
 
 
