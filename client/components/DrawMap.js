@@ -37,9 +37,8 @@ class DrawMap extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({selectShow: selectShow}, dispatch)
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
+
 // read / write
 function mapStateToProps(state) {
   return {
