@@ -55,19 +55,19 @@ class DrawMap extends Component {
       }
     ];
 
-    if (this.props.location) {
+    if (this.props.location.lat) {
       return (
         <GoogleMapLoader
           containerElement={ <div style={{height: '95vh'}} /> }
           googleMapElement={
-            <GoogleMap defaultZoom={15}
+            <GoogleMap defaultZoom={14}
             defaultOptions={{styles: styles}} center = {this._setCenter()}>
               {this.props.shows[0] ? this._createMarkers() : null}
             </GoogleMap>
           }
         />
       )
-    }
+    } else return null;
   }
 
 }
