@@ -23,16 +23,14 @@ class DrawMap extends Component {
 
   render() {
     return (
-      <div>
-        <GoogleMapLoader
-          containerElement={ <div style={{height: '95vh'}} /> }
-          googleMapElement={
-            <GoogleMap defaultZoom={15} defaultCenter={{lat: this.props.location.lat, lng: this.props.location.long}}>
-              {this.props.shows[0] ? this._createMarkers() : null}
-            </GoogleMap>
-          }
-        />
-      </div>
+      <GoogleMapLoader
+        containerElement={ <div style={{height: '95vh'}} /> }
+        googleMapElement={
+          <GoogleMap defaultZoom={15} defaultCenter={{lat: this.props.location.lat, lng: this.props.location.long}}>
+            {this.props.shows[0] ? this._createMarkers() : null}
+          </GoogleMap>
+        }
+      />
     )
   }
 }
