@@ -22,7 +22,14 @@ export default class ShowList extends Component {
     }
   }
 
+  _highlightShow(){
+    if(this.props.selectedShow){
+      console.log("CLICKED", this.props.selectedShow)
+    }
+  }
+
   render() {
+    this._highlightShow()
     return (
       <div className="list-group">
         {this._createShows()}
@@ -30,3 +37,15 @@ export default class ShowList extends Component {
     )
   }
 }
+
+
+
+function mapStateToProps(state) {
+  //console.log("mapStateToProps", state.shows,state.selectShow)
+  return {
+           selectedShow: state.selectedShow
+         }
+}
+export default connect(mapStateToProps)(ShowList);
+
+
