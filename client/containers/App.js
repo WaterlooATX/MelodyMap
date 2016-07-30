@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
 import {fetchShows} from '../actions/shows'
 import {selectShow} from '../actions/select_show'
+import axios from 'axios'
 
 class App extends Component {
 
@@ -16,11 +17,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition((geo) => this.setState({location: {long: geo.coords.longitude , lat: geo.coords.latitude} }));
+    // get geolocation using ip address
+    axios('http://ip-api.com/json').then( geo  => this.setState({location: {long: geo.data.lon , lat: geo.data.lat} }))
+
     this.props.fetchShows(this.state.location);
   }
 
   render() {
+    navigator.geolocation.getCurrentPosition((geo) => this.setState({location: {long: geo.coords.longitude , lat: geo.coords.latitude} }));
     return (
       <div>
         <NavBar />
