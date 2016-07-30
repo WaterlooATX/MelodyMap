@@ -1,13 +1,24 @@
-import React, {Component} from 'react';
-import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
-import {connect} from 'react-redux';
+import React, {Component} from 'react'
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
+import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {selectShow} from '../actions/select_show'
 
 class DrawMap extends Component {
-  
-  handleMarkerClick (show) {
-    this.props.selectShow(show)
+
+  _createMarkers() {
+    return this.props.shows[0].map((show, index) => {
+      return (
+        <Marker
+          key={index}
+          position={{lat: Number(show.venue.lat), lng: Number(show.venue.lng)}}
+          title ={show.venue.displayName}
+          onClick={() =>  this.props.selectShow(show)}
+        >
+          {this.props.selectedShow === show ? <InfoWindow content={show.displayName} /> : null }
+        </Marker>
+      )
+    })
   }
 
   render() {
@@ -16,38 +27,13 @@ class DrawMap extends Component {
         <GoogleMapLoader
           containerElement={ <div style={{height: '95vh'}} /> }
           googleMapElement={
-            <GoogleMap defaultZoom={15} defaultCenter={{lat: this.props.location.lat, lng: this.props.location.long}} >
-              {
-                this.props.shows[0]
-                ? this.props.shows[0].map( (show, index) => {
-                  return (
-                    <Marker
-                      key={index}
-                      position={{lat: Number(show.venue.lat), lng: Number(show.venue.lng)}}
-                      title ={show.venue.displayName}
-                      onClick={this.handleMarkerClick.bind(this, show)}
-                    >
-
-                    {this.props.selectedShow === show
-                      ?
-                       <InfoWindow
-                        content = {show.displayName}
-                        />
-                      : null
-                    }
-
-                    </Marker>
-
-                  );
-                })
-                : null
-              }
-
+            <GoogleMap defaultZoom={15} defaultCenter={{lat: this.props.location.lat, lng: this.props.location.long}}>
+              {this.props.shows[0] ? this._createMarkers() : null}
             </GoogleMap>
           }
         />
       </div>
-    );
+    )
   }
 }
 
@@ -56,7 +42,6 @@ function mapDispatchToProps(dispatch) {
 }
 // read / write
 function mapStateToProps(state) {
-  //console.log("mapStateToProps", state.shows,state.selectShow)
   return {
            shows: state.shows,
            selectedShow: state.selectedShow
