@@ -6,7 +6,6 @@ import {selectShow} from '../actions/select_show'
 
 class DrawMap extends Component {
 
-
  _setCenter(){
     return (
       this.props.selectedShow ?
@@ -14,8 +13,6 @@ class DrawMap extends Component {
       {lat: this.props.location.lat, lng: this.props.location.long}
       )
   }
-
-
 
   _createMarkers() {
     return this.props.shows[0].map((show, index) => {
