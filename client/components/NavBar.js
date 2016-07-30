@@ -18,6 +18,7 @@ export default class NavBar extends Component {
             <ul className="nav navbar-nav">
               <li className="active"><a href="#">Home</a></li>
               <li><a href="#">About</a></li>
+              <li><a href="#">Concerts</a></li>
               <li><a href="#">Artist</a></li>
               <li><a href="#">Venues</a></li>
             </ul>
