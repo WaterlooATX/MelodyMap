@@ -53,6 +53,7 @@ footer {
 }
 
 /* ------------------------Nav Bar Login---------------- */
+/* ----------------------------------------------------- */
 #login-dp{
     min-width: 250px;
     padding: 14px 14px 0;
@@ -103,3 +104,13 @@ footer {
         border-top:0 none;
     }
 }
+
+/* ----------------------Loading Spinner---------------- */
+/* ----------------------------------------------------- */
+
+.glyphicon-hourglass {
+  font-size: 3em;
+  float: left;
+  transform: rotate(90deg);
+}
+
