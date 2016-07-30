@@ -18,7 +18,9 @@ export default class ShowList extends Component {
       })
 
     } else {
-      return <div><span className="glyphicon glyphicon-hourglass" aria-hidden="true"></span><h1> Fetching your geolocation...</h1></div>
+      return <div className="spinner">
+      <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>
+      <h1>&nbsp;&nbsp;Fetching your geolocation...</h1></div>
     }
   }
 
