@@ -1,7 +1,9 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
+import {bindActionCreators} from 'redux'
 import Show from "./Show"
 import {fetchShows} from '../actions/shows'
+import {selectShow} from '../actions/select_show'
 
 export default class ShowList extends Component {
 
@@ -25,6 +27,8 @@ export default class ShowList extends Component {
           venu={show.venue.displayName}
           startDate={show.start.date}
           city={show.location.city}
+          // update selectedShow in redux state on click
+          onClick={() =>  this.props.selectShow(show)}
         />
       })
 
@@ -34,7 +38,6 @@ export default class ShowList extends Component {
       <h1>&nbsp;&nbsp;Fetching your geolocation...</h1></div>
     }
   }
-
 }
 
 
