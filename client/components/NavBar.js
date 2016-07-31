@@ -17,11 +17,11 @@ export default class NavBar extends Component {
           </div>
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About</Link></li>
-              <li><Link to="/concerts">Concerts</Link></li>
-              <li><Link to="/artist">Artist</Link></li>
-              <li><Link to="/venue">Venue</Link></li>
+              <li><Link to="/" activeClassName="active">Home</Link></li>
+              <li><Link to="/about" activeClassName="active">About</Link></li>
+              <li><Link to="/concerts" activeClassName="active">Concerts</Link></li>
+              <li><Link to="/artist" activeClassName="active">Artist</Link></li>
+              <li><Link to="/venue" activeClassName="active">Venue</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               {/* <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li> */}
@@ -32,9 +32,4 @@ export default class NavBar extends Component {
       </nav>
     )
   }
-              // <li className="active"><a href="#">Home</a></li>
-              // <li><a href="#">About</a></li>
-              // <li><a href="#">Concerts</a></li>
-              // <li><a href="#">Artist</a></li>
-              // <li><a href="#">Venues</a></li>
 }
