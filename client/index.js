@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router';
 import ReduxPromise from 'redux-promise'
 import App from './containers/App';
 import ArtistPage from './components/ArtistPage';
