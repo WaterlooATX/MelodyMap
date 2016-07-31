@@ -22,7 +22,7 @@ class App extends Component {
     .then( geo  => {
       this._setNewCoords(geo);
     });
-    
+
     // get location using geolocation
     navigator.geolocation.getCurrentPosition(this._setNewCoords.bind(this));
   }
