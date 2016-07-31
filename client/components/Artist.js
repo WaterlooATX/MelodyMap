@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import NavBar from './NavBar';
 
 
-export default class ArtistPage extends Component {
+export default class Artist extends Component {
   render() {
     return (
       <div>

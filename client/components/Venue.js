@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import NavBar from './NavBar';
 
 
-export default class VenuePage extends Component {
+export default class Venue extends Component {
   render() {
     return (
       <div>

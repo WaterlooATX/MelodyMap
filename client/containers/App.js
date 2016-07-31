@@ -6,7 +6,6 @@ import {bindActionCreators} from 'redux'
 import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
 import axios from 'axios'
-import ArtistPage from '../components/ArtistPage';
 
 class App extends Component {
 
