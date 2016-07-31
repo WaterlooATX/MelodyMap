@@ -14,7 +14,7 @@ export default(props) => {
   }
 
   return (
-    <div data-id={props.id}
+    <a href="#" data-id={props.id}
       className={checkSelected(props.selected)}
       onClick={onClickHandler}
     >
@@ -22,6 +22,6 @@ export default(props) => {
       <p className="show-venue">{props.venue}</p>
       <p className="show-date">{props.startDate}</p>
       <p className="show-location">{props.city}</p>
-    </div>
+    </a>
   )
 }
