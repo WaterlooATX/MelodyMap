@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
-import App from './containers/App';
 import ReduxPromise from 'redux-promise'
+import App from './containers/App';
+import ArtistPage from './components/ArtistPage'
 
 import {createStore, applyMiddleware} from 'redux';
 
@@ -17,7 +18,9 @@ const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore)
 ReactDOM.render(
   (<Provider store={createStoreWithMiddleware(reducers)}>
         <Router history={browserHistory}>
-          <Route path='/' component={App} />
+          <Route path='/' component={App} >
+          </Route>
+            <Route path="artistpage" component={ArtistPage} />
         </Router>
   </Provider>),
   document.getElementById('mount')

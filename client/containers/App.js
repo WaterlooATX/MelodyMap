@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux'
 import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
 import axios from 'axios'
+import ArtistPage from '../components/ArtistPage';
 
 class App extends Component {
 
@@ -22,7 +23,7 @@ class App extends Component {
     .then( geo  => {
       this._setNewCoords(geo);
     });
-    
+
     // get location using geolocation
     navigator.geolocation.getCurrentPosition(this._setNewCoords.bind(this));
   }
