@@ -9,8 +9,8 @@ class DrawMap extends Component {
  _setCenter(){
     return (
       this.props.selectedShow ?
-      {lat: this.props.selectedShow.venue.lat, lng: this.props.selectedShow.venue.lng} :
-      {lat: this.props.location.lat, lng: this.props.location.long}
+      {lat: Number(this.props.selectedShow.venue.lat), lng: Number(this.props.selectedShow.venue.lng)} :
+      {lat: Number(this.props.location.lat), lng: Number(this.props.location.long)}
       )
   }
 
