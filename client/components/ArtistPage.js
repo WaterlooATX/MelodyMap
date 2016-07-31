@@ -17,7 +17,10 @@ export default class ArtistPage extends Component {
             <li>Artist Pictures</li>
             <li>Artist Bio</li>
             <li>Spofity Song Previews (3)</li>
-            <li>Upcoming Shows (sortable by both proximity or date)</li>
+            <li>Upcoming Shows (sortable by both proximity or date)
+                This will most likely be the recycled Show/ShowList
+                componenets.
+            </li>
             <li>etc</li>
           </ul>
         </div>
