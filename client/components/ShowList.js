@@ -1,7 +1,9 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
+import {bindActionCreators} from 'redux'
 import Show from "./Show"
 import {fetchShows} from '../actions/shows'
+import {selectShow} from '../actions/select_show'
 
 export default class ShowList extends Component {
 
@@ -13,6 +15,14 @@ export default class ShowList extends Component {
     )
   }
 
+  // This callback is sent to <Show /> as props to grab show id
+  // on click and then use it to update selectedShow on state
+  sendToState(arg) {
+    const shows= this.props.shows[0]
+    let showWithId = shows.filter((show) => show.id === arg)
+    this.props.selectShow(showWithId[0])
+  }
+
   _createShows() {
     const shows = this.props.shows[0];
     if (shows) {
@@ -21,10 +31,12 @@ export default class ShowList extends Component {
           // Test if show is selected in props and send results is props to <Show />
           selected={(this.props.selectedShow === show) ? true : false}
           key={show.id}
+          id={show.id}
           displayName={show.displayName}
           venu={show.venue.displayName}
           startDate={show.start.date}
           city={show.location.city}
+          sendToState={this.sendToState.bind(this)}
         />
       })
 
@@ -34,14 +46,17 @@ export default class ShowList extends Component {
       <h1>&nbsp;&nbsp;Fetching your geolocation...</h1></div>
     }
   }
-
 }
 
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
 
 function mapStateToProps(state) {
-  return {selectedShow: state.selectedShow}
+  return {
+           shows: state.shows,
+           selectedShow: state.selectedShow
+         }
 }
 
-export default connect(mapStateToProps)(ShowList);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowList);
 
 
