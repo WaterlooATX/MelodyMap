@@ -19,8 +19,15 @@ export default class Show extends Component {
       <div>
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
           <h4 className="panel-title">
-            <a className={this._checkSelected(props.selected)} onClick={this._onClickHandler.bind(this)} role="button" data-toggle="collapse" data-parent="#accordion" href={`#collapse${props.id}`} aria-expanded="true" aria-controls={`collapse${props.id}`}>
-              {/* <h4 className="show-name list-group-item-heading">{props.displayName}</h4> */}
+            <a
+              className={this._checkSelected(props.selected)}
+              onClick={this._onClickHandler.bind(this)}
+              role="button" data-toggle="collapse"
+              data-parent="#accordion"
+              href={`#collapse${props.id}`}
+              aria-expanded="true"
+              aria-controls={`collapse${props.id}`}
+            >
               {props.displayName}
             </a>
           </h4>
