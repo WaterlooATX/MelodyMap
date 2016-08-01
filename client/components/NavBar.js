@@ -14,13 +14,13 @@ export default class NavBar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="#">Melody Map</a>
+              <Link to="/" className="navbar-brand" activeClassName="active">Melody Map</Link>
             </div>
             <div className="collapse navbar-collapse" id="myNavbar">
               <ul className="nav navbar-nav">
                 <li><Link to="/artist" activeClassName="active">Artists</Link></li>
                 <li><Link to="/venue" activeClassName="active">Venues</Link></li>
-                <li><Link to="/contact" activeClassName="active">contact</Link></li>
+                <li><Link to="/contact" activeClassName="active">Contact</Link></li>
                 <li><Link to="/about" activeClassName="active">About</Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
