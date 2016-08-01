@@ -4,6 +4,7 @@ import {connect} from "react-redux"
 import Show from "./Show"
 import {fetchShows} from '../actions/shows'
 import {selectShow} from '../actions/select_show'
+import axios from 'axios'
 
 export default class ShowList extends Component {
 
@@ -25,6 +26,14 @@ export default class ShowList extends Component {
     this.props.selectShow(showWithId[0])
   }
 
+
+  _spotifyInfo(artist){
+      return axios.post('/artistInfo', {name: artist}).then(function(artistInfo){
+      
+      return artistInfo
+    })
+  }
+
   _createShows() {
     const shows = this.props.shows[0];
     if (shows) {
@@ -39,6 +48,7 @@ export default class ShowList extends Component {
           startDate={show.start.date}
           city={show.location.city}
           sendToState={this.sendToState.bind(this)}
+          spotifyInfo = {this._spotifyInfo(show.performance[0].displayName)}
         />
       })
 
