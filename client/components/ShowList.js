@@ -28,9 +28,7 @@ export default class ShowList extends Component {
 
 
   _spotifyInfo(artist){
-      return axios.post('/artistInfo', {name: artist}).then(function(artistInfo){
-        return artistInfo
-    })
+      return axios.post('/artistInfo', {name: artist}).then(artistInfo => artistInfo)
   }
 
   _createShows() {
