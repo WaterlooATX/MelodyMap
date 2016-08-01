@@ -1,4 +1,18 @@
-#login-dp{
+
+  .spotify{
+    background: #649000;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border: 0;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+}
+
+
+/*#login-dp{
     min-width: 250px;
     padding: 14px 14px 0;
     overflow:hidden;
@@ -47,4 +61,4 @@
         background-color:Qinherit;
         border-top:0 none;
     }
-}
+}*/

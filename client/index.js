@@ -27,12 +27,12 @@ ReactDOM.render(
         <Router history={browserHistory}>
           <Route path='/' component={NavBar} >
             <IndexRoute component={App} />
-            <Route path="artists" component={Artists} />
-            <Route path="venues" component={Venues} />
-            <Route path="artistdetail" component={ArtistDetail} />
-          	<Route path='/' component={NavLogin} />
-          	<Route path='/user/:accessToken/:refreshToken' component='user'/>
-          	<Route path='/error:errorMsg' component={Error} />
+	            <Route path="artists" component={Artists} />
+	            <Route path="venues" component={Venues} />
+	            <Route path="artistdetail" component={ArtistDetail} />
+	          	<Route path='/' component={NavLogin} />
+	          	<Route path='/user/:accessToken/:refreshToken' component='user'/>
+	          	<Route path='/error:errorMsg' component={Error} />
           </Route>
         </Router>
   </Provider>),
