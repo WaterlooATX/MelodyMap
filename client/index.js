@@ -7,6 +7,8 @@ import NavBar from './components/NavBar';
 import App from './containers/App';
 import Artists from './components/Artists';
 import Venues from './components/Venues';
+import ArtistDetail from './components/ArtistDetail';
+import VenueDetail from './components/VenueDetail';
 
 import {createStore, applyMiddleware} from 'redux';
 
@@ -22,8 +24,9 @@ ReactDOM.render(
         <Router history={browserHistory}>
           <Route path='/' component={NavBar} >
             <IndexRoute component={App} />
-            <Route path="artist" component={Artists} />
-            <Route path="venue" component={Venues} />
+            <Route path="artists" component={Artists} />
+            <Route path="venues" component={Venues} />
+            <Route path="artistdetail" component={ArtistDetail} />
           </Route>
         </Router>
   </Provider>),

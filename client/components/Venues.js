@@ -7,18 +7,17 @@ export default class Venue extends Component {
     return (
       <div>
         <div>
-          <h1>Venue Name</h1>
-          <h3>
-            List information for a given venue here.
-            This will include:
-          </h3>
+          <h1>List of Venues</h1>
+          <h5>
+            Default displayed venues could be the venues from the shows that came from the same API call for showlist on the home page.
+          </h5>
           <ul>
-            <li>Venue Pictures</li>
-            <li>Venue Description (if available)</li>
-            <li>Upcoming Shows (sortable by both proximity or date)
-                This will most likely be the recycled Show/ShowList
-                componenets.
-            </li>
+            <p>We should be able to search for venues</p>
+            <p>When something is typed in the search bar, we will search and display from the entire universe of venues via spotify API</p>
+            <p>We could display venues similarly to how we display minimized shows in showlist--with minimal info for each venue. This could include:</p>
+            <li>Pictures, possibly Google Street View</li>
+            <li>Brief description of venue</li>
+            <li>Next show (possibly several)</li>
             <li>etc</li>
           </ul>
         </div>
