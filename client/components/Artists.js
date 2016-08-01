@@ -6,7 +6,6 @@ export default class Artist extends Component {
   render() {
     return (
       <div>
-        <NavBar />
         <div>
           <h1>Artist Name</h1>
           <h3>

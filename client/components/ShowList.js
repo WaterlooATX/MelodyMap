@@ -1,6 +1,6 @@
 import React, {Component} from "react"
-import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
+import {connect} from "react-redux"
 import Show from "./Show"
 import {fetchShows} from '../actions/shows'
 import {selectShow} from '../actions/select_show'

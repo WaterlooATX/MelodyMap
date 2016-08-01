@@ -6,7 +6,6 @@ export default class Venue extends Component {
   render() {
     return (
       <div>
-        <NavBar />
         <div>
           <h1>Venue Name</h1>
           <h3>
