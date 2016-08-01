@@ -7,10 +7,12 @@ import {selectShow} from '../actions/select_show'
 class DrawMap extends Component {
 
  _setCenter(){
+   let locA = this.props.selectedShow
+   let locB = this.props.location
     return (
-      this.props.selectedShow ?
-      {lat: Number(this.props.selectedShow.venue.lat), lng: Number(this.props.selectedShow.venue.lng)} :
-      {lat: Number(this.props.location.lat), lng: Number(this.props.location.long)}
+      locA ?
+      {lat: +locA.venue.lat, lng: +locA.venue.lng} :
+      {lat: +locB.lat, lng: +locB.long}
       )
   }
 
