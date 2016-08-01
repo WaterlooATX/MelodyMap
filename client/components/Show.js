@@ -1,5 +1,4 @@
-import React from "react"
-export default(props) => {
+import React, {Component} from "react"
 
   // Tests selected show in redux state and conditionally sets
   // inline style property for show list item if it is selected show
@@ -11,17 +10,17 @@ export default(props) => {
   let onClickHandler = function(event) {
     event.preventDefault();
     props.sendToState(props.id)
+            </a>
+          </h4>
+        </div>
+        <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
+            <div className="panel-body">
+              <p className="show-venue">{props.venue}</p>
+              <p className="show-date">{props.startDate}</p>
+              <p className="show-location">{props.city}</p>
+            </div>
+        </div>
+      </div>
+    )
   }
-
-  return (
-    <a href="#" data-id={props.id}
-      className={checkSelected(props.selected)}
-      onClick={onClickHandler}
-    >
-      <h4 className="show-name list-group-item-heading">{props.displayName}</h4>
-      <p className="show-venue">{props.venue}</p>
-      <p className="show-date">{props.startDate}</p>
-      <p className="show-location">{props.city}</p>
-    </a>
-  )
 }
