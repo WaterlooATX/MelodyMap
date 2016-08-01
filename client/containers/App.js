@@ -1,11 +1,12 @@
-import NavBar from '../components/NavBar';
-import Main from '../components/Main';
 import React, {Component} from "react"
 import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
+import axios from 'axios'
 import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
-import axios from 'axios'
+import NavBar from '../components/NavBar';
+import ShowList from '../components/ShowList';
+import DrawMap from '../components/DrawMap';
 
 class App extends Component {
 
@@ -37,7 +38,16 @@ class App extends Component {
     return (
       <div>
         <NavBar />
-        <Main shows={this.props.shows} location={this.state.location} selectedShow={this.props.selectedShow} />
+        <div className="container-fluid text-center">
+          <div className="row content">
+            <div className="col-sm-8 text-left Main">
+              <ShowList shows={this.props.shows} location={this.state.location} />
+            </div>
+            <div className="col-sm-4 sidenav">
+              <DrawMap shows={this.props.shows} location={this.state.location} selectedShow={this.props.selectedShow} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
