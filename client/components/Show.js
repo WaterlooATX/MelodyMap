@@ -5,14 +5,34 @@ export default class Show extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      img: null
+      img: null,
+      id: null,
+      name: null,
+      uri: null,
+      popularity: null,
+      followers: null,
+      genres: null
     }
   }
 
   componentDidMount() {
-      this.props.spotifyInfo.then( img => {
-        if(img.data[0] && img.data[0].images.length > 0) {
-          this.setState({img : img.data[0].images[1].url})
+      this.props.spotifyInfo.then( obj => {
+        const artist = obj.data[0]
+        if(artist) {
+          this.setState({
+            id: artist.id,
+            name: artist.name,
+            uri: artist.uri,
+            popularity: artist.popularity,
+            followers: artist.followers.total,
+            genres: artist.genres
+          })
+        }
+
+        if(artist && artist.images.length > 0) {
+          this.setState({
+            img : artist.images[1].url
+          })
         }
       })
   }
@@ -53,6 +73,12 @@ export default class Show extends Component {
               <p className="show-venue">{props.venue}</p>
               <p className="show-date">{props.startDate}</p>
               <p className="show-location">{props.city}</p>
+              <p>id: {this.state.id}</p>
+              <p>name: {this.state.name}</p>
+              <p>uri: {this.state.uri}</p>
+              <p>popularity: {this.state.popularity}</p>
+              <p>followers: {this.state.followers}</p>
+              <p>genres: {this.state.genres}</p>
             </div>
         </div>
       </div>
