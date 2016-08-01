@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
-import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, Map } from 'react-google-maps'
