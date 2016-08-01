@@ -33,10 +33,17 @@ app.post('/fetchShows', function(req,res){
 })
 
 app.post('/artistInfo', function(req,res){	
-	console.log("/artistInfo")
-	console.log("REQBODY", req.body.name)
+	console.log
 	Spotify.searchArtists(req.body.name).then((data) => {
-		console.log("DATAAAAAA",data)
+		res.send(data)
+	})
+	.catch((error) => {
+		console.log("error",error)
+	})
+})
+
+app.post('/artistTracks', function(req,res){	
+	Spotify.getArtistTopTracks(req.body.id,req.body.code).then((data) => {
 		res.send(data)
 	})
 	.catch((error) => {
