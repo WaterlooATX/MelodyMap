@@ -37,7 +37,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
         <div className="container-fluid text-center">
           <div className="row content">
             <div className="col-sm-8 text-left Main">
