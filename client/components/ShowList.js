@@ -9,8 +9,10 @@ export default class ShowList extends Component {
 
   render() {
     return (
-      <div className="list-group">
-        {this._createShows()}
+      <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div className="panel panel-default">
+          {this._createShows()}
+        </div>
       </div>
     )
   }
@@ -58,5 +60,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowList);
-
-

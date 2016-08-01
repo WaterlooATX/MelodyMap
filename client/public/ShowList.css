@@ -1,8 +1,8 @@
 .glyphicon-cd {
   margin-bottom: 40px;
   font-size: 15em;
-  -webkit-animation-name:             rotate; 
-  -webkit-animation-duration:         1s; 
+  -webkit-animation-name:             rotate;
+  -webkit-animation-duration:         1s;
   -webkit-animation-iteration-count:  infinite;
   -webkit-animation-timing-function:  linear;
 }
@@ -11,7 +11,7 @@
   from {
     -webkit-transform: rotate(0deg);
   }
-  to { 
+  to {
     -webkit-transform: rotate(360deg);
   }
 }
@@ -23,4 +23,27 @@
 .spinner {
   text-align: center;
   margin-top: 80px;
+}
+
+
+#accordion .panel-heading { padding: 0;}
+
+#accordion .panel-title > a {
+    display: block;
+	padding: 0.4em 0.6em;
+    outline: none;
+    font-weight:bold;
+    text-decoration: none;
+}
+
+#accordion .panel-title > a.accordion-toggle::before, #accordion a[data-toggle="collapse"]::before  {
+    content:"\e113";
+    float: left;
+    font-family: 'Glyphicons Halflings';
+	margin-right :1em;
+}
+
+
+#accordion .panel-title > a.accordion-toggle.collapsed::before, #accordion a.collapsed[data-toggle="collapse"]::before  {
+    content:"\e114";
 }
