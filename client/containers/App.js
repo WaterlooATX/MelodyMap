@@ -1,6 +1,6 @@
 import React, {Component} from "react"
-import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
+import {connect} from "react-redux"
 import axios from 'axios'
 import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
