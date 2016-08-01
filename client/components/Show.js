@@ -40,7 +40,7 @@ export default class Show extends Component {
               aria-expanded="true"
               aria-controls={`collapse${props.id}`}
             >
-              <img src={this.state.img} alt={props.id} height="42" width="42"/>
+              <img src={this.state.img} alt={props.id} height="65" width="65"/>
               {props.displayName}
             </a>
           </h4>
