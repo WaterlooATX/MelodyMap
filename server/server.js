@@ -32,6 +32,18 @@ app.post('/fetchShows', function(req,res){
   })
 })
 
+app.post('/artistInfo', function(req,res){	
+	console.log("/artistInfo")
+	console.log("REQBODY", req.body.name)
+	Spotify.searchArtists(req.body.name).then((data) => {
+		console.log("DATAAAAAA",data)
+		res.send(data)
+	})
+	.catch((error) => {
+		console.log("error",error)
+	})
+})
+
 // Wild card route for client side routing.
 	// do we need this?
 app.get('/*', function(req, res){
