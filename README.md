@@ -1,10 +1,10 @@
 # Melody Map
-Easily locate concerts
-Designed not only to keep you informed when your favorite bands come to your area,
-but also to help you discover new artists that you might enjoy.
+Easily locate live music shows in your area tonight. Search for future shows at location.
+Designedto keep you informed when your favorite bands come to your area
+and also to help you discover new artists that you might enjoy.
 
 ## Features
-- Spotify abilities to pre-listen to artist
+- Pre-listen to artists through Spotify
 - Local, which populates any shows in the area based on your GPS location
 - Artists, which lists your favorites as well as recommendations based on your musical tastes
 - Venues, which shows upcoming concerts at your favorite spots
@@ -19,10 +19,10 @@ but also to help you discover new artists that you might enjoy.
   which handily keeps track of all past shows for future reminiscing.
 
 ## Motivation
-
+Users benefit from quickly finding local live music shows playing tonight and on future dates.
 
 ## Vision
-Songkick with streamlined UX and a focus on map appearance and listening to the music
+Songkick with streamlined UX and a focus on visualizing map features and listening to the music.
 
 
 ## User Stories
@@ -55,7 +55,7 @@ showing loading indicators, caching the response, and invalidating the cache
 Run the following commands in the command line to deploy app locally
 ```
 $ git clone https://github.com/WaterlooATXs/melodyMap
-$ cd melodyMap
+$ cd MelodyMap
 $ npm install
 
 ```
@@ -99,4 +99,9 @@ git checkout -b fix/yourBugFix
 git checkout -b feature/yourNewFeature
 ```
 
-## Future Features
+## Authors
+- [Amanda Fillip](https://github.com/afillip)
+- [Chris Ritchie](https://github.com/Buisness8)
+- [Chris Wiles](https://github.com/ChrisWiles)
+- [Ricardo D'Alessandro](https://github.com/rgdalessandro)
+- [Shane McQuerter](https://github.com/Shanetou)
