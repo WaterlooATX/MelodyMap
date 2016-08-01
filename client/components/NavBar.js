@@ -18,11 +18,10 @@ export default class NavBar extends Component {
             </div>
             <div className="collapse navbar-collapse" id="myNavbar">
               <ul className="nav navbar-nav">
-                <li><Link to="/" activeClassName="active">Home</Link></li>
+                <li><Link to="/artist" activeClassName="active">Artists</Link></li>
+                <li><Link to="/venue" activeClassName="active">Venues</Link></li>
+                <li><Link to="/contact" activeClassName="active">contact</Link></li>
                 <li><Link to="/about" activeClassName="active">About</Link></li>
-                <li><Link to="/concerts" activeClassName="active">Concerts</Link></li>
-                <li><Link to="/artist" activeClassName="active">Artist</Link></li>
-                <li><Link to="/venue" activeClassName="active">Venue</Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 {/* <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li> */}

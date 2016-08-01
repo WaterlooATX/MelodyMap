@@ -5,8 +5,8 @@ import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'reac
 import ReduxPromise from 'redux-promise'
 import NavBar from './components/NavBar';
 import App from './containers/App';
-import Artist from './components/Artist';
-import Venue from './components/Venue';
+import Artists from './components/Artists';
+import Venues from './components/Venues';
 
 import {createStore, applyMiddleware} from 'redux';
 
@@ -22,8 +22,8 @@ ReactDOM.render(
         <Router history={browserHistory}>
           <Route path='/' component={NavBar} >
             <IndexRoute component={App} />
-            <Route path="artist" component={Artist} />
-            <Route path="venue" component={Venue} />
+            <Route path="artist" component={Artists} />
+            <Route path="venue" component={Venues} />
           </Route>
         </Router>
   </Provider>),
