@@ -16,3 +16,14 @@ exports.searchArtists = (name) => {
       console.error(err);
     });
 }
+
+exports.getArtistTopTracks = (artistID, countryCode) => {
+  return spotifyApi.getArtistTopTracks(artistID,countryCode)
+  .then(function(data) {
+    console.log("INSIDE ARTIST TRACKS",data.body);
+    return data.body
+    }, function(err) {
+    console.log('Something went wrong!', err);
+  });
+
+}
