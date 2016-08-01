@@ -32,9 +32,12 @@ app.post('/fetchShows', function(req,res){
   })
 })
 
-app.post('/artistInfo', function(req,res){	
-	console.log
+let artistInfoCount = 0;
+app.post('/artistInfo', function(req,res){
+
 	Spotify.searchArtists(req.body.name).then((data) => {
+
+    console.log(`/artistInfo ${++artistInfoCount}`)
 		res.send(data)
 	})
 	.catch((error) => {
@@ -42,7 +45,7 @@ app.post('/artistInfo', function(req,res){
 	})
 })
 
-app.post('/artistTracks', function(req,res){	
+app.post('/artistTracks', function(req,res){
 	Spotify.getArtistTopTracks(req.body.id,req.body.code).then((data) => {
 		res.send(data)
 	})
