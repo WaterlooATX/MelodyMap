@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
+import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { GoogleMapLoader, GoogleMap, Marker, InfoWindow, Map } from 'react-google-maps'
@@ -21,17 +23,22 @@ class DrawMap extends Component {
       return (
 
         <Marker
-          key={index}
-          position={{lat: Number(show.venue.lat), lng: Number(show.venue.lng)}}
-          title ={show.venue.displayName}
-          onClick={() =>  this.props.selectShow(show)}
-          defaultAnimation= {2}
+          key={ index }
+          position={ {lat: +show.venue.lat, lng: +show.venue.lng} }
+          title ={ show.venue.displayName }
+          onClick={ (marker) => this._onMarkerClickHandler(marker, show) }
+          defaultAnimation= { 2 }
         >
-          {this.props.selectedShow === show ? <InfoWindow content={show.displayName} /> : null }
+          {this.props.selectedShow === show ? <InfoWindow content={ show.displayName } /> : null }
         </Marker>
 
       )
     })
+  }
+
+  _onMarkerClickHandler(marker, show) {
+    this._googleMapComponent.panTo(marker.latLng);
+    this.props.selectShow(show);
   }
 
   render() {
@@ -62,9 +69,13 @@ class DrawMap extends Component {
         <GoogleMapLoader
           containerElement={ <div style={{height: '95vh'}} /> }
           googleMapElement={
-            <GoogleMap defaultZoom={14}
-            defaultOptions={{styles: styles}} center = {this._setCenter()}>
-              {this.props.shows[0] ? this._createMarkers() : null}
+            <GoogleMap
+              ref={ (map) => (this._googleMapComponent = map) }
+              defaultZoom={ 14 }
+              defaultOptions={ {styles: styles} }
+              center={ this._setCenter()
+            }>
+              { this.props.shows[0] ? this._createMarkers.call(this) : null }
             </GoogleMap>
           }
         />
@@ -74,7 +85,7 @@ class DrawMap extends Component {
 
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow }, dispatch)
 
 // read / write
 function mapStateToProps(state) {
