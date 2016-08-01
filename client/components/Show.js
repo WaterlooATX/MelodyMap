@@ -10,7 +10,11 @@ export default class Show extends Component {
   }
 
   componentDidMount() {
-      this.props.spotifyInfo.then( img => this.setState({img : img.data[0].images[1].url}))
+      this.props.spotifyInfo.then( img => {
+        if(img.data[0] && img.data[0].images.length > 0) {
+          this.setState({img : img.data[0].images[1].url})
+        }
+      })
   }
 
   // Tests selected show in redux state and conditionally sets
@@ -26,7 +30,6 @@ export default class Show extends Component {
   }
   render() {
     const props = this.props
-
     return (
       <div>
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
