@@ -14,7 +14,9 @@ export default class Artists extends Component {
           <ul>
             <p>We should be able to search for artists</p>
             <p>When something is typed in the search bar, we will search and display from the entire universe of artists via spotify API</p>
-            <p>We could display artists similarly to how we display minimized shows in showlist--with minimal info for each artist. This could include:</p>
+            <p>We could display artists similarly to how we display minimized shows in showlist--with minimal info for each artist. This
+              could include:
+            </p>
             <li>Artist Pictures</li>
             <li>Spofity Song Preview (1)</li>
             <li>Upcoming show</li>
