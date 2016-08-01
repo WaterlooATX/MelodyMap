@@ -2,6 +2,17 @@ import React, {Component} from "react"
 
 export default class Show extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      img: null
+    }
+  }
+
+  componentDidMount() {
+      this.props.spotifyInfo.then( img => this.setState({img : img.data[0].images[1].url}))
+  }
+
   // Tests selected show in redux state and conditionally sets
   // inline style property for show list item if it is selected show
   _checkSelected(propsSelected) {
@@ -15,6 +26,7 @@ export default class Show extends Component {
   }
   render() {
     const props = this.props
+
     return (
       <div>
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -28,6 +40,7 @@ export default class Show extends Component {
               aria-expanded="true"
               aria-controls={`collapse${props.id}`}
             >
+              <img src={this.state.img} alt={props.id} height="42" width="42"/>
               {props.displayName}
             </a>
           </h4>
