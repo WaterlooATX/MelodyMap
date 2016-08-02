@@ -1,10 +1,8 @@
 import React, {Component} from "react"
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
-import axios from 'axios'
 import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
-import NavBar from '../components/NavBar';
 import ShowList from '../components/ShowList';
 import DrawMap from './DrawMap';
 import {geolocationAPI, ipLocationAPI} from '../models/api'
