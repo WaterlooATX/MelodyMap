@@ -139,10 +139,22 @@ class Bands extends Component {
 class Band extends Component {
   render() {
     const band = this.props.band
+    console.log('this.props.band.name' , band.name);
+
     return (
       <div>
         <p>id: {band.id}</p>
         <p>name: {band.name}</p>
+        <Link
+          to={{
+            pathname: "/artist",
+            query: {
+              artist: band.name,
+              spArtistId: band.id
+            }
+          }}
+          activeClassName='active'>{band.name}
+        </Link>
         <p>uri: {band.uri}</p>
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>

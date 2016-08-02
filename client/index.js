@@ -29,7 +29,7 @@ ReactDOM.render(
             <IndexRoute component={App} />
 	            <Route path="artists" component={Artists} />
 	            <Route path="venues" component={Venues} />
-              <Route path='/' component={NavLogin} />
+              {/* <Route path='/' component={NavLogin} /> */}
               <Route path='/user/:accessToken/:refreshToken' component='user'/>
               <Route path='/error:errorMsg' component={Error} />
               {/* On artist name click, route to corresponding ArtistDetail */}
