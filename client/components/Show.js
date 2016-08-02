@@ -19,8 +19,6 @@ export default class Show extends Component {
   componentDidMount() {
     // array of artist that are preforming
     this._spotifyInfo(this.props.artists)
-    console.log('this.props.artists ' , this.props.artists);
-
   }
 
   render() {
@@ -121,7 +119,6 @@ class Bands extends Component {
   _createBand() {
     if(this.props.bands) {
       return this.props.bands.map((band,index) => {
-        console.log(band)
         return (
           <Band key ={index} band={band}/>
         )
