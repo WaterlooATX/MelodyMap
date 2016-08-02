@@ -9,6 +9,9 @@ import Artists from './components/Artists';
 import Venues from './components/Venues';
 import ArtistDetail from './components/ArtistDetail';
 import VenueDetail from './components/VenueDetail';
+import NavLogin from './components/NavLogin';
+import Error from './components/Error';
+
 
 import {createStore, applyMiddleware} from 'redux';
 
@@ -24,9 +27,12 @@ ReactDOM.render(
         <Router history={browserHistory}>
           <Route path='/' component={NavBar} >
             <IndexRoute component={App} />
-            <Route path="artists" component={Artists} />
-            <Route path="venues" component={Venues} />
-            <Route path="artistdetail" component={ArtistDetail} />
+	            <Route path="artists" component={Artists} />
+	            <Route path="venues" component={Venues} />
+	            <Route path="artistdetail" component={ArtistDetail} />
+	          	<Route path='/' component={NavLogin} />
+	          	<Route path='/user/:accessToken/:refreshToken' component='user'/>
+	          	<Route path='/error:errorMsg' component={Error} />
           </Route>
         </Router>
   </Provider>),
