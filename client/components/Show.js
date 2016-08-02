@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import {artistInfoAPI} from "../models/api"
+import {artistTracksAPI} from "../models/api"
 
 export default class Show extends Component {
 
@@ -7,7 +8,8 @@ export default class Show extends Component {
     super(props)
     this.state ={
       img: "http://assets.audiomack.com/default-artist-image.jpg",
-      bands : []
+      bands : [],
+      previewTrack: []
     }
   }
 
@@ -36,6 +38,19 @@ export default class Show extends Component {
               img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
             }
             this.setState({bands: this.state.bands.concat([info])})
+            return artist.id
+          }
+        }).then(artistID => {
+          if(artistID){
+            artistTracksAPI(artistID,"US").then(artistTracks => {
+              const track = artistTracks.data.tracks[0]
+              let topTrack = {
+                preview : track.preview_url,
+                album: track.album.name,
+                trackName: track.name
+              }
+              this.setState({previewTrack: this.state.previewTrack.concat([topTrack])})
+            })
           }
         })
       })
