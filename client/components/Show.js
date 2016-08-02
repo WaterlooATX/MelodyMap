@@ -57,13 +57,13 @@ export default class Show extends Component {
                <p className="artist">{ props.artists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+               {this.state.previewTrack[0] ? 
+                <i className="fa fa-play" aria-hidden="true" id ="player" type="button" onClick={this._toggleSound}>
+                <audio id = "player" src={this.state.previewTrack[0].preview} controls>
+                </audio></i> : null}
             </a>
 
         
-               {this.state.previewTrack[0] ? 
-                <i className="fa fa-play" aria-hidden="true" id ="player" type="button" onClick={this._toggleSound}>
-                <audio id = "player" src={this.state.previewTrack[0].preview}>
-                </audio></i> : null}
 
           </h4>
         </div>
