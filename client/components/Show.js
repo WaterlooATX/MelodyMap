@@ -22,6 +22,20 @@ export default class Show extends Component {
   }
 
 
+ 
+  _toggleSound() {
+       var audioElem = document.getElementById('player');
+       if (audioElem.paused) {
+          audioElem.className = "fa fa-play";
+          audioElem.play();
+       } else {
+          audioElem.className = "fa fa-pause";
+          audioElem.pause();
+       }
+    }
+
+
+
   render() {
     const props = this.props
     return (
@@ -39,10 +53,18 @@ export default class Show extends Component {
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
 
+
                <p className="artist">{ props.artists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
+
+        
+               {this.state.previewTrack[0] ? 
+                <i className="fa fa-play" aria-hidden="true" id ="player" type="button" onClick={this._toggleSound}>
+                <audio id = "player" src={this.state.previewTrack[0].preview}>
+                </audio></i> : null}
+
           </h4>
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
