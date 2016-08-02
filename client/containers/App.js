@@ -7,6 +7,7 @@ import {select_show} from '../actions/select_show'
 import NavBar from '../components/NavBar';
 import ShowList from '../components/ShowList';
 import DrawMap from './DrawMap';
+import {geolocationAPI, ipLocationAPI} from '../models/api'
 
 class App extends Component {
 
@@ -19,13 +20,10 @@ class App extends Component {
 
   componentDidMount() {
     // get location using ip address
-    axios('http://ip-api.com/json')
-    .then( geo  => {
-      this._setNewCoords(geo);
-    });
+    ipLocationAPI().then( geo  => this._setNewCoords(geo))
 
     // get location using geolocation
-    navigator.geolocation.getCurrentPosition(this._setNewCoords.bind(this));
+    geolocationAPI(this._setNewCoords.bind(this))
   }
 
   _setNewCoords(location) {
@@ -41,11 +39,11 @@ class App extends Component {
           <div className="row content">
             <div className="col-sm-8 text-left Main">
             <ShowList shows={this.props.shows} location={this.state.location} />
-            
+
             </div>
             <div className="col-sm-4 sidenav">
             <DrawMap shows={this.props.shows} location={this.state.location} selectedShow={this.props.selectedShow} />}
-            
+
             </div>
           </div>
         </div>

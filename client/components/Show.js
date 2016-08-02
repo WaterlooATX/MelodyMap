@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import axios from 'axios'
+import {artistInfoAPI} from "../models/api"
 
 export default class Show extends Component {
 
@@ -21,7 +21,7 @@ export default class Show extends Component {
   _spotifyInfo(artists){
     // arrayvar: this.state.arrayvar.concat([newelement])
       artists.forEach(artist => {
-        axios.post('/artistInfo', {name: artist.displayName}).then( obj => {
+        artistInfoAPI(artist.displayName).then( obj => {
           const artist = obj.data[0]
           if(artist) {
             this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
