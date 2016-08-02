@@ -50,7 +50,7 @@ class App extends Component {
             <div className="col-sm-4 text-left Main">
             <ShowList shows={this.props.shows} location={this.state.location} />
             </div>
-            <div className="col-sm-4 sidenav">
+            <div className="col-sm-8 sidenav">
             <DrawMap shows={this.props.shows} location={this.state.location} selectedShow={this.props.selectedShow} />
             </div>
           
