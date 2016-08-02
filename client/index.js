@@ -11,6 +11,7 @@ import ArtistDetail from './components/ArtistDetail';
 import VenueDetail from './components/VenueDetail';
 import NavLogin from './components/NavLogin';
 import Error from './components/Error';
+import User from './containers/user';
 
 
 import {createStore, applyMiddleware} from 'redux';
@@ -35,6 +36,7 @@ ReactDOM.render(
               {/* On artist name click, route to corresponding ArtistDetail */}
               <Route path='artist' component={ArtistDetail} />
 	          	<Route path='venue' component={VenueDetail} />
+	          	<Route path=':id' component={ArtistDetail} />
           </Route>
         </Router>
   </Provider>),

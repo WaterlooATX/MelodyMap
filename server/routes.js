@@ -81,13 +81,14 @@ router.get('/callback/', (req, res) => {
     });
   }
 });
-//-----------------------------------------------------//
+
 
 
 //------------------SHOW & ARTIST ROUTES---------------//
 //-----------------------------------------------------//
 const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
+
 //declare some route that connects to client model
 router.post('/fetchShows', function(req,res){
   console.log("/fetchShows");
@@ -117,7 +118,7 @@ router.post('/artistTracks', function(req,res){
 		console.log("error",error)
 	})
 })
-//-------------------------------------------------------//
+
 
 
 module.exports = router;

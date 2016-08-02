@@ -6,6 +6,7 @@ import {select_show} from '../actions/select_show'
 import ShowList from '../components/ShowList';
 import DrawMap from './DrawMap';
 import {geolocationAPI, ipLocationAPI} from '../models/api'
+import User from './user';
 
 class App extends Component {
 
