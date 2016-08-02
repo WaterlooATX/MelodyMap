@@ -23,7 +23,7 @@ export default class NavBar extends Component {
                 <li><Link to="/contact" activeClassName="active">Contact</Link></li>
                 <li><Link to="/about" activeClassName="active">About</Link></li>
               </ul>
-              <ul className="nav navbar-nav navbar-right">
+              <ul>
                 {/* <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li> */}
                 <NavLogin/>
               </ul>
