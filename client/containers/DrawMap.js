@@ -36,7 +36,7 @@ class DrawMap extends Component {
           googleMapElement={
             <GoogleMap
               ref={ (map) => (this._Map = map) }
-              defaultZoom={ 14 }
+              defaultZoom={ 13 }
               defaultOptions={ {styles: styles} }
               center={ this._setCenter()
             }>
