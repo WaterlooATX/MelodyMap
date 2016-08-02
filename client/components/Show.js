@@ -24,8 +24,19 @@ export default class Show extends Component {
   }
 
   _spotifyInfo(artist){
+    // arrayvar: this.state.arrayvar.concat([newelement])
       axios.post('/artistInfo', {name: artist}).then( obj => {
         const artist = obj.data[0]
+        // let info = {
+        //   id: artist.id,
+        //   name: artist.name,
+        //   uri: artist.uri,
+        //   popularity: artist.popularity,
+        //   followers: artist.followers.total,
+        //   genres: artist.genres,
+        //   img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
+        // }
+
         if(artist) {
           this.setState({
             id: artist.id,
@@ -33,15 +44,13 @@ export default class Show extends Component {
             uri: artist.uri,
             popularity: artist.popularity,
             followers: artist.followers.total,
-            genres: artist.genres
+            genres: artist.genres,
+            img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
           })
+        } else {
+          this.setState({img: "http://assets.audiomack.com/default-artist-image.jpg"})
         }
 
-        if(artist && artist.images.length > 0) {
-          this.setState({
-            img : artist.images[1].url
-          })
-        }
       })
   }
 
@@ -72,7 +81,7 @@ export default class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              {props.displayName}
+               {props.displayName}
             </a>
           </h4>
         </div>
