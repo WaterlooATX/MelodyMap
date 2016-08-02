@@ -15,14 +15,11 @@ export default class Show extends Component {
     }
   }
 
-
   componentDidMount() {
     // array of artist that are preforming
     this._spotifyInfo(this.props.artists)
   }
 
-
- 
   _toggleSound() {
        var audioElem = document.getElementById('player');
        if (audioElem.paused) {
@@ -33,8 +30,6 @@ export default class Show extends Component {
           audioElem.pause();
        }
     }
-
-
 
   render() {
     const props = this.props
@@ -62,9 +57,6 @@ export default class Show extends Component {
                 <audio id = "player" src={this.state.previewTrack[0].preview} controls>
                 </audio></i> : null}
             </a>
-
-        
-
           </h4>
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
