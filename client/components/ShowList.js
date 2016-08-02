@@ -19,13 +19,12 @@ export default class ShowList extends Component {
   // This callback is sent to <Show /> as props to grab show id
   // on click and then use it to update selectedShow on state
   _sendToState(arg) {
-    const shows= this.props.shows[0]
-    let showWithId = shows.filter((show) => show.id === arg)
-    this.props.selectShow(showWithId[0])
+    const shows = this.props.shows[0];
+    let showWithId = shows.filter((show) => show.id === arg);
+    this.props.selectShow(showWithId[0]);
   }
 
   _createShows() {
-
     const shows = this.props.shows[0];
     if (shows) {
       return shows.map((show, i) => { // 50 shows
@@ -42,7 +41,6 @@ export default class ShowList extends Component {
           artists= {show.performance}
         />
       })
-
     } else {
       return <div className="spinner">
       <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>
@@ -51,13 +49,6 @@ export default class ShowList extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
-
-function mapStateToProps(state) {
-  return {
-           shows: state.shows,
-           selectedShow: state.selectedShow
-         }
-}
-
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ShowList);

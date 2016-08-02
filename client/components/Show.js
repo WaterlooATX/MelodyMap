@@ -50,8 +50,8 @@ export default class Show extends Component {
 
   // Sends the show's id back to the parent (ShowList.js) on click
   _onClickHandler(event) {
-    event.preventDefault()
-    this.props.sendToState(this.props.id)
+    event.preventDefault();
+    this.props.sendToState(this.props.id);
   }
   render() {
     const props = this.props
