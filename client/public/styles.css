@@ -7,7 +7,9 @@
   margin-bottom: 0 !important;
   border-radius: 0 !important;
 }
-
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+}
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {height: 95vh}
