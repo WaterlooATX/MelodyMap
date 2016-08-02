@@ -32,7 +32,7 @@ class App extends Component {
     const {dispatch, params} = this.props;
     const {accessToken, refreshToken} = params;
     console.log("accessToken Comp", {accessToken})
-    dispatch(setTokens({accessToken, refreshToken}))
+    this.props.setTokens({accessToken, refreshToken});
     this.props.getMyInfo();
   }
 
