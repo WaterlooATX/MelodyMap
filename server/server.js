@@ -10,7 +10,7 @@ var Spotify = require("./models/m_spotifyApi")
 var SpotifyWebApi = require('spotify-web-api-node');
 var client_id = '94433df23e8d4d448cf9cb7d32fbc21f'; // Your client id
 var client_secret ='b43fa687da68462eb2c4708bd7445031'; // Your secret
-const redirect_uri = 'http://localhost:4000/callback/'; // Your redirect uri
+var redirect_uri = 'http://localhost:4000/callback/'; // Your redirect uri
 var stateKey = 'spotify_auth_state';
 var scopes = ['user-read-private', 'user-read-email'];
 var app = express();
@@ -106,7 +106,8 @@ app.get('/callback/', (req, res) => {
 
       // use the access token to access the Spotify Web API
       spotifyApi.getMe().then(({ body }) => {
-        console.log(body);
+        console.log("body",body);//sends user information to the client
+        res.send(body)
       });
 
       // we can also pass the token to the browser to make requests from there
