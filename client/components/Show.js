@@ -1,6 +1,5 @@
 import React, {Component} from "react"
 import {artistInfoAPI, artistTracksAPI} from "../models/api"
-import {getDistanceFromLatLonInKm} from "../models/getDistanceFromLatLonInKm.js"
 
 export default class Show extends Component {
 

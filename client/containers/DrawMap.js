@@ -3,6 +3,7 @@ import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-map
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {selectShow} from '../actions/select_show'
+import {getDistanceFromLatLonInKm} from "../models/getDistanceFromLatLonInKm"
 
 class DrawMap extends Component {
 
