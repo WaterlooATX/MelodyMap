@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import axios from 'axios'
 
 export default class Show extends Component {
 
@@ -15,8 +16,15 @@ export default class Show extends Component {
     }
   }
 
+
   componentDidMount() {
-      this.props.spotifyInfo.then( obj => {
+    // array of artist that are preforming
+    // console.log(this.props.artistsNames)
+    this._spotifyInfo(this.props.artistsNames[0].displayName)
+  }
+
+  _spotifyInfo(artist){
+      axios.post('/artistInfo', {name: artist}).then( obj => {
         const artist = obj.data[0]
         if(artist) {
           this.setState({
