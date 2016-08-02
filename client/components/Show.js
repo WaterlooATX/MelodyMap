@@ -17,7 +17,6 @@ export default class Show extends Component {
 
   componentDidMount() {
     // array of artist that are preforming
-    // console.log(this.props.artistsNames)
     this._spotifyInfo(this.props.artists)
   }
 
@@ -112,7 +111,6 @@ export default class Show extends Component {
       this.setState({clicked: true})
     }
   }
-
 }
 
 class Bands extends Component {
