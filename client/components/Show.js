@@ -8,7 +8,8 @@ export default class Show extends Component {
     this.state ={
       img: "http://assets.audiomack.com/default-artist-image.jpg",
       bands : [],
-      previewTrack: []
+      previewTrack: [],
+      clicked: false
     }
   }
 
@@ -21,39 +22,45 @@ export default class Show extends Component {
 
   _spotifyInfo(artists){
     // arrayvar: this.state.arrayvar.concat([newelement])
-      artists.forEach(artist => {
-        artistInfoAPI(artist.displayName).then( obj => {
-          const artist = obj.data[0]
-          if(artist) {
-            this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
+    artists.forEach(artist => {
+      artistInfoAPI(artist.displayName).then( obj => {
+        const artist = obj.data[0]
+        if(artist) {
+          this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
 
-            let info = {
-              id: artist.id,
-              name: artist.name,
-              uri: artist.uri,
-              popularity: artist.popularity,
-              followers: artist.followers.total,
-              genres: artist.genres,
-              img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
-            }
-            this.setState({bands: this.state.bands.concat([info])})
-            return artist.id
+          let info = {
+            id: artist.id,
+            name: artist.name,
+            uri: artist.uri,
+            popularity: artist.popularity,
+            followers: artist.followers.total,
+            genres: artist.genres,
+            img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
           }
-        }).then(artistID => {
-          if(artistID){
-            artistTracksAPI(artistID,"US").then(artistTracks => {
-              const track = artistTracks.data.tracks[0]
-              let topTrack = {
-                preview : track.preview_url,
-                album: track.album.name,
-                trackName: track.name
-              }
-              this.setState({previewTrack: this.state.previewTrack.concat([topTrack])})
-            })
+          this.setState({bands: this.state.bands.concat([info])})
+          return artist.id
+        }
+      })
+    })
+  }
+
+  _spotifyTracks() {
+    const bands = this.state.bands
+    console.log(bands)
+    if(bands){
+      bands.map(artist => {
+        artistTracksAPI(artist.id,"US").then(artistTracks => {
+          const track = artistTracks.data.tracks[0]
+          let topTrack = {
+            preview : track.preview_url,
+            album: track.album.name,
+            trackName: track.name
           }
+          this.setState({previewTrack: this.state.previewTrack.concat([topTrack])})
+          console.log("previewTrack", ...this.state.previewTrack)
         })
       })
-
+    }
   }
 
   // Tests selected show in redux state and conditionally sets
@@ -66,6 +73,11 @@ export default class Show extends Component {
   _onClickHandler(event) {
     event.preventDefault();
     this.props.sendToState(this.props.id);
+    // get tracks only on click
+    if(!this.state.clicked) {
+      this._spotifyTracks()
+      this.setState({clicked: true})
+    }
   }
   render() {
     const props = this.props
