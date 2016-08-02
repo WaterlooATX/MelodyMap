@@ -78,7 +78,7 @@ export default class Show extends Component {
 
   _spotifyTracks() {
     const bands = this.state.bands
-    console.log(bands)
+    // console.log(bands)
     if(bands){
       bands.map(artist => {
         artistTracksAPI(artist.id,"US").then(artistTracks => {
@@ -139,7 +139,7 @@ class Bands extends Component {
 class Band extends Component {
   render() {
     const band = this.props.band
-    console.log('this.props.band.name' , band.name);
+    // console.log('this.props.band.name' , band.name);
 
     return (
       <div>

@@ -3,13 +3,26 @@ import NavBar from './NavBar';
 
 
 export default class ArtistDetail extends Component {
+
+  // componentDidMount() {
+  //   const query = this.props.location.query;
+  // }
+
   render() {
+    {console.log(this.props.location.query.artist)}
+
     return (
       <div>
+
         <div>
-          <h1>Artist Name</h1>
+          {/* Display Artist */}
+          <h1>
+            {`${this.props.location.query.artist}
+            with spotify artist id of
+            ${this.props.location.query.spArtistId}`}
+          </h1>
           <h3>
-            List information for a given artist here.
+            {`List information for a ${this.props.location.query.artist} here. `}
             This will include:
           </h3>
           <ul>
