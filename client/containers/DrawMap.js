@@ -80,4 +80,4 @@ const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: s
 const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow }, dispatch);
 export default connect(mapStateToProps,mapDispatchToProps)(DrawMap);
 
-var styles = [{"stylers":[{"hue":"#ff1a00"},{"invert_lightness":true},{"saturation":-100},{"lightness":33},{"gamma":0.5}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2D333C"}]}]
+var styles = [{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#C6E2FF"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#C5E3BF"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#D1D1B8"}]}]

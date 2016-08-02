@@ -7,6 +7,5 @@ export default function NavLogin() {
         <i className='fa fa-spotify fa-2x'></i>&nbsp;&nbsp;<a href="/login">Login with Spotify</a>
       </button>
     </div>
-
   );
 }

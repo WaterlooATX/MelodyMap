@@ -24,20 +24,3 @@
   text-align: center;
   margin-top: 80px;
 }
-
-
-#accordion .panel-heading { padding: 0;}
-
-#accordion .panel-title > a {
-    display: block;
-  	padding: 0em 0em;
-    outline: none;
-    font-weight:bold;
-    text-decoration: none;
-}
-
-#accordion .panel-title > a.accordion-toggle::before, #accordion a[data-toggle="collapse"]::before  {
-    float: left;
-    font-family: 'Glyphicons Halflings';
-	  margin-right :1em;
-}

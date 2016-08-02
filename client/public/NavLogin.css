@@ -1,5 +1,5 @@
 .spotify {
-  background: #649000;
+  background: #81b33a;
   width: 210px;
   height: 35px;
   border-radius: 10px;
@@ -13,7 +13,7 @@
   display: block;
 }
 
-.spotify a{
+.spotify a, .spotify a:hover {
   color: white;
   text-align: center
   vertical-align: top;
