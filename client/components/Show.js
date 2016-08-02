@@ -1,6 +1,6 @@
 import React, {Component} from "react"
-import {artistInfoAPI} from "../models/api"
-import {artistTracksAPI} from "../models/api"
+import {artistInfoAPI, artistTracksAPI} from "../models/api"
+import {getDistanceFromLatLonInKm} from "../models/getDistanceFromLatLonInKm.js"
 
 export default class Show extends Component {
 
@@ -98,6 +98,7 @@ export default class Show extends Component {
   }
 }
 class Bands extends Component {
+
   _createBand() {
     if(this.props.bands) {
       return this.props.bands.map((band,index) => {
