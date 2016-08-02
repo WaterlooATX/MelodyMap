@@ -87,15 +87,7 @@ class Bands extends Component {
     if(this.props.bands) {
       return this.props.bands.map((band,index) => {
         return (
-          <div key={index}>
-            <p>id: {band.id}</p>
-            <p>name: {band.name}</p>
-            <p>uri: {band.uri}</p>
-            <p>popularity: {band.popularity}</p>
-            <p>followers: {band.followers}</p>
-            <p>genres: {band.genres}</p>
-            <br/>
-          </div>
+          <Band key ={index} band={band}/>
         )
       })
     }
@@ -106,6 +98,23 @@ class Bands extends Component {
     return (
       <div>
         {bands}
+      </div>
+    )
+  }
+}
+
+class Band extends Component {
+  render() {
+    const band = this.props.band
+    return (
+      <div>
+        <p>id: {band.id}</p>
+        <p>name: {band.name}</p>
+        <p>uri: {band.uri}</p>
+        <p>popularity: {band.popularity}</p>
+        <p>followers: {band.followers}</p>
+        <p>genres: {band.genres}</p>
+        <br/>
       </div>
     )
   }
