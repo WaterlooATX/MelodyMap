@@ -6,7 +6,7 @@ import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
 import NavBar from '../components/NavBar';
 import ShowList from '../components/ShowList';
-import DrawMap from '../components/DrawMap';
+import DrawMap from './DrawMap';
 
 class App extends Component {
 
@@ -52,12 +52,6 @@ class App extends Component {
   }
 }
 
-// hey i want to set this
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchShows}, dispatch)
-}
-// i want to read this
-function mapStateToProps(state) {
-  return { shows: state.shows, selectedShow: state.selectedShow}
-}
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App);
