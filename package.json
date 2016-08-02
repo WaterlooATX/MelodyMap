@@ -36,6 +36,7 @@
     "express": "^4.14.0",
     "google-map-react": "^0.16.3",
     "middleware": "^1.0.0",
+    "moment": "^2.14.1",
     "nodemon": "^1.10.0",
     "querystring": "^0.2.0",
     "react": "^15.1.0",

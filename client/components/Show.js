@@ -1,5 +1,6 @@
-import React, {Component} from "react"
-import {artistInfoAPI, artistTracksAPI} from "../models/api"
+import React, {Component} from 'react';
+import moment from 'moment';
+import {artistInfoAPI, artistTracksAPI} from '../models/api';
 
 export default class Show extends Component {
 
@@ -18,6 +19,37 @@ export default class Show extends Component {
     // array of artist that are preforming
     // console.log(this.props.artistsNames)
     this._spotifyInfo(this.props.artists)
+  }
+
+  render() {
+    const props = this.props
+    return (
+      <div>
+        <div className="panel-heading" role="tab" id={`heading${props.id}`}>
+          <h4 className="panel-title">
+            <a
+              className={this._checkSelected(props.selected)}
+              onClick={this._onClickHandler.bind(this)}
+              role="button" data-toggle="collapse"
+              data-parent="#accordion"
+              href={`#collapse${props.id}`}
+              aria-expanded="true"
+              aria-controls={`collapse${props.id}`}
+            >
+              <img src={this.state.img} alt={props.id} height="65" width="65"/>
+               <p className="artist">{ props.artists[0].displayName }</p>
+               <p className="venue">{ props.venu } - { props.city }</p>
+               <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+            </a>
+          </h4>
+        </div>
+        <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
+            <div className="panel-body">
+              <Bands bands={this.state.bands}/>
+            </div>
+        </div>
+      </div>
+    )
   }
 
   _spotifyInfo(artists){
@@ -80,35 +112,9 @@ export default class Show extends Component {
       this.setState({clicked: true})
     }
   }
-  render() {
-    const props = this.props
-    return (
-      <div>
-        <div className="panel-heading" role="tab" id={`heading${props.id}`}>
-          <h4 className="panel-title">
-            <a
-              className={this._checkSelected(props.selected)}
-              onClick={this._onClickHandler.bind(this)}
-              role="button" data-toggle="collapse"
-              data-parent="#accordion"
-              href={`#collapse${props.id}`}
-              aria-expanded="true"
-              aria-controls={`collapse${props.id}`}
-            >
-              <img src={this.state.img} alt={props.id} height="65" width="65"/>
-               {props.displayName}
-            </a>
-          </h4>
-        </div>
-        <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
-            <div className="panel-body">
-              <Bands bands={this.state.bands}/>
-            </div>
-        </div>
-      </div>
-    )
-  }
+
 }
+
 class Bands extends Component {
 
   _createBand() {

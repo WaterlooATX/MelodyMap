@@ -6,7 +6,7 @@ export default class NavBar extends Component {
   render () {
     return (
       <div>
-        <nav className="navbar navbar-inverse">
+        <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-header">
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -24,7 +24,6 @@ export default class NavBar extends Component {
                 <li><Link to="/about" activeClassName="active">About</Link></li>
               </ul>
               <ul>
-                {/* <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li> */}
                 <NavLogin/>
               </ul>
             </div>

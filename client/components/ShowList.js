@@ -7,13 +7,20 @@ import {selectShow} from '../actions/select_show'
 export default class ShowList extends Component {
 
   render() {
-    return (
-      <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div className="panel panel-default">
-          {this._createShows()}
+    const shows = this.props.shows[0];
+    if (shows) {
+      return (
+        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div className="panel panel-default">
+            {this._createShows(shows)}
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return <div className="spinner">
+      <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>
+      <h1>&nbsp;&nbsp;Fetching your geolocation...</h1></div>
+    }
   }
 
   // This callback is sent to <Show /> as props to grab show id
@@ -24,28 +31,21 @@ export default class ShowList extends Component {
     this.props.selectShow(showWithId[0]);
   }
 
-  _createShows() {
-    const shows = this.props.shows[0];
-    if (shows) {
-      return shows.map((show, i) => { // 50 shows
-        return <Show
-          // Test if show is selected in props and send results is props to <Show />
-          selected={(this.props.selectedShow === show) ? true : false}
-          key={show.id}
-          id={show.id}
-          displayName={show.displayName}
-          venu={show.venue.displayName}
-          startDate={show.start.date}
-          city={show.location.city}
-          sendToState={this._sendToState.bind(this)}
-          artists= {show.performance}
-        />
-      })
-    } else {
-      return <div className="spinner">
-      <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>
-      <h1>&nbsp;&nbsp;Fetching your geolocation...</h1></div>
-    }
+  _createShows(shows) {
+    return shows.map((show, i) => { // 50 shows
+      return <Show
+        // Test if show is selected in props and send results is props to <Show />
+        selected={(this.props.selectedShow === show) ? true : false}
+        key={show.id}
+        id={show.id}
+        displayName={show.displayName}
+        venu={show.venue.displayName}
+        startDate={show.start.date}
+        city={show.location.city}
+        sendToState={this._sendToState.bind(this)}
+        artists= {show.performance}
+      />
+    })
   }
 }
 
