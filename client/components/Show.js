@@ -21,6 +21,7 @@ export default class Show extends Component {
     this._spotifyInfo(this.props.artists)
   }
 
+
   render() {
     const props = this.props
     return (
@@ -37,6 +38,7 @@ export default class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
+
                <p className="artist">{ props.artists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
