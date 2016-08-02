@@ -68,7 +68,7 @@ router.get('/callback/', (req, res) => {
 
       // use the access token to access the Spotify Web API
       spotifyApi.getMe().then(({ body }) => {
-        console.log("body",body);//sends user information to the client
+        //sends user information to the client
         res.send(body)
       });
 
