@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-export const artistInfo = () => {
-
+export function artistInfoAPI(name) {
+  return axios.post('/artistInfo', {name: name})
 }
 
-export function fetchShowsAPI(geo) {
-  return axios.post("/fetchShows", {long: geo.long , lat: geo.lat})
+export function fetchShowsAPI(long, lat) {
+  return axios.post("/fetchShows", {long: long , lat: lat})
 }
