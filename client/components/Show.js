@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import {artistInfoAPI, artistTracksAPI} from '../models/api';
+import { Link } from 'react-router';
 
 export default class Show extends Component {
 
@@ -17,7 +18,6 @@ export default class Show extends Component {
 
   componentDidMount() {
     // array of artist that are preforming
-    // console.log(this.props.artistsNames)
     this._spotifyInfo(this.props.artists)
   }
 
@@ -78,7 +78,7 @@ export default class Show extends Component {
 
   _spotifyTracks() {
     const bands = this.state.bands
-    console.log(bands)
+    // console.log(bands)
     if(bands){
       bands.map(artist => {
         artistTracksAPI(artist.id,"US").then(artistTracks => {
@@ -112,7 +112,6 @@ export default class Show extends Component {
       this.setState({clicked: true})
     }
   }
-
 }
 
 class Bands extends Component {
@@ -140,10 +139,22 @@ class Bands extends Component {
 class Band extends Component {
   render() {
     const band = this.props.band
+    // console.log('this.props.band.name' , band.name);
+
     return (
       <div>
         <p>id: {band.id}</p>
         <p>name: {band.name}</p>
+        <Link
+          to={{
+            pathname: "/artist",
+            query: {
+              artist: band.name,
+              spArtistId: band.id
+            }
+          }}
+          activeClassName='active'>{band.name}
+        </Link>
         <p>uri: {band.uri}</p>
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
