@@ -4,8 +4,6 @@ import {connect} from "react-redux"
 import Show from "./Show"
 import {selectShow} from '../actions/select_show'
 
-import _ from 'lodash'
-
 export default class ShowList extends Component {
 
   render() {
