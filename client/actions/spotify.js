@@ -9,6 +9,7 @@ export const SPOTIFY_ME_FAILURE = 'SPOTIFY_ME_FAILURE';
 
 /** set the app's access and refresh tokens */
 export function setTokens({accessToken, refreshToken}) {
+  console.log("setTokens accessToken", accessToken)
   if (accessToken) {
     spotifyApi.setAccessToken(accessToken);
   }
@@ -16,13 +17,24 @@ export function setTokens({accessToken, refreshToken}) {
 }
 
 /* get the user's info from the /me api */
-export function getMyInfo() {
-  return dispatch => {
-    dispatch({ type: SPOTIFY_ME_BEGIN});
-    spotifyApi.getMe().then(data => {
-      dispatch({ type: SPOTIFY_ME_SUCCESS, data: data });
-    }).catch(e => {
-      dispatch({ type: SPOTIFY_ME_FAILURE, error: e });
-    });
-  };
+// export function getMyInfo() {
+//   console.log("get my info called!")
+//   return dispatch => {
+//     dispatch({ type: SPOTIFY_ME_BEGIN});
+//     spotifyApi.getMe().then(data => {
+//       console.log("getmyinfo data", data)
+//       dispatch({ type: SPOTIFY_ME_SUCCESS, data: data });
+//     }).catch(e => {
+//       dispatch({ type: SPOTIFY_ME_FAILURE, error: e });
+//     });
+//   };
+// }
+
+export function getMyInfo(){
+  return {
+    type: SPOTIFY_ME_BEGIN,
+    payload: spotifyApi.getMe().then(data => {
+      console.log("inside first payload", data)
+    })
+  }
 }

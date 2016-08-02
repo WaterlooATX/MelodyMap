@@ -19,7 +19,9 @@ export default class Show extends Component {
 
   componentDidMount() {
     // array of artist that are preforming
-    this._spotifyInfo(this.props.artists)
+    // console.log(this.props.artistsNames)
+    //this._spotifyInfo(this.props.artists)
+
   }
 
   _toggleSound(event) {

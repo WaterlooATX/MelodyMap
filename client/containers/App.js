@@ -6,6 +6,10 @@ import {select_show} from '../actions/select_show'
 import ShowList from '../components/ShowList';
 import DrawMap from './DrawMap';
 import {geolocationAPI, ipLocationAPI} from '../models/api'
+import {
+  getMyInfo,
+  setTokens,
+}   from '../actions/spotify';
 
 
 class App extends Component {
@@ -25,6 +29,11 @@ class App extends Component {
 
     // get location using geolocation
     geolocationAPI(this._setNewCoords.bind(this))
+    const {dispatch, params} = this.props;
+    const {accessToken, refreshToken} = params;
+    console.log("accessToken Comp", {accessToken})
+    dispatch(setTokens({accessToken, refreshToken}))
+    this.props.getMyInfo();
   }
 
   _setNewCoords(location) {
@@ -53,5 +62,5 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App);

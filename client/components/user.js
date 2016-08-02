@@ -50,5 +50,7 @@ class User extends Component {
   }
 }
 
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ setTokens: setTokens }, dispatch);
 export default connect(state => state)(User);
 
