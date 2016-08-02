@@ -54,8 +54,10 @@ app.post('/artistInfo', function(req,res){
 	})
 })
 
+let artistTracksCount = 0;
 app.post('/artistTracks', function(req,res){
 	Spotify.getArtistTopTracks(req.body.id,req.body.code).then((data) => {
+		console.log(`/artistInfo ${++artistTracksCount}`)
 		res.send(data)
 	})
 	.catch((error) => {

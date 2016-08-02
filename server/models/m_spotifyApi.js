@@ -20,7 +20,7 @@ exports.searchArtists = (name) => {
 exports.getArtistTopTracks = (artistID, countryCode) => {
   return spotifyApi.getArtistTopTracks(artistID,countryCode)
   .then(function(data) {
-    console.log("INSIDE ARTIST TRACKS",data.body);
+    //console.log("INSIDE ARTIST TRACKS",data.body);
     return data.body
     }, function(err) {
     console.log('Something went wrong!', err);
