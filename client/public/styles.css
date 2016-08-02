@@ -51,8 +51,7 @@ footer {
 
 ::-webkit-scrollbar
 {
-    width: 12px;
-    background-color: #F5F5F5;
+    width: 4px;
 }
 
 ::-webkit-scrollbar-thumb
