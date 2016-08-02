@@ -39,7 +39,7 @@ export default class ShowList extends Component {
         key={show.id}
         id={show.id}
         displayName={show.displayName}
-        venu={show.venue.displayName}
+        venue={show.venue.displayName}
         startDate={show.start.date}
         city={show.location.city}
         sendToState={this._sendToState.bind(this)}
