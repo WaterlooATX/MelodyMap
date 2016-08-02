@@ -109,6 +109,7 @@ class DrawMap extends Component {
   _onMarkerClickHandler(marker, show) {
     this._Map.panTo(marker.latLng);
     this.props.selectShow(show);
+    $(`#heading${this.props.selectedShow.id}`)[0].scrollIntoView( true );
   }
 
 }
