@@ -121,6 +121,7 @@ class Bands extends Component {
   _createBand() {
     if(this.props.bands) {
       return this.props.bands.map((band,index) => {
+        console.log(band)
         return (
           <Band key ={index} band={band}/>
         )
