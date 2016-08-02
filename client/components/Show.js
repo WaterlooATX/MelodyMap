@@ -15,11 +15,21 @@ export default class Show extends Component {
     }
   }
 
-
   componentDidMount() {
     // array of artist that are preforming
     this._spotifyInfo(this.props.artists)
   }
+
+  _toggleSound() {
+       var audioElem = document.getElementById('player');
+       if (audioElem.paused) {
+          audioElem.className = "fa fa-play";
+          audioElem.play();
+       } else {
+          audioElem.className = "fa fa-pause";
+          audioElem.pause();
+       }
+    }
 
   render() {
     const props = this.props
@@ -37,9 +47,15 @@ export default class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
+
+
                <p className="artist">{ props.artists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+               {this.state.previewTrack[0] ? 
+                <i className="fa fa-play" aria-hidden="true" id ="player" type="button" onClick={this._toggleSound}>
+                <audio id = "player" src={this.state.previewTrack[0].preview} controls>
+                </audio></i> : null}
             </a>
           </h4>
         </div>
