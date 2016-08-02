@@ -1,0 +1,34 @@
+h4 img {
+  display: inline-block;
+  float: left;
+  margin-right: 4px;
+}
+
+#accordion .panel-heading { padding: 0;}
+
+#accordion .panel-title > a {
+    border-radius: 0px !important;
+    height: 75px;
+    padding: 4px;
+    line-height: 120%;
+    display: block;
+    outline: none;
+    text-decoration: none;
+    text-transform: none;
+}
+
+.panel-title a p.artist {
+  color: black;
+  font-size: 1.7em;
+  font-weight:bold;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.panel-title a p.venue {
+  margin-bottom: 2px;
+}
+
+.panel-title a p.date {
+  color: black;
+}
