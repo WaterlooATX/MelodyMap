@@ -51,13 +51,14 @@ export default class Show extends Component {
       bands.map(artist => {
         artistTracksAPI(artist.id,"US").then(artistTracks => {
           const track = artistTracks.data.tracks[0]
-          let topTrack = {
-            preview : track.preview_url,
-            album: track.album.name,
-            trackName: track.name
+          if(track) {
+            let topTrack = {
+              preview : track.preview_url ? track.preview_url : "http://i.imgur.com/nszu54A.jpg",
+              album: track.album.name,
+              trackName: track.name
+            }
+            this.setState({previewTrack: this.state.previewTrack.concat([topTrack])})
           }
-          this.setState({previewTrack: this.state.previewTrack.concat([topTrack])})
-          console.log("previewTrack", ...this.state.previewTrack)
         })
       })
     }
