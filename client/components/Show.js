@@ -5,14 +5,9 @@ export default class Show extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      img: null,
-      id: null,
-      name: null,
-      uri: null,
-      popularity: null,
-      followers: null,
-      genres: null
+    this.state ={
+      img: "http://assets.audiomack.com/default-artist-image.jpg",
+      bands : []
     }
   }
 
@@ -20,38 +15,31 @@ export default class Show extends Component {
   componentDidMount() {
     // array of artist that are preforming
     // console.log(this.props.artistsNames)
-    this._spotifyInfo(this.props.artistsNames[0].displayName)
+    this._spotifyInfo(this.props.artists)
   }
 
-  _spotifyInfo(artist){
+  _spotifyInfo(artists){
     // arrayvar: this.state.arrayvar.concat([newelement])
-      axios.post('/artistInfo', {name: artist}).then( obj => {
-        const artist = obj.data[0]
-        // let info = {
-        //   id: artist.id,
-        //   name: artist.name,
-        //   uri: artist.uri,
-        //   popularity: artist.popularity,
-        //   followers: artist.followers.total,
-        //   genres: artist.genres,
-        //   img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
-        // }
+      artists.forEach(artist => {
+        axios.post('/artistInfo', {name: artist.displayName}).then( obj => {
+          const artist = obj.data[0]
+          if(artist) {
+            this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
 
-        if(artist) {
-          this.setState({
-            id: artist.id,
-            name: artist.name,
-            uri: artist.uri,
-            popularity: artist.popularity,
-            followers: artist.followers.total,
-            genres: artist.genres,
-            img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
-          })
-        } else {
-          this.setState({img: "http://assets.audiomack.com/default-artist-image.jpg"})
-        }
-
+            let info = {
+              id: artist.id,
+              name: artist.name,
+              uri: artist.uri,
+              popularity: artist.popularity,
+              followers: artist.followers.total,
+              genres: artist.genres,
+              img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
+            }
+            this.setState({bands: this.state.bands.concat([info])})
+          }
+        })
       })
+
   }
 
   // Tests selected show in redux state and conditionally sets
@@ -87,17 +75,46 @@ export default class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <p className="show-venue">{props.venue}</p>
-              <p className="show-date">{props.startDate}</p>
-              <p className="show-location">{props.city}</p>
-              <p>id: {this.state.id}</p>
-              <p>name: {this.state.name}</p>
-              <p>uri: {this.state.uri}</p>
-              <p>popularity: {this.state.popularity}</p>
-              <p>followers: {this.state.followers}</p>
-              <p>genres: {this.state.genres}</p>
+              <Bands bands={this.state.bands}/>
             </div>
         </div>
+      </div>
+    )
+  }
+}
+class Bands extends Component {
+  _createBand() {
+    if(this.props.bands) {
+      return this.props.bands.map((band,index) => {
+        return (
+          <Band key ={index} band={band}/>
+        )
+      })
+    }
+  }
+
+  render() {
+    const bands = this._createBand()
+    return (
+      <div>
+        {bands}
+      </div>
+    )
+  }
+}
+
+class Band extends Component {
+  render() {
+    const band = this.props.band
+    return (
+      <div>
+        <p>id: {band.id}</p>
+        <p>name: {band.name}</p>
+        <p>uri: {band.uri}</p>
+        <p>popularity: {band.popularity}</p>
+        <p>followers: {band.followers}</p>
+        <p>genres: {band.genres}</p>
+        <br/>
       </div>
     )
   }

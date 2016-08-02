@@ -39,7 +39,7 @@ export default class ShowList extends Component {
           startDate={show.start.date}
           city={show.location.city}
           sendToState={this._sendToState.bind(this)}
-          artistsNames= {show.performance}
+          artists= {show.performance}
         />
       })
 
