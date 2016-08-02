@@ -8,28 +8,6 @@ import {getDistanceFromLatLonInKm} from "../models/getDistanceFromLatLonInKm"
 class DrawMap extends Component {
 
   render() {
-    var styles = [
-      {
-        stylers: [
-          { hue: '#00ffe6' },
-          { saturation: -20 }
-        ]
-      },{
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [
-          { lightness: 100 },
-          { visibility: 'simplified' }
-        ]
-      },{
-        featureType: 'road',
-        elementType: 'labels',
-        stylers: [
-          { visibility: 'off' }
-        ]
-      }
-    ];
-
     if (this.props.location.lat) {
       return (
         <GoogleMapLoader
@@ -101,3 +79,5 @@ class DrawMap extends Component {
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow }, dispatch);
 export default connect(mapStateToProps,mapDispatchToProps)(DrawMap);
+
+var styles = [{"stylers":[{"hue":"#ff1a00"},{"invert_lightness":true},{"saturation":-100},{"lightness":33},{"gamma":0.5}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#2D333C"}]}]
