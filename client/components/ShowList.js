@@ -2,9 +2,9 @@ import React, {Component} from "react"
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import Show from "./Show"
-import {fetchShows} from '../actions/shows'
 import {selectShow} from '../actions/select_show'
-import axios from 'axios'
+
+import _ from 'lodash'
 
 export default class ShowList extends Component {
 
@@ -20,21 +20,17 @@ export default class ShowList extends Component {
 
   // This callback is sent to <Show /> as props to grab show id
   // on click and then use it to update selectedShow on state
-  sendToState(arg) {
+  _sendToState(arg) {
     const shows= this.props.shows[0]
     let showWithId = shows.filter((show) => show.id === arg)
     this.props.selectShow(showWithId[0])
   }
 
-
-  _spotifyInfo(artist){
-      return axios.post('/artistInfo', {name: artist}).then(artistInfo => artistInfo)
-  }
-
   _createShows() {
+
     const shows = this.props.shows[0];
     if (shows) {
-      return shows.map(show => {
+      return shows.map((show, i) => { // 50 shows
         return <Show
           // Test if show is selected in props and send results is props to <Show />
           selected={(this.props.selectedShow === show) ? true : false}
@@ -44,8 +40,8 @@ export default class ShowList extends Component {
           venu={show.venue.displayName}
           startDate={show.start.date}
           city={show.location.city}
-          sendToState={this.sendToState.bind(this)}
-          spotifyInfo = {this._spotifyInfo(show.performance[0].displayName)}
+          sendToState={this._sendToState.bind(this)}
+          artistsNames= {show.performance}
         />
       })
 
