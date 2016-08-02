@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import {artistInfoAPI, artistTracksAPI} from '../models/api';
+import { Link } from 'react-router';
 
 export default class Show extends Component {
 
@@ -18,6 +19,8 @@ export default class Show extends Component {
   componentDidMount() {
     // array of artist that are preforming
     this._spotifyInfo(this.props.artists)
+    console.log('this.props.artists ' , this.props.artists);
+
   }
 
   render() {
