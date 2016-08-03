@@ -12,7 +12,7 @@ import VenueDetail from './components/VenueDetail';
 import NavLogin from './components/NavLogin';
 import Error from './components/Error';
 import User from './components/user';
-import Home from './components/Home';
+import Home from './containers/Home';
 
 
 import {createStore, applyMiddleware} from 'redux';
