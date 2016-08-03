@@ -1,6 +1,6 @@
-/*.active {
-  background-color: #FFF;
-}*/
+.container-fluid.text-center {
+  position: fixed;
+}
 
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
@@ -13,34 +13,41 @@
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {height: 95vh}
+.row.content {
+  min-width: 100vw;
+  height: 94vh;
+}
 
 /* Set gray background color and 100% height */
 .sidenav {
   padding: 0px !important;
   background-color: #f1f1f1;
-  height:94vh;
+  height: 94vh;
 }
 .Main {
   padding-right: 0px !important;
   padding-left: 0px !important;
   overflow-y: scroll;
-  height:94vh;
+  height: 94vh;
 }
-/* Set black background color, white text and some padding */
-footer {
-  background-color: #555;
-  color: white;
-  padding: 15px;
-}
+
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
-  .sidenav {
-    height: auto;
-    padding: 0px;
+  .row.content {
+    height: 94vh;
+    width: 100vw;
   }
-  .row.content {height:auto;}
+
+  .sidenav {
+    height: 47vh;
+    width: 100vw;
+  }
+
+  .Main {
+    height: 50vh;
+    width: 100vw;
+  }
 }
 
 ::-webkit-scrollbar-track
