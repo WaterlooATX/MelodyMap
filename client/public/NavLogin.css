@@ -1,3 +1,18 @@
+.profInfo{
+  float: right;
+  font-size: 1.5em;
+  vertical-align: center
+}
+.profInfo button{
+  font-size: 10px;
+}
+.profPic{
+  border-radius: 100%;
+  vertical-align: center;
+  margin-top: 3px;
+}
+
+
 button.spotify {
   background: #81b33a;
   width: 210px;

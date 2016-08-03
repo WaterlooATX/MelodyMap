@@ -17,7 +17,6 @@ class App extends Component {
       location: {long: null , lat: null},
       loggedIn: false,
       spotifyData: {username: '', image: ''},
-      username: '',
     }
   }
 
@@ -27,15 +26,22 @@ class App extends Component {
     // grab url, send accessToken/refreshToken to actions
 
     const url = document.location.href.split('/')
+    const self = this;
     if(url[5]){
       this.setState({loggedIn: true},() => {console.log(this.state.loggedIn)});
       this.props.setTokens(url[5], url[6]);
+      
       this.props.getMyInfo().then(function(data){
-         // this.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
-         this.setState({username: data.payload.display_name})
-        console.log("data in App.js", data)
-      });     
-    }
+         
+         self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
+            console.log("data in App.js", data)
+      })
+    }   
+  }
+
+  getSpotifyData(e) {
+    e.preventDefault();
+    console.log("get spotify data")
   }
 
 
@@ -48,7 +54,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData} />
+        <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData} onChange={this.getSpotifyData.bind(this)}/>
         <div className="container-fluid text-center">
           <div className="row content">
             {this.props.children}

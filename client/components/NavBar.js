@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import NavLogin from './NavLogin';
+import UserLogin from './userLogin';
 import {getMyInfo, setTokens} from '../actions/spotify'
 import App from '../containers/App';
 
@@ -33,7 +34,7 @@ export default class NavBar extends Component {
               {!this.props.loggedIn ?        
                 <NavLogin/>
                 :
-                console.log("logged in!", this.props.spotifyData)
+                <UserLogin spotifyData={this.props.spotifyData}/>
               }
               </ul>
             </div>
