@@ -5,25 +5,16 @@ import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
 import {geolocationAPI, ipLocationAPI} from '../models/api'
 import {getMyInfo, setTokens} from '../actions/spotify'
-import {fetchLocation} from '../actions/location'
+import {setLocation} from '../actions/location'
 import NavBar from '../components/NavBar'
 
 
 class App extends Component {
 
-  constructor() {
-    super()
-    this.state = {
-      location: {long: null , lat: null}
-    }
-  }
-
   componentDidMount() {
-    // get location using ip address
-    ipLocationAPI().then( geo  => this._setNewCoords(geo))
-
-    // get location using geolocation
+    ipLocationAPI().then(this._setNewCoords.bind(this))
     geolocationAPI(this._setNewCoords.bind(this))
+
     const {dispatch, params} = this.props;
     const url = document.location.href.split('/')
     const {accessToken, refreshToken} = params;
@@ -35,9 +26,9 @@ class App extends Component {
 
 
   _setNewCoords(location) {
-    if (location.data) this.setState({location: {long: location.data.lon , lat: location.data.lat} });
-    else if (location.coords) this.setState({location: {long: location.coords.longitude , lat: location.coords.latitude} });
-    this.props.fetchShows(this.state.location);
+    if (location.data) this.props.setLocation({long: location.data.lon , lat: location.data.lat})
+    else if (location.coords) this.props.setLocation({long: location.coords.longitude , lat: location.coords.latitude})
+    this.props.fetchShows(this.props.location);
   }
 
   render() {
@@ -56,5 +47,5 @@ class App extends Component {
 
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens, location}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens, setLocation}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App);
