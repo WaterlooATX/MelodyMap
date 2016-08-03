@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export default function NavLogin() {
   return (
     <div>
@@ -9,3 +10,4 @@ export default function NavLogin() {
     </div>
   );
 }
+

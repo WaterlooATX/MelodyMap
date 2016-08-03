@@ -30,6 +30,7 @@ export default function reduce(state = initialState, action) {
   // when we get the tokens... set the tokens!
   case SPOTIFY_TOKENS:
     const {accessToken, refreshToken} = action;
+    console.log("accessToken", accessToken)
     return Object.assign({}, state, {accessToken, refreshToken});
 
   // set our loading property when the loading begins

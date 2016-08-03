@@ -6,11 +6,15 @@ import {select_show} from '../actions/select_show'
 import ShowList from '../components/ShowList';
 import DrawMap from './DrawMap';
 import {geolocationAPI, ipLocationAPI} from '../models/api'
+import {
+  getMyInfo,
+  setTokens,
+}   from '../actions/spotify';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       location: {long: null , lat: null}
     }
@@ -18,11 +22,20 @@ class App extends Component {
 
   componentDidMount() {
     // get location using ip address
+
     ipLocationAPI().then( geo  => this._setNewCoords(geo))
 
     // get location using geolocation
     geolocationAPI(this._setNewCoords.bind(this))
+    const {dispatch, params} = this.props;
+    const url = document.location.href.split('/')
+    const {accessToken, refreshToken} = params;
+    if(url[5]){
+      this.props.setTokens(url[5], url[6]);
+      this.props.getMyInfo()     
+    }
   }
+
 
   _setNewCoords(location) {
     if (location.data) this.setState({location: {long: location.data.lon , lat: location.data.lat} });
@@ -37,19 +50,18 @@ class App extends Component {
           <div className="row content">
             <div className="col-sm-4 text-left Main">
             <ShowList shows={this.props.shows} location={this.state.location} />
-
             </div>
             <div className="col-sm-8 sidenav">
             <DrawMap shows={this.props.shows} location={this.state.location} selectedShow={this.props.selectedShow} />
-
             </div>
+          
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App);
