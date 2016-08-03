@@ -1,4 +1,4 @@
-.spotify {
+button.spotify {
   background: #81b33a;
   width: 210px;
   height: 35px;
@@ -9,12 +9,32 @@
   font-weight: bold;
   color: white;
   float: right;
-  margin: 10px 0px 0px 40px;
+  margin: 13px 0px 13px 40px;
+  padding-top: 3px;
   display: block;
+  vertical-align: center;
 }
 
 .spotify a, .spotify a:hover {
+  display: inline-block;
   color: white;
-  text-align: center
-  vertical-align: top;
+  margin: 8px;
+  position: relative;
+  top: -4px;
+}
+
+.fa-spotify:before {
+  display: inline-block;
+  margin: 2px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  button.spotify {
+    position: relative;
+    float: left;
+    margin-top: 0;
+    margin-left: 0;
+    left: -40px;
+  }
 }
