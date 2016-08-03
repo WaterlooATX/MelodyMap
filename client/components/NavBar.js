@@ -3,6 +3,7 @@ import {Link} from "react-router";
 import NavLogin from './NavLogin';
 import {getMyInfo, setTokens} from '../actions/spotify'
 
+
 export default class NavBar extends Component {
   render () {
     return (
