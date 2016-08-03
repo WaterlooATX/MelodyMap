@@ -28,12 +28,11 @@ class App extends Component {
     const url = document.location.href.split('/')
     const self = this;
     if(url[5]){
-      this.setState({loggedIn: true},() => {console.log(this.state.loggedIn)});
+      this.setState({loggedIn: true});
       this.props.setTokens(url[5], url[6]);
       
       this.props.getMyInfo().then(function(data){        
          self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
-            console.log("data in App.js", data)
       })
     }   
   }

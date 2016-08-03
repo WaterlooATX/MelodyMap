@@ -154,7 +154,6 @@ class Bands extends Component {
   _createBand() {
     const bands = this.props.bands;
     if(bands) {
-      console.log('bands', bands);
       return bands
       .sort((a, b) => b.followers - a.followers)
       .map((band,index) => {
@@ -169,7 +168,7 @@ class Bands extends Component {
     const bands = this._createBand()
     return (
       <div>
-        <div className="accordion-venue">{ this.props.venue }</div>
+        <div className="accordion-venue">@{ this.props.venue }</div>
         {bands}
       </div>
     )
