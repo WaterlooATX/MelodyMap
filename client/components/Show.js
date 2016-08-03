@@ -20,13 +20,15 @@ export default class Show extends Component {
     this._spotifyInfo(this.props.artists)
   }
 
-  _toggleSound() {
-       var audioElem = document.getElementById('player');
+  _toggleSound(event) {
+       var playButton = event.target;
+       var parent = playButton.parentElement;
+       var audioElem = parent.getElementsByTagName('audio')[0];
        if (audioElem.paused) {
-          audioElem.className = "fa fa-play";
+          playButton.className = "fa fa-pause";
           audioElem.play();
        } else {
-          audioElem.className = "fa fa-pause";
+          playButton.className = "fa fa-play";
           audioElem.pause();
        }
     }
@@ -49,13 +51,13 @@ export default class Show extends Component {
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
 
 
+               {this.state.previewTrack[0] ? 
+                <i className="fa fa-play" aria-hidden="true" type="button" onClick={this._toggleSound}>
+                <audio src={this.state.previewTrack[0].preview}>
+                </audio></i> : <i className="fa fa-play" aria-hidden="true"></i>}
                <p className="artist">{ props.artists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
-               {this.state.previewTrack[0] ? 
-                <i className="fa fa-play" aria-hidden="true" id ="player" type="button" onClick={this._toggleSound}>
-                <audio id = "player" src={this.state.previewTrack[0].preview} controls>
-                </audio></i> : null}
             </a>
           </h4>
         </div>

@@ -32,3 +32,9 @@ h4 img {
 .panel-title a p.date {
   color: black;
 }
+
+.panel-title .fa  {
+  margin-top: 8px;
+  margin-right: 8px;
+  float: right;
+}
