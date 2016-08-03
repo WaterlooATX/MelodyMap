@@ -20,7 +20,7 @@ export function fetchShowsAPI(long, lat) {
   })
 }
 
-export function getArtistAlbums(artistID) {
+export function getArtistAlbumsAPI(artistID) {
   return axios.post('/getArtistAlbums', {
     id: artistID
   })

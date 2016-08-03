@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-import {artistInfoAPI, artistTracksAPI} from '../models/api';
+import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 
 
@@ -103,6 +103,10 @@ export default class Show extends Component {
     // console.log(bands)
     if(bands){
       bands.map(artist => {
+        getArtistAlbumsAPI(artist.id).then(albums => {
+          console.log(albums.data.items[0].images[0].url)
+        })
+
         artistTracksAPI(artist.id,"US").then(artistTracks => {
           const track = artistTracks.data.tracks[0]
           if(track) {
@@ -177,8 +181,6 @@ class Band extends Component {
           activeClassName='active'>{band.name}
         </Link>
         {/* Routes to VenueDetail for clicked venue */}
-        <div></div>
-        {console.log(this.props.venue)}
         <Link
           to={{
             pathname: "/venue",

@@ -102,8 +102,8 @@ router.post('/fetchShows', function(req, res) {
 
 let artistAlbumsCount = 0;
 router.post('/getArtistAlbums', function(req, res) {
-  Spotify.getArtistAlbums(req.body).then(albums => {
-    console.log(`/getArtistAlbums ${++artistInfoCount}`)
+  Spotify.getArtistAlbums(req.body.id).then(albums => {
+    console.log(`/getArtistAlbums ${++artistAlbumsCount}`)
     res.send(albums)
   }).catch((error) => {
     console.log("error", error)
