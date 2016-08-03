@@ -34,3 +34,12 @@ exports.getArtistAlbums = (artistID) => {
       console.error(err)
     })
 }
+
+exports.getArtistRelatedArtists(artistID) => {
+  return spotifyApi.getArtistRelatedArtists(artistID)
+    .then(function(data) {
+      return data.body
+    }, function(err) {
+      console.error(err)
+    });
+}

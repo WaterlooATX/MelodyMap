@@ -87,6 +87,18 @@ router.get('/callback/', (req, res) => {
 const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
 
+// getArtistRelatedArtists
+let getArtistRelatedArtists = 0;
+router.post('/getArtistRelatedArtists', function(req, res) {
+  console.log(req.body)
+  Songkick.getVenue(req.body.id).then((data) => {
+    console.log(`/getArtistRelatedArtists ${++getArtistRelatedArtists}`)
+    res.send(data)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
 let VenueCount = 0;
 router.post('/getVenue', function(req, res) {
   console.log(req.body)
