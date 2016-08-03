@@ -35,17 +35,17 @@
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
   .row.content {
-    height: 94vh;
+    height: 90vh;
     width: 100vw;
   }
 
   .sidenav {
-    height: 47vh;
+    height: 45vh;
     width: 100vw;
   }
 
   .Main {
-    height: 50vh;
+    height: 45vh;
     width: 100vw;
   }
 }

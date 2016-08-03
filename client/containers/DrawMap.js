@@ -16,9 +16,9 @@ class DrawMap extends Component {
             <GoogleMap
               ref={ (map) => (this._Map = map) }
               defaultZoom={ 14 }
-              defaultOptions={ {styles: styles} }
-              center={ this._setCenter()
-            }>
+              defaultOptions={ {styles: styles, disableDefaultUI: true} }
+              center={ this._setCenter() }
+            >
               { this.props.shows[0] ? this._createMarkers.call(this) : null }
             </GoogleMap>
           }
