@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
+import {bindActionCreators} from 'redux'
+import {connect} from "react-redux"
 import NavLogin from './NavLogin';
 import {getMyInfo, setTokens} from '../actions/spotify'
 import App from '../containers/App';
@@ -32,9 +34,9 @@ export default class NavBar extends Component {
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
               <ul>
-              {this.props.getMyInfo().then(data => {
-                data
-              })}           
+              {this.props.getMyInfo() ? this.props.getMyInfo().then(data => {
+                <div> data.display_name </div>
+              }) : null}           
                 <NavLogin/>
               </ul>
             </div>
@@ -44,6 +46,7 @@ export default class NavBar extends Component {
     )
   }
 }
+
 
 class NavLink extends Component{
   render() {
