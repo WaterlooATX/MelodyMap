@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import NavLogin from './NavLogin';
-import UserLogin from './userLogin';
+import UserLogin from './UserLogin';
 import {getMyInfo, setTokens} from '../actions/spotify'
 import App from '../containers/App';
 

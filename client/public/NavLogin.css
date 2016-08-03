@@ -1,11 +1,9 @@
 .profInfo{
   float: right;
-  font-size: 1.5em;
+  font-size: 1.1em;
   vertical-align: center
 }
-.profInfo button{
-  font-size: 10px;
-}
+
 .profPic{
   border-radius: 100%;
   vertical-align: center;
@@ -30,7 +28,7 @@ button.spotify {
   vertical-align: center;
 }
 
-.spotify a, .spotify a:hover {
+.spotify .aLink, .spotify .aLink:hover {
   display: inline-block;
   color: white;
   margin: 8px;

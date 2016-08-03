@@ -31,17 +31,11 @@ class App extends Component {
       this.setState({loggedIn: true},() => {console.log(this.state.loggedIn)});
       this.props.setTokens(url[5], url[6]);
       
-      this.props.getMyInfo().then(function(data){
-         
+      this.props.getMyInfo().then(function(data){        
          self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
             console.log("data in App.js", data)
       })
     }   
-  }
-
-  getSpotifyData(e) {
-    e.preventDefault();
-    console.log("get spotify data")
   }
 
 
@@ -54,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData} onChange={this.getSpotifyData.bind(this)}/>
+        <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData}/>
         <div className="container-fluid text-center">
           <div className="row content">
             {this.props.children}
