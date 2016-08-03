@@ -4,7 +4,6 @@ import moment from 'moment';
 import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 
-
 export default class Show extends Component {
 
   constructor(props) {
@@ -102,9 +101,14 @@ export default class Show extends Component {
     const bands = this.state.bands
     // console.log(bands)
     if(bands){
-      bands.map(artist => {
+      bands.map((artist,index) => {
         getArtistAlbumsAPI(artist.id).then(albums => {
-          console.log(albums.data.items[0].images[0].url)
+          const albumArt = albums.data.items[0].images[0].url
+          if(albumArt) {
+            let bands = this.state.bands
+            bands[index].albumArt = albumArt
+            this.setState({bands: bands})
+          }
         })
 
         artistTracksAPI(artist.id,"US").then(artistTracks => {
@@ -195,6 +199,7 @@ class Band extends Component {
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
         <p>genres: {band.genres}</p>
+        <img src={band.albumArt} alt={band.id} height="200" width="200"/>
         <br/>
       </div>
     )
