@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import NavLogin from './NavLogin';
-import {
-  getMyInfo,
-  setTokens,
-}   from '../actions/spotify';
+import {getMyInfo, setTokens} from '../actions/spotify'
 
 export default class NavBar extends Component {
   render () {
@@ -18,14 +15,15 @@ export default class NavBar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <Link to="/" className="navbar-brand" activeClassName="active">Melody Map</Link>
+              <NavLink to="/" className="navbar-brand" onlyActiveOnIndex>Melody Map</NavLink>
+
             </div>
             <div className="collapse navbar-collapse" id="myNavbar">
               <ul className="nav navbar-nav">
-                <li><Link to="/artists" activeClassName="active">Artists</Link></li>
-                <li><Link to="/venues" activeClassName="active">Venues</Link></li>
-                <li><Link to="/contact" activeClassName="active">Contact</Link></li>
-                <li><Link to="/about" activeClassName="active">About</Link></li>
+                <li><NavLink to="/artists" activeClassName="active">Artists</NavLink></li>
+                <li><NavLink to="/venues" activeClassName="active">Venues</NavLink></li>
+                {/* <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
+                <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
               <ul>
                 <NavLogin/>
@@ -33,8 +31,13 @@ export default class NavBar extends Component {
             </div>
           </div>
         </nav>
-        {this.props.children}
       </div>
     )
+  }
+}
+
+class NavLink extends Component{
+  render() {
+    return <Link {...this.props} activeClassName="active"/>
   }
 }
