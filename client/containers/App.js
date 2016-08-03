@@ -5,7 +5,7 @@ import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
 import {geolocationAPI, ipLocationAPI} from '../models/api'
 import {getMyInfo, setTokens} from '../actions/spotify'
-import {location} from '../actions/location'
+import {fetchLocation} from '../actions/location'
 import NavBar from '../components/NavBar'
 
 
@@ -20,7 +20,6 @@ class App extends Component {
 
   componentDidMount() {
     // get location using ip address
-
     ipLocationAPI().then( geo  => this._setNewCoords(geo))
 
     // get location using geolocation

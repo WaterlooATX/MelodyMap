@@ -1,6 +1,6 @@
 export const LOCATION = 'LOCATION';
 
-export function selectShow(location) {
+export function fetchLocation(location) {
   return {
     type: LOCATION,
     payload :  location

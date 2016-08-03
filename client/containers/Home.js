@@ -6,6 +6,7 @@ import {select_show} from '../actions/select_show'
 import {getMyInfo, setTokens} from '../actions/spotify'
 import ShowList from '../components/ShowList'
 import DrawMap from './DrawMap'
+import {location} from '../actions/location'
 
 class Home extends Component {
   render() {
@@ -22,6 +23,6 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens}, dispatch);
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location}};
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens, location}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
