@@ -11,7 +11,7 @@ class DrawMap extends Component {
     if (this.props.location.lat) {
       return (
         <GoogleMapLoader
-          containerElement={ <div style={{height: '95vh'}} /> }
+          containerElement={ <div className="mapContainer" /> }
           googleMapElement={
             <GoogleMap
               ref={ (map) => (this._Map = map) }

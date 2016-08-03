@@ -24,6 +24,11 @@
   background-color: #f1f1f1;
   height: 94vh;
 }
+
+.mapContainer {
+  height: 95vh;
+}
+
 .Main {
   padding-right: 0px !important;
   padding-left: 0px !important;
@@ -36,17 +41,28 @@
 @media screen and (max-width: 767px) {
   .row.content {
     height: 90vh;
-    width: 100vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .sidenav {
+    display: block;
+    width: 100%;
+    order: 1;
     height: 45vh;
-    width: 100vw;
+    overflow: hidden;
+  }
+
+  .mapContainer {
+    height: 50vh;
   }
 
   .Main {
+    display: block;
     height: 45vh;
-    width: 100vw;
+    width: 100%;
+    order: 2;
   }
 }
 
