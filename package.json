@@ -38,6 +38,7 @@
     "middleware": "^1.0.0",
     "moment": "^2.14.1",
     "nodemon": "^1.10.0",
+    "parseUri": "^1.2.3-2",
     "querystring": "^0.2.0",
     "react": "^15.1.0",
     "react-dom": "^15.0.1",
@@ -50,6 +51,7 @@
     "request": "^2.74.0",
     "songkick-api": "0.0.2",
     "spotify-web-api-js": "^0.19.3",
-    "spotify-web-api-node": "^2.3.5"
+    "spotify-web-api-node": "^2.3.5",
+    "url": "^0.11.0"
   }
 }

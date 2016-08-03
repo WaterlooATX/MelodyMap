@@ -11,7 +11,6 @@ import {
   setTokens,
 }   from '../actions/spotify';
 
-
 class App extends Component {
 
   constructor() {
@@ -26,19 +25,17 @@ class App extends Component {
 
     ipLocationAPI().then( geo  => this._setNewCoords(geo))
 
-
     // get location using geolocation
     geolocationAPI(this._setNewCoords.bind(this))
     const {dispatch, params} = this.props;
-    console.log("params", params)
-    console.log("dispatch", dispatch)
-    console.log("normal props", this.props)
-    console.log("props access????", this.props.params.accessToken)
+    const url = document.location.href.split('/')
     const {accessToken, refreshToken} = params;
-    console.log("accessToken Comp", {accessToken})
-    this.props.setTokens({accessToken, refreshToken});
-    //this.props.getMyInfo();
+    if(url[5]){
+      this.props.setTokens(url[5], url[6]);
+      this.props.getMyInfo()     
+    }
   }
+
 
   _setNewCoords(location) {
     if (location.data) this.setState({location: {long: location.data.lon , lat: location.data.lat} });
