@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI} from '../models/api';
+import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 
 export default class Show extends Component {
@@ -12,7 +12,8 @@ export default class Show extends Component {
       img: "http://assets.audiomack.com/default-artist-image.jpg",
       bands : [],
       previewTrack: [],
-      clicked: false
+      clicked: false,
+      venueInfo: null
     }
   }
 
@@ -66,7 +67,7 @@ export default class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={this.state.bands} venue={props.venue}/>
+              <Bands bands={this.state.bands} venue={props.venue} venueInfo={this.state.venueInfo}/>
             </div>
         </div>
       </div>
@@ -98,6 +99,10 @@ export default class Show extends Component {
   }
 
   _spotifyTracks() {
+    getVenueAPI("17522").then(venue => {
+      this.setState({venueInfo: venue.data})
+    })
+
     const bands = this.state.bands
     // console.log(bands)
     if(bands){
