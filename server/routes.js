@@ -97,6 +97,18 @@ router.post('/fetchShows', function(req,res){
   console.log("/fetchShows");
 	Songkick.getTonightLocalInfo(req.body).then((data) => {
     res.send(data)
+  }).catch((error) => {
+  		console.log("error",error)
+  })
+})
+
+let artistAlbumsCount = 0;
+router.post('/getArtistAlbums', function(req,res) {
+  Spotify.getArtistAlbums(req.body).then(albums => {
+    console.log(`/getArtistAlbums ${++artistInfoCount}`)
+    res.send(albums)
+  }).catch((error) => {
+  		console.log("error",error)
   })
 })
 
