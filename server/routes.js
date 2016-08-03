@@ -115,6 +115,7 @@ router.post('/artistInfo', function(req,res){
 let artistTracksCount = 0;
 router.post('/artistTracks', function(req,res){
 	Spotify.getArtistTopTracks(req.body.id,req.body.code).then((data) => {
+    console.log(`/artistTracks ${++artistTracksCount}`)
 		res.send(data)
 	})
 	.catch((error) => {
