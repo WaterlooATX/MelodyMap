@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+export function getVenueAPI(venueID) {
+  return axios.post('/getVenue', {
+    id : venueID
+  })
+}
+
 export function artistInfoAPI(name) {
   return axios.post('/artistInfo', {
     name: name

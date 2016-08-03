@@ -14,3 +14,11 @@ exports.getTonightLocalInfo = (coords) => {
 	// `geo:${coords.lat},${coords.long}`
 	return client.searchEvents({"location": `geo:${coords.lat},${coords.long}`}).then((data) => data)
 }
+
+/*
+    Returns a venue given a venueId
+    @venueId: the id of a venue you want details for
+*/
+exports.getVenue = (venueId) => {
+	return client.getVenue(venueId).then(data => data)
+}

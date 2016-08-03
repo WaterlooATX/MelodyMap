@@ -90,7 +90,16 @@ router.get('/callback/', (req, res) => {
 const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
 
-//declare some route that connects to client model
+let VenueCount = 0;
+router.post('/getVenue', function(req, res) {
+  Songkick.getVenue(req.body).then((data) => {
+    console.log(`/getVenue ${++VenueCount}`)
+    res.send(data)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
 router.post('/fetchShows', function(req, res) {
   console.log("/fetchShows");
   Songkick.getTonightLocalInfo(req.body).then((data) => {
@@ -100,10 +109,10 @@ router.post('/fetchShows', function(req, res) {
   })
 })
 
-let artistAlbumsCount = 0;
+let AlbumsCount = 0;
 router.post('/getArtistAlbums', function(req, res) {
   Spotify.getArtistAlbums(req.body.id).then(albums => {
-    console.log(`/getArtistAlbums ${++artistAlbumsCount}`)
+    console.log(`/getArtistAlbums ${++AlbumsCount}`)
     res.send(albums)
   }).catch((error) => {
     console.log("error", error)
