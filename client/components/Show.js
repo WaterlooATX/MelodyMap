@@ -25,10 +25,10 @@ export default class Show extends Component {
        var parent = playButton.parentElement;
        var audioElem = parent.getElementsByTagName('audio')[0];
        if (audioElem.paused) {
-          playButton.className = "fa fa-pause";
+          playButton.className = "fa fa-pause fa-3x";
           audioElem.play();
        } else {
-          playButton.className = "fa fa-play";
+          playButton.className = "fa fa-play fa-3x";
           audioElem.pause();
        }
     }
@@ -52,9 +52,9 @@ export default class Show extends Component {
 
 
                {this.state.previewTrack[0] ? 
-                <i className="fa fa-play" aria-hidden="true" type="button" onClick={this._toggleSound}>
+                <i className="fa fa-play fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound}>
                 <audio src={this.state.previewTrack[0].preview}>
-                </audio></i> : <i className="fa fa-play" aria-hidden="true"></i>}
+                </audio></i> : <i className="fa fa-play fa-3x" aria-hidden="true"></i>}
                <p className="artist">{ props.artists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
