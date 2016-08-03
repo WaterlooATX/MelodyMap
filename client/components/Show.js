@@ -31,7 +31,7 @@ export default class Show extends Component {
           playButton.className = "fa fa-pause fa-3x";
           audioElem.play();
        } else {
-          playButton.className = "fa fa-play fa-3x";
+          playButton.className = "fa fa-volume-up fa-3x";
           audioElem.pause();
        }
     }
