@@ -24,5 +24,5 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens, location}, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+export default connect(null, mapStateToProps)(Home);
