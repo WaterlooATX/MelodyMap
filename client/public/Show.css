@@ -45,17 +45,22 @@ h4 img {
   float: right;
 }
 
+.accordion-venue {
+  margin: 5px 0;
+  font-size: 2em;
+}
+
 .accordion-band {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 64px;
+  height: 214px;
 }
 
 .accordion-album-art {
   display: inline-block;
-  height: 50px;
-  width: 50px;
+  height: 200px;
+  width: 200px;
   margin-top: 2px;
   margin-bottom: 2px;
 }
