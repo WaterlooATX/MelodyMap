@@ -85,42 +85,52 @@ router.get('/callback/', (req, res) => {
   }
 });
 
-
-
 //------------------SHOW & ARTIST ROUTES---------------//
 //-----------------------------------------------------//
 const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
 
 //declare some route that connects to client model
-router.post('/fetchShows', function(req,res){
+router.post('/fetchShows', function(req, res) {
   console.log("/fetchShows");
-	Songkick.getTonightLocalInfo(req.body).then((data) => {
+  Songkick.getTonightLocalInfo(req.body).then((data) => {
     res.send(data)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
+let artistAlbumsCount = 0;
+router.post('/getArtistAlbums', function(req, res) {
+  Spotify.getArtistAlbums(req.body.id).then(albums => {
+    console.log(`/getArtistAlbums ${++artistAlbumsCount}`)
+    res.send(albums)
+  }).catch((error) => {
+    console.log("error", error)
   })
 })
 
 let artistInfoCount = 0;
-router.post('/artistInfo', function(req,res){
+router.post('/artistInfo', function(req, res) {
 
-	Spotify.searchArtists(req.body.name).then((data) => {
+  Spotify.searchArtists(req.body.name).then((data) => {
 
-    console.log(`/artistInfo ${++artistInfoCount}`)
-		res.send(data)
-	})
-	.catch((error) => {
-		console.log("error",error)
-	})
+      console.log(`/artistInfo ${++artistInfoCount}`)
+      res.send(data)
+    })
+    .catch((error) => {
+      console.log("error", error)
+    })
 })
 let artistTracksCount = 0;
-router.post('/artistTracks', function(req,res){
-	Spotify.getArtistTopTracks(req.body.id,req.body.code).then((data) => {
-    console.log(`/artistTracks ${++artistTracksCount}`)
-		res.send(data)
-	})
-	.catch((error) => {
-		console.log("error",error)
-	})
+router.post('/artistTracks', function(req, res) {
+  Spotify.getArtistTopTracks(req.body.id, req.body.code).then((data) => {
+      console.log(`/artistTracks ${++artistTracksCount}`)
+      res.send(data)
+    })
+    .catch((error) => {
+      console.log("error", error)
+    })
 })
 
 
