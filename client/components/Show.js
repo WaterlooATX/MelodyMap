@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router';
 import moment from 'moment';
 import {artistInfoAPI, artistTracksAPI} from '../models/api';
-import { Link } from 'react-router';
+import {selectShow} from '../actions/select_show'
+
 
 export default class Show extends Component {
 
@@ -63,7 +65,7 @@ export default class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={this.state.bands}/>
+              <Bands bands={this.state.bands} venue={props.venue}/>
             </div>
         </div>
       </div>
@@ -138,7 +140,7 @@ class Bands extends Component {
     if(this.props.bands) {
       return this.props.bands.map((band,index) => {
         return (
-          <Band key ={index} band={band}/>
+          <Band key ={index} band={band} venue={this.props.venue}/>
         )
       })
     }
@@ -161,8 +163,7 @@ class Band extends Component {
 
     return (
       <div>
-        <p>id: {band.id}</p>
-        <p>name: {band.name}</p>
+        {/* Routes to ArtistDetail for clicked artist */}
         <Link
           to={{
             pathname: "/artist",
@@ -173,6 +174,19 @@ class Band extends Component {
           }}
           activeClassName='active'>{band.name}
         </Link>
+        {/* Routes to VenueDetail for clicked venue */}
+        <div></div>
+        {console.log(this.props.venue)}
+        <Link
+          to={{
+            pathname: "/venue",
+            query: {
+              venue: this.props.venue
+            }
+          }}
+          activeClassName='active'>{this.props.venue}
+        </Link>
+        <p>id: {band.id}</p>
         <p>uri: {band.uri}</p>
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
@@ -182,3 +196,5 @@ class Band extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow }};

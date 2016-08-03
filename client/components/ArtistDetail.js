@@ -9,11 +9,8 @@ export default class ArtistDetail extends Component {
   // }
 
   render() {
-    {console.log(this.props.location.query.artist)}
-
     return (
       <div>
-
         <div>
           {/* Display Artist */}
           <h1>

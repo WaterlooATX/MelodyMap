@@ -33,7 +33,8 @@ ReactDOM.render(
               <Route path='/user/:accessToken/:refreshToken' component='user'/>
               <Route path='/error:errorMsg' component={Error} />
               {/* On artist name click, route to corresponding ArtistDetail */}
-	          	<Route path=':id' component={ArtistDetail} />
+              <Route path='artist' component={ArtistDetail} />
+	          	<Route path='venue' component={VenueDetail} />
           </Route>
         </Router>
   </Provider>),
