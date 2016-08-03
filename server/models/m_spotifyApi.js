@@ -35,7 +35,7 @@ exports.getArtistAlbums = (artistID) => {
     })
 }
 
-exports.getArtistRelatedArtists(artistID) => {
+exports.getArtistRelatedArtists = (artistID) => {
   return spotifyApi.getArtistRelatedArtists(artistID)
     .then(function(data) {
       return data.body
