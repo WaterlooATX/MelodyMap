@@ -24,21 +24,8 @@ export default class Show extends Component {
 
   }
 
-  _toggleSound(event) {
-       var playButton = event.target;
-       var parent = playButton.parentElement;
-       var audioElem = parent.getElementsByTagName('audio')[0];
-       if (audioElem.paused) {
-          playButton.className = "fa fa-pause fa-3x";
-          audioElem.play();
-       } else {
-          playButton.className = "fa fa-volume-up fa-3x";
-          audioElem.pause();
-       }
-    }
-
   render() {
-    const props = this.props
+    const props = this.props;
     return (
       <div>
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -73,6 +60,19 @@ export default class Show extends Component {
       </div>
     )
   }
+
+  _toggleSound(event) {
+       var playButton = event.target;
+       var parent = playButton.parentElement;
+       var audioElem = parent.getElementsByTagName('audio')[0];
+       if (audioElem.paused) {
+          playButton.className = "fa fa-pause fa-3x";
+          audioElem.play();
+       } else {
+          playButton.className = "fa fa-volume-up fa-3x";
+          audioElem.pause();
+       }
+    }
 
   _spotifyInfo(artists){
     // arrayvar: this.state.arrayvar.concat([newelement])
@@ -110,9 +110,9 @@ export default class Show extends Component {
         getArtistAlbumsAPI(artist.id).then(albums => {
           const albumArt = albums.data.items[0].images[0].url
           if(albumArt) {
-            let bands = this.state.bands
-            bands[index].albumArt = albumArt
-            this.setState({bands: bands})
+            let bands = this.state.bands;
+            bands[index].albumArt = albumArt;
+            this.setState({bands: bands});
           }
         })
 
@@ -143,8 +143,8 @@ export default class Show extends Component {
     this.props.sendToState(this.props.id);
     // get tracks only on click
     if(!this.state.clicked) {
-      this._spotifyTracks()
-      this.setState({clicked: true})
+      this._spotifyTracks();
+      this.setState({clicked: true});
     }
   }
 }
@@ -152,8 +152,12 @@ export default class Show extends Component {
 class Bands extends Component {
 
   _createBand() {
-    if(this.props.bands) {
-      return this.props.bands.map((band,index) => {
+    const bands = this.props.bands;
+    if(bands) {
+      console.log('bands', bands);
+      return bands
+      .sort((a, b) => b.followers - a.followers)
+      .map((band,index) => {
         return (
           <Band key ={index} band={band} venue={this.props.venue}/>
         )
@@ -165,6 +169,7 @@ class Bands extends Component {
     const bands = this._createBand()
     return (
       <div>
+        <div className="accordion-venue">{ this.props.venue }</div>
         {bands}
       </div>
     )
@@ -173,12 +178,12 @@ class Bands extends Component {
 
 class Band extends Component {
   render() {
-    const band = this.props.band
+    const band = this.props.band;
     // console.log('this.props.band.name' , band.name);
 
     return (
-      <div>
-        {/* Routes to ArtistDetail for clicked artist */}
+      <div className="accordion-band">
+        {/*
         <Link
           to={{
             pathname: "/artist",
@@ -189,7 +194,6 @@ class Band extends Component {
           }}
           activeClassName='active'>{band.name}
         </Link>
-        {/* Routes to VenueDetail for clicked venue */}
         <Link
           to={{
             pathname: "/venue",
@@ -199,16 +203,15 @@ class Band extends Component {
           }}
           activeClassName='active'>{this.props.venue}
         </Link>
-        <p>id: {band.id}</p>
+        */}
+        <img className="accordion-album-art" src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} height="200" width="200" />
+        {/*<p>id: {band.id}</p>
         <p>uri: {band.uri}</p>
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
-        <p>genres: {band.genres}</p>
-        <img src={band.albumArt} alt={band.id} height="200" width="200"/>
-        <br/>
+        <p>genres: {band.genres}</p>*/}
+        <div className="accordion-artist">{ band.name }</div>
       </div>
     )
   }
 }
-
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow }};

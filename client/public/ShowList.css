@@ -27,6 +27,11 @@
 
 @media screen and (max-width: 767px) {
   .spinner {
-    margin-top: 50px;
+    margin-top: 30px;
+  }
+
+  ::-webkit-scrollbar
+  {
+      width: 0px;
   }
 }
