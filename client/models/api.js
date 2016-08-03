@@ -1,15 +1,29 @@
 import axios from 'axios'
 
 export function artistInfoAPI(name) {
-  return axios.post('/artistInfo', {name: name})
+  return axios.post('/artistInfo', {
+    name: name
+  })
 }
 
-export function artistTracksAPI(artistID, countryCode){
-	return axios.post('/artistTracks',{id: artistID, code: countryCode})
+export function artistTracksAPI(artistID, countryCode) {
+  return axios.post('/artistTracks', {
+    id: artistID,
+    code: countryCode
+  })
 }
 
 export function fetchShowsAPI(long, lat) {
-  return axios.post("/fetchShows", {long: long , lat: lat})
+  return axios.post("/fetchShows", {
+    long: long,
+    lat: lat
+  })
+}
+
+export function getArtistAlbums(artistID) {
+  return axios.post('/getArtistAlbums', {
+    id: artistID
+  })
 }
 
 export function geolocationAPI(success, fail, options) {
