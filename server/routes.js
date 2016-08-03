@@ -92,7 +92,8 @@ const Spotify = require("./models/m_spotifyApi")
 
 let VenueCount = 0;
 router.post('/getVenue', function(req, res) {
-  Songkick.getVenue(req.body).then((data) => {
+  console.log(req.body)
+  Songkick.getVenue(req.body.id).then((data) => {
     console.log(`/getVenue ${++VenueCount}`)
     res.send(data)
   }).catch((error) => {
