@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Link} from "react-router";
 import NavLogin from './NavLogin';
 import {getMyInfo, setTokens} from '../actions/spotify'
+import App from '../containers/App';
+
 
 
 export default class NavBar extends Component {
@@ -27,7 +29,9 @@ export default class NavBar extends Component {
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
               <ul>
+              {console.log("loggedIN? ",this.props.params.loggedIn)}
                 <NavLogin/>
+              
               </ul>
             </div>
           </div>

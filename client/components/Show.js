@@ -194,6 +194,11 @@ class Band extends Component {
           }}
           activeClassName='active'>{band.name}
         </Link>
+         Routes to VenueDetail for clicked venue 
+
+        <div></div>
+
+
         <Link
           to={{
             pathname: "/venue",

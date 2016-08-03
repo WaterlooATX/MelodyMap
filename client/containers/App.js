@@ -11,14 +11,21 @@ import NavBar from '../components/NavBar'
 
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      location: {long: null , lat: null},
+      loggedIn: false,
+    }
+  }
+
   componentDidMount() {
     ipLocationAPI().then(this._setNewCoords.bind(this))
     geolocationAPI(this._setNewCoords.bind(this))
-
-    const {dispatch, params} = this.props;
     const url = document.location.href.split('/')
-    const {accessToken, refreshToken} = params;
     if(url[5]){
+      this.setState({loggedIn: true}, function() {console.log(this.state.loggedIn);
+      });
       this.props.setTokens(url[5], url[6]);
       this.props.getMyInfo()
     }
