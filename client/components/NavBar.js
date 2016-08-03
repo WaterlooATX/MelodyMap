@@ -3,7 +3,10 @@ import {Link} from "react-router";
 import NavLogin from './NavLogin';
 import {getMyInfo, setTokens} from '../actions/spotify'
 import App from '../containers/App';
-
+import {
+  getMyInfo,
+  setTokens,
+}   from '../actions/spotify';
 
 
 export default class NavBar extends Component {
@@ -29,9 +32,10 @@ export default class NavBar extends Component {
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
               <ul>
-              {console.log("loggedIN? ",this.props.params.loggedIn)}
+              {this.props.getMyInfo().then(data => {
+                data
+              })}           
                 <NavLogin/>
-              
               </ul>
             </div>
           </div>
@@ -46,3 +50,4 @@ class NavLink extends Component{
     return <Link {...this.props} activeClassName="active"/>
   }
 }
+

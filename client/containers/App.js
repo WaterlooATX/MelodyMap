@@ -22,12 +22,15 @@ class App extends Component {
   componentDidMount() {
     ipLocationAPI().then(this._setNewCoords.bind(this))
     geolocationAPI(this._setNewCoords.bind(this))
+    // grab url, send accessToken/refreshToken to actions
+
     const url = document.location.href.split('/')
     if(url[5]){
-      this.setState({loggedIn: true}, function() {console.log(this.state.loggedIn);
-      });
+      this.setState({loggedIn: true},() => {console.log(this.state.loggedIn)});
       this.props.setTokens(url[5], url[6]);
-      this.props.getMyInfo()
+      this.props.getMyInfo().then(function(data){
+        console.log("data in App.js", data)
+      });     
     }
   }
 

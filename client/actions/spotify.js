@@ -20,7 +20,7 @@ export function getMyInfo(){
   return {
     type: SPOTIFY_ME_BEGIN,
     payload: spotifyApi.getMe().then(data => {
-      console.log("inside first payload", data)
+      return data
     })
   }
 }
