@@ -4,6 +4,12 @@ h4 img {
   margin-right: 4px;
 }
 
+.panel-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
 #accordion .panel-heading { padding: 0;}
 
 #accordion .panel-title > a {
@@ -37,4 +43,25 @@ h4 img {
   margin-top: 8px;
   margin-right: 8px;
   float: right;
+}
+
+.accordion-band {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 64px;
+}
+
+.accordion-album-art {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.accordion-artist {
+  margin: 7px;
+  padding-top: 5px;
+  font-size: 1.5em;
 }
