@@ -51,10 +51,10 @@ export default class Show extends Component {
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
 
 
-               {this.state.previewTrack[0] ? 
-                <i className="fa fa-play fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound}>
+               {this.state.previewTrack[0] ?
+                <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound}>
                 <audio src={this.state.previewTrack[0].preview}>
-                </audio></i> : <i className="fa fa-play fa-3x" aria-hidden="true"></i>}
+                </audio></i> : <i className="fa fa-volume-up  fa-3x" aria-hidden="true"></i>}
                <p className="artist">{ props.artists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
