@@ -11,7 +11,6 @@ import ArtistDetail from './components/ArtistDetail';
 import VenueDetail from './components/VenueDetail';
 import NavLogin from './components/NavLogin';
 import Error from './components/Error';
-import User from './components/user';
 import Home from './containers/Home';
 
 

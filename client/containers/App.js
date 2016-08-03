@@ -11,17 +11,31 @@ import NavBar from '../components/NavBar'
 
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      location: {long: null , lat: null},
+      loggedIn: false,
+      spotifyData: {username: '', image: ''},
+    }
+  }
+
   componentDidMount() {
     ipLocationAPI().then(this._setNewCoords.bind(this))
     geolocationAPI(this._setNewCoords.bind(this))
+    // grab url, send accessToken/refreshToken to actions
 
-    const {dispatch, params} = this.props;
     const url = document.location.href.split('/')
-    const {accessToken, refreshToken} = params;
+    const self = this;
     if(url[5]){
+      this.setState({loggedIn: true},() => {console.log(this.state.loggedIn)});
       this.props.setTokens(url[5], url[6]);
-      this.props.getMyInfo()
-    }
+      
+      this.props.getMyInfo().then(function(data){        
+         self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
+            console.log("data in App.js", data)
+      })
+    }   
   }
 
 
@@ -34,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar/>
+        <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData}/>
         <div className="container-fluid text-center">
           <div className="row content">
             {this.props.children}

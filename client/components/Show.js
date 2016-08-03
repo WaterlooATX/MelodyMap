@@ -194,6 +194,11 @@ class Band extends Component {
           }}
           activeClassName='active'>{band.name}
         </Link>
+         Routes to VenueDetail for clicked venue 
+
+        <div></div>
+
+
         <Link
           to={{
             pathname: "/venue",
@@ -207,6 +212,10 @@ class Band extends Component {
         <img className="accordion-album-art" src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} height="200" width="200" />
         {/*<p>id: {band.id}</p>
         <p>uri: {band.uri}</p>
+
+        <br></br>
+        <br></br>        
+
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
         <p>genres: {band.genres}</p>*/}

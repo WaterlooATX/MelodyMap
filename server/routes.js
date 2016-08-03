@@ -37,7 +37,6 @@ const generateRandomString = function(length) {
  */
 router.get('/login', function(req, res){
 	const state = generateRandomString(16);
-	console.log("/login");
 	res.cookie(stateKey, state);
 	//application requests authorization
 	res.redirect(spotifyApi.createAuthorizeURL(scopes,state));
@@ -57,7 +56,7 @@ router.get('/callback/', (req, res) => {
     res.redirect('/#/error/state mismatch');
   // if the state is valid, get the authorization code and pass it on to the client
   } else {
-    res.clearCookie(stateKey);
+    //res.clearCookie(stateKey);
     // Retrieve an access token and a refresh token
     spotifyApi.authorizationCodeGrant(code).then(data => {
       const { expires_in, access_token, refresh_token } = data.body;
@@ -65,13 +64,11 @@ router.get('/callback/', (req, res) => {
       // Set the access token on the API object to use it in later calls
       spotifyApi.setAccessToken(access_token);
       spotifyApi.setRefreshToken(refresh_token);
-      console.log("accessToken: ", access_token)
-      console.log("refreshToken: ", refresh_token);
+
 
       // use the access token to access the Spotify Web API
       spotifyApi.getMe().then(({ body }) => {
         //sends user information to the client
-        console.log("body", body)
         res.send(body)
       });
 
