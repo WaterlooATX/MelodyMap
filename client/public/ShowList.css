@@ -24,3 +24,9 @@
   text-align: center;
   margin-top: 80px;
 }
+
+@media screen and (max-width: 767px) {
+  .spinner {
+    margin-top: 50px;
+  }
+}
