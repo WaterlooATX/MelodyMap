@@ -3,13 +3,10 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
-import ShowList from '../components/ShowList';
-import DrawMap from './DrawMap';
 import {geolocationAPI, ipLocationAPI} from '../models/api'
-import {
-  getMyInfo,
-  setTokens,
-}   from '../actions/spotify';
+import {getMyInfo, setTokens} from '../actions/spotify'
+import NavBar from '../components/NavBar'
+
 
 class App extends Component {
 
@@ -32,7 +29,7 @@ class App extends Component {
     const {accessToken, refreshToken} = params;
     if(url[5]){
       this.props.setTokens(url[5], url[6]);
-      this.props.getMyInfo()     
+      this.props.getMyInfo()
     }
   }
 
@@ -46,21 +43,17 @@ class App extends Component {
   render() {
     return (
       <div>
+        <NavBar/>
         <div className="container-fluid text-center">
           <div className="row content">
-            <div className="col-sm-4 text-left Main">
-            <ShowList shows={this.props.shows} location={this.state.location} />
-            </div>
-            <div className="col-sm-8 sidenav">
-            <DrawMap shows={this.props.shows} location={this.state.location} selectedShow={this.props.selectedShow} />
-            </div>
-          
+            {this.props.children}
           </div>
         </div>
       </div>
     )
   }
 }
+
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
 const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens}, dispatch);
