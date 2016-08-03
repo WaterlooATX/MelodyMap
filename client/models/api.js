@@ -36,6 +36,11 @@ export function geolocationAPI(success, fail, options) {
   return navigator.geolocation.getCurrentPosition(success, fail, options)
 }
 
+export function getArtistRelatedArtists(artistID) {
+  return axios.post('/getArtistRelatedArtists', {
+    id: artistID
+  })
+}
 export function ipLocationAPI() {
   return axios('http://ip-api.com/json')
 }
