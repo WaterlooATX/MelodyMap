@@ -1,8 +1,9 @@
 export const LOCATION = 'LOCATION';
 
-export function fetchLocation(location) {
+export function setLocation(location) {
+  console.log("setLocation", location)
   return {
     type: LOCATION,
-    payload :  location
+    payload: location
   }
 }

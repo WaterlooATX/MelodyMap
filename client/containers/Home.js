@@ -24,5 +24,4 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location}};
-
 export default connect(null, mapStateToProps)(Home);
