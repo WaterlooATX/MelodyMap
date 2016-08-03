@@ -14,8 +14,8 @@ import {
 
 class App extends Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       location: {long: null , lat: null}
     }
@@ -30,10 +30,14 @@ class App extends Component {
     // get location using geolocation
     geolocationAPI(this._setNewCoords.bind(this))
     const {dispatch, params} = this.props;
+    console.log("params", params)
+    console.log("dispatch", dispatch)
+    console.log("normal props", this.props)
+    console.log("props access????", this.props.params.accessToken)
     const {accessToken, refreshToken} = params;
     console.log("accessToken Comp", {accessToken})
     this.props.setTokens({accessToken, refreshToken});
-    this.props.getMyInfo();
+    //this.props.getMyInfo();
   }
 
   _setNewCoords(location) {
