@@ -16,6 +16,8 @@ class App extends Component {
     this.state = {
       location: {long: null , lat: null},
       loggedIn: false,
+      spotifyData: {username: '', image: ''},
+      username: '',
     }
   }
 
@@ -29,6 +31,8 @@ class App extends Component {
       this.setState({loggedIn: true},() => {console.log(this.state.loggedIn)});
       this.props.setTokens(url[5], url[6]);
       this.props.getMyInfo().then(function(data){
+         // this.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
+         this.setState({username: data.payload.display_name})
         console.log("data in App.js", data)
       });     
     }
@@ -44,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar/>
+        <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData} />
         <div className="container-fluid text-center">
           <div className="row content">
             {this.props.children}

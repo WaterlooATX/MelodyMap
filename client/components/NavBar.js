@@ -29,8 +29,12 @@ export default class NavBar extends Component {
                 {/* <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
-              <ul>         
+              <ul>  
+              {!this.props.loggedIn ?        
                 <NavLogin/>
+                :
+                console.log("logged in!", this.props.spotifyData)
+              }
               </ul>
             </div>
           </div>
