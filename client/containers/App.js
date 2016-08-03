@@ -5,6 +5,7 @@ import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
 import {geolocationAPI, ipLocationAPI} from '../models/api'
 import {getMyInfo, setTokens} from '../actions/spotify'
+import {location} from '../actions/location'
 import NavBar from '../components/NavBar'
 
 
@@ -55,6 +56,6 @@ class App extends Component {
 }
 
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens}, dispatch);
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location}};
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, getMyInfo, setTokens, location}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App);
