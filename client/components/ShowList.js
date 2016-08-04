@@ -34,16 +34,19 @@ export default class ShowList extends Component {
   _createShows(shows) {
     return shows.map((show, i) => { // 50 shows
       return <Show
-        // Test if show is selected in props and send results is props to <Show />
-        selected={(this.props.selectedShow === show) ? true : false}
-        key={show.id}
-        id={show.id}
-        displayName={show.displayName}
-        venue={show.venue.displayName}
-        startDate={show.start.date}
-        city={show.location.city}
-        sendToState={this._sendToState.bind(this)}
+        songkick={show}
+        ageRestriction={show.ageRestriction}
         artists= {show.performance}
+        city={show.location.city}
+        displayName={show.displayName}
+        doorsOpen={show.start.time}
+        id={show.id}
+        key={show.id}
+        selected={(this.props.selectedShow === show) ? true : false}
+        sendToState={this._sendToState.bind(this)}
+        startDate={show.start.date}
+        venue={show.venue.displayName}
+        venueID={show.venue.id}
       />
     })
   }

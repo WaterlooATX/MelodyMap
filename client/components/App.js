@@ -51,7 +51,6 @@ class App extends Component {
   }
 
   render() {
-    {console.log('this.props ' , this.props)}
     return (
       <div>
         <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData}/>

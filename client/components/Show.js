@@ -54,7 +54,7 @@ export default class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={this.state.bands} venue={props.venue} venueInfo={this.state.venueInfo}/>
+              <Bands bands={this.state.bands} venue={props.venue} venueInfo={this.state.venueInfo} songkick={props.songkick}/>
             </div>
         </div>
       </div>
@@ -75,14 +75,15 @@ export default class Show extends Component {
     }
 
   _spotifyInfo(artists){
-    // arrayvar: this.state.arrayvar.concat([newelement])
     artists.forEach(artist => {
       artistInfoAPI(artist.displayName).then( obj => {
         const artist = obj.data[0]
         if(artist) {
+          // CHANGE only set img for head artist
           this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
 
           let info = {
+            spotifyOpen: artist.external_urls.spotify,
             id: artist.id,
             name: artist.name,
             uri: artist.uri,
@@ -99,9 +100,10 @@ export default class Show extends Component {
   }
 
   _spotifyTracks() {
-    getVenueAPI("17522").then(venue => {
+    getVenueAPI(this.props.venueID).then(venue => {
       this.setState({venueInfo: venue.data})
     })
+
 
     const bands = this.state.bands
     // console.log(bands)
@@ -158,7 +160,7 @@ class Bands extends Component {
       .sort((a, b) => b.followers - a.followers)
       .map((band,index) => {
         return (
-          <Band key ={index} band={band} venue={this.props.venue}/>
+          <Band key ={index} band={band}/>
         )
       })
     }
@@ -166,6 +168,26 @@ class Bands extends Component {
 
   render() {
     const bands = this._createBand()
+    // create VENUE obj
+    let VENUE = this.props.venueInfo
+    if(VENUE) {
+      const temp = {
+        id: this.props.songkick.venue.id,
+        ageRestriction: this.props.songkick.ageRestriction || "none",
+        capacity: VENUE.capacity,
+        street: VENUE.street,
+        geo: {lat: VENUE.lat, long: VENUE.lng},
+        city: VENUE.city.displayName,
+        state: VENUE.city.state.displayName,
+        website: VENUE.website,
+        name: VENUE.displayName
+      }
+      VENUE = temp
+      console.log(VENUE)
+    }
+
+
+
     return (
       <div>
         <div className="accordion-venue">@{ this.props.venue }</div>
@@ -179,9 +201,16 @@ class Band extends Component {
   render() {
     const band = this.props.band;
     // console.log('this.props.band.name' , band.name);
-
+    const Style = {
+                    "height": "200px",
+                    "width": "200px",
+                    "borderRadius": "500px",
+                    "WebkitBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
+                    "MozBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
+                    "boxShadow": "6px 6px 10px 0px rgba(0, 0, 0, 1)"
+                  }
     return (
-      <div className="accordion-band">
+      // <div className="accordion-band">
         {/*
         <Link
           to={{
@@ -193,7 +222,7 @@ class Band extends Component {
           }}
           activeClassName='active'>{band.name}
         </Link>
-         Routes to VenueDetail for clicked venue 
+         Routes to VenueDetail for clicked venue
 
         <div></div>
 
@@ -208,17 +237,18 @@ class Band extends Component {
           activeClassName='active'>{this.props.venue}
         </Link>
         */}
-        <img className="accordion-album-art" src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} height="200" width="200" />
+
+        <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
         {/*<p>id: {band.id}</p>
         <p>uri: {band.uri}</p>
 
         <br></br>
-        <br></br>        
+        <br></br>
 
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
         <p>genres: {band.genres}</p>*/}
-        <div className="accordion-artist">{ band.name }</div>
+        {/* <div className="accordion-artist">{ band.name }</div> */}
       </div>
     )
   }
