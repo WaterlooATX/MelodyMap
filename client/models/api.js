@@ -12,6 +12,12 @@ export function artistInfoAPI(name) {
   });
 }
 
+export function LastFM_getInfoAPI(name) {
+  return axios.post("/LastFM.getInfo", {
+    name: name
+  })
+}
+
 export function artistTracksAPI(artistID, countryCode) {
   return axios.post('/artistTracks', {
     id: artistID,
@@ -25,6 +31,7 @@ export function fetchShowsAPI(long, lat) {
     lat: lat
   });
 }
+
 
 export function getArtistAlbumsAPI(artistID) {
   return axios.post('/getArtistAlbums', {
@@ -41,6 +48,7 @@ export function getArtistRelatedArtists(artistID) {
     id: artistID
   });
 }
+
 export function ipLocationAPI() {
   return axios('http://ip-api.com/json');
 }

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, getVenueAPI} from '../models/api';
+import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
+
 
 export default class Show extends Component {
 
@@ -111,6 +112,7 @@ export default class Show extends Component {
     // console.log(bands)
     if(bands){
       bands.map((artist,index) => {
+
         getArtistAlbumsAPI(artist.id).then(albums => {
           const albumArt = albums.data.items[0].images[0].url
           if(albumArt) {
@@ -119,6 +121,8 @@ export default class Show extends Component {
             this.setState({bands: bands});
           }
         })
+
+        LastFM_getInfoAPI(artist.name).then(info => console.log(info))
 
         artistTracksAPI(artist.id,"US").then(artistTracks => {
           const track = artistTracks.data.tracks[0]
