@@ -3,9 +3,9 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {geolocationAPI, ipLocationAPI} from '../models/api'
 import {fetchShows} from '../actions/shows'
+import {setLocation} from '../actions/location'
 import {select_show} from '../actions/select_show'
 import {getMyInfo, setTokens} from '../actions/spotify'
-import {setLocation} from '../actions/location'
 import ShowList from '../components/ShowList'
 import DrawMap from '../components/DrawMap'
 
