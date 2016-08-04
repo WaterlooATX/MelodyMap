@@ -90,9 +90,9 @@ const LastFM = require("./models/m_lastFM")
 
 let LastFM_getInfos = 0;
 router.post('/LastFM.getInfo', function(req, res) {
-  LastFM.getInfo(req.body.name).then((data) => {
+  LastFM.getInfo(req.body.name).then((obj) => {
     console.log(`/LastFM.getInfo ${++LastFM_getInfos}`)
-    res.send(data)
+    res.send(obj)
   }).catch((error) => {
     console.log("error", error)
   })
