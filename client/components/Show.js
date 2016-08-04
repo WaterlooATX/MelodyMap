@@ -13,7 +13,8 @@ export default class Show extends Component {
       bands : [],
       previewTrack: [],
       clicked: false,
-      venueInfo: null
+      venueInfo: null,
+      songPlay: false
     }
   }
 
@@ -43,7 +44,7 @@ export default class Show extends Component {
 
 
                {this.state.previewTrack[0] ?
-                <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound}>
+                <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
                 <audio src={this.state.previewTrack[0].preview}>
                 </audio></i> : <i className="fa fa-volume-up  fa-3x" aria-hidden="true"></i>}
                <p className="artist">{ props.artists[0].displayName }</p>
@@ -65,10 +66,13 @@ export default class Show extends Component {
        var playButton = event.target;
        var parent = playButton.parentElement;
        var audioElem = parent.getElementsByTagName('audio')[0];
-       if (audioElem.paused) {
+       if (this.state.songPlay === false) {
           playButton.className = "fa fa-pause fa-3x";
+          this.setState({songPlay : true})
           audioElem.play();
+          console.log("songplay", this.state.songPlay)
        } else {
+          this.setState({songPlay : false})
           playButton.className = "fa fa-volume-up fa-3x";
           audioElem.pause();
        }
