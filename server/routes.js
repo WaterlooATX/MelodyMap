@@ -86,11 +86,21 @@ router.get('/callback/', (req, res) => {
 //-----------------------------------------------------//
 const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
+const LastFM = require("./models/m_lastFM")
+
+let LastFM_getInfos = 0;
+router.post('/LastFM.getInfo', function(req, res) {
+  LastFM.getInfo(req.body.name).then((data) => {
+    console.log(`/LastFM.getInfo ${++LastFM_getInfos}`)
+    res.send(data)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
 
 // getArtistRelatedArtists
 let getArtistRelatedArtists = 0;
 router.post('/getArtistRelatedArtists', function(req, res) {
-  console.log(req.body)
   Songkick.getVenue(req.body.id).then((data) => {
     console.log(`/getArtistRelatedArtists ${++getArtistRelatedArtists}`)
     res.send(data)
@@ -101,7 +111,6 @@ router.post('/getArtistRelatedArtists', function(req, res) {
 
 let VenueCount = 0;
 router.post('/getVenue', function(req, res) {
-  console.log(req.body)
   Songkick.getVenue(req.body.id).then((data) => {
     console.log(`/getVenue ${++VenueCount}`)
     res.send(data)
