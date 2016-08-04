@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
-import NavLogin from './NavLogin';
-import UserLogin from './UserLogin';
 import {getMyInfo, setTokens} from '../actions/spotify'
-import App from '../containers/App';
+import NavLogin from '../components/NavLogin';
+import UserLogin from '../components/UserLogin';
+
 
 
 
@@ -30,8 +30,8 @@ export default class NavBar extends Component {
                 {/* <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
-              <ul>  
-              {!this.props.loggedIn ?        
+              <ul>
+              {!this.props.loggedIn ?
                 <NavLogin/>
                 :
                 <UserLogin spotifyData={this.props.spotifyData}/>

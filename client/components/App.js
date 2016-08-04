@@ -6,21 +6,23 @@ import {select_show} from '../actions/select_show'
 import {geolocationAPI, ipLocationAPI} from '../models/api'
 import {getMyInfo, setTokens} from '../actions/spotify'
 import {setLocation} from '../actions/location'
-import NavBar from '../components/NavBar'
+import NavBar from '../containers/NavBar'
 
 
 class App extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
-      location: {long: null , lat: null},
       loggedIn: false,
       spotifyData: {username: '', image: ''},
     }
+
   }
 
   componentDidMount() {
+
     ipLocationAPI().then(this._setNewCoords.bind(this))
     geolocationAPI(this._setNewCoords.bind(this))
     // grab url, send accessToken/refreshToken to actions
@@ -30,14 +32,14 @@ class App extends Component {
     if(url[5]){
       this.setState({loggedIn: true});
       this.props.setTokens(url[5], url[6]);
-      
-      this.props.getMyInfo().then(function(data){  
-        {data.payload.display_name || data.payload.images[0] ? 
+
+      this.props.getMyInfo().then(function(data){
+        {data.payload.display_name || data.payload.images[0] ?
           self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
           :
           self.setState({spotifyData: {username: data.payload.id, image: 'http://assets.audiomack.com/default-artist-image.jpg'}})
         }
-      })   
+      })
     }
   }
 
@@ -49,6 +51,7 @@ class App extends Component {
   }
 
   render() {
+    {console.log('this.props ' , this.props)}
     return (
       <div>
         <NavBar loggedIn={this.state.loggedIn} spotifyData={this.state.spotifyData}/>
