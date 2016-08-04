@@ -79,9 +79,12 @@ export default class Show extends Component {
       artistInfoAPI(artist.displayName).then( obj => {
         const artist = obj.data[0]
         if(artist) {
+          console.log(artist)
+          // only set img for head artist
           this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
 
           let info = {
+            spotifyOpen: artist.external_url.spotify,
             id: artist.id,
             name: artist.name,
             uri: artist.uri,
@@ -158,7 +161,7 @@ class Bands extends Component {
       .sort((a, b) => b.followers - a.followers)
       .map((band,index) => {
         return (
-          <Band key ={index} band={band} venue={this.props.venue}/>
+          <Band key ={index} band={band}/>
         )
       })
     }
@@ -172,7 +175,6 @@ class Bands extends Component {
       const temp = {
         id: this.props.songkick.venue.id,
         ageRestriction: this.props.songkick.ageRestriction || "none",
-        popularity: this.props.songkick.popularity,
         capacity: VENUE.capacity,
         street: VENUE.street,
         geo: {lat: VENUE.lat, long: VENUE.lng},
