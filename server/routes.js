@@ -88,6 +88,46 @@ const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
 const LastFM = require("./models/m_lastFM")
 
+let Songkick_getEventSetlist = 0;
+router.post('/Songkick_getMetroAreaCalendar', function(req, res) {
+  Songkick.getInfo(req.body.id).then((obj) => {
+    console.log(`/Songkick_getEventSetlist ${++Songkick_getEventSetlist}`)
+    res.send(obj)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
+let Songkick_getMetroAreaCalendar = 0;
+router.post('/Songkick_getMetroAreaCalendar', function(req, res) {
+  Songkick.getInfo(req.body.id).then((obj) => {
+    console.log(`/Songkick_getMetroAreaCalendar ${++Songkick_getMetroAreaCalendar}`)
+    res.send(obj)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
+let Songkick_getVenueCalendar = 0;
+router.post('/Songkick_getVenueCalendar', function(req, res) {
+  Songkick.getInfo(req.body.id).then((obj) => {
+    console.log(`/Songkick_getVenueCalendar ${++Songkick_getVenueCalendar}`)
+    res.send(obj)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
+let Songkick_getArtistCalendar = 0;
+router.post('/Songkick_getArtistCalendar', function(req, res) {
+  Songkick.getInfo(req.body.id).then((obj) => {
+    console.log(`/Songkick_getArtistCalendar ${++Songkick_getArtistCalendar}`)
+    res.send(obj)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
 let LastFM_getInfos = 0;
 router.post('/LastFM.getInfo', function(req, res) {
   LastFM.getInfo(req.body.name).then((obj) => {
@@ -140,27 +180,22 @@ router.post('/getArtistAlbums', function(req, res) {
 
 let artistInfoCount = 0;
 router.post('/artistInfo', function(req, res) {
-
   Spotify.searchArtists(req.body.name).then((data) => {
-
-      console.log(`/artistInfo ${++artistInfoCount}`)
-      res.send(data)
-    })
-    .catch((error) => {
-      console.log("error", error)
-    })
+    console.log(`/artistInfo ${++artistInfoCount}`)
+    res.send(data)
+  }).catch((error) => {
+    console.log("error", error)
+  })
 })
+
 let artistTracksCount = 0;
 router.post('/artistTracks', function(req, res) {
   Spotify.getArtistTopTracks(req.body.id, req.body.code).then((data) => {
-      console.log(`/artistTracks ${++artistTracksCount}`)
-      res.send(data)
-    })
-    .catch((error) => {
-      console.log("error", error)
-    })
+    console.log(`/artistTracks ${++artistTracksCount}`)
+    res.send(data)
+  }).catch((error) => {
+    console.log("error", error)
+  })
 })
-
-
 
 module.exports = router;
