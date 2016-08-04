@@ -106,3 +106,7 @@ h4 img {
 .progress-bar {
   height: 5px;
 }
+#accordion-album-band-name {
+  padding: 5px;
+  margin-left: 55px;
+}
