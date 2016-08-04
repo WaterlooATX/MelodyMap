@@ -25,6 +25,21 @@ export function Spotify_getArtistTopTracksAPI(artistID, countryCode) {
   });
 }
 
+export function getArtistAlbumsAPI(artistID) {
+  return axios.post('/getArtistAlbums', {
+    id: artistID
+  });
+}
+
+export function Songkick_getSimilarArtistsAPI(artistID) {
+  return axios.post('/Songkick_getSimilarArtists', {
+
+export function getArtistRelatedArtists(artistID) {
+  return axios.post('/getArtistRelatedArtists', {
+    id: artistID
+  });
+}
+
 export function fetchShowsAPI(long, lat) {
   return axios.post("/fetchShows", {
     long: long,
@@ -32,20 +47,8 @@ export function fetchShowsAPI(long, lat) {
   });
 }
 
-export function getArtistAlbumsAPI(artistID) {
-  return axios.post('/getArtistAlbums', {
-    id: artistID
-  });
-}
-
 export function geolocationAPI(success, fail, options) {
   return navigator.geolocation.getCurrentPosition(success, fail, options);
-}
-
-export function Songkick_getSimilarArtistsAPI(artistID) {
-  return axios.post('/Songkick_getSimilarArtists', {
-    id: artistID
-  });
 }
 
 export function ipLocationAPI() {
