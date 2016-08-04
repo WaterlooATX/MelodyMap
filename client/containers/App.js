@@ -31,10 +31,14 @@ class App extends Component {
       this.setState({loggedIn: true});
       this.props.setTokens(url[5], url[6]);
       
-      this.props.getMyInfo().then(function(data){        
-         self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
-      })
-    }   
+      this.props.getMyInfo().then(function(data){  
+        {data.payload.display_name || data.payload.images[0] ? 
+          self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
+          :
+          self.setState({spotifyData: {username: data.payload.id, image: 'http://assets.audiomack.com/default-artist-image.jpg'}})
+        }
+      })   
+    }
   }
 
 
