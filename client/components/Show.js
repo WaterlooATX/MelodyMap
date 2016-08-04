@@ -236,6 +236,7 @@ class Band extends Component {
                     "boxShadow": "6px 6px 10px 0px rgba(0, 0, 0, 1)"
                   }
     return (
+      <div>
       <div className="accordion-band">
         {/*
         <Link
@@ -273,6 +274,9 @@ class Band extends Component {
           </div>
         </div>
       </div>
+      <div id="accordion-album-band-name"><b>{band.name}</b></div>
+      </div>
+
     )
   }
 }
