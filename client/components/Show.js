@@ -190,7 +190,7 @@ class Bands extends Component {
 
     return (
       <div>
-        <div className="accordion-venue">@{ this.props.venue }</div>
+        {/* <div className="accordion-venue">@{ this.props.venue }</div> */}
         {bands}
       </div>
     )
@@ -204,13 +204,14 @@ class Band extends Component {
     const Style = {
                     "height": "200px",
                     "width": "200px",
+
                     "borderRadius": "500px",
                     "WebkitBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
                     "MozBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
                     "boxShadow": "6px 6px 10px 0px rgba(0, 0, 0, 1)"
                   }
     return (
-      // <div className="accordion-band">
+      <div className="accordion-band">
         {/*
         <Link
           to={{
