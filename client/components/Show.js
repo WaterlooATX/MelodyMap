@@ -54,7 +54,7 @@ export default class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={this.state.bands} venue={props.venue} venueInfo={this.state.venueInfo}/>
+              <Bands bands={this.state.bands} venue={props.venue} venueInfo={this.state.venueInfo} songkick={props.songkick}/>
             </div>
         </div>
       </div>
@@ -75,7 +75,6 @@ export default class Show extends Component {
     }
 
   _spotifyInfo(artists){
-    // arrayvar: this.state.arrayvar.concat([newelement])
     artists.forEach(artist => {
       artistInfoAPI(artist.displayName).then( obj => {
         const artist = obj.data[0]
@@ -99,9 +98,10 @@ export default class Show extends Component {
   }
 
   _spotifyTracks() {
-    getVenueAPI("17522").then(venue => {
+    getVenueAPI(this.props.venueID).then(venue => {
       this.setState({venueInfo: venue.data})
     })
+
 
     const bands = this.state.bands
     // console.log(bands)
@@ -166,6 +166,27 @@ class Bands extends Component {
 
   render() {
     const bands = this._createBand()
+    // create VENUE obj
+    let VENUE = this.props.venueInfo
+    if(VENUE) {
+      const temp = {
+        id: this.props.songkick.venue.id,
+        ageRestriction: this.props.songkick.ageRestriction || "none",
+        popularity: this.props.songkick.popularity,
+        capacity: VENUE.capacity,
+        street: VENUE.street,
+        geo: {lat: VENUE.lat, long: VENUE.lng},
+        city: VENUE.city.displayName,
+        state: VENUE.city.state.displayName,
+        website: VENUE.website,
+        name: VENUE.displayName
+      }
+      VENUE = temp
+      console.log(VENUE)
+    }
+
+
+
     return (
       <div>
         <div className="accordion-venue">@{ this.props.venue }</div>
@@ -193,7 +214,7 @@ class Band extends Component {
           }}
           activeClassName='active'>{band.name}
         </Link>
-         Routes to VenueDetail for clicked venue 
+         Routes to VenueDetail for clicked venue
 
         <div></div>
 
@@ -213,7 +234,7 @@ class Band extends Component {
         <p>uri: {band.uri}</p>
 
         <br></br>
-        <br></br>        
+        <br></br>
 
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
