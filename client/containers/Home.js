@@ -3,9 +3,9 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {geolocationAPI, ipLocationAPI} from '../models/api'
 import {fetchShows} from '../actions/shows'
-import {select_show} from '../actions/select_show'
-import {getMyInfo, setTokens} from '../actions/spotify'
 import {setLocation} from '../actions/location'
+import {selectShow} from '../actions/select_show'
+import {getMyInfo, setTokens} from '../actions/spotify'
 import ShowList from '../components/ShowList'
 import DrawMap from '../components/DrawMap'
 
@@ -30,7 +30,7 @@ class Home extends Component {
             <ShowList shows={ this.props.shows } location={{ long: this.props.location.long , lat:  this.props.location.lat }} />
           </div>
           <div className="col-sm-8 sidenav">
-            <DrawMap shows={ this.props.shows } location={{ long:  this.props.location.long , lat: this.props.location.lat }} selectedShow={this.props.selectedShow} />
+            <DrawMap shows={ this.props.shows } location={{ long:  this.props.location.long , lat: this.props.location.lat }} selectedShow={ this.props.selectedShow } selectShow={ this.props.selectShow } />
           </div>
         </div>
       </div>
@@ -39,6 +39,6 @@ class Home extends Component {
 
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, setLocation}, dispatch);
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, selectShow: state.selectShow, location: state.location}};
+const mapDispatchToProps = (dispatch) => bindActionCreators({fetchShows, setLocation, selectShow}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
