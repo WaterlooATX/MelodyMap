@@ -70,3 +70,27 @@ h4 img {
   padding-top: 5px;
   font-size: 1.5em;
 }
+
+.left{
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.right {
+  display: inline-block;
+  float: right;
+}
+.marker {
+  display: inline-block;
+}
+#rightBtn {
+  margin-top: 5px;
+  padding: 8px;
+  width: 100%;
+}
+#venueName {
+  font-size: 1.7em;
+}
+#marker {
+  font-size: 40px;
+}
