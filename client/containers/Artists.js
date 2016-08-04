@@ -19,7 +19,7 @@ export default class Artists extends Component {
       videos: [],
       selectedVideo: null,
     }
-    this.videoSearch('bunnies in cups')
+    this.videoSearch('kygo')
   }
 
   videoSearch(term){
@@ -34,21 +34,11 @@ export default class Artists extends Component {
   render() {
 
     const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 300)
-    const stranger = document.getElementsByClassName('row content').classList
-    console.log(stranger)
-    //stranger.contains('row content') ? stranger.remove('row content')
 
     return (
-      <div className = 'notRow'>
+      <div>
         <div>
           <h1>List of Artists</h1>
-        <div>
-          <SearchBar onSearchTermChange={videoSearch}/>
-          <VideoDetail video={this.state.selectedVideo} />
-          <VideoList 
-              onVideoSelect={selectedVideo => this.setState({selectedVideo})}
-              videos={this.state.videos} />
-        </div>
           <h5>
             Default displayed artists could be the artists from the shows that came from the same API call for showlist on the home page.
           </h5>
@@ -64,6 +54,13 @@ export default class Artists extends Component {
             <li>Brief intro or bio</li>
             <li>etc</li>
           </ul>
+        <div>
+          <SearchBar onSearchTermChange={videoSearch}/>
+          <VideoDetail video={this.state.selectedVideo} />
+          <VideoList 
+              onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+              videos={this.state.videos} />
+        </div>
         </div>
       </div>
     )

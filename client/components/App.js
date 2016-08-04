@@ -6,8 +6,8 @@ const App = (props) => {
   return (
     <div>
       <NavBar />
-      <div className="container-fluid text-center">
-        <div className="row content">
+      <div className="temp">
+        <div className="temp">
           { props.children }
         </div>
       </div>
