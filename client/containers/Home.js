@@ -24,12 +24,14 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <div className="col-sm-4 text-left Main">
-          <ShowList shows={ this.props.shows } location={{ long: this.props.location.long , lat:  this.props.location.lat }} />
-        </div>
-        <div className="col-sm-8 sidenav">
-          <DrawMap shows={ this.props.shows } location={{ long:  this.props.location.long , lat: this.props.location.lat }} selectedShow={this.props.selectedShow} />
+      <div className="container-fluid text-center">
+        <div className='row content'>
+          <div className="col-sm-4 text-left Main">
+            <ShowList shows={ this.props.shows } location={{ long: this.props.location.long , lat:  this.props.location.lat }} />
+          </div>
+          <div className="col-sm-8 sidenav">
+            <DrawMap shows={ this.props.shows } location={{ long:  this.props.location.long , lat: this.props.location.lat }} selectedShow={this.props.selectedShow} />
+          </div>
         </div>
       </div>
     )
