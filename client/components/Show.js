@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, getVenueAPI} from '../models/api';
+import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
+
 
 export default class Show extends Component {
 
@@ -70,7 +71,6 @@ export default class Show extends Component {
           playButton.className = "fa fa-pause fa-3x";
           this.setState({songPlay : true})
           audioElem.play();
-          console.log("songplay", this.state.songPlay)
        } else {
           this.setState({songPlay : false})
           playButton.className = "fa fa-volume-up fa-3x";
@@ -111,11 +111,22 @@ export default class Show extends Component {
     // console.log(bands)
     if(bands){
       bands.map((artist,index) => {
+
         getArtistAlbumsAPI(artist.id).then(albums => {
           const albumArt = albums.data.items[0].images[0].url
           if(albumArt) {
             let bands = this.state.bands;
             bands[index].albumArt = albumArt;
+            this.setState({bands: bands});
+          }
+        })
+
+        LastFM_getInfoAPI(artist.name).then(info => {
+          const artistData = info.data.artist
+          if(artistData) {
+
+            let bands = this.state.bands;
+            bands[index].LastFM_getInfoAPI = artistData;
             this.setState({bands: bands});
           }
         })
@@ -267,7 +278,7 @@ class Band extends Component {
 
         <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
         <div className='right' id="popularity">
-          <div id="accordion-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris justo mauris, hendrerit ut nisi eu, bibendum auctor nisi. Pellentesque ut tortor vel ex consequat placerat in id lacus.</div>
+          <div id="accordion-text">{band.LastFM_getInfoAPI ? band.LastFM_getInfoAPI.bio.content ? band.LastFM_getInfoAPI.bio.content .slice(0,225): "No Bio" : null}</div>
             <div className="text-center">{`Popularity ${band.popularity}`}</div>
           <div className="progress">
             <div className="progress-bar" role="progressbar" aria-valuenow={band.popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${band.popularity}%`}}></div>

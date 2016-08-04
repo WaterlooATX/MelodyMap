@@ -3,8 +3,6 @@ import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-map
 import {getDistanceFromLatLonInKm} from "../models/getDistanceFromLatLonInKm"
 
 const DrawMap = (props) => {
-
-  console.log('props', props);
   let _Map;
 
   function _findClosestShow() {
