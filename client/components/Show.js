@@ -54,7 +54,7 @@ export default class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={this.state.bands} venue={props.venue} venueInfo={this.state.venueInfo} songkick={props.songkick}/>
+              <Bands bands={this.state.bands} doorsOpen={props.doorsOpen} venue={props.venue} venueInfo={this.state.venueInfo} songkick={props.songkick}/>
             </div>
         </div>
       </div>
@@ -167,7 +167,7 @@ class Bands extends Component {
   render() {
     const bands = this._createBand()
     // create VENUE obj
-    let VENUE = this.props.venueInfo
+    var VENUE = this.props.venueInfo
     if(VENUE) {
       const temp = {
         id: this.props.songkick.venue.id,
@@ -178,7 +178,8 @@ class Bands extends Component {
         city: VENUE.city.displayName,
         state: VENUE.city.state.displayName,
         website: VENUE.website,
-        name: VENUE.displayName
+        name: VENUE.displayName,
+        address: `${VENUE.street} St, ${VENUE.city.displayName},${VENUE.city.state.displayName}`
       }
       VENUE = temp
     }
@@ -187,8 +188,33 @@ class Bands extends Component {
 
     return (
       <div>
-        {/* <div className="accordion-venue">@{ this.props.venue }</div> */}
+        {VENUE ? <AccordionTitle venue={VENUE} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/> : null}
         {bands}
+      </div>
+    )
+  }
+}
+class AccordionTitle extends Component {
+  render() {
+    return (
+      <div >
+        <div className="marker">
+          <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
+        </div>
+        <div className="left">
+          <div id="venueName">
+            {this.props.venue.name}
+          </div>
+          <div id="venueAdress">
+            {this.props.venue.address}
+          </div>
+        </div>
+        <div className="right">
+          <button id="rightBtn" type="button" className="btn btn-success">BUY TICKETS</button>
+          <div id="doorsOpen">
+          {`Doors open at ${this.props.doorsOpen}`}
+          </div>
+        </div>
       </div>
     )
   }
