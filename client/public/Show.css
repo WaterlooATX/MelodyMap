@@ -94,3 +94,15 @@ h4 img {
 #marker {
   font-size: 40px;
 }
+#accordion-text {
+  margin-bottom: 6px;
+}
+#popularity {
+  padding: 25px;
+}
+.progress {
+  height: 5px;
+}
+.progress-bar {
+  height: 5px;
+}

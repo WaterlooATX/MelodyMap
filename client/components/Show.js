@@ -192,7 +192,7 @@ class Bands extends Component {
 
     return (
       <div>
-        {VENUE ? <AccordionTitle venue={VENUE} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/> : null}
+        <AccordionTitle venue={VENUE} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
         {bands}
       </div>
     )
@@ -207,10 +207,10 @@ class AccordionTitle extends Component {
         </div>
         <div className="left">
           <div id="venueName">
-            {this.props.venue.name}
+            {this.props.venue ? this.props.venue.name : "loading"}
           </div>
           <div id="venueAdress">
-            {this.props.venue.address}
+            {this.props.venue ? this.props.venue.address : "loading"}
           </div>
         </div>
         <div className="right">
@@ -265,16 +265,14 @@ class Band extends Component {
         */}
 
         <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
-        {/*<p>id: {band.id}</p>
-        <p>uri: {band.uri}</p>
-
-        <br></br>
-        <br></br>
-
-        <p>popularity: {band.popularity}</p>
-        <p>followers: {band.followers}</p>
-        <p>genres: {band.genres}</p>*/}
-        {/* <div className="accordion-artist">{ band.name }</div> */}
+        <div className='right' id="popularity">
+          <div id="accordion-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris justo mauris, hendrerit ut nisi eu, bibendum auctor nisi. Pellentesque ut tortor vel ex consequat placerat in id lacus.</div>
+            <div className="text-center">{`Popularity ${band.popularity}`}</div>
+          <div className="progress">
+            <div className="progress-bar" role="progressbar" aria-valuenow={band.popularity} aria-valuemin="0" aria-valuemax="100" style={{width:band.popularity}}>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
