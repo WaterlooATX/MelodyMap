@@ -79,12 +79,11 @@ export default class Show extends Component {
       artistInfoAPI(artist.displayName).then( obj => {
         const artist = obj.data[0]
         if(artist) {
-          console.log(artist)
-          // only set img for head artist
+          // CHANGE only set img for head artist
           this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
 
           let info = {
-            spotifyOpen: artist.external_url.spotify,
+            spotifyOpen: artist.external_urls.spotify,
             id: artist.id,
             name: artist.name,
             uri: artist.uri,
@@ -202,9 +201,16 @@ class Band extends Component {
   render() {
     const band = this.props.band;
     // console.log('this.props.band.name' , band.name);
-
+    const Style = {
+                    "height": "200px",
+                    "width": "200px",
+                    "borderRadius": "500px",
+                    "WebkitBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
+                    "MozBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
+                    "boxShadow": "6px 6px 10px 0px rgba(0, 0, 0, 1)"
+                  }
     return (
-      <div className="accordion-band">
+      // <div className="accordion-band">
         {/*
         <Link
           to={{
@@ -231,7 +237,8 @@ class Band extends Component {
           activeClassName='active'>{this.props.venue}
         </Link>
         */}
-        <img className="accordion-album-art" src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} height="200" width="200" />
+
+        <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
         {/*<p>id: {band.id}</p>
         <p>uri: {band.uri}</p>
 
@@ -241,7 +248,7 @@ class Band extends Component {
         <p>popularity: {band.popularity}</p>
         <p>followers: {band.followers}</p>
         <p>genres: {band.genres}</p>*/}
-        <div className="accordion-artist">{ band.name }</div>
+        {/* <div className="accordion-artist">{ band.name }</div> */}
       </div>
     )
   }
