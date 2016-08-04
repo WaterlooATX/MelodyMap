@@ -34,6 +34,7 @@ export default class ShowList extends Component {
   _createShows(shows) {
     return shows.map((show, i) => { // 50 shows
       return <Show
+        songkick={show}
         ageRestriction={show.ageRestriction}
         artists= {show.performance}
         city={show.location.city}
