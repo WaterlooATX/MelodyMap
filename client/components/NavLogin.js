@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-export default function NavLogin() {
+const NavLogin = (props) => {
   return (
     <div>
       <button type='button' className='spotify'>
@@ -11,3 +10,4 @@ export default function NavLogin() {
   );
 }
 
+export default NavLogin;
