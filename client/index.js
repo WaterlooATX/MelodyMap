@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router';
 import ReduxPromise from 'redux-promise'
-import NavBar from './components/NavBar';
-import App from './containers/App';
-import Artists from './components/Artists';
-import Venues from './components/Venues';
-import ArtistDetail from './components/ArtistDetail';
-import VenueDetail from './components/VenueDetail';
+import NavBar from './containers/NavBar';
+import App from './components/App';
+import Artists from './containers/Artists';
+import Venues from './containers/Venues';
+import ArtistDetail from './containers/ArtistDetail';
+import VenueDetail from './containers/VenueDetail';
 import NavLogin from './components/NavLogin';
 import Error from './components/Error';
 import Home from './containers/Home';
@@ -29,7 +29,9 @@ ReactDOM.render(
           <Route path='/' component={App} >
             <IndexRoute component={Home} />
 	          <Route path="artists" component={Artists} />
-	          <Route path="venues" component={Venues} />
+            <Route path="venues" component={Venues} />
+	          <Route path="artistDetail" component={ArtistDetail} />
+            <Route path="venueDetail" component={VenueDetail} />
           </Route>
         </Router>
   </Provider>),

@@ -4,9 +4,9 @@ import {connect} from "react-redux"
 import {fetchShows} from '../actions/shows'
 import {select_show} from '../actions/select_show'
 import {getMyInfo, setTokens} from '../actions/spotify'
-import ShowList from '../components/ShowList'
-import DrawMap from './DrawMap'
 import {setLocation} from '../actions/location'
+import ShowList from '../components/ShowList'
+import DrawMap from '../components/DrawMap'
 
 class Home extends Component {
   render() {
