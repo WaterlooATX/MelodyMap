@@ -89,7 +89,7 @@ const Spotify = require("./models/m_spotifyApi")
 const LastFM = require("./models/m_lastFM")
 
 let Songkick_getEventSetlist = 0;
-router.post('/Songkick_getMetroAreaCalendar', function(req, res) {
+router.post('/Songkick_getEventSetlist', function(req, res) {
   Songkick.getInfo(req.body.id).then((obj) => {
     console.log(`/Songkick_getEventSetlist ${++Songkick_getEventSetlist}`)
     res.send(obj)
