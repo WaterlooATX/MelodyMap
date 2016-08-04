@@ -6,12 +6,9 @@ const API = require('last.fm.api'),
         apiSecret: '3e43c10b9e2e55a1c45952c13ad150cd'
     });
 
-api.artist.getInfo({
-	artist: 'Nirvana',
-	username: 'cheweduppunk', // optional
-	lang: 'eng', // optional
-	//autocorrect: 1 // autocorrect is optional
-	//mbid: 'nevermind' Musicbrainz ID (optional)
-})
-	.then(json => { console.log(json); })
-	.catch(err => { console.error(err); });
+
+exports.getInfo = (name) => {
+  return api.artist.getInfo({artist: name})
+    .then(json => { console.log(json); })
+    .catch(err => { console.error(err); });
+}
