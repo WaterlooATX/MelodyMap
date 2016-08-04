@@ -39,7 +39,7 @@ export default class ShowList extends Component {
         artists= {show.performance}
         city={show.location.city}
         displayName={show.displayName}
-        doorsOpen={show.start.time}
+        doorsOpen={show.start.time || 'N/A'}
         id={show.id}
         key={show.id}
         selected={(this.props.selectedShow === show) ? true : false}

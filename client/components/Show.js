@@ -188,7 +188,7 @@ class Bands extends Component {
 
     return (
       <div>
-        {VENUE ? <AccordionTitle venue={VENUE} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/> : null}
+        <AccordionTitle venue={VENUE} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
         {bands}
       </div>
     )
@@ -203,10 +203,10 @@ class AccordionTitle extends Component {
         </div>
         <div className="left">
           <div id="venueName">
-            {this.props.venue.name}
+            {this.props.venue ? this.props.venue.name : "loading"}
           </div>
           <div id="venueAdress">
-            {this.props.venue.address}
+            {this.props.venue ? this.props.venue.address : "loading"}
           </div>
         </div>
         <div className="right">
