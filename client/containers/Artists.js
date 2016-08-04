@@ -1,13 +1,54 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
+import _ from 'lodash';
+import YTSearch from 'youtube-api-search';
 
+import SearchBar from '../components/SearchBar';
+import VideoList from '../components/VideoList';
+import VideoDetail from '../components/VideoDetail';
+
+
+const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 
 export default class Artists extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      videos: [],
+      selectedVideo: null,
+    }
+    this.videoSearch('bunnies in cups')
+  }
+
+  videoSearch(term){
+    YTSearch({key: API_KEY, term: term}, (videos) => {
+      this.setState({
+          videos: videos,
+          selectedVideo: videos[0]
+      })
+    });
+  }
+
   render() {
+
+    const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 300)
+    const stranger = document.getElementsByClassName('row content').classList
+    console.log(stranger)
+    //stranger.contains('row content') ? stranger.remove('row content')
+
     return (
-      <div>
+      <div className = 'notRow'>
         <div>
           <h1>List of Artists</h1>
+        <div>
+          <SearchBar onSearchTermChange={videoSearch}/>
+          <VideoDetail video={this.state.selectedVideo} />
+          <VideoList 
+              onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+              videos={this.state.videos} />
+        </div>
           <h5>
             Default displayed artists could be the artists from the shows that came from the same API call for showlist on the home page.
           </h5>

@@ -35,6 +35,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "google-map-react": "^0.16.3",
+    "lodash": "^4.14.1",
     "middleware": "^1.0.0",
     "moment": "^2.14.1",
     "nodemon": "^1.10.0",
@@ -53,6 +54,7 @@
     "songkick-api": "0.0.2",
     "spotify-web-api-js": "^0.19.3",
     "spotify-web-api-node": "^2.3.5",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "youtube-api-search": "0.0.5"
   }
 }

@@ -10,11 +10,11 @@ export default class ShowList extends Component {
     const shows = this.props.shows[0];
     if (shows) {
       return (
-        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          <div className="panel panel-default">
-            {this._createShows(shows)}
+          <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div className="panel panel-default">
+              {this._createShows(shows)}
+            </div>
           </div>
-        </div>
       )
     } else {
       return <div className="spinner">
