@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function getVenueAPI(venueID) {
   return axios.post('/getVenue', {
-    id : venueID
+    id: venueID
   });
 }
 
@@ -32,7 +32,6 @@ export function fetchShowsAPI(long, lat) {
   });
 }
 
-
 export function getArtistAlbumsAPI(artistID) {
   return axios.post('/getArtistAlbums', {
     id: artistID
@@ -51,4 +50,28 @@ export function getArtistRelatedArtists(artistID) {
 
 export function ipLocationAPI() {
   return axios('http://ip-api.com/json');
+}
+
+export function Songkick_getEventSetlist(eventID) {
+  return axios.post('/Songkick_getEventSetlist', {
+    id: eventID
+  });
+}
+
+export function Songkick_getMetroAreaCalendar(metroID) {
+  return axios.post('/Songkick_getMetroAreaCalendar', {
+    id: metroID
+  });
+}
+
+export function Songkick_getVenueCalendar(venueID) {
+  return axios.post('/Songkick_getVenueCalendar', {
+    id: venueID
+  });
+}
+
+export function Songkick_getArtistCalendar(venueID) {
+  return axios.post('/Songkick_getArtistCalendar', {
+    id: venueID
+  });
 }
