@@ -93,7 +93,6 @@ export default class Show extends Component {
             img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
           }
           this.setState({bands: this.state.bands.concat([info])})
-          return artist.id
         }
       })
     })
@@ -103,7 +102,6 @@ export default class Show extends Component {
     getVenueAPI(this.props.venueID).then(venue => {
       this.setState({venueInfo: venue.data})
     })
-
 
     const bands = this.state.bands
     // console.log(bands)
@@ -174,7 +172,7 @@ class Bands extends Component {
       const temp = {
         id: this.props.songkick.venue.id,
         ageRestriction: this.props.songkick.ageRestriction || "none",
-        capacity: VENUE.capacity,
+        capacity: VENUE.capacity || 'N/A',
         street: VENUE.street,
         geo: {lat: VENUE.lat, long: VENUE.lng},
         city: VENUE.city.displayName,
@@ -183,7 +181,6 @@ class Bands extends Component {
         name: VENUE.displayName
       }
       VENUE = temp
-      console.log(VENUE)
     }
 
 
@@ -200,11 +197,9 @@ class Bands extends Component {
 class Band extends Component {
   render() {
     const band = this.props.band;
-    // console.log('this.props.band.name' , band.name);
     const Style = {
                     "height": "200px",
                     "width": "200px",
-
                     "borderRadius": "500px",
                     "WebkitBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
                     "MozBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
