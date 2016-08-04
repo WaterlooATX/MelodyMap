@@ -10,23 +10,25 @@ h4 img {
   padding: 0 10px;
 }
 
-#accordion .panel-heading { padding: 0;}
+#accordion .panel-heading {
+  padding: 0;
+}
 
 #accordion .panel-title > a {
-    border-radius: 0px !important;
-    height: 75px;
-    padding: 4px;
-    line-height: 120%;
-    display: block;
-    outline: none;
-    text-decoration: none;
-    text-transform: none;
+  border-radius: 0 !important;
+  height: 75px;
+  padding: 4px;
+  line-height: 120%;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  text-transform: none;
 }
 
 .panel-title a p.artist {
-  color: black;
+  color: #000;
   font-size: 1.7em;
-  font-weight:bold;
+  font-weight: 700;
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -36,10 +38,10 @@ h4 img {
 }
 
 .panel-title a p.date {
-  color: black;
+  color: #000;
 }
 
-.panel-title .fa  {
+.panel-title .fa {
   margin-top: 8px;
   margin-right: 8px;
   float: right;
@@ -71,7 +73,7 @@ h4 img {
   font-size: 1.5em;
 }
 
-.left{
+.left {
   display: inline-block;
   margin-left: 10px;
 }
@@ -80,32 +82,41 @@ h4 img {
   display: inline-block;
   float: right;
 }
+
 .marker {
   display: inline-block;
 }
+
 #rightBtn {
   margin-top: 5px;
   padding: 8px;
   width: 100%;
 }
+
 #venueName {
   font-size: 1.7em;
 }
+
 #marker {
   font-size: 40px;
 }
+
 #accordion-text {
   margin-bottom: 6px;
 }
+
 #popularity {
   padding: 25px;
 }
+
 .progress {
   height: 5px;
 }
+
 .progress-bar {
   height: 5px;
 }
+
 #accordion-album-band-name {
   padding: 5px;
   margin-left: 55px;
