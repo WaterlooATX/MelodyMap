@@ -5,6 +5,7 @@ import {Link} from "react-router";
 import {getMyInfo, setTokens} from '../actions/spotify'
 import NavLogin from '../components/NavLogin';
 import UserLogin from '../components/UserLogin';
+import {followArtist} from '../models/spotify'
 
 
 
@@ -25,6 +26,8 @@ export default class NavBar extends Component {
     const url = document.location.href.split('/')
     const self = this;
     if(url[5]){
+      //Spotify call to follow artist
+      // followArtist(url[5],'3TNt4aUIxgfy9aoaft5Jj2')
       this.setState({loggedIn: true});
       this.props.setTokens(url[5], url[6]);
 

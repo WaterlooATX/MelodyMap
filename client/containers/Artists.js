@@ -40,7 +40,7 @@ export default class Artists extends Component {
           <h1>List of Artists</h1>
           <h5>
             Default displayed artists could be the artists from the shows that came from the same API call for showlist on the home page.
-            <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=detail&theme=light&show-count=0" width="300" height="56" scrolling="no"></iframe>
+            <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:23fqKkggKUBHNkbKtXEls4&size=detail&theme=light&show-count=0" width="300" height="56" scrolling="no"></iframe>
           </h5>
           <ul>
             <p>We should be able to search for artists</p>
