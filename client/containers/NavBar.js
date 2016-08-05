@@ -8,10 +8,8 @@ import UserLogin from '../components/UserLogin';
 import {followArtist} from '../models/spotify'
 
 
-
-
-
 export default class NavBar extends Component {
+
   constructor(props) {
     super(props)
 
@@ -75,6 +73,7 @@ export default class NavBar extends Component {
       </div>
     )
   }
+
 }
 
 class NavLink extends Component{
