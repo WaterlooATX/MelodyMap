@@ -1,14 +1,14 @@
 import React, {Component} from "react"
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
-import Show from "./Show"
+import Show from "../containers/Show"
 import {selectShow} from '../actions/select_show'
 
 export default class ShowList extends Component {
 
   render() {
-    const shows = this.props.shows[0];
-    if (shows) {
+    const shows = this.props.shows;
+    if (shows.length > 0) {
       return (
           <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div className="panel panel-default">
@@ -26,7 +26,7 @@ export default class ShowList extends Component {
   // This callback is sent to <Show /> as props to grab show id
   // on click and then use it to update selectedShow on state
   _sendToState(arg) {
-    const shows = this.props.shows[0];
+    const shows = this.props.shows;
     let showWithId = shows.filter((show) => show.id === arg);
     this.props.selectShow(showWithId[0]);
   }
@@ -36,7 +36,7 @@ export default class ShowList extends Component {
       return <Show
         songkick={show}
         ageRestriction={show.ageRestriction}
-        artists= {show.performance}
+        showArtists= {show.performance}
         city={show.location.city}
         displayName={show.displayName}
         doorsOpen={show.start.time || 'N/A'}

@@ -7,7 +7,7 @@ const DrawMap = (props) => {
 
   function _findClosestShow() {
     const location = props.location;
-    const shows = props.shows[0];
+    const shows = props.shows;
 
     if (shows) {
       let array = shows.map(show => getDistanceFromLatLonInKm(+location.lat, +location.long, +show.venue.lat, +show.venue.lng));
@@ -29,7 +29,7 @@ const DrawMap = (props) => {
   }
 
   function _createMarkers() {
-    return props.shows[0].map((show, index) => {
+    return props.shows.map((show, index) => {
       return ( <Marker
         key={ index }
         position={ {lat: +show.venue.lat, lng: +show.venue.lng} }
@@ -60,7 +60,7 @@ const DrawMap = (props) => {
             defaultOptions={ {styles: styles, disableDefaultUI: true} }
             center={ _setCenter() }
           >
-            { props.shows[0] ? _createMarkers.call(this) : null }
+            { props.shows ? _createMarkers.call(this) : null }
           </GoogleMap>
         }
       />
