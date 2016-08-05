@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, getVenueAPI, LastFM_getInfoAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 
 
@@ -80,7 +80,7 @@ export default class Show extends Component {
 
   _spotifyInfo(artists){
     artists.forEach(artist => {
-      artistInfoAPI(artist.displayName).then( obj => {
+      Spotify_searchArtistsAPI(artist.displayName).then( obj => {
         const artist = obj.data[0]
         if(artist) {
           // CHANGE only set img for head artist
@@ -103,7 +103,7 @@ export default class Show extends Component {
   }
 
   _spotifyTracks() {
-    getVenueAPI(this.props.venueID).then(venue => {
+    Songkick_getVenueAPI(this.props.venueID).then(venue => {
       this.setState({venueInfo: venue.data})
     })
 
@@ -131,7 +131,7 @@ export default class Show extends Component {
           }
         })
 
-        artistTracksAPI(artist.id,"US").then(artistTracks => {
+        Spotify_getArtistTopTracksAPI(artist.id,"US").then(artistTracks => {
           const track = artistTracks.data.tracks[0]
           if(track) {
             let topTrack = {
