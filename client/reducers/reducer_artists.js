@@ -1,4 +1,4 @@
-import { FETCH_ARTIST } from '../actions/artist'
+import { FETCH_ARTIST } from '../actions/artists'
 
 export default function(state = [], action) {
   switch (action.type) {
