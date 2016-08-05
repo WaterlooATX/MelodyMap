@@ -31,10 +31,12 @@ class Show extends Component {
 
   _spotifyInfo(showArtists){
     let reduxArtists = this.props.artists
-    showArtists.forEach(artist => {
+    showArtists.forEach(Artist => {
 
-       if(!reduxArtists[artist.displayName]){
-        Spotify_searchArtistsAPI(artist.displayName).then( obj => {
+       if(!reduxArtists[Artist.displayName]){
+        reduxArtists[Artist.displayName] = {}
+
+        Spotify_searchArtistsAPI(Artist.displayName).then( obj => { // async
           const artist = obj.data[0]
           if(artist) {
 
@@ -43,20 +45,54 @@ class Show extends Component {
             let Spotify_searchArtistsAPI = {
               spotifyOpen: artist.external_urls.spotify,
               id: artist.id,
-              name: artist.displayName,
+              displayName: Artist.displayName,
+              name: artist.name,
               uri: artist.uri,
               popularity: artist.popularity,
               followers: artist.followers.total,
               genres: artist.genres,
               img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
             }
-            reduxArtists[artist.displayName][Spotify_searchArtistsAPI] = Spotify_searchArtistsAPI
+            //console.log(Artist.displayName,artist.name )
+            reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
+
+            let spotify = Spotify_searchArtistsAPI
+            getArtistAlbumsAPI(spotify.id)
+            .then(albums => {
+              reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = albums.data ? albums.data : null
+            })
+            .catch(reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = null)
+
+            LastFM_getInfoAPI(spotify.name)
+            .then(info => {
+              reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
+            })
+            .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
+
+            Spotify_getArtistTopTracksAPI(spotify.id,"US")
+            .then(artistTracks => {
+              // "http://i.imgur.com/nszu54A.jpg"
+              reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
+            })
+            .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
+
+
+          } else {
+            reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = null
+            LastFM_getInfoAPI(Artist.displayName)
+            .then(info => {
+              reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
+            })
+            .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
           }
+
         })
       }
     })
-    // update redux artist 
+
+    // update redux artist
     redux_Artists(reduxArtists)
+    console.log(this.props.artists)
   }
 
   render() {
@@ -115,44 +151,6 @@ class Show extends Component {
     Songkick_getVenueAPI(this.props.venueID).then(venue => {
       this.setState({venueInfo: venue.data})
     })
-
-    const bands = this.state.bands
-    // console.log(bands)
-    if(bands){
-      bands.map((artist,index) => {
-
-        getArtistAlbumsAPI(artist.id).then(albums => {
-          const albumArt = albums.data.items[0].images[0].url
-          if(albumArt) {
-            let bands = this.state.bands;
-            bands[index].albumArt = albumArt;
-            this.setState({bands: bands});
-          }
-        })
-
-        LastFM_getInfoAPI(artist.name).then(info => {
-          const artistData = info.data.artist
-          if(artistData) {
-
-            let bands = this.state.bands;
-            bands[index].LastFM_getInfoAPI = artistData
-            this.setState({bands: bands});
-          }
-        })
-
-        Spotify_getArtistTopTracksAPI(artist.id,"US").then(artistTracks => {
-          const track = artistTracks.data.tracks[0]
-          if(track) {
-            let topTrack = {
-              preview : track.preview_url ? track.preview_url : "http://i.imgur.com/nszu54A.jpg",
-              album: track.album.name,
-              trackName: track.name
-            }
-            this.setState({previewTrack: this.state.previewTrack.concat([topTrack])})
-          }
-        })
-      })
-    }
   }
 
   // Tests selected show in redux state and conditionally sets
@@ -167,7 +165,7 @@ class Show extends Component {
     this.props.sendToState(this.props.id);
     // get tracks only on click
     if(!this.state.clicked) {
-      this._spotifyTracks();
+      this._spotifyTracks()
       this.setState({clicked: true});
     }
   }
@@ -300,6 +298,6 @@ class Band extends Component {
     )
   }
 }
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch);
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
