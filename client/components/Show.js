@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, getVenueAPI, LastFM_getInfoAPI} from '../models/api';
+import {artistInfoAPI, artistTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 
 
@@ -103,7 +103,7 @@ export default class Show extends Component {
   }
 
   _spotifyTracks() {
-    getVenueAPI(this.props.venueID).then(venue => {
+    Songkick_getVenueAPI(this.props.venueID).then(venue => {
       this.setState({venueInfo: venue.data})
     })
 

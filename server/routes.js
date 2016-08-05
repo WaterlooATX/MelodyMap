@@ -158,10 +158,10 @@ router.post('/Songkick_getSimilarArtists', function(req, res) {
   })
 })
 
-let VenueCount = 0;
-router.post('/getVenue', function(req, res) {
+let Songkick_getVenue = 0;
+router.post('/Songkick_getVenue', function(req, res) {
   Songkick.getVenue(req.body.id).then((data) => {
-    console.log(`/getVenue ${++VenueCount}`)
+    console.log(`/Songkick_getVenue ${++Songkick_getVenue}`)
     res.send(data)
   }).catch((error) => {
     console.log("error", error)
