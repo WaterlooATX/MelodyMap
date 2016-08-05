@@ -42,7 +42,7 @@ export default class GenArtist extends Component {
 						<img src = {this.state.img} alt={props.id} height='65' width='65'/>
 					
 							<Link
-							    to={{ pathname: "/artist", query: {artist: props.displayName}}}
+							    to={ `artist/${props.displayName}`}
 							    activeClassName='active'>{props.displayName}
 							</Link>					
 					</div>
