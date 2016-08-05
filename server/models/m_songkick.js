@@ -34,3 +34,7 @@ exports.getMetroAreaCalendar = (metroID) => {
 exports.getEventSetlist = (eventID) => {
   return client.getEventSetlist(eventID).then(data => data)
 }
+
+exports.getSimilarArtists = (artistID) => {
+	return client.getSimilarArtists(eventID).then(data => data)
+}

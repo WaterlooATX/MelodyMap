@@ -42,8 +42,8 @@ export function geolocationAPI(success, fail, options) {
   return navigator.geolocation.getCurrentPosition(success, fail, options);
 }
 
-export function getArtistRelatedArtists(artistID) {
-  return axios.post('/getArtistRelatedArtists', {
+export function Songkick_getSimilarArtists(artistID) {
+  return axios.post('/Songkick_getSimilarArtists', {
     id: artistID
   });
 }

@@ -90,7 +90,7 @@ const LastFM = require("./models/m_lastFM")
 
 let Songkick_getEventSetlist = 0;
 router.post('/Songkick_getEventSetlist', function(req, res) {
-  Songkick.getInfo(req.body.id).then((obj) => {
+  Songkick.getEventSetlist(req.body.id).then((obj) => {
     console.log(`/Songkick_getEventSetlist ${++Songkick_getEventSetlist}`)
     res.send(obj)
   }).catch((error) => {
@@ -100,7 +100,7 @@ router.post('/Songkick_getEventSetlist', function(req, res) {
 
 let Songkick_getMetroAreaCalendar = 0;
 router.post('/Songkick_getMetroAreaCalendar', function(req, res) {
-  Songkick.getInfo(req.body.id).then((obj) => {
+  Songkick.getMetroAreaCalendar(req.body.id).then((obj) => {
     console.log(`/Songkick_getMetroAreaCalendar ${++Songkick_getMetroAreaCalendar}`)
     res.send(obj)
   }).catch((error) => {
@@ -110,7 +110,7 @@ router.post('/Songkick_getMetroAreaCalendar', function(req, res) {
 
 let Songkick_getVenueCalendar = 0;
 router.post('/Songkick_getVenueCalendar', function(req, res) {
-  Songkick.getInfo(req.body.id).then((obj) => {
+  Songkick.getVenueCalendar(req.body.id).then((obj) => {
     console.log(`/Songkick_getVenueCalendar ${++Songkick_getVenueCalendar}`)
     res.send(obj)
   }).catch((error) => {
@@ -120,7 +120,7 @@ router.post('/Songkick_getVenueCalendar', function(req, res) {
 
 let Songkick_getArtistCalendar = 0;
 router.post('/Songkick_getArtistCalendar', function(req, res) {
-  Songkick.getInfo(req.body.id).then((obj) => {
+  Songkick.getArtistCalendar(req.body.id).then((obj) => {
     console.log(`/Songkick_getArtistCalendar ${++Songkick_getArtistCalendar}`)
     res.send(obj)
   }).catch((error) => {
@@ -138,11 +138,20 @@ router.post('/LastFM.getInfo', function(req, res) {
   })
 })
 
-// getArtistRelatedArtists
-let getArtistRelatedArtists = 0;
-router.post('/getArtistRelatedArtists', function(req, res) {
-  Songkick.getVenue(req.body.id).then((data) => {
-    console.log(`/getArtistRelatedArtists ${++getArtistRelatedArtists}`)
+let Spotify_getArtistRelatedArtists = 0;
+router.post('/Spotify_getArtistRelatedArtists', function(req, res) {
+  Spotify.getArtistRelatedArtists(req.body.id).then((data) => {
+    console.log(`/Spotify_getArtistRelatedArtists ${++Spotify_getArtistRelatedArtists}`)
+    res.send(data)
+  }).catch((error) => {
+    console.log("error", error)
+  })
+})
+
+let Songkick_getSimilarArtists = 0;
+router.post('/Songkick_getSimilarArtists', function(req, res) {
+  Songkick.getSimilarArtists(req.body.id).then((data) => {
+    console.log(`/Songkick_getSimilarArtists ${++Songkick_getSimilarArtists}`)
     res.send(data)
   }).catch((error) => {
     console.log("error", error)
