@@ -12,6 +12,7 @@ export default class GenArtist extends Component {
 		this.state = {
 			img: "http://assets.audiomack.com/default-artist-image.jpg",
 			bands: [],
+			clicked: false
 		}
 	}
 
@@ -21,24 +22,33 @@ export default class GenArtist extends Component {
 
 
 	render(){
-		const props= this.props;
+		const props=this.props;
 		return (
 			<div className="panel-heading" role="tab" id={`heading${props.id}`}>
-				<h4 className = 'panel-title'>
-					<a
+				{
+				//<h4 className = 'panel-title'>
+					 // <a
 						// className={this._checkSelected(this.props.selected)}
-						//onClick={this._onClickHandler.bind(this)}
-						role="button" data-toggle="collapse"
-						data-parent="#accordion"
-						href={`#collapse${props.id}`}
-						aria-expanded="true"
-						aria-controls={`collapse${props.id}`}
+						// onClick={this._onClickHandler.bind(this)}
+						// role="button" data-toggle="collapse"
+						// data-parent="#accordion"
+					 // 	href={`#collapse${props.id}`}
+						// aria-expanded="true"
+						// aria-controls={`collapse${props.id}`}
 
-					>
+					 // >
+					
+					<div>
 						<img src = {this.state.img} alt={props.id} height='65' width='65'/>
-						<p className="artist">{props.displayName}</p>
-					</a>
-				</h4>
+					
+							<Link
+							    to={{ pathname: "/artist", query: {artist: props.displayName}}}
+							    activeClassName='active'>{props.displayName}
+							</Link>					
+					</div>
+					//</a>
+				//</h4>
+					}
 
 			</div>
 		)
@@ -98,10 +108,24 @@ export default class GenArtist extends Component {
 	        }
 	      })
 
-	  })
-		}
+	  	})
+	   }
 	}
 
+	_checkSelected(propsSelected) {
+	  return (propsSelected) ? "active list-group-item" : "list-group-item";
+	}
+
+	// Sends the show's id back to the parent (ShowList.js) on click
+	_onClickHandler(event) {
+	  event.preventDefault();
+	  this.props.sendToState(this.props.id);
+	  // get tracks only on click
+	  if(!this.state.clicked) {
+	    //this._spotifyTracks();
+	    this.setState({clicked: true});
+	  }
+	}
 
 
 
