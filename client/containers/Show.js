@@ -288,6 +288,15 @@ class Band extends Component {
             </div>
           </div>
         </div>
+          //{// <div id="accordion-album-band-name">
+          //   <strong>
+          //     <Link
+          //       to={{ pathname: "/artist", query: {artist: band.name}}}
+          //       activeClassName='active'>{band.name}
+          //   </Link>
+          // </strong>
+          // </div>
+        }
       </div>
     )
   }
