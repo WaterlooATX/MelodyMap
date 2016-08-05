@@ -40,6 +40,7 @@ export default class Artists extends Component {
         displayName={artist.performance[0].displayName}
         id={artist.id}
         key={artist.id}
+        artists= {artist.performance}
         />
     })
   }
