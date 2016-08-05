@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import { Link } from 'react-router';
-import * as Show from './Show';
+import * as Show from '../containers/Show';
 
 
 
@@ -37,14 +37,14 @@ export default class GenArtist extends Component {
 						// aria-controls={`collapse${props.id}`}
 
 					 // >
-					
+
 					<div>
 						<img src = {this.state.img} alt={props.id} height='65' width='65'/>
-					
+
 							<Link
 							    to={ `artist/${props.displayName}`}
 							    activeClassName='active'>{props.displayName}
-							</Link>					
+							</Link>
 					</div>
 					//</a>
 				//</h4>
@@ -131,8 +131,3 @@ export default class GenArtist extends Component {
 
 
 }
-
-
-
-
-     
