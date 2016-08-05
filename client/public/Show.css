@@ -14,6 +14,10 @@ h4 img {
   padding: 0;
 }
 
+.panel-group .panel+.panel {
+    margin-top: -1px;
+}
+
 #accordion .panel-title > a {
   border-radius: 0 !important;
   height: 75px;
@@ -91,9 +95,11 @@ h4 img {
 }
 
 #rightBtn {
-  margin-top: 5px;
-  padding: 8px;
-  width: 100%;
+  margin-top: 0px !important;
+  margin-left: -11px !important;
+  margin-right: -10px !important;
+  /* padding: 8px; */
+  width: 105% !important;
 }
 
 #venueName {
