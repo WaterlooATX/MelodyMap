@@ -30,8 +30,8 @@ ReactDOM.render(
             <IndexRoute component={Home} />
 	          <Route path="artists" component={Artists} />
             <Route path="venues" component={Venues} />
-	          <Route path="artistDetail" component={ArtistDetail} />
-            <Route path="venueDetail" component={VenueDetail} />
+	          <Route path="artist" component={ArtistDetail} />
+            <Route path="venue" component={VenueDetail} />
           </Route>
         </Router>
   </Provider>),
