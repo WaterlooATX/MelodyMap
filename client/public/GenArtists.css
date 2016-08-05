@@ -1,0 +1,124 @@
+h4 img {
+  display: inline-block;
+  float: left;
+  margin-right: 4px;
+}
+
+.panel-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+#accordion .panel-heading {
+  padding: 0;
+}
+
+#accordion .panel-title > .al {
+  border-radius: 0 !important;
+  height: 75px;
+  padding: 4px;
+  line-height: 120%;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.panel-title .al p.artist {
+  color: #000;
+  font-size: 1.7em;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.panel-title .al p.venue {
+  margin-bottom: 2px;
+}
+
+.panel-title .al p.date {
+  color: #000;
+}
+
+.panel-title .fa {
+  margin-top: 8px;
+  margin-right: 8px;
+  float: right;
+}
+
+.accordion-venue {
+  margin: 5px 0;
+  font-size: 2em;
+}
+
+.accordion-band {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 214px;
+}
+
+.accordion-album-art {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.accordion-artist {
+  margin: 7px;
+  padding-top: 5px;
+  font-size: 1.5em;
+}
+
+.left {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.right {
+  display: inline-block;
+  float: right;
+}
+
+.marker {
+  display: inline-block;
+}
+
+#rightBtn {
+  margin-top: 5px;
+  padding: 8px;
+  width: 100%;
+}
+
+#venueName {
+  font-size: 1.7em;
+}
+
+#marker {
+  font-size: 40px;
+}
+
+#accordion-text {
+  margin-bottom: 6px;
+}
+
+#popularity {
+  padding: 25px;
+}
+
+.progress {
+  height: 5px;
+}
+
+.progress-bar {
+  height: 5px;
+}
+
+#accordion-album-band-name {
+  padding: 5px;
+  margin-left: 55px;
+}
+
