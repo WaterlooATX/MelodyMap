@@ -282,7 +282,7 @@ class Band extends Component {
           </div>
           <div className='right popularity'>
             <div className="accordion-text">{bio}</div>
-              <div className="text-center">{`Popularity ${popularity}`}</div>
+              <div className="text-center">{`Popularity`}</div>
             <div className="progress">
               <div className="progress-bar" role="progressbar" aria-valuenow={popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${popularity}%`}}></div>
             </div>
