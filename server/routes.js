@@ -129,9 +129,9 @@ router.post('/Songkick_getArtistCalendar', function(req, res) {
 })
 
 let LastFM_getInfos = 0;
-router.post('/LastFM.getInfo', function(req, res) {
+router.post('/LastFM_getInfo', function(req, res) {
   LastFM.getInfo(req.body.name).then((obj) => {
-    console.log(`/LastFM.getInfo ${++LastFM_getInfos}`)
+    console.log(`/LastFM_getInfo ${++LastFM_getInfos}`)
     res.send(obj)
   }).catch((error) => {
     console.log("error", error)
@@ -187,20 +187,20 @@ router.post('/getArtistAlbums', function(req, res) {
   })
 })
 
-let artistInfoCount = 0;
-router.post('/artistInfo', function(req, res) {
+let Spotify_searchArtists = 0;
+router.post('/Spotify_searchArtists', function(req, res) {
   Spotify.searchArtists(req.body.name).then((data) => {
-    console.log(`/artistInfo ${++artistInfoCount}`)
+    console.log(`/Spotify_searchArtists ${++Spotify_searchArtists}`)
     res.send(data)
   }).catch((error) => {
     console.log("error", error)
   })
 })
 
-let artistTracksCount = 0;
-router.post('/artistTracks', function(req, res) {
+let Spotify_getArtistTopTracks = 0;
+router.post('/Spotify_getArtistTopTracks', function(req, res) {
   Spotify.getArtistTopTracks(req.body.id, req.body.code).then((data) => {
-    console.log(`/artistTracks ${++artistTracksCount}`)
+    console.log(`/Spotify_getArtistTopTracks ${++Spotify_getArtistTopTracks}`)
     res.send(data)
   }).catch((error) => {
     console.log("error", error)

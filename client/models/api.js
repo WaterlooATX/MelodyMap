@@ -6,20 +6,20 @@ export function Songkick_getVenueAPI(venueID) {
   });
 }
 
-export function artistInfoAPI(name) {
-  return axios.post('/artistInfo', {
+export function Spotify_searchArtistsAPI(name) {
+  return axios.post('/Spotify_searchArtists', {
     name: name
   });
 }
 
 export function LastFM_getInfoAPI(name) {
-  return axios.post("/LastFM.getInfo", {
+  return axios.post("/LastFM_getInfo", {
     name: name
   })
 }
 
-export function artistTracksAPI(artistID, countryCode) {
-  return axios.post('/artistTracks', {
+export function Spotify_getArtistTopTracksAPI(artistID, countryCode) {
+  return axios.post('/Spotify_getArtistTopTracks', {
     id: artistID,
     code: countryCode
   });
