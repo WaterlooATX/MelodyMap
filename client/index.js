@@ -28,10 +28,10 @@ ReactDOM.render(
         <Router history={browserHistory}>
           <Route path='/' component={App} >
             <IndexRoute component={Home} />
-	          <Route path="artists" component={Artists} />
-            <Route path="venues" component={Venues} />
-	          <Route path="artist" component={ArtistDetail} />
-            <Route path="venue" component={VenueDetail} />
+	          <Route path="/artists" component={Artists} />
+            <Route path="/venues" component={Venues} />
+	          <Route path="/artist" component={ArtistDetail} />
+            <Route path="/venue" component={VenueDetail} />
           </Route>
         </Router>
   </Provider>),
