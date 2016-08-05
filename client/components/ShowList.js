@@ -11,9 +11,7 @@ export default class ShowList extends Component {
     if (shows.length > 0) {
       return (
           <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div className="panel panel-default">
               {this._createShows(shows)}
-            </div>
           </div>
       )
     } else {

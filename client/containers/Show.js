@@ -100,7 +100,7 @@ class Show extends Component {
   render() {
     const props = this.props;
     return (
-      <div>
+      <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
           <h4 className="panel-title">
             <a
@@ -288,15 +288,6 @@ class Band extends Component {
             </div>
           </div>
         </div>
-          //{// <div id="accordion-album-band-name">
-          //   <strong>
-          //     <Link
-          //       to={{ pathname: "/artist", query: {artist: band.name}}}
-          //       activeClassName='active'>{band.name}
-          //   </Link>
-          // </strong>
-          // </div>
-        }
       </div>
     )
   }
