@@ -7,7 +7,7 @@ import NavBar from './containers/NavBar';
 import App from './components/App';
 import Artists from './containers/Artists';
 import Venues from './containers/Venues';
-import ArtistDetail from './containers/ArtistDetail';
+//import ArtistDetail from './containers/ArtistDetail';
 import VenueDetail from './containers/VenueDetail';
 import NavLogin from './components/NavLogin';
 import Error from './components/Error';
