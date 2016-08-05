@@ -15,8 +15,7 @@ export default class ArtistDetail extends Component {
           {/* Display Artist */}
           <h1>
             {`${this.props.location.query.artist}
-            with spotify artist id of
-            ${this.props.location.query.spArtistId}`}
+            with spotify artist id of`}
           </h1>
           <h3>
             {`List information for a ${this.props.location.query.artist} here. `}
