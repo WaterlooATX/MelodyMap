@@ -33,6 +33,8 @@ class Show extends Component {
     let reduxArtists = this.props.artists
     showArtists.forEach(Artist => {
 
+
+
        if(!reduxArtists[Artist.displayName]){
         reduxArtists[Artist.displayName] = {}
 
@@ -41,7 +43,7 @@ class Show extends Component {
           if(artist) {
 
             // CHANGE only set img for head artist
-            //this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
+            this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
             let Spotify_searchArtistsAPI = {
               spotifyOpen: artist.external_urls.spotify,
               id: artist.id,
@@ -53,6 +55,7 @@ class Show extends Component {
               genres: artist.genres,
               img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
             }
+            this.setState({bands: this.state.bands.concat([Spotify_searchArtistsAPI])})
             //console.log(Artist.displayName,artist.name )
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
 
@@ -71,7 +74,7 @@ class Show extends Component {
 
             Spotify_getArtistTopTracksAPI(spotify.id,"US")
             .then(artistTracks => {
-              // "http://i.imgur.com/nszu54A.jpg"
+
               reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
             })
             .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
@@ -92,7 +95,6 @@ class Show extends Component {
 
     // update redux artist
     redux_Artists(reduxArtists)
-    console.log(this.props.artists)
   }
 
   render() {
@@ -125,7 +127,7 @@ class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={this.state.bands} doorsOpen={props.doorsOpen} venue={props.venue} venueInfo={this.state.venueInfo} songkick={props.songkick}/>
+              <Bands bands={this.state.bands} doorsOpen={props.doorsOpen} venue={props.venue} venueInfo={this.state.venueInfo} songkick={props.songkick} artists={this.props.artists}/>
             </div>
         </div>
       </div>
@@ -162,10 +164,10 @@ class Show extends Component {
   // Sends the show's id back to the parent (ShowList.js) on click
   _onClickHandler(event) {
     event.preventDefault();
+    this._spotifyTracks()
     this.props.sendToState(this.props.id);
     // get tracks only on click
     if(!this.state.clicked) {
-      this._spotifyTracks()
       this.setState({clicked: true});
     }
   }
@@ -178,9 +180,9 @@ class Bands extends Component {
     if(bands) {
       return bands
       .sort((a, b) => b.followers - a.followers)
-      .map((band,index) => {
+      .map((artist,index) => {
         return (
-          <Band key ={index} band={band}/>
+          <Band key ={index} artistName={artist.displayName} artists={this.props.artists}/>
         )
       })
     }
@@ -250,13 +252,16 @@ class AccordionTitle extends Component {
   }
 }
 
-            // {this.props.venue
-
-            // : "loading"}
-
 class Band extends Component {
   render() {
-    const band = this.props.band;
+    const artists = this.props.artists
+    const artistName = this.props.artistName;
+    const artist = artists[artistName]
+    const albumArt = artist.getArtistAlbumsAPI ? artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+    const popularity = artist.Spotify_searchArtistsAPI ? artist.Spotify_searchArtistsAPI.popularity : 'N/A'
+    const bio = artist.LastFM_getInfoAPI ? artist.LastFM_getInfoAPI.bio.content ? artist.LastFM_getInfoAPI.bio.content.slice(0,225).split('/').join(' /').split('%').join('% '): "No Bio" : null
+
+
     const Style = {
                     "borderRadius": "500px",
                     "WebkitBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
@@ -266,28 +271,24 @@ class Band extends Component {
     return (
       <div>
         <div className="accordion-band">
-          {/*
-
-
-          */}
           <div className="band-info">
-            <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
+            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} />
             <div className="accordion-album-band-name"><b>
               <Link
-                to={{ pathname: "/artist", query: {artist: band.name}}}
-                activeClassName='active'>{band.name}
+                to={{ pathname: "/artist", query: {artist: artistName}}}
+                activeClassName='active'>{artistName}
               </Link>
             </b></div>
           </div>
           <div className='right popularity'>
-            <div className="accordion-text">{band.LastFM_getInfoAPI ? band.LastFM_getInfoAPI.bio.content ? band.LastFM_getInfoAPI.bio.content .slice(0,225).split('/').join(' /').split('%').join('% '): "No Bio" : null}</div>
-              <div className="text-center">{`Popularity ${band.popularity}`}</div>
+            <div className="accordion-text">{bio}</div>
+              <div className="text-center">{`Popularity ${popularity}`}</div>
             <div className="progress">
-              <div className="progress-bar" role="progressbar" aria-valuenow={band.popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${band.popularity}%`}}></div>
+              <div className="progress-bar" role="progressbar" aria-valuenow={popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${popularity}%`}}></div>
             </div>
           </div>
         </div>
-            
+
       </div>
     )
   }
