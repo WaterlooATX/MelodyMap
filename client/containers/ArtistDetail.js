@@ -4,18 +4,13 @@ import NavBar from './NavBar';
 
 export default class ArtistDetail extends Component {
 
-  // componentDidMount() {
-  //   const query = this.props.location.query;
-  // }
-
   render() {
     return (
       <div>
         <div>
           {/* Display Artist */}
           <h1>
-            {`${this.props.location.query.artist}
-            with spotify artist id of`}
+            {`${this.props.params.artistName}`}
           </h1>
           <h3>
             {`List information for a ${this.props.location.query.artist} here. `}
@@ -35,6 +30,7 @@ export default class ArtistDetail extends Component {
       </div>
     )
   }
+
 }
 // import React, {Component} from 'react';
 // import NavBar from './NavBar';
@@ -138,7 +134,7 @@ export default class ArtistDetail extends Component {
 // //         <div>
 // //           <SearchBar onSearchTermChange={videoSearch}/>
 // //           <VideoDetail video={this.state.selectedVideo} />
-// //           <VideoList 
+// //           <VideoList
 // //               onVideoSelect={selectedVideo => this.setState({selectedVideo})}
 // //               videos={this.state.videos} />
 // //         </div>

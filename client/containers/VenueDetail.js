@@ -7,8 +7,9 @@ export default class VenueDetail extends Component {
     return (
       <div>
         <div>
-          {console.log(this.props)}
-          <h1>{`${this.props.location.query.venue}`}</h1>
+          <h1>
+            {`${this.props.params.venueName}`}
+          </h1>
           <h3>
             List information for a given venue here.
             This will include:

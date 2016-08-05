@@ -222,7 +222,7 @@ class AccordionTitle extends Component {
             {/* Route to VenueDetails page on click of venue */}
             {this.props.venue
               ? <Link
-                  to={{ pathname: "/venue", query: { venue: this.props.venue.name }}}
+                  to={`/venue/${this.props.venue.name}`}
                   activeClassName='active'>
                   {this.props.venue.name}
                 </Link>
@@ -243,10 +243,6 @@ class AccordionTitle extends Component {
   }
 }
 
-            // {this.props.venue
-
-            // : "loading"}
-
 class Band extends Component {
   render() {
     const band = this.props.band;
@@ -259,15 +255,11 @@ class Band extends Component {
     return (
       <div>
         <div className="accordion-band">
-          {/*
-
-
-          */}
           <div className="band-info">
             <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
             <div className="accordion-album-band-name"><b>
               <Link
-                to={{ pathname: "/artist", query: {artist: band.name}}}
+                to={`artist/${band.name}`}
                 activeClassName='active'>{band.name}
               </Link>
             </b></div>
@@ -280,7 +272,6 @@ class Band extends Component {
             </div>
           </div>
         </div>
-            
       </div>
     )
   }
