@@ -219,7 +219,8 @@ class Bands extends Component {
 class AccordionTitle extends Component {
   render() {
     return (
-      <div >
+      <div className="panel-top">
+        <button id="rightBtn" type="button" className="btn btn-success">BUY TICKETS</button>
         <div className="marker">
           <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
         </div>
@@ -240,7 +241,6 @@ class AccordionTitle extends Component {
           </div>
         </div>
         <div className="right">
-          <button id="rightBtn" type="button" className="btn btn-success">BUY TICKETS</button>
           <div id="doorsOpen">
           {`Doors open at ${this.props.doorsOpen}`}
           </div>
@@ -258,8 +258,6 @@ class Band extends Component {
   render() {
     const band = this.props.band;
     const Style = {
-                    "height": "200px",
-                    "width": "200px",
                     "borderRadius": "500px",
                     "WebkitBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
                     "MozBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
@@ -272,26 +270,25 @@ class Band extends Component {
 
 
           */}
-
-          <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
-          <div className='right' id="popularity">
-            <div id="accordion-text">{band.LastFM_getInfoAPI ? band.LastFM_getInfoAPI.bio.content ? band.LastFM_getInfoAPI.bio.content .slice(0,225): "No Bio" : null}</div>
+          <div className="band-info">
+            <img className="accordion-album-art img-circle" style={Style} src={band.albumArt || 'http://assets.audiomack.com/default-album-image.jpg'} alt={band.id} />
+            <div className="accordion-album-band-name"><b>
+              <Link
+                to={{ pathname: "/artist", query: {artist: band.name}}}
+                activeClassName='active'>{band.name}
+              </Link>
+            </b></div>
+          </div>
+          <div className='right popularity'>
+            <div className="accordion-text">{band.LastFM_getInfoAPI ? band.LastFM_getInfoAPI.bio.content ? band.LastFM_getInfoAPI.bio.content .slice(0,225).split('/').join(' /').split('%').join('% '): "No Bio" : null}</div>
               <div className="text-center">{`Popularity ${band.popularity}`}</div>
             <div className="progress">
               <div className="progress-bar" role="progressbar" aria-valuenow={band.popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${band.popularity}%`}}></div>
             </div>
           </div>
         </div>
-          <div id="accordion-album-band-name">
-            <b>
-              <Link
-                to={{ pathname: "/artist", query: {artist: band.name}}}
-                activeClassName='active'>{band.name}
-            </Link>
-          </b>
-          </div>
+            
       </div>
-
     )
   }
 }
