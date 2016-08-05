@@ -1,10 +1,22 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 
 
 export default class ArtistDetail extends Component {
+    constructor(props){
+    super(props);
+    this.state = {
+      artistUri: null
+    }
+  }
+
+  componentDidMount() {
+    this._spotifyInfo(this.props.params.artistName)
+  }
 
   render() {
+    console.log("STATE", this.state.artistUri)
     return (
       <div>
         <div>
@@ -13,8 +25,8 @@ export default class ArtistDetail extends Component {
             {`${this.props.params.artistName}`}
           </h1>
           <h3>
-            {`List information for a ${this.props.location.query.artist} here. `}
-            This will include:
+            {`List information for a ${this.props.params.artistName} here. `}
+            This will include:   <iframe src={`https://embed.spotify.com/follow/1/?uri=${this.state.artistUri}&size=detail&theme=light&show-count=0`}></iframe>
           </h3>
           <ul>
             <li>Artist Pictures</li>
@@ -31,7 +43,16 @@ export default class ArtistDetail extends Component {
     )
   }
 
+
+
+
+_spotifyInfo(artist){
+      Spotify_searchArtistsAPI(artist).then( obj => {
+        this.setState({artistUri: obj.data[0].uri})
+      })
+  }
 }
+
 // import React, {Component} from 'react';
 // import NavBar from './NavBar';
 // import React, {Component} from 'react';
