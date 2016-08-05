@@ -231,7 +231,7 @@ class AccordionTitle extends Component {
             {/* Route to VenueDetails page on click of venue */}
             {this.props.venue
               ? <Link
-                  to={{ pathname: "/venue", query: { venue: this.props.venue.name }}}
+                  to={`/venue/${this.props.venue.name}`}
                   activeClassName='active'>
                   {this.props.venue.name}
                 </Link>
@@ -275,7 +275,7 @@ class Band extends Component {
             <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} />
             <div className="accordion-album-band-name"><b>
               <Link
-                to={{ pathname: "/artist", query: {artist: artistName}}}
+                to={`artist/${artistName}`}
                 activeClassName='active'>{artistName}
               </Link>
             </b></div>
@@ -288,7 +288,6 @@ class Band extends Component {
             </div>
           </div>
         </div>
-
       </div>
     )
   }
