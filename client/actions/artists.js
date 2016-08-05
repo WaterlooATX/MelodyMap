@@ -6,6 +6,6 @@ export function fetchArtist(artist) {
 
   return {
     type: FETCH_ARTIST,
-    payload: fetchShowsAPI(geo.long, geo.lat)
+    payload: artist
   }
 }
