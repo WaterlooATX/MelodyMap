@@ -19,8 +19,6 @@ class Artists extends Component {
         )
 
   }
-
-
   _createArtists(){
     const artists = this.props.artists
     const mapped = []
