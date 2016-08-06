@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api';
-
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
 
 import VideoList from '../components/VideoList';
@@ -15,7 +14,7 @@ const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 export default class ArtistDetail extends Component {
     constructor(props){
     super(props);
-    this.state = {
+    this.state = {  
       artistUri: null,
       artistImg: null,
       videos: [],
@@ -26,11 +25,11 @@ export default class ArtistDetail extends Component {
   componentDidMount() {
     this._spotifyInfo(this.props.params.artistName)
     this.videoSearch(this.props.params.artistName)
+    this.filterArtist(this.props.params.artistName)
   }
 
 
   render() {
-    console.log("HIHIH",this.state.artistImg)
     return (
         <div>
           <div className="container">
@@ -58,14 +57,12 @@ export default class ArtistDetail extends Component {
 
 _spotifyInfo(artist){
       Spotify_searchArtistsAPI(artist).then( obj => {
-        console.log(obj)
         this.setState({artistUri: obj.data[0].uri})
         this.setState({artistImg: obj.data[0].images[0].url})
         return obj.data[0].id
       })
       .then(id => {
         Spotify_getArtistTopTracksAPI(id,"US").then(tracks =>{
-          console.log("TRACKS",tracks)
         })
       })
   }
@@ -78,4 +75,17 @@ videoSearch(term){
       })
     });
   }
+
+filterArtist(artist){
+  var artists = this.props.artists
+    for(var artist in artists){
+      console.log("KEY", artists[key])
+      console.log("Artist", artist)
+    }
+  }
 }
+
+
+const mapStateToProps = (state) => {return {artists: state.artists }};
+export default connect(mapStateToProps)(ArtistDetail);
+
