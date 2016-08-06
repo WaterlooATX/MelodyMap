@@ -109,7 +109,7 @@ class Show extends Component {
           <h4 className="panel-title">
             <a
               className={this._checkSelected(props.selected)}
-              onClick={this._onClickHandler.bind(this)}
+              onClick={this._onClickHandler.bind(this, `heading${props.id}`)}
               role="button" data-toggle="collapse"
               data-parent="#accordion"
               href={`#collapse${props.id}`}
@@ -161,7 +161,7 @@ class Show extends Component {
   }
 
   // Sends the show's id back to the parent (ShowList.js) on click
-  _onClickHandler(event) {
+  _onClickHandler(DOMString, event) {
     event.preventDefault();
 
     this.props.sendToState(this.props.id);
@@ -169,6 +169,7 @@ class Show extends Component {
     if(!this.state.clicked) {
       this.setState({clicked: true});
     }
+    $(DOMString)[0].scrollIntoView( true );
   }
 }
 
