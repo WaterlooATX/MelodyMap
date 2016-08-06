@@ -21,8 +21,9 @@ export default class GenArtist extends Component {
 	}
 
 	componentDidMount(){
-		//this._spotifyInfo(this.props.artists)
-
+		this.props.selectedArtist?
+		console.log(this.props.selectedArtist)
+		: console.log("not yet")
 	}
 
 
@@ -80,9 +81,5 @@ export default class GenArtist extends Component {
           audioElem.pause();
        }
     }
-
-	_checkSelected(propsSelected) {
-	  return (propsSelected) ? "active list-group-item" : "list-group-item";
-	}
 
 }
