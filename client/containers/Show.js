@@ -294,7 +294,7 @@ class Band extends Component {
       <div>
         <div className="accordion-band">
           <div className="band-info">
-            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} onClick={this._randomAlbumArt.bind(this)}/>
+            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} onMouseOver={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
             <div className="accordion-album-band-name"><b>
               <Link to={`artist/${artistName}`} activeClassName='active'>{artistName}</Link>
             </b></div>
