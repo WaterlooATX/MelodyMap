@@ -30,13 +30,12 @@ export default class GenArtist extends Component {
 		const props = this.props;
 		const artist = props.artist;
 		const name = props.name;
-		console.log(artist)
 		var id;
 		var image;
 		var track;
 
 		artist.Spotify_getArtistTopTracksAPI ?
-			track = artist.Spotify_getArtistTopTracksAPI[0].preview
+			track = artist.Spotify_getArtistTopTracksAPI[0].preview_url
 		:
 			track = null;
 		artist.Spotify_searchArtistsAPI ?
@@ -47,6 +46,7 @@ export default class GenArtist extends Component {
 			image = artist.Spotify_searchArtistsAPI.img
 		:
 			image = this.state.img;
+		console.log(artist.Spotify_getArtistTopTracksAPI)
 		return (
 			
 			<div className="panel-heading" role="tab" id={`heading${id}`}>
@@ -61,9 +61,9 @@ export default class GenArtist extends Component {
 								</Link>
 								
 								{track ?
-				                <i className="fa fa-volume-up fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
+				                <i className="speaker fa fa-volume-up fa-3x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
 				                <audio src={track}>
-				                </audio></i> : <i className="fa fa-volume-up  fa-3x" aria-hidden="true"></i>}
+				                </audio></i> : null}
 								
 						</h3>
 					</div>
