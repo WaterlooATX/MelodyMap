@@ -28,8 +28,6 @@ class Show extends Component {
     this._spotifyInfo(this.props.showArtists)
   }
 
-
-
   render() {
     const props = this.props;
     return (
@@ -104,39 +102,39 @@ class Show extends Component {
 
             let spotify = Spotify_searchArtistsAPI
             getArtistAlbumsAPI(spotify.id)
-            .then(albums => {
-              reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = albums.data ? albums.data : null
-            })
-            .catch(reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = null)
+              .then(albums => {
+                reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = albums.data ? albums.data : null
+              })
+              .catch(reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = null)
 
             LastFM_getInfoAPI(spotify.name)
-            .then(info => {
-              reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
-            })
-            .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
+              .then(info => {
+                reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
+              })
+              .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
 
             Spotify_getArtistTopTracksAPI(spotify.id,"US")
-            .then(artistTracks => {
+              .then(artistTracks => {
 
-              reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
-              if(this.state.bands[0]) {
-                let headliner = this.state.bands[0].displayName
-                let artist = this.props.artists[headliner]
-                if(artist) {
-                  this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null})
+                reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
+                if(this.state.bands[0]) {
+                  let headliner = this.state.bands[0].displayName
+                  let artist = this.props.artists[headliner]
+                  if(artist) {
+                    this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null})
+                  }
                 }
-              }
-            })
-            .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
+              })
+              .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
 
 
           } else {
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = null
             LastFM_getInfoAPI(Artist.displayName)
-            .then(info => {
-              reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
-            })
-            .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
+              .then(info => {
+                reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
+              })
+              .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
           }
 
         })
