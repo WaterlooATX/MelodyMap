@@ -78,7 +78,7 @@ videoSearch(term){
 
 filterArtist(artist){
   var artists = this.props.artists
-    for(var artist in artists){
+    for(var key in artists){
       console.log("KEY", artists[key])
       console.log("Artist", artist)
     }
