@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
-import {Spotify_searchArtistsAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api';
 
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux"
 import {bindActionCreators} from 'redux'
 
-import SearchBar from '../components/SearchBar';
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
@@ -30,7 +29,6 @@ export default class ArtistDetail extends Component {
 
 
   render() {
-    console.log("STATE", this.state.artistUri)
     return (
       <div>
         <div>
@@ -69,7 +67,14 @@ export default class ArtistDetail extends Component {
 
 _spotifyInfo(artist){
       Spotify_searchArtistsAPI(artist).then( obj => {
+        console.log(obj)
         this.setState({artistUri: obj.data[0].uri})
+        return obj.data[0].id
+      })
+      .then(id => {
+        Spotify_getArtistTopTracksAPI(id,"US").then(tracks =>{
+          console.log("TRACKS",tracks)
+        })
       })
   }
 
@@ -82,44 +87,3 @@ videoSearch(term){
     });
   }
 }
-
-
-
-
-
-
-// // export default class Artists extends Component {
-
-// //   constructor(props){
-// //     super(props);
-
-// //     this.state = {
-// //     }
-
-// //   render() {
-// //     return (
-
-// //       <div>
-// //         <div>
-// //           <h1>List of Artists</h1>
-// //           <h5>
-// //             Default displayed artists could be the artists from the shows that came from the same API call for showlist on the home page.
-// //             <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:23fqKkggKUBHNkbKtXEls4&size=detail&theme=light&show-count=0" width="300" height="56" scrolling="no"></iframe>
-// //           </h5>
-// //           <ul>
-// //             <p>We should be able to search for artists</p>
-// //             <p>When something is typed in the search bar, we will search and display from the entire universe of artists via spotify API</p>
-// //             <p>We could display artists similarly to how we display minimized shows in showlist--with minimal info for each artist. This
-// //               could include:
-// //             </p>
-// //             <li>Artist Pictures</li>
-// //             <li>Spofity Song Preview (1)</li>
-// //             <li>Upcoming show</li>
-// //             <li>Brief intro or bio</li>
-// //             <li>etc</li>
-// //           </ul>
-// //         </div>
-// //       </div>
-// //     )
-// //   }
-// // }
