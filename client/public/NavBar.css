@@ -1,0 +1,30 @@
+.songkick-search {
+  display: inline-block;
+}
+
+.songkick-search input {
+  margin: 15px;
+}
+
+.songkick-search button {
+  background: #81b33a;
+  width: 100px;
+  height: 35px;
+  border-radius: 10px;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: white;
+  margin: 13px 0px 13px 15px;
+  padding-top: 3px;
+  display: inline-block;
+  vertical-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .songkick-search input, .songkick-search button {
+    margin: 0 50px 20px 0;
+    width: 170px;
+  }
+}

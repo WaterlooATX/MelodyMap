@@ -15,7 +15,10 @@ export default class NavBar extends Component {
 
     this.state = {
       loggedIn: false,
-      spotifyData: {username: '', image: ''}
+      spotifyData: { username: '', image: '' },
+      startDate: '',
+      endDate: '',
+      city: ''
     }
   }
 
@@ -60,19 +63,48 @@ export default class NavBar extends Component {
                 {/* <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
-              <ul>
+                <form className="songkick-search">
+                <input
+                  placeholder="Start date - YYYY-MM-DD"
+                  value={ this.state.startDate }
+                  onChange={ event => this._onStartChange(event.target.value) }
+                />
+                <input
+                  placeholder="End date - YYYY-MM-DD"
+                  value={ this.state.endDate }
+                  onChange={ event => this._onEndChange(event.target.value) }
+                />
+                <input
+                  placeholder="City"
+                  value={ this.state.city }
+                  onChange={ event => this._onCityChange(event.target.value) }
+                />
+                <button type="submit">Search</button>
+              </form>
               {!this.state.loggedIn ?
-                <NavLogin/>
+                <NavLogin />
                 :
                 <UserLogin spotifyData={this.state.spotifyData}/>
               }
-              </ul>
             </div>
           </div>
         </nav>
       </div>
     )
   }
+
+  _onStartChange(startDate) {
+    this.setState({ startDate });
+  }
+
+  _onEndChange(endDate) {
+    this.setState({ endDate });
+  }
+
+  _onCityChange(city) {
+    this.setState({ city });
+  }
+
 
 }
 
