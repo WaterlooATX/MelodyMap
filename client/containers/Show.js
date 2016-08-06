@@ -102,7 +102,16 @@ class Show extends Component {
   }
 
   render() {
-    const props = this.props;
+    let topTrack = null
+    let props = this.props;
+    if(this.state.bands[0]) {
+      let headliner = this.state.bands[0].displayName
+      let artist = this.props.artists[headliner]
+      if(artist) {
+        topTrack = artist.Spotify_getArtistTopTracksAPI ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null
+      }
+    }
+
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -117,12 +126,7 @@ class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
-
-
-               {this.state.previewTrack[0] ?
-                <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
-                <audio src={this.state.previewTrack[0].preview}>
-                </audio></i> : <i className="fa fa-volume-up  fa-3x" aria-hidden="true"></i>}
+              {topTrack ? <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}> <audio src={topTrack}> </audio></i> :  null}
                <p className="artist">{ props.showArtists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
