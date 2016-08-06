@@ -4,11 +4,13 @@ import {connect} from "react-redux"
 import GenArtist from '../components/GenArtist'
 import {redux_Artists} from '../actions/artists'
 
+
 class Artists extends Component {
 
   render(){
 
     const Artists = this._createArtists()
+
 
       return(
         <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -17,6 +19,7 @@ class Artists extends Component {
           </div>
         </div>
         )
+
 
   }
   _createArtists(){
@@ -29,6 +32,7 @@ class Artists extends Component {
     // return _.map(artists, (artist, i) => <GenArtist artist={artist} key={i}/>)
   }
 }
+
 
 const mapStateToProps = (state) => {return {artists: state.artists }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
