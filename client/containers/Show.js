@@ -28,6 +28,49 @@ class Show extends Component {
     this._spotifyInfo(this.props.showArtists)
   }
 
+
+
+  render() {
+    const props = this.props;
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading" role="tab" id={`heading${props.id}`}>
+          <h4 className="panel-title">
+            <a
+              className={this._checkSelected(props.selected)}
+              onClick={this._onClickHandler.bind(this, `heading${props.id}`)}
+              role="button" data-toggle="collapse"
+              data-parent="#accordion"
+              href={`#collapse${props.id}`}
+              aria-expanded="true"
+              aria-controls={`collapse${props.id}`}
+            >
+              <img src={this.state.img} alt={props.id} height="65" width="65"/>
+              {this.state.previewTrack ? <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}> <audio src={this.state.previewTrack}> </audio></i> :  null}
+               <p className="artist">{ props.showArtists[0].displayName }</p>
+               <p className="venue">{ props.venue } - { props.city }</p>
+               <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+            </a>
+          </h4>
+        </div>
+        <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
+            <div className="panel-body">
+              <Bands bands={ this.state.bands } doorsOpen={ this._doorsOpen() } venue={ props.venue } venueInfo={ this.state.venueInfo } songkick={ props.songkick } artists={this.props.artists} />
+            </div>
+        </div>
+      </div>
+    )
+  }
+
+    _doorsOpen() {
+      // doorsOpen variable set to display pretty date with moment.js
+      let doorsOpen = new Date().toString();
+      doorsOpen = doorsOpen.split(' ');
+      doorsOpen[4] = this.props.doorsOpen;
+      doorsOpen = moment(doorsOpen.join(' ')).calendar();
+      return doorsOpen
+    }
+
   _spotifyInfo(showArtists){
     let reduxArtists = this.props.artists
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
@@ -102,44 +145,6 @@ class Show extends Component {
 
     // update redux artist
     redux_Artists(reduxArtists)
-  }
-
-  render() {
-    // doorsOpen variable set to display pretty date with moment.js
-    const props = this.props;
-    let doorsOpen = new Date().toString();
-    doorsOpen = doorsOpen.split(' ');
-    doorsOpen[4] = props.doorsOpen;
-    doorsOpen = moment(doorsOpen.join(' ')).calendar();
-
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading" role="tab" id={`heading${props.id}`}>
-          <h4 className="panel-title">
-            <a
-              className={this._checkSelected(props.selected)}
-              onClick={this._onClickHandler.bind(this, `heading${props.id}`)}
-              role="button" data-toggle="collapse"
-              data-parent="#accordion"
-              href={`#collapse${props.id}`}
-              aria-expanded="true"
-              aria-controls={`collapse${props.id}`}
-            >
-              <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              {this.state.previewTrack ? <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}> <audio src={this.state.previewTrack}> </audio></i> :  null}
-               <p className="artist">{ props.showArtists[0].displayName }</p>
-               <p className="venue">{ props.venue } - { props.city }</p>
-               <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
-            </a>
-          </h4>
-        </div>
-        <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
-            <div className="panel-body">
-              <Bands bands={ this.state.bands } doorsOpen={ doorsOpen } venue={ props.venue } venueInfo={ this.state.venueInfo } songkick={ props.songkick } artists={this.props.artists} />
-            </div>
-        </div>
-      </div>
-    )
   }
 
   _toggleSound(event) {
