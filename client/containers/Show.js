@@ -109,7 +109,7 @@ class Show extends Component {
           <h4 className="panel-title">
             <a
               className={this._checkSelected(props.selected)}
-              onClick={this._onClickHandler.bind(this)}
+              onClick={this._onClickHandler.bind(this, props.selected)}
               role="button" data-toggle="collapse"
               data-parent="#accordion"
               href={`#collapse${props.id}`}
@@ -161,7 +161,8 @@ class Show extends Component {
   }
 
   // Sends the show's id back to the parent (ShowList.js) on click
-  _onClickHandler(event) {
+  _onClickHandler(event, show) {
+    console.log('show',show);
     event.preventDefault();
 
     this.props.sendToState(this.props.id);
@@ -277,18 +278,6 @@ class Band extends Component {
             </div>
           </div>
         </div>
-<<<<<<< eeb38bbb1d3960d6f0ff33583b74e8c667f0e562
-=======
-          {/* <div id="accordion-album-band-name">
-             <strong>
-               <Link
-                 to={{ pathname: "/artist", query: {artist: band.name}}}
-                 activeClassName='active'>{band.name}
-             </Link>
-           </strong>
-           </div>
-        */}
->>>>>>> update show component and popularity display
       </div>
     )
   }
