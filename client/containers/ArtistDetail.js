@@ -29,35 +29,22 @@ export default class ArtistDetail extends Component {
 
 
   render() {
+    console.log("HIHIH",this.props.params)
     return (
-      <div>
         <div>
           {/* Display Artist */}
-          <h1>
+          <div className = "page-header">
             {`${this.props.params.artistName}`}
-            <iframe className = "followButton" src={`https://embed.spotify.com/follow/1/?uri=${this.state.artistUri}&size=detail&theme=light&show-count=0`}width="300" height="56" allowTransparency="true"></iframe>
-            <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
-          </h1>
+            <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
+          </div>
           <h3>
-            {`List information for a ${this.props.params.artistName} here. `}
-            This will include:   
+            <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
           </h3>
-          <ul>
-            <li>Artist Pictures</li>
-            <li>Artist Bio</li>
-            <li>Spofity Song Previews (3)</li>
-            <li>Upcoming Shows (sortable by both proximity or date)
-                This will most likely be the recycled Show/ShowList
-                componenets.
-            </li>
-            <li>etc</li>
-          </ul>
         <div>
           <VideoDetail video={this.state.selectedVideo} />
           <VideoList
               onVideoSelect={selectedVideo => this.setState({selectedVideo})}
               videos={this.state.videos} />
-        </div>
         </div>
       </div>
     )
