@@ -5,9 +5,6 @@ import GenArtist from '../components/GenArtist';
 import {redux_Artists} from '../actions/artists';
 import SearchBar from '../components/SearchBar';
 import {fetchArtistsAPI} from '../models/api';
-import _ from 'lodash'
-
-
 
 class Artists extends Component {
 
@@ -21,8 +18,6 @@ class Artists extends Component {
   render(){
     const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 200)
     const Artists = this._createArtists()
-
-
       return(
         <div>
           <SearchBar onSearchTermChange={artistSearch}/>
@@ -33,9 +28,8 @@ class Artists extends Component {
           </div>
         </div>
         )
-
-
   }
+
   _createArtists(){
     const artists = this.props.artists
     const mapped = []
@@ -43,7 +37,6 @@ class Artists extends Component {
       mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist}/>)
     }
     return mapped
-    // return _.map(artists, (artist, i) => <GenArtist artist={artist} key={i}/>)
   }
 }
 
