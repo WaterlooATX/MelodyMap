@@ -224,9 +224,9 @@ class Bands extends Component {
   }
 }
 class AccordionTitle extends Component {
-  render() {
-    return this.props.venue ?
-    (
+
+  _render() {
+    return (
       <div className="panel-top">
         <div className="marker">
           <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
@@ -245,7 +245,10 @@ class AccordionTitle extends Component {
         </div>
       </div>
     )
-    : null
+  }
+
+  render() {
+    return this.props.venue ? this._render() : null
   }
 }
 
