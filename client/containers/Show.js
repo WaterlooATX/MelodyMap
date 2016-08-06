@@ -219,9 +219,13 @@ class Bands extends Component {
 }
 class AccordionTitle extends Component {
   render() {
+    this.props ? console.log(this.props): console.log("hey")
     return (
       <div className="panel-top">
-        <button id="rightBtn" type="button" className="btn btn-success">BUY TICKETS</button>
+        {this.props.venue
+          ? <a id="rightBtn" href={this.props.songkick.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>
+          : <a id="rightBtn" href="" className="btn btn-success" target="_blank" role="button">Loading</a>
+        }
         <div className="marker">
           <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
         </div>
