@@ -1,8 +1,19 @@
-h4 img {
+.GenArtist{
+    font-size: 20px;
+}
+.GenImage{
+
+}
+h3{
+    margin: 0;
+    border: 1px solid white;
+}
+
+/*h4 img {
     display: inline-block;
     float: left;
     margin-right: 4px;
-}
+}*/
 .panel-body {
     display: flex;
     flex-direction: column;
@@ -98,3 +109,5 @@ h4 img {
     padding: 5px;
     margin-left: 55px;
 }
+
+

@@ -25,31 +25,16 @@ export default class GenArtist extends Component {
 		const props=this.props;
 		return (
 			<div className="panel-heading" role="tab" id={`heading${props.id}`}>
-				{
-				//<h4 className = 'panel-title'>
-					 // <a
-						// className={this._checkSelected(this.props.selected)}
-						// onClick={this._onClickHandler.bind(this)}
-						// role="button" data-toggle="collapse"
-						// data-parent="#accordion"
-					 // 	href={`#collapse${props.id}`}
-						// aria-expanded="true"
-						// aria-controls={`collapse${props.id}`}
-
-					 // >
-
 					<div>
-						<img src = {this.state.img} alt={props.id} height='65' width='65'/>
-
-							<Link
-							    to={ `artist/${props.displayName}`}
-							    activeClassName='active'>{props.displayName}
-							</Link>
+						<h3>
+							<img className="genImage" src = {this.state.img} alt={props.id} height='85' width='85'/>
+								
+								<Link className = "genArtist"
+								    to={ `artist/${props.displayName}`}
+								    activeClassName='active'>{props.displayName}
+								</Link>
+						</h3>
 					</div>
-					//</a>
-				//</h4>
-					}
-
 			</div>
 		)
 	}
