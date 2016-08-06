@@ -6,9 +6,11 @@ import SearchBar from './SearchBar';
 
 export default class ArtistHome extends Component {
 	render(){
-		<div>
-			<SearchBar/>
-			<Artists/>
-		</div>
+		return (
+			<div>
+				<SearchBar/>
+				<Artists/>
+			</div>
+		)
 	}
 }
