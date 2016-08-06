@@ -111,7 +111,6 @@ class Show extends Component {
     doorsOpen = doorsOpen.split(' ');
     doorsOpen[4] = props.doorsOpen;
     doorsOpen = moment(doorsOpen.join(' ')).calendar();
-    console.log('doorsOpen', doorsOpen);
     
     return (
       <div className="panel panel-default">
@@ -236,14 +235,12 @@ class AccordionTitle extends Component {
           <div id="venueName">
             {/* Route to VenueDetails page on click of venue */}
             { <Link to={`/venue/${this.props.venue.name}`} activeClassName='active'>{this.props.venue.name}</Link> }
-          </div>
-          <div id="venueAdress">
-            { this.props.venue.address }
-          </div>
-        </div>
-        <div className="right">
-          <div id="doorsOpen">
-          { !this.props.doorsOpen.includes('Invalid date') ? `Doors open ${this.props.doorsOpen}` : null }
+            <div id="venueAdress">
+              { this.props.venue.address }
+            </div>
+              <div id="doorsOpen">
+                { !this.props.doorsOpen.includes('Invalid date') ? `Doors open ${this.props.doorsOpen}` : null }
+              </div>
           </div>
         </div>
       </div>
