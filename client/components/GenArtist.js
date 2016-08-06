@@ -18,13 +18,20 @@ export default class GenArtist extends Component {
 
 	componentDidMount(){
 		this._spotifyInfo(this.props.artists)
+
 	}
 
 
 	render(){
 		const props=this.props;
+		const artists = this.props.artists
+    	const artistName = this.props.artistName;
+    	const artist = artists[artistName]
+    	const popularity = artist.Spotify_searchArtistsAPI ? artist.Spotify_searchArtistsAPI.popularity : 'N/A'
+
 		return (
 			<div className="panel-heading" role="tab" id={`heading${props.id}`}>
+		{console.log("Bands: ", this.state.bands)}
 					<div>
 						<h3>
 							<img className="genImage" src = {this.state.img} alt={props.id} height='85' width='85'/>
@@ -33,6 +40,13 @@ export default class GenArtist extends Component {
 								    to={ `artist/${props.displayName}`}
 								    activeClassName='active'>{props.displayName}
 								</Link>
+							<div className='right popularity'>
+				           
+				            	<div className="text-center">{`Popularity`}</div>
+				            	<div className="progress">
+				              		<div className="progress-bar" role="progressbar" aria-valuenow={popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${popularity}%`}}></div>
+				          		</div>
+				          	</div>
 						</h3>
 					</div>
 			</div>
