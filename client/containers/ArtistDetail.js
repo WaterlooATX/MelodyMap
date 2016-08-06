@@ -37,6 +37,7 @@ export default class ArtistDetail extends Component {
             <div className="jumbotron">
                 <h1>{`${this.props.params.artistName}`}</h1>
                 <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
+                <img src = {this.state.artistImg}/>
             </div>
           </div> 
           <h3>
