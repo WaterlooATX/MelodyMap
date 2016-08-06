@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {bindActionCreators} from 'redux'
-import {connect} from "react-redux"
-import GenArtist from '../components/GenArtist'
-import {redux_Artists} from '../actions/artists'
+import {bindActionCreators} from 'redux';
+import {connect} from "react-redux";
+import GenArtist from '../components/GenArtist';
+import {redux_Artists} from '../actions/artists';
 
 
 class Artists extends Component {
@@ -26,7 +26,7 @@ class Artists extends Component {
     const artists = this.props.artists
     const mapped = []
     for(let artist in artists) {
-      mapped.push(<GenArtist artist={artists[artist]} key={artist}/>)
+      mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist}/>)
     }
     return mapped
     // return _.map(artists, (artist, i) => <GenArtist artist={artist} key={i}/>)
