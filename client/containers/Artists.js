@@ -19,7 +19,7 @@ export default class Artists extends Component {
         </div>
         )
       } else{
-          return 
+          return
             <div className = "spinner">
               <div> Loading.... </div>
             </div>
@@ -51,7 +51,5 @@ _sendToState(arg) {
 
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
-const mapDispatchToProps=(dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
+const mapDispatchToProps= (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Artists);
-
-
