@@ -47,7 +47,6 @@ h4 img {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 214px;
 }
 .accordion-album-art {
     display: inline-block;
