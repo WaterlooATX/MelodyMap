@@ -17,6 +17,7 @@ export default class ArtistDetail extends Component {
     super(props);
     this.state = {
       artistUri: null,
+      artistImg: null,
       videos: [],
       selectedVideo: null
     }
@@ -29,14 +30,15 @@ export default class ArtistDetail extends Component {
 
 
   render() {
-    console.log("HIHIH",this.props.params)
+    console.log("HIHIH",this.state.artistImg)
     return (
         <div>
-          {/* Display Artist */}
-          <div className = "page-header">
-            {`${this.props.params.artistName}`}
-            <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
-          </div>
+          <div className="container">
+            <div className="jumbotron">
+                <h1>{`${this.props.params.artistName}`}</h1>
+                <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
+            </div>
+          </div> 
           <h3>
             <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
           </h3>
@@ -57,6 +59,7 @@ _spotifyInfo(artist){
       Spotify_searchArtistsAPI(artist).then( obj => {
         console.log(obj)
         this.setState({artistUri: obj.data[0].uri})
+        this.setState({artistImg: obj.data[0].images[0].url})
         return obj.data[0].id
       })
       .then(id => {
