@@ -27,10 +27,14 @@ class Show extends Component {
     // console.log(this.props.artistsNames)
     this._spotifyInfo(this.props.showArtists)
 
+
+
   }
 
   _spotifyInfo(showArtists){
     let reduxArtists = this.props.artists
+    Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
+
     showArtists.forEach(Artist => {
 
 
@@ -149,11 +153,6 @@ class Show extends Component {
        }
     }
 
-  _spotifyTracks() {
-    Songkick_getVenueAPI(this.props.venueID).then(venue => {
-      this.setState({venueInfo: venue.data})
-    })
-  }
 
   // Tests selected show in redux state and conditionally sets
   // inline style property for show list item if it is selected show
@@ -164,7 +163,7 @@ class Show extends Component {
   // Sends the show's id back to the parent (ShowList.js) on click
   _onClickHandler(event) {
     event.preventDefault();
-    this._spotifyTracks()
+
     this.props.sendToState(this.props.id);
     // get tracks only on click
     if(!this.state.clicked) {
