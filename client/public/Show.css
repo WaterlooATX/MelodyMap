@@ -96,6 +96,12 @@ h4 img {
 .fa-map-marker:before {
     font-size: 40px;
 }
+
+.band-info {
+  display: flex;
+  flex-direction: column;
+}
+
 .accordion-text {
     margin-bottom: 6px;
 }
