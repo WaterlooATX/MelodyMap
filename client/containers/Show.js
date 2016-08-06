@@ -111,7 +111,7 @@ class Show extends Component {
     doorsOpen = doorsOpen.split(' ');
     doorsOpen[4] = props.doorsOpen;
     doorsOpen = moment(doorsOpen.join(' ')).calendar();
-    
+
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -249,16 +249,40 @@ class AccordionTitle extends Component {
   }
 }
 
+
 class Band extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+       albumArt: null
+    }
+  }
+
+  componentWillMount() {
+    this._randomAlbumArt()
+  }
+
+  _randomAlbumArt() {
+    const artists = this.props.artists
+    const artistName = this.props.artistName;
+    const artist = artists[artistName]
+    const albumArt =  artist.getArtistAlbumsAPI
+    if(albumArt) {
+      let num = albumArt.items.length
+      this.setState({albumArt: albumArt.items[Math.floor(Math.random() * num)].images[1].url})
+    }
+  }
+
   render() {
+
     const randomBio = "The music sails alive with the compelling combination of rich layers among mixed styles of rhythm that hit the soul. By melding hook-filled melody within hard and heavy beats, has the ability to compact a vast array of influence and experience into a singular song"
     const artists = this.props.artists
     const artistName = this.props.artistName;
     const artist = artists[artistName]
-    const albumArt = artist.getArtistAlbumsAPI ? artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+    // artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+    let albumArt = this.state.albumArt ? this.state.albumArt : artist.getArtistAlbumsAPI ? artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
     const popularity = artist.Spotify_searchArtistsAPI ? artist.Spotify_searchArtistsAPI.popularity : 'N/A'
     const bio = artist.LastFM_getInfoAPI ? artist.LastFM_getInfoAPI.bio.content ? artist.LastFM_getInfoAPI.bio.content.slice(0,225).split('/').join(' /').split('%').join('% '): randomBio : null
-
 
     const Style = {
                     "borderRadius": "500px",
@@ -270,7 +294,7 @@ class Band extends Component {
       <div>
         <div className="accordion-band">
           <div className="band-info">
-            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} />
+            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} onClick={this._randomAlbumArt.bind(this)}/>
             <div className="accordion-album-band-name"><b>
               <Link to={`artist/${artistName}`} activeClassName='active'>{artistName}</Link>
             </b></div>
@@ -287,6 +311,7 @@ class Band extends Component {
     )
   }
 }
+
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
