@@ -177,6 +177,16 @@ router.post('/fetchShows', function(req, res) {
   })
 })
 
+router.post('/fetchArtists', function(req,res){
+  console.log('~~~~~~~~~~./fetchArtists~~~~~~~~~');
+  Songkick.getArtists(req.body).then((data) => {
+    console.log("~~***~~~fetched Artists: ~~~~***~~~", data)
+    res.send(data)
+  }).catch((error) => {
+    console.log("error: ", error)
+  })
+})
+
 let AlbumsCount = 0;
 router.post('/getArtistAlbums', function(req, res) {
   Spotify.getArtistAlbums(req.body.id).then(albums => {

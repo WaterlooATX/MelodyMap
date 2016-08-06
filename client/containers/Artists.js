@@ -3,19 +3,33 @@ import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
 import GenArtist from '../components/GenArtist';
 import {redux_Artists} from '../actions/artists';
+import SearchBar from '../components/SearchBar';
+import {fetchArtistsAPI} from '../models/api';
+import _ from 'lodash'
+
 
 
 class Artists extends Component {
 
-  render(){
 
+  _artistSearch(term){
+    fetchArtistsAPI(term).then((data) => {
+      console.log("artist Data: ", data)
+    })
+  }
+
+  render(){
+    const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 200)
     const Artists = this._createArtists()
 
 
       return(
-        <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          <div className="panel panel-default">
-          {Artists}
+        <div>
+          <SearchBar onSearchTermChange={artistSearch}/>
+          <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div className="panel panel-default">
+            {Artists}
+            </div>
           </div>
         </div>
         )
