@@ -1,82 +1,73 @@
 .container-fluid.text-center {
-  position: fixed;
+    position: fixed;
 }
-
 /* Remove the navbar's default margin-bottom and rounded borders */
+
 .navbar {
-  margin-bottom: 0 !important;
-  border-radius: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
 }
 .navbar-brand {
-  font-size: 30px;
-  font-family: 'Pacifico', cursive;
+    font-size: 30px;
+    font-family: 'Pacifico', cursive;
 }
-
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
 .row.content {
-  min-width: 100vw;
-  height: 94vh;
+    min-width: 100vw;
+    height: 94vh;
 }
-
 /* Set gray background color and 100% height */
+
 .sidenav {
-  padding: 0px !important;
-  background-color: #f1f1f1;
-  height: 94vh;
+    padding: 0px !important;
+    background-color: #f1f1f1;
+    height: 94vh;
 }
-
 .mapContainer {
-  height: 95vh;
+    height: 95vh;
 }
-
 .Main {
-  padding-right: 0px !important;
-  padding-left: 0px !important;
-  overflow-y: scroll;
-  height: 94vh;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    overflow-y: scroll;
+    height: 94vh;
 }
-
-
 /* On small screens, set height to 'auto' for sidenav and grid */
+
 @media screen and (max-width: 767px) {
-  .row.content {
-    height: 90vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sidenav {
-    display: block;
-    width: 100%;
-    order: 1;
-    height: 45vh;
-    overflow: hidden;
-  }
-
-  .mapContainer {
-    height: 50vh;
-  }
-
-  .Main {
-    display: block;
-    height: 45vh;
-    width: 100%;
-    order: 2;
-  }
+    .row.content {
+        height: 90vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .sidenav {
+        display: block;
+        width: 100%;
+        order: 1;
+        height: 45vh;
+        overflow: hidden;
+    }
+    .mapContainer {
+        height: 50vh;
+    }
+    .Main {
+        display: block;
+        height: 45vh;
+        width: 100%;
+        order: 2;
+    }
 }
-
 /*::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
 }*/
 
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
     width: 0px;
 }
-
 /*::-webkit-scrollbar-thumb
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);

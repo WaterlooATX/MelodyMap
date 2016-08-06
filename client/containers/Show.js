@@ -229,14 +229,7 @@ class AccordionTitle extends Component {
         <div className="left">
           <div id="venueName">
             {/* Route to VenueDetails page on click of venue */}
-            {this.props.venue
-              ? <Link
-                  to={`/venue/${this.props.venue.name}`}
-                  activeClassName='active'>
-                  {this.props.venue.name}
-                </Link>
-              : "loading"
-            }
+            {this.props.venue ? <Link to={`/venue/${this.props.venue.name}`} activeClassName='active'>{this.props.venue.name}</Link> : "loading"}
           </div>
           <div id="venueAdress">
             {this.props.venue ? this.props.venue.address : "loading"}
@@ -274,10 +267,7 @@ class Band extends Component {
           <div className="band-info">
             <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} />
             <div className="accordion-album-band-name"><b>
-              <Link
-                to={`artist/${artistName}`}
-                activeClassName='active'>{artistName}
-              </Link>
+              <Link to={`artist/${artistName}`} activeClassName='active'>{artistName}</Link>
             </b></div>
           </div>
           <div className='right popularity'>

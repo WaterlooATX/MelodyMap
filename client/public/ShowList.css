@@ -1,37 +1,31 @@
 .glyphicon-cd {
-  margin-bottom: 40px;
-  font-size: 15em;
-  -webkit-animation-name:             rotate;
-  -webkit-animation-duration:         1s;
-  -webkit-animation-iteration-count:  infinite;
-  -webkit-animation-timing-function:  linear;
+    margin-bottom: 40px;
+    font-size: 15em;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
 }
-
 @-webkit-keyframes rotate {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
-
 .spinner h1 {
-  vertical-align: top;
+    vertical-align: top;
 }
-
 .spinner {
-  text-align: center;
-  margin-top: 80px;
+    text-align: center;
+    margin-top: 80px;
 }
-
 @media screen and (max-width: 767px) {
-  .spinner {
-    margin-top: 30px;
-  }
-
-  ::-webkit-scrollbar
-  {
-      width: 0px;
-  }
+    .spinner {
+        margin-top: 30px;
+    }
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
 }
