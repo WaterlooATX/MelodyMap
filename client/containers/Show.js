@@ -178,6 +178,18 @@ class Show extends Component {
 
 class Bands extends Component {
 
+  render() {
+    const bands = this._createBand()
+    const venue = this._createVenueObj()
+    return (
+      <div>
+        <AccordionTitle venue={venue} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
+        {bands}
+        {this.props.venue ? this._venue(): this._venueLoading()}
+      </div>
+    )
+  }
+
   _createBand() {
     const bands = this.props.bands;
     if(bands) {
@@ -222,23 +234,15 @@ class Bands extends Component {
     }
     return venue
   }
-
-  render() {
-    const bands = this._createBand()
-    const venue = this._createVenueObj()
-    return (
-      <div>
-        <AccordionTitle venue={venue} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
-        {bands}
-        {this.props.venue ? this._venue(): this._venueLoading()}
-      </div>
-    )
-  }
 }
 
 class AccordionTitle extends Component {
 
-  _render() {
+  render() {
+    return this.props.venue ? this._renderVenue() : null
+  }
+
+  _renderVenue() {
     return (
       <div className="panel-top">
         <div className="marker">
@@ -258,10 +262,6 @@ class AccordionTitle extends Component {
         </div>
       </div>
     )
-  }
-
-  render() {
-    return this.props.venue ? this._render() : null
   }
 }
 
