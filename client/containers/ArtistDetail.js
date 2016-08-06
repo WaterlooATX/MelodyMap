@@ -39,6 +39,7 @@ export default class ArtistDetail extends Component {
                 <h1>{`${this.props.params.artistName}`}</h1>
                 <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <img src = {this.state.artistImg}/>
+                <p>{this.state.artistBio}</p>
             </div>
           </div> 
           <h3>
@@ -81,12 +82,21 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
     for(var key in artists){
-      this.setState({artist: artists[artist]})
+      console.log(artists[artist])
+      this.setState({
+        artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
+        artistName: artists[artist].Spotify_searchArtistsAPI.name,  
+        artistImg: artists[artist].LastFM_getInfoAPI.image,
+        artistUri: artists[artist].Spotify_searchArtistsAPI.uri,
+        artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
+        artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
+        artistSimliar: artist[artist].LastFM_getInfoAPI.similiar.artist
+      })
     }
   }
 }
 
 
-const mapStateToProps = (state) => {return {artists: state.artists }};
+const mapStateToProps = (state) => {return {artists: state.artists}};
 export default connect(mapStateToProps)(ArtistDetail);
 
