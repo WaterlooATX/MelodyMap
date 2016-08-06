@@ -191,38 +191,51 @@ class Bands extends Component {
     }
   }
 
-  render() {
-    const bands = this._createBand()
-    // create VENUE obj
-    var VENUE = this.props.venueInfo
-    if(VENUE) {
+  _venueLoading() {
+    return (
+      <a id="rightBtn" href="" className="btn btn-success" target="_blank" role="button">Loading</a>
+    )
+  }
+
+  _venue() {
+    return (
+      <a id="rightBtn" href={this.props.songkick.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>
+    )
+  }
+
+  _createVenueObj() {
+    var venue = this.props.venueInfo
+    if(venue) {
       const temp = {
         id: this.props.songkick.venue.id,
         ageRestriction: this.props.songkick.ageRestriction || "none",
-        capacity: VENUE.capacity || 'N/A',
-        street: VENUE.street,
-        geo: {lat: VENUE.lat, long: VENUE.lng},
-        city: VENUE.city.displayName,
-        state: VENUE.city.state.displayName,
-        website: VENUE.website,
-        name: VENUE.displayName,
-        address: `${VENUE.street} St, ${VENUE.city.displayName},${VENUE.city.state.displayName}`
+        capacity: venue.capacity || 'N/A',
+        street: venue.street,
+        geo: {lat: venue.lat, long: venue.lng},
+        city: venue.city.displayName,
+        state: venue.city.state.displayName,
+        website: venue.website,
+        name: venue.displayName,
+        address: `${venue.street} St, ${venue.city.displayName},${venue.city.state.displayName}`
       }
-      VENUE = temp
+      venue = temp
     }
+    return venue
+  }
 
+  render() {
+    const bands = this._createBand()
+    const venue = this._createVenueObj()
     return (
       <div>
-        <AccordionTitle venue={VENUE} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
+        <AccordionTitle venue={venue} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
         {bands}
-        {this.props.venue
-          ? <a id="rightBtn" href={this.props.songkick.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>
-          : <a id="rightBtn" href="" className="btn btn-success" target="_blank" role="button">Loading</a>
-        }
+        {this.props.venue ? this._venue(): this._venueLoading()}
       </div>
     )
   }
 }
+
 class AccordionTitle extends Component {
 
   _render() {
@@ -282,7 +295,6 @@ class Band extends Component {
     const artists = this.props.artists
     const artistName = this.props.artistName;
     const artist = artists[artistName]
-    // artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
     let albumArt = this.state.albumArt ? this.state.albumArt : artist.getArtistAlbumsAPI ? artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
     const popularity = artist.Spotify_searchArtistsAPI ? artist.Spotify_searchArtistsAPI.popularity : 'N/A'
     const bio = artist.LastFM_getInfoAPI ? artist.LastFM_getInfoAPI.bio.content ? artist.LastFM_getInfoAPI.bio.content.slice(0,225).split('/').join(' /').split('%').join('% '): randomBio : null
