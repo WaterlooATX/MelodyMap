@@ -8,7 +8,7 @@ var store = [];
 // When specifying min_date or max_date, you need to use both parameters.
 // Use the same value for both to get events for a single day.
 // This search returns only upcoming events.
-exports.getTonightLocalInfo = (coords, dateA, dateB) => {
+exports.getShows = (data) => {
 	// Search based on a songkick metro area id
 	// austin 'geo:30.2669444,-97.7431'
 	// `geo:${coords.lat},${coords.long}`
@@ -16,9 +16,9 @@ exports.getTonightLocalInfo = (coords, dateA, dateB) => {
 	today = today.toISOString().slice(0,10)
 	return client.searchEvents(
 		{
-			"location": `geo:${coords.lat},${coords.long}`,
-			"min_date": dateA || today,
-      "max_date": dateB || today
+			"location": `geo:${data.lat},${data.long}`,
+			"min_date": data.dateA || today,
+      "max_date": data.dateB || today
 		}
 	).then((data) => data)
 }
