@@ -23,6 +23,10 @@ exports.getTonightLocalInfo = (coords, dateA, dateB) => {
 	).then((data) => data)
 }
 
+exports.getArtists = (query) => {
+	return client.searchArtists().then(data => data)
+}
+
 exports.getVenue = (venueId) => {
   return client.getVenue(venueId).then(data => data)
 }

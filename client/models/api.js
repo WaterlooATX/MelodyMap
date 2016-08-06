@@ -7,6 +7,13 @@ export function fetchShowsAPI(long, lat) {
   });
 }
 
+export function fetchArtistsAPI(query){
+  console.log("inside model")
+  return axios.post('/fetchArtists', {
+    query: query
+  });
+}
+
 export function geolocationAPI(success, fail, options) {
   return navigator.geolocation.getCurrentPosition(success, fail, options);
 }
