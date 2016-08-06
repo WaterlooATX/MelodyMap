@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 
 
 
-class ArtistHome extends Component {
+export default class ArtistHome extends Component {
 	render(){
 		<div>
 			<SearchBar/>

@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'reac
 import ReduxPromise from 'redux-promise'
 import NavBar from './containers/NavBar';
 import App from './components/App';
-import Artists from './containers/Artists';
+import ArtistHome from './components/ArtistHome';
 import Venues from './containers/Venues';
 import ArtistDetail from './containers/ArtistDetail';
 import VenueDetail from './containers/VenueDetail';
@@ -28,7 +28,7 @@ ReactDOM.render(
         <Router history={browserHistory}>
           <Route path='/' component={App} >
             <IndexRoute component={Home} />
-	          <Route path="artists" component={Artists} />
+	          <Route path="artists" component={ArtistHome} />
             <Route path="venues" component={Venues} />
 	          <Route path="artist/:artistName" component={ArtistDetail} />
             <Route path="venue/:venueName" component={VenueDetail} />
