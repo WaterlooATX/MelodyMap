@@ -36,6 +36,7 @@ export default class ArtistDetail extends Component {
           <h1>
             {`${this.props.params.artistName}`}
             <iframe className = "followButton" src={`https://embed.spotify.com/follow/1/?uri=${this.state.artistUri}&size=detail&theme=light&show-count=0`}></iframe>
+            <iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameborder="0" allowtransparency="true"></iframe>
           </h1>
           <h3>
             {`List information for a ${this.props.params.artistName} here. `}
