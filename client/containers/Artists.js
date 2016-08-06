@@ -9,10 +9,20 @@ import _ from 'lodash';
 
 class Artists extends Component {
 
+  constructor(props){
+    super(props);
+    this.state={
+      artistBlocks: [],
+      selectedArtist: null,
+    }
+  }
 
   _artistSearch(term){
-    fetchArtistsAPI(term).then((data) => {
-      console.log("artist Data: ", data)
+    fetchArtistsAPI(term).then((artists) => {
+      this.setState({
+        artistBlocks: artists,
+        selectedArtist: artists[0]
+      })
     })
   }
 
@@ -42,7 +52,7 @@ class Artists extends Component {
     const artists = this.props.artists
     const mapped = []
     for(let artist in artists) {
-      mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist}/>)
+      mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist} selectedArtist={this.state.selectedArtist} artistBlocks={this.state.artistBlocks}/>)
     }
     return mapped
   }

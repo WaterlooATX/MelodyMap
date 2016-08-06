@@ -10,7 +10,6 @@ export function fetchShowsAPI(long, lat, dateA, dateB) {
 }
 
 export function fetchArtistsAPI(query){
-  console.log("inside model")
   return axios.post('/fetchArtists', {
     query: query
   });
