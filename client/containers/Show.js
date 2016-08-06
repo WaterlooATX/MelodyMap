@@ -163,13 +163,12 @@ class Show extends Component {
   // Sends the show's id back to the parent (ShowList.js) on click
   _onClickHandler(DOMString, event) {
     event.preventDefault();
-
     this.props.sendToState(this.props.id);
     // get tracks only on click
     if(!this.state.clicked) {
       this.setState({clicked: true});
     }
-    $(DOMString)[0].scrollIntoView( true );
+    $(`#${DOMString}`)[0].scrollIntoView( true );
   }
 }
 
