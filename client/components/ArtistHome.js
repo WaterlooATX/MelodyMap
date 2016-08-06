@@ -8,7 +8,7 @@ import {fetchArtistsAPI} from '../models/api';
 export default class ArtistHome extends Component {
 
 	componentDidMount(){
-		fetchArtistsAPI().then((data) => {
+		fetchArtistsAPI('Muse').then((data) => {
 			console.log("artist Data: ", data)
 		})
 	}
