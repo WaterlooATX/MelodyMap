@@ -2,54 +2,32 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import GenArtist from '../components/GenArtist'
-import {selectShow} from '../actions/select_show';
+import {redux_Artists} from '../actions/artists'
 
-
-
-export default class Artists extends Component {
+class Artists extends Component {
 
   render(){
-    const shows = this.props.shows[0];
-    if(shows){
+    const Artists = this._createArtists()
       return(
         <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div className="panel panel-default">
-            {this._createArtists(shows)}
+          {Artists}
           </div>
         </div>
         )
-      } else{
-          return
-            <div className = "spinner">
-              <div> Loading.... </div>
-            </div>
-          }
   }
 
-
-_sendToState(arg) {
-    const shows = this.props.shows[0];
-    let showWithId = shows.filter((show) => show.id === arg);
-    this.props.selectShow(showWithId);
-  }
-
-  _createArtists(artists){
-    return artists.map((artist, i) => {
-      return <GenArtist
-        displayName={artist.performance[0].displayName}
-        id={artist.id}
-        key={artist.id}
-        artists= {artist.performance}
-        selected={(this.props.selectedShow === artist) ? true : false}
-        sendToState={this._sendToState.bind(this)}
-        />
-    })
+  _createArtists(){
+    const artists = this.props.artists
+    const mapped = []
+    for(let artist in artists) {
+      mapped.push(<GenArtist artist={artists[artist]} key={artist}/>)
+    }
+    return mapped
+    //return _.map(artists, (artist, i) => <GenArtist artist={artist} key={i}/>)
   }
 }
 
-
-
-
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow}};
-const mapDispatchToProps= (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch)
+const mapStateToProps = (state) => {return {artists: state.artists }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Artists);
