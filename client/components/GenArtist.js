@@ -46,7 +46,6 @@ export default class GenArtist extends Component {
 			image = artist.Spotify_searchArtistsAPI.img
 		:
 			image = this.state.img;
-		console.log(artist.Spotify_getArtistTopTracksAPI)
 		return (
 			
 			<div className="panel-heading" role="tab" id={`heading${id}`}>

@@ -24,7 +24,7 @@ exports.getTonightLocalInfo = (coords, dateA, dateB) => {
 }
 
 exports.getArtists = (query) => {
-	return client.searchArtists().then(data => data)
+	return client.searchArtists(query).then(data => data)
 }
 
 exports.getVenue = (venueId) => {

@@ -8,14 +8,19 @@ import {fetchArtistsAPI} from '../models/api';
 export default class ArtistHome extends Component {
 
 	componentDidMount(){
-		fetchArtistsAPI('Muse').then((data) => {
+	}
+
+	_artistSearch(term){
+		fetchArtistsAPI(term).then((data) => {
 			console.log("artist Data: ", data)
 		})
 	}
+
 	render(){
+		const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 200)
 		return (
 			<div>
-				<SearchBar/>
+				<SearchBar onSearchTermChange={_artistSearch}/>
 				<Artists/>
 			</div>
 		)
