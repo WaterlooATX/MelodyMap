@@ -26,9 +26,6 @@ class Show extends Component {
     // array of artist that are preforming
     // console.log(this.props.artistsNames)
     this._spotifyInfo(this.props.showArtists)
-
-
-
   }
 
   _spotifyInfo(showArtists){
@@ -36,8 +33,6 @@ class Show extends Component {
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
 
     showArtists.forEach(Artist => {
-
-
 
        if(!reduxArtists[Artist.displayName]){
         reduxArtists[Artist.displayName] = {}
@@ -110,8 +105,14 @@ class Show extends Component {
   }
 
   render() {
-    let props = this.props;
-
+    // doorsOpen variable set to display pretty date with moment.js
+    const props = this.props;
+    let doorsOpen = new Date().toString();
+    doorsOpen = doorsOpen.split(' ');
+    doorsOpen[4] = props.doorsOpen;
+    doorsOpen = moment(doorsOpen.join(' ')).calendar();
+    console.log('doorsOpen', doorsOpen);
+    
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -135,7 +136,7 @@ class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={this.state.bands} doorsOpen={props.doorsOpen} venue={props.venue} venueInfo={this.state.venueInfo} songkick={props.songkick} artists={this.props.artists}/>
+              <Bands bands={ this.state.bands } doorsOpen={ doorsOpen } venue={ props.venue } venueInfo={ this.state.venueInfo } songkick={ props.songkick } artists={this.props.artists} />
             </div>
         </div>
       </div>
@@ -225,7 +226,8 @@ class Bands extends Component {
 }
 class AccordionTitle extends Component {
   render() {
-    return (
+    return this.props.venue ?
+    (
       <div className="panel-top">
         <div className="marker">
           <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
@@ -233,19 +235,20 @@ class AccordionTitle extends Component {
         <div className="left">
           <div id="venueName">
             {/* Route to VenueDetails page on click of venue */}
-            {this.props.venue ? <Link to={`/venue/${this.props.venue.name}`} activeClassName='active'>{this.props.venue.name}</Link> : "loading"}
+            { <Link to={`/venue/${this.props.venue.name}`} activeClassName='active'>{this.props.venue.name}</Link> }
           </div>
           <div id="venueAdress">
-            {this.props.venue ? this.props.venue.address : "loading"}
+            { this.props.venue.address }
           </div>
         </div>
         <div className="right">
           <div id="doorsOpen">
-          {`Doors open at ${this.props.doorsOpen}`}
+          { !this.props.doorsOpen.includes('Invalid date') ? `Doors open ${this.props.doorsOpen}` : null }
           </div>
         </div>
       </div>
     )
+    : null
   }
 }
 
