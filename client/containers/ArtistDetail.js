@@ -15,6 +15,7 @@ export default class ArtistDetail extends Component {
     constructor(props){
     super(props);
     this.state = {  
+      artist: null,
       artistUri: null,
       artistImg: null,
       videos: [],
@@ -30,6 +31,7 @@ export default class ArtistDetail extends Component {
 
 
   render() {
+    console.log("artist", this.state.artist)
     return (
         <div>
           <div className="container">
@@ -79,8 +81,7 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
     for(var key in artists){
-      console.log("KEY", artists[key])
-      console.log("Artist", artist)
+      this.setState({artist: artists[artist]})
     }
   }
 }
