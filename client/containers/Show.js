@@ -15,7 +15,7 @@ class Show extends Component {
     this.state ={
       img: "http://assets.audiomack.com/default-artist-image.jpg",
       bands : [],
-      previewTrack: [],
+      previewTrack: null,
       clicked: false,
       venueInfo: null,
       songPlay: false
@@ -60,6 +60,7 @@ class Show extends Component {
               img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
             }
             this.setState({bands: this.state.bands.concat([Spotify_searchArtistsAPI])})
+
             //console.log(Artist.displayName,artist.name )
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
 
@@ -80,6 +81,13 @@ class Show extends Component {
             .then(artistTracks => {
 
               reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
+              if(this.state.bands[0]) {
+                let headliner = this.state.bands[0].displayName
+                let artist = this.props.artists[headliner]
+                if(artist) {
+                  this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null})
+                }
+              }
             })
             .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
 
@@ -102,15 +110,7 @@ class Show extends Component {
   }
 
   render() {
-    let topTrack = null
     let props = this.props;
-    if(this.state.bands[0]) {
-      let headliner = this.state.bands[0].displayName
-      let artist = this.props.artists[headliner]
-      if(artist) {
-        topTrack = artist.Spotify_getArtistTopTracksAPI ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null
-      }
-    }
 
     return (
       <div className="panel panel-default">
@@ -126,7 +126,7 @@ class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              {topTrack ? <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}> <audio src={topTrack}> </audio></i> :  null}
+              {this.state.previewTrack ? <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}> <audio src={this.state.previewTrack}> </audio></i> :  null}
                <p className="artist">{ props.showArtists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
@@ -211,8 +211,6 @@ class Bands extends Component {
       VENUE = temp
     }
 
-
-
     return (
       <div>
         <AccordionTitle venue={VENUE} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
@@ -227,7 +225,6 @@ class Bands extends Component {
 }
 class AccordionTitle extends Component {
   render() {
-    this.props ? console.log(this.props): console.log("hey")
     return (
       <div className="panel-top">
         <div className="marker">
