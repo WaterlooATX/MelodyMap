@@ -44,10 +44,15 @@
 }
 .panel-top {
     text-align: center;
+    /*display: flex;
+    flex-direction: row;*/
 }
 .accordion-venue {
     margin: 5px 0;
     font-size: 2em;
+}
+#venueAdress, #doorsOpen {
+    font-size: 14px;
 }
 .accordion-band {
     display: flex;
@@ -91,7 +96,7 @@
 }
 .marker {
     margin-top: 5px;
-    float: left;
+    /*float: left;*/
 }
 .fa-map-marker:before {
     font-size: 40px;
