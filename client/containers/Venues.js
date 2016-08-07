@@ -1,12 +1,24 @@
 import React, {Component} from 'react';
-// import NavBar from './NavBar';
+import {bindActionCreators} from 'redux';
+import {connect} from "react-redux";
+import SearchBar from '../components/SearchBar';
+import {fetchArtistsAPI} from '../models/api';
+import _ from 'lodash';
 
 
-export default class Venue extends Component {
+class Venues extends Component {
+
+  componentDidMount() {
+
+    this.props.artists ? console.log("this.props.artists in VENUES: ", this.props.artists) : null;
+    this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
+  }
+
   render() {
     return (
       <div>
         <div>
+          <h1>{this.props.shows ? this.props.shows[0].venue.displayName : 'loading venue name...'}</h1>
           <h1>List of Venues</h1>
           <h5>
             Default displayed venues could be the venues from the shows that came from the same API call for showlist on the home page.
@@ -25,3 +37,7 @@ export default class Venue extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
+// const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
+export default connect(mapStateToProps)(Venues);
