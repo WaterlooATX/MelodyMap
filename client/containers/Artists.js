@@ -30,10 +30,10 @@ class Artists extends Component {
               <div className="page-header">
                 <h1>Artists</h1>
                 <SearchBar onSearchTermChange={artistSearch}/>
-                <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                  <div className="panel panel-default">
-                  {Artists}
-                  </div>
+              </div>
+              <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div className="panel panel-default">
+                {Artists}
                 </div>
               </div>
             </div>
