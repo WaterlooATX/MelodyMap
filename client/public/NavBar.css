@@ -1,5 +1,15 @@
+.navbar-collapse {
+  margin-right: 0;
+}
+.nav-container {
+  display: flex;
+  flex: 1;
+}
+
 .songkick-search {
-  display: inline-block;
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
 .songkick-search input {
@@ -23,6 +33,16 @@
 }
 
 @media screen and (max-width: 767px) {
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .songkick-search {
+    display: flex;
+    flex-direction: column;
+  }
+
   .songkick-search input, .songkick-search button {
     margin: 0 50px 20px 0;
     width: 170px;

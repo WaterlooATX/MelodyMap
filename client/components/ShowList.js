@@ -17,7 +17,7 @@ export default class ShowList extends Component {
     } else {
       return <div className="spinner">
       <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>
-      <h1>&nbsp;&nbsp;Fetching your geolocation...</h1></div>
+      <h1>&nbsp;&nbsp;Fetching your location...</h1></div>
     }
   }
 

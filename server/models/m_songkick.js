@@ -9,28 +9,32 @@ var store = [];
 // Use the same value for both to get events for a single day.
 // This search returns only upcoming events.
 exports.getShows = (data) => {
-	// Search based on a songkick metro area id
-	// austin 'geo:30.2669444,-97.7431'
-	// `geo:${coords.lat},${coords.long}`
-	let today = new Date()
-	today = today.toISOString().slice(0,10)
-	return client.searchEvents(
-		{
-			"location": `geo:${data.lat},${data.long}`,
-			"min_date": data.dateA || today,
+  // Search based on a songkick metro area id
+  // austin 'geo:30.2669444,-97.7431'
+  // `geo:${coords.lat},${coords.long}`
+  let today = new Date()
+  today = today.toISOString().slice(0,10)
+  console.log(`geo:${data.lat},${data.long}`, data.dateA || today, data.dateB || today);
+  return client.searchEvents(
+    {
+      "location": `geo:${data.lat},${data.long}`,
+      "min_date": data.dateA || today,
       "max_date": data.dateB || today
-		}
-	).then((shows) => {
-		if( shows.length < 10) {
-			return client.searchEvents({"location": `geo:${data.lat},${data.long}`}).then(shows => shows)
-		} else {
-			return shows
-		}
-	})
+    }
+  ).then((shows) => {
+    console.log('shows from .then', shows);
+    if (shows) {
+      if( shows.length < 10) {
+        return client.searchEvents({"location": `geo:${data.lat},${data.long}`}).then(shows => shows)
+      } else {
+        return shows
+      }
+    } else console.log('no shows found for the given dates / location');
+  })
 }
 
 exports.getArtists = (query) => {
-	return client.searchArtists(query).then(data => data)
+  return client.searchArtists(query).then(data => data)
 }
 
 exports.getVenue = (venueId) => {
@@ -54,5 +58,5 @@ exports.getEventSetlist = (eventID) => {
 }
 
 exports.getSimilarArtists = (artistID) => {
-	return client.getSimilarArtists(eventID).then(data => data)
+  return client.getSimilarArtists(eventID).then(data => data)
 }

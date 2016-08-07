@@ -8,6 +8,9 @@
   vertical-align: center;
   margin-top: 3px;
 }
+.NavLogin {
+  display: inline;
+}
 button.spotify {
   background: #81b33a;
   width: 210px;
@@ -19,10 +22,9 @@ button.spotify {
   font-weight: bold;
   color: white;
   float: right;
-  margin: 13px 0px 13px 40px;
+  margin: 13px 0;
   padding-top: 3px;
   display: inline-block;
-  vertical-align: center;
 }
 .spotify .aLink,
 .spotify .aLink:hover {
@@ -30,7 +32,7 @@ button.spotify {
   color: white;
   margin: 8px;
   position: relative;
-  top: -4px;
+  top: -3px;
 }
 .fa-spotify:before {
   display: inline-block;
@@ -40,8 +42,9 @@ button.spotify {
 
 @media screen and (max-width: 767px) {
   button.spotify {
-    margin: 0;
-    width: 170px;
+    display: inline-block;
+    margin: 0 50px 20px 0;
+    width: 210px;
     float: none;
   }
 
