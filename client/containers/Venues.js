@@ -21,8 +21,6 @@ class Venues extends Component {
 
           <h1>{this.props.shows ? venueName : 'loading venue name...'}</h1>
 
-
-
         </div>
       </div>
     )
@@ -35,7 +33,6 @@ class Venues extends Component {
     for (let show in shows) {
       mapped.push(<GenVenue venue={shows[show].venue} key={show} name={shows[show].venue.displayName}/>)
     }
-
     return mapped
   }
 
