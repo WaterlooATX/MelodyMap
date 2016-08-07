@@ -20,7 +20,13 @@ exports.getShows = (data) => {
 			"min_date": data.dateA || today,
       "max_date": data.dateB || today
 		}
-	).then((data) => data)
+	).then((shows) => {
+		if( shows.length < 10) {
+			return client.searchEvents({"location": `geo:${data.lat},${data.long}`}).then(shows => shows)
+		} else {
+			return shows
+		}
+	})
 }
 
 exports.getArtists = (query) => {
