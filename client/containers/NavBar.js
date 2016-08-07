@@ -65,6 +65,7 @@ export default class NavBar extends Component {
                 {/* <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
+                <div className="nav-container">
                 <form className="songkick-search">
                 <input
                   placeholder="Start date - YYYY-MM-DD"
@@ -88,6 +89,7 @@ export default class NavBar extends Component {
                 :
                 <UserLogin spotifyData={this.state.spotifyData}/>
               }
+              </div>
             </div>
           </div>
         </nav>
@@ -114,7 +116,6 @@ export default class NavBar extends Component {
     // get coordinate from city name
     Google_geocoder(this.state.city)
     .then(resp => {
-      console.log('startDate', startDate, 'endDate', endDate)
       let lat = resp.data.results[0].geometry.location.lat;
       let long = resp.data.results[0].geometry.location.lng;
       this.props.fetchShows({ long, lat, startDate, endDate });

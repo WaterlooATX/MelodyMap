@@ -25,6 +25,9 @@
     .spinner {
         margin-top: 30px;
     }
+    .spinner h1 {
+        display: none;
+    }
     ::-webkit-scrollbar {
         width: 0px;
     }

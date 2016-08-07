@@ -121,7 +121,7 @@ class Show extends Component {
                   let headliner = this.state.bands[0].displayName
                   let artist = this.props.artists[headliner]
                   if(artist) {
-                    this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null})
+                    this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
                   }
                 }
               })
@@ -231,7 +231,7 @@ class Bands extends Component {
         state: venue.city.state.displayName,
         website: venue.website,
         name: venue.displayName,
-        address: `${venue.street} St, ${venue.city.displayName},${venue.city.state.displayName}`
+        address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
       }
       venue = temp
     }
@@ -267,7 +267,6 @@ class AccordionTitle extends Component {
     )
   }
 }
-
 
 class Band extends Component {
   constructor(props) {
