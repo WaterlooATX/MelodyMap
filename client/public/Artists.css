@@ -1,3 +1,15 @@
+#artist-search-bar {
+  /*margin-bottom: 20px;*/
+  display: inline ;
+  width: 30%;
+  position: relative;
+  float: right;
+}
+
+h1 {
+  display: inline;
+}
+
 .search-bar {
     margin: 20px;
     text-align: center;
