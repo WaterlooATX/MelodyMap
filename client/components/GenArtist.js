@@ -30,44 +30,39 @@ export default class GenArtist extends Component {
 		const props = this.props;
 		const artist = props.artist;
 		const name = props.name;
-		var id;
 		var image;
 		var track;
 
-		artist.Spotify_getArtistTopTracksAPI ?
-			track = artist.Spotify_getArtistTopTracksAPI[0].preview_url
-		:
-			track = null;
-		artist.Spotify_searchArtistsAPI ?
-			id = props.artist.Spotify_searchArtistsAPI.id
-		:
-			id = "af3753";
-		artist.Spotify_searchArtistsAPI ?
-			image = artist.Spotify_searchArtistsAPI.img
-		:
-			image = this.state.img;
+		artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? track = artist.Spotify_getArtistTopTracksAPI[0].preview_url : track =  null) : track = null;
+		artist.Spotify_searchArtistsAPI ? image = artist.Spotify_searchArtistsAPI.img : image = this.state.img;
+
 		return (
-			
-			<div className="panel-heading" role="tab" id={`heading${id}`}>
+
+			<div className="panel-heading" role="tab" id={`heading${name}`}>
 					<div>
 						<h3>
-							<img className="genImage" src = {image} alt={id} height='85' width='85'/>
-								
-								
+							<img className="genImage" src = {image} alt={name} height='85' width='85'/>
+
+
 								<Link className = "genArtist"
 								    to={ `artist/${name}`}
 								    activeClassName='active'>{name}
 								</Link>
-								
-								{track ?
-				                <i className="speaker fa fa-volume-up fa-3x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
-				                <audio src={track}>
-				                </audio></i> : null}
-								
+
+								{track ? this._speaker(track) : null}
+
 						</h3>
 					</div>
 			</div>
-		
+
+		)
+	}
+
+	_speaker(track) {
+		return (
+			<i className="speaker fa fa-volume-up fa-3x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
+			<audio src={track}>
+			</audio></i>
 		)
 	}
 
@@ -91,4 +86,3 @@ export default class GenArtist extends Component {
 	}
 
 }
-
