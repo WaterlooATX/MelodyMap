@@ -9,8 +9,8 @@ import _ from 'lodash';
 class Venues extends Component {
 
   componentDidMount() {
-    // this.props.artists ? console.log("typeof this.props.artists in VENUES: ", this.props.artists) : null;
-    // this.props.shows ? console.log("typeof this.props.shows in VENUES: ", this.props.shows) : null;
+    this.props.artists ? console.log("typeof this.props.artists in VENUES: ", this.props.artists) : null;
+    this.props.shows ? console.log("typeof this.props.shows in VENUES: ", this.props.shows) : null;
   }
 
   render() {
@@ -29,16 +29,13 @@ class Venues extends Component {
   }
 
 // copied from artists comp, change for venues
-  _createArtists(){
+  _createVenues() {
     const shows = this.props.shows
     const mapped = []
     for (let show in shows) {
-      mapped.push(<GenVenue />)
+      mapped.push(<GenVenue venue={shows[show].venue} key={show} name={shows[show].venue.displayName}/>)
     }
 
-    for(let artist in artists) {
-      mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist}/>)
-    }
     return mapped
   }
 
