@@ -2,10 +2,12 @@ import React, {Component} from "react";
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {Link} from "react-router";
+import {fetchShows} from '../actions/shows'
 import {getMyInfo, setTokens} from '../actions/spotify'
 import NavLogin from '../components/NavLogin';
 import UserLogin from '../components/UserLogin';
-import {followArtist} from '../models/spotify'
+import {followArtist} from '../models/spotify';
+import {Google_geocoder, Songkick_getShows} from '../models/api'
 
 
 export default class NavBar extends Component {
@@ -79,7 +81,7 @@ export default class NavBar extends Component {
                   value={ this.state.city }
                   onChange={ event => this._onCityChange(event.target.value) }
                 />
-                <button type="submit">Search</button>
+                <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
               </form>
               {!this.state.loggedIn ?
                 <NavLogin />
@@ -105,6 +107,19 @@ export default class NavBar extends Component {
     this.setState({ city });
   }
 
+  _onSubmit(event) {
+    let startDate = this.state.startDate;
+    let endDate = this.state.endDate;
+    event.preventDefault();
+    // get coordinate from city name
+    Google_geocoder(this.state.city)
+    .then(resp => {
+      console.log('startDate', startDate, 'endDate', endDate)
+      let lat = resp.data.results[0].geometry.location.lat;
+      let long = resp.data.results[0].geometry.location.lng;
+      this.props.fetchShows({ long, lat, startDate, endDate });
+    })
+  }
 
 }
 
@@ -115,5 +130,5 @@ class NavLink extends Component{
 }
 
 const mapStateToProps = (state) => {return { }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ getMyInfo, setTokens}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchShows, getMyInfo, setTokens }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

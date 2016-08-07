@@ -1,9 +1,11 @@
 import axios from 'axios'
 
-export function fetchShowsAPI(long, lat) {
+export function fetchShowsAPI(long, lat, dateA, dateB) {
   return axios.post("/fetchShows", {
-    long: long,
-    lat: lat
+    long,
+    lat,
+    dateA,
+    dateB
   });
 }
 
@@ -20,6 +22,10 @@ export function geolocationAPI(success, fail, options) {
 
 export function ipLocationAPI() {
   return axios('http://ip-api.com/json');
+}
+
+export function Google_geocoder(city) {
+  return axios(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=AIzaSyBJ8mgAx4EEDwXqJcDKsE996qbtAu0kQ2o`);
 }
 
 export function Spotify_searchArtistsAPI(name) {
@@ -44,6 +50,14 @@ export function LastFM_getInfoAPI(name) {
 export function getArtistAlbumsAPI(artistID) {
   return axios.post('/getArtistAlbums', {
     id: artistID
+  });
+}
+
+export function Songkick_getShows(city, dateA, dateB) {
+  return axios.post('/Songkick_getShows', {
+    city,
+    dateA,
+    dateB,    
   });
 }
 

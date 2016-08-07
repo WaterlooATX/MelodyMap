@@ -169,8 +169,8 @@ router.post('/Songkick_getVenue', function(req, res) {
 })
 
 router.post('/fetchShows', function(req, res) {
-  console.log("/fetchShows");
-  Songkick.getTonightLocalInfo(req.body).then((data) => {
+  console.log("/fetchShows", req.body);
+  Songkick.getShows(req.body).then((data) => {
     res.send(data)
   }).catch((error) => {
     console.log("error", error)
