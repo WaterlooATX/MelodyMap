@@ -57,4 +57,3 @@ export default connect(mapStateToProps)(Venues);
 //   <li>Next show (possibly several)</li>
 //   <li>etc</li>
 // </ul>
-
