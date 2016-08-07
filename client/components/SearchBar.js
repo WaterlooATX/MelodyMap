@@ -12,12 +12,15 @@ export default class SearchBar extends Component {
 
 	render() {
 		return (
-			<div className='search-bar'>
+
+			<div id='artist-search-bar'>
 				<input
+					className="form-control"
 					value = { this.state.term }
-					placeholder = 'Search Artist Videos'
-					onChange={ event => this.onInputChange(event.target.value) } /> 
+					placeholder = 'Search Artist'
+					onChange={ event => this.onInputChange(event.target.value) } />
 			</div>
+
 		)
 	}
 
