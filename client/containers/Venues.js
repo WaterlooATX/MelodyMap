@@ -26,7 +26,6 @@ class Venues extends Component {
     )
   }
 
-// copied from artists comp, change for venues
   _createVenues() {
     const shows = this.props.shows
     const mapped = []
