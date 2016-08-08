@@ -29,7 +29,7 @@ class Show extends Component {
   }
 
   render() {
-    const props = this.props;
+    const props = this.props, track = this.state.previewTrack;
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -44,7 +44,7 @@ class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              {this.state.previewTrack  ? this._speaker(this.state.previewTrack ) : null}
+              {track ? this._speaker(track) : null}
                <p className="artist">{ props.showArtists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
