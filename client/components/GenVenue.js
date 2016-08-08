@@ -13,13 +13,13 @@ export default class GenArtist extends Component {
   constructor(props){
     super(props);
     this.state = {
-      getVenueResults: []
+      getVenueResults: null
     }
   }
 
   componentWillMount () {
     Songkick_getVenueAPI(2151799).then(data => {
-      console.log(data);
+      // console.log(data);
       this.setState({getVenueResults: data.data.id})
     })
   }
