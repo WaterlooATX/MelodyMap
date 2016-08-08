@@ -28,7 +28,7 @@ class Home extends Component {
       <div className="container-fluid text-center">
         <div className='row content'>
           <div className="col-sm-4 text-left Main">
-            <ShowList shows={ this.props.shows } location={{ long: this.props.location.long , lat:  this.props.location.lat }} />
+            <ShowList shows={ this.props.shows } location={{ long: this.props.location.long , lat:  this.props.location.lat }} onMarkerClick={ this._onMarkerClick } />
           </div>
           <div className="col-sm-8 sidenav">
             <DrawMap shows={ this.props.shows } location={{ long:  this.props.location.long , lat: this.props.location.lat }} selectedShow={ this.props.selectedShow } selectShow={ this.props.selectShow } />
@@ -37,6 +37,10 @@ class Home extends Component {
       </div>
     )
   }
+
+  // _onMarkerClick(address) {
+
+  // }
 
 }
 
