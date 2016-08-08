@@ -15,9 +15,6 @@ export default class ArtistDetail extends Component {
     constructor(props){
     super(props);
     this.state = {  
-      artist: null,
-      artistUri: null,
-      artistImg: null,
       videos: [],
       selectedVideo: null
     }
@@ -30,13 +27,14 @@ export default class ArtistDetail extends Component {
 
 
   render() {
-    console.log("STATE",this.state.artistGenre)
+    console.log(this.state.artistSimliar)
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
                 <img className = "detailImage img-circle" src = {this.state.artistImg}/> 
-                <h1>{`${this.props.params.artistName}`}{this.onTour(this.state.artistTour)}</h1>
+                <h1>{`${this.props.params.artistName}`}</h1>
+                <h3 className = "text-muted">{this.onTour(this.state.artistTour)}</h3>
                 <ul>
                 {
                   this.getGenre(this.state.artistGenre)
@@ -46,21 +44,14 @@ export default class ArtistDetail extends Component {
                 <p>{this.state.artistBio}</p>
             </div>
           </div> 
-          <h3>
-            <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
-          </h3>
-        <div>
+        <div >
           <VideoDetail video={this.state.selectedVideo} />
-          <VideoList
-              onVideoSelect={selectedVideo => this.setState({selectedVideo})}
-              videos={this.state.videos} />
+          <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
         </div>
         <div id="footer">
           <div className="container">
-            <p className="text-muted credit">RELATED ARTISTS DOWN HERE</p>
-          </div>
-          <div>
-            <p> Artists </p>
+            <h3> Similar Artists </h3>
+            <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
           </div>
         </div>
       </div>
@@ -101,20 +92,26 @@ onTour(tour){
     return null
   }
 }
-
 getGenre(genres){
   if(!genres){
-    console.log("NOTHING GENRE")
     return null
   }
   else{
     return genres.map(genre => {
-      console.log("ANYTHING GEBRE?", genre.name)
       return <li>{genre.name}</li>
     })
   }
 }
-
+similarArtists(artists){
+  if(!artists){
+    return null
+  }
+  else{
+    return artists.map(artist => {
+      return <li>{artist.name}</li>
+    })
+  }
+}
 
 }
 
