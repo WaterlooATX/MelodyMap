@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {Link} from "react-router";
+import {setLocation} from '../actions/location'
 import {fetchShows} from '../actions/shows'
 import {getMyInfo, setTokens} from '../actions/spotify'
 import NavLogin from '../components/NavLogin';
@@ -118,6 +119,7 @@ export default class NavBar extends Component {
     .then(resp => {
       let lat = resp.data.results[0].geometry.location.lat;
       let long = resp.data.results[0].geometry.location.lng;
+      this.props.setLocation({ long, lat })
       this.props.fetchShows({ long, lat, startDate, endDate });
     })
   }
@@ -131,5 +133,5 @@ class NavLink extends Component{
 }
 
 const mapStateToProps = (state) => {return { }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchShows, getMyInfo, setTokens }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ setLocation, fetchShows, getMyInfo, setTokens }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
