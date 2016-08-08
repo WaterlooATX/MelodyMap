@@ -3,6 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
 import SearchBar from '../components/SearchBar';
 import {fetchArtistsAPI} from '../models/api';
+import GenVenue from '../components/GenVenue'
 import _ from 'lodash';
 
 
@@ -14,14 +15,22 @@ class Venues extends Component {
   }
 
   render() {
-    const venueName = this.props.shows[0].venue.displayName
+    const Venues = this._createVenues();
     return (
-      <div>
-        <div>
-
-          <h1>{this.props.shows ? venueName : 'loading venue name...'}</h1>
-
-        </div>
+      <div className="container">
+        <div className="col col-md-1"></div>
+          <div className="col col-md-10">
+            <div className="page-header">
+              <h1>Artists</h1>
+              <SearchBar onSearchTermChange={artistSearch}/>
+            </div>
+            <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div className="panel panel-default">
+              {Artists}
+              </div>
+            </div>
+          </div>
+        <div className="col col-md-1"></div>
       </div>
     )
   }
