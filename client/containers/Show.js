@@ -29,7 +29,7 @@ class Show extends Component {
   }
 
   render() {
-    const props = this.props;
+    const props = this.props, track = this.state.previewTrack;
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -44,7 +44,7 @@ class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              {this.state.previewTrack ? <i className="fa fa-volume-up  fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}> <audio src={this.state.previewTrack}> </audio></i> :  null}
+              {track ? this._speaker(track) : null}
                <p className="artist">{ props.showArtists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
@@ -60,14 +60,22 @@ class Show extends Component {
     )
   }
 
-    _doorsOpen() {
-      // doorsOpen variable set to display pretty date with moment.js
-      let doorsOpen = new Date().toString();
-      doorsOpen = doorsOpen.split(' ');
-      doorsOpen[4] = this.props.doorsOpen;
-      doorsOpen = moment(doorsOpen.join(' ')).calendar();
-      return doorsOpen
-    }
+  _speaker(track) {
+    return (
+      <i className="speaker fa fa-volume-up fa-3x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
+        <audio src={track}></audio>
+      </i>
+    )
+  }
+
+  _doorsOpen() {
+    // doorsOpen variable set to display pretty date with moment.js
+    let doorsOpen = new Date().toString();
+    doorsOpen = doorsOpen.split(' ');
+    doorsOpen[4] = this.props.doorsOpen;
+    doorsOpen = moment(doorsOpen.join(' ')).calendar();
+    return doorsOpen
+  }
 
   _spotifyInfo(showArtists){
     let reduxArtists = this.props.artists
