@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import GenArtist from '../components/GenArtist';
 import {redux_Artists} from '../actions/artists';
 import SearchBar from '../components/SearchBar';
+import SelectedArtist from '../components/SelectedArtist'
 import {fetchArtistsAPI} from '../models/api';
 import _ from 'lodash';
 
@@ -13,17 +14,22 @@ class Artists extends Component {
     super(props);
     this.state={
       artistBlocks: [],
-      selectedArtist: null,
+      selectedArtists: null,
     }
   }
 
   _artistSearch(term){
     fetchArtistsAPI(term).then((artists) => {
+
+      //const arry = []
+      console.log(artists)
       this.setState({
-        artistBlocks: artists,
-        selectedArtist: artists[0]
+        artistBlocks: artists.data
+      });
+       
+      // }
+      // return arry
       })
-    })
   }
 
   render(){
@@ -36,12 +42,24 @@ class Artists extends Component {
               <div className="page-header">
                 <h1>Artists</h1>
                 <SearchBar onSearchTermChange={artistSearch}/>
+
               </div>
+              {!this.state.artistBlocks.length ? 
+
               <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div className="panel panel-default">
                 {Artists}
                 </div>
               </div>
+              :
+              <div>
+              {/*<div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div className="panel panel-default">*/}
+                  <SelectedArtist artists={this.state.artistBlocks}/>
+                {/*</div>
+              </div>*/}
+              </div>
+              }
             </div>
           <div className="col col-md-1"></div>
         </div>
@@ -52,7 +70,7 @@ class Artists extends Component {
     const artists = this.props.artists
     const mapped = []
     for(let artist in artists) {
-      mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist} selectedArtist={this.state.selectedArtist} artistBlocks={this.state.artistBlocks}/>)
+      mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist} selectedArtists={this.state.selectedArtists} artistBlocks={this.state.artistBlocks}/>)
     }
     return mapped
   }
