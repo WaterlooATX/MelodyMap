@@ -40,7 +40,7 @@ exports.getShows = (data) => {
       } else {
         return concerts
       }
-    } else console.log('no concerts found for the given dates / location');
+    } else return 'No concerts found for the given dates / location';
   })
 }
 
