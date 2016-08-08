@@ -137,7 +137,7 @@ class Show extends Component {
 
                 reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
                 if(this.state.bands[0]) {
-                  let headliner = this.state.bands[0].displayName
+                  let headliner = this.state.bands[0]
                   let artist = this.props.artists[headliner]
                   if(artist) {
                     this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
