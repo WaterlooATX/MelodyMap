@@ -17,7 +17,7 @@ export default class SearchBar extends Component {
 				<input
 					className="form-control"
 					value = { this.state.term }
-					placeholder = 'Search Artist'
+					placeholder = 'Search Venues'
 					onChange={ event => this.onInputChange(event.target.value) } />
 			</div>
 
