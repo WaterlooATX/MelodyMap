@@ -161,7 +161,6 @@ class Show extends Component {
         countRedux++
         // artist exists in redux
         let artist = reduxArtists[Artist.displayName]
-        console.log(countRedux)
         if(countRedux === 1) {
           if(artist.Spotify_searchArtistsAPI) {
             this.setState({img : artist.Spotify_searchArtistsAPI.img})
