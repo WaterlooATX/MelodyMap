@@ -43,7 +43,10 @@
     float: right;
 }
 .panel-top {
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
 }
 .accordion-venue {
     margin: 5px 0;
@@ -79,7 +82,10 @@
     padding: 25px 0 25px 25px;
 }
 .marker {
-    display: inline-block;
+    margin-top: 5px;
+}
+.fa-map-marker:before {
+    font-size: 40px;
 }
 #rightBtn {
     margin-top: 0px !important;
@@ -90,13 +96,6 @@
 #venueName {
     font-size: 1.7em;
 }
-.marker {
-    margin-top: 5px;
-}
-.fa-map-marker:before {
-    font-size: 40px;
-}
-
 .band-info {
   display: flex;
   flex-direction: column;

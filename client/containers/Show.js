@@ -70,10 +70,10 @@ class Show extends Component {
 
   _doorsOpen() {
     // doorsOpen variable set to display pretty date with moment.js
-    let doorsOpen = new Date().toString();
-    doorsOpen = doorsOpen.split(' ');
-    doorsOpen[4] = this.props.doorsOpen;
-    doorsOpen = moment(doorsOpen.join(' ')).calendar();
+    let doorsOpen = new Date(this.props.startDate).toISOString();
+    doorsOpen = doorsOpen.split(/[T\.]/);
+    doorsOpen[1] = this.props.doorsOpen;
+    doorsOpen = moment(doorsOpen[0].concat('T').concat(doorsOpen[1]).concat('.').concat(doorsOpen[2])).calendar();
     return doorsOpen
   }
 
@@ -277,7 +277,7 @@ class AccordionTitle extends Component {
   _renderVenue() {
     return (
       <div className="panel-top">
-        <div className="marker">
+        <div className="marker" onClick={/* this.props.onMarkerClick.bind(this, this.props.venue.address) */null}>
           <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
         </div>
         <div className="left">
@@ -295,6 +295,7 @@ class AccordionTitle extends Component {
       </div>
     )
   }
+
 }
 
 class Band extends Component {
