@@ -9,6 +9,7 @@ import {getMyInfo, setTokens} from '../actions/spotify'
 import ShowList from '../components/ShowList'
 import DrawMap from '../components/DrawMap'
 
+
 class Home extends Component {
 
   componentWillMount() {
