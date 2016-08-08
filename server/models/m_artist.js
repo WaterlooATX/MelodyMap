@@ -6,16 +6,21 @@ const LastFM = require("./m_lastFM")
 exports.artistInfo = (name) => {
   return Spotify.searchArtists(name)
     .then(data => {
-      let a = data[0]
-      return {
-        spotifyURL: a.external_urls,
-        id: a.id,
-        name: a.name,
-        artistImages: a.images,
-        img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-        popularity: a.popularity,
-        followers: a.followers.total
+      if(data) {
+        let a = data[0]
+        if(a) {
+          return {
+            spotifyURL: a.external_urls,
+            id: a.id,
+            name: a.name,
+            artistImages: a.images,
+            img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
+            popularity: a.popularity,
+            followers: a.followers.total
+          }
+        }
       }
+      return {id: null}
     })
     .then(artist => {
       return Spotify.getArtistRelatedArtists(artist.id)
@@ -49,7 +54,7 @@ exports.artistInfo = (name) => {
         .catch(data => artist)
     })
     .then(artist => {
-      return LastFM.getInfo(artist.name)
+      return LastFM.getInfo(name)
         .then((data) => {
           artist['summaryBio'] = data.artist.bio.summary
           artist['fullBio'] = data.artist.bio.content
