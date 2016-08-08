@@ -35,7 +35,7 @@ export default class ArtistDetail extends Component {
         <div>
           <div className="container">
             <div className="jumbotron">
-                <h1>{`${this.props.params.artistName}`}</h1>
+                <h1>{`${this.props.params.artistName}`}{this.onTour(this.state.artistTour)}</h1>
                 <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <img className = "detailImage img-circle" src = {this.state.artistImg}/> 
                 <p>{this.state.artistBio}</p>
@@ -53,6 +53,9 @@ export default class ArtistDetail extends Component {
         <div id="footer">
           <div className="container">
             <p className="text-muted credit">RELATED ARTISTS DOWN HERE</p>
+          </div>
+          <div>
+            <p> Artists </p>
           </div>
         </div>
       </div>
@@ -86,6 +89,14 @@ filterArtist(artist){
       })
     }
   }
+onTour(tour){
+  if(tour === "1"){
+    return <p> ON TOUR NOW! </p>
+  }
+  else{
+    return null
+  }
+}
 }
 
 
