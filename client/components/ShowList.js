@@ -9,11 +9,14 @@ export default class ShowList extends Component {
   render() {
     const shows = this.props.shows;
     if (shows.length > 0) {
-      return (
+      if (typeof shows === 'string') return ( <div className="show-error">{ shows }</div> )
+      else {
+        return (
           <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
               {this._createShows(shows)}
           </div>
-      )
+        )
+      }
     } else {
       return <div className="spinner">
       <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>

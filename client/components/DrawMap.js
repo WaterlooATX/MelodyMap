@@ -9,7 +9,7 @@ const DrawMap = (props) => {
     const location = props.location;
     const shows = props.shows;
 
-    if (shows) {
+    if (Array.isArray(shows)) {
       let array = shows.map(show => getDistanceFromLatLonInKm(+location.lat, +location.long, +show.venue.lat, +show.venue.lng));
       let sorted = array.slice().sort((a,b) => a - b)
       return shows[array.indexOf(sorted[0])];
@@ -29,18 +29,20 @@ const DrawMap = (props) => {
   }
 
   function _createMarkers() {
-    return props.shows.map((show, index) => {
-      return ( <Marker
-        key={ index }
-        position={ {lat: +show.venue.lat, lng: +show.venue.lng} }
-        title ={ show.venue.displayName }
-        onClick={ (marker) => _onMarkerClickHandler(marker, show) }
-        defaultAnimation= { 2 }
-      >
-        {props.selectedShow === show ? <InfoWindow content={ show.displayName } /> : null }
-      </Marker>
-      )
-    })
+    if (Array.isArray(props.shows)) {
+      return props.shows.map((show, index) => {
+        return ( <Marker
+          key={ index }
+          position={ {lat: +show.venue.lat, lng: +show.venue.lng} }
+          title ={ show.venue.displayName }
+          onClick={ (marker) => _onMarkerClickHandler(marker, show) }
+          defaultAnimation= { 2 }
+        >
+          {props.selectedShow === show ? <InfoWindow content={ show.displayName } /> : null }
+        </Marker>
+        )
+      })
+    }
   }
 
   function _onMarkerClickHandler(marker, show) {
