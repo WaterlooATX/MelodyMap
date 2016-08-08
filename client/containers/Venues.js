@@ -14,6 +14,7 @@ class Venues extends Component {
     this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
   }
 
+
   render() {
     const Venues = this._createVenues();
     return (
