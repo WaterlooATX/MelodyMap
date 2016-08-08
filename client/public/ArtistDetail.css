@@ -12,6 +12,7 @@
 }
 
 .jumbotron {
+	min-height:380px;
 	padding-top: 24px;
 }
 
