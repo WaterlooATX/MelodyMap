@@ -52,12 +52,11 @@ class Artists extends Component {
                 </div>
               </div>
               :
-              <div>
-              {/*<div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div className="panel panel-default">*/}
-                  <SelectedArtist artists={this.state.artistBlocks}/>
-                {/*</div>
-              </div>*/}
+                <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                  <div className="panel panel-default">
+                    <SelectedArtist artists={this.state.artistBlocks}/>
+               
+                </div>
               </div>
               }
             </div>
