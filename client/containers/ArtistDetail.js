@@ -30,14 +30,19 @@ export default class ArtistDetail extends Component {
 
 
   render() {
-    console.log("STATE",this.state.artistImg)
+    console.log("STATE",this.state.artistGenre)
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
-                <h1>{`${this.props.params.artistName}`}{this.onTour(this.state.artistTour)}</h1>
-                <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <img className = "detailImage img-circle" src = {this.state.artistImg}/> 
+                <h1>{`${this.props.params.artistName}`}{this.onTour(this.state.artistTour)}</h1>
+                <ul>
+                {
+                  this.getGenre(this.state.artistGenre)
+                }
+                </ul>
+                <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <p>{this.state.artistBio}</p>
             </div>
           </div> 
@@ -76,7 +81,6 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
     for(var key in artists){
-      console.log("HEYYYY", artists[artist].LastFM_getInfoAPI)
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
         artistName: artists[artist].Spotify_searchArtistsAPI.name,
@@ -91,12 +95,27 @@ filterArtist(artist){
   }
 onTour(tour){
   if(tour === "1"){
-    return <p> ON TOUR NOW! </p>
+    return <div>ON TOUR NOW!</div>
   }
   else{
     return null
   }
 }
+
+getGenre(genres){
+  if(!genres){
+    console.log("NOTHING GENRE")
+    return null
+  }
+  else{
+    return genres.map(genre => {
+      console.log("ANYTHING GEBRE?", genre.name)
+      return <li>{genre.name}</li>
+    })
+  }
+}
+
+
 }
 
 
