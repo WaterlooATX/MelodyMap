@@ -13,7 +13,8 @@
 }
 
 .songkick-search input {
-  margin: 15px;
+  margin: 13px;
+  height: 33px;
 }
 
 .songkick-search button {

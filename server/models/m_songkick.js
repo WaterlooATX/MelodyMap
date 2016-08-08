@@ -24,12 +24,24 @@ exports.getShows = (data) => {
   ).then((shows) => {
     console.log('shows from .then', shows);
     if (shows) {
-      if( shows.length < 10) {
-        return client.searchEvents({"location": `geo:${data.lat},${data.long}`}).then(shows => shows)
+      let concerts = shows.slice();
+      concerts.forEach(show => {
+        if (show.venue.lat === null) show.venue.lat = show.location.lat;
+        if (show.venue.lng === null) show.venue.lng = show.location.lng;
+      });
+      if( concerts.length < 10) {
+        return client.searchEvents({"location": `geo:${data.lat},${data.long}`}).then(shows => {
+          let concerts = shows.slice();
+          concerts.forEach(show => {
+            if (show.venue.lat === null) show.venue.lat = show.location.lat;
+            if (show.venue.lng === null) show.venue.lng = show.location.lng;
+          });
+          return concerts;
+        })
       } else {
-        return shows
+        return concerts
       }
-    } else console.log('no shows found for the given dates / location');
+    } else console.log('no concerts found for the given dates / location');
   })
 }
 

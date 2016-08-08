@@ -1,14 +1,16 @@
-import React, {Component} from "react";
-import {bindActionCreators} from 'redux'
-import {connect} from "react-redux"
-import {Link} from "react-router";
-import {setLocation} from '../actions/location'
-import {fetchShows} from '../actions/shows'
-import {getMyInfo, setTokens} from '../actions/spotify'
+import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {Link} from 'react-router';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import {setLocation} from '../actions/location';
+import {fetchShows} from '../actions/shows';
+import {getMyInfo, setTokens} from '../actions/spotify';
 import NavLogin from '../components/NavLogin';
 import UserLogin from '../components/UserLogin';
 import {followArtist} from '../models/spotify';
-import {Google_geocoder, Songkick_getShows} from '../models/api'
+import {Google_geocoder, Songkick_getShows} from '../models/api';
 
 
 class NavBar extends Component {
@@ -19,8 +21,8 @@ class NavBar extends Component {
     this.state = {
       loggedIn: false,
       spotifyData: { username: '', image: '' },
-      startDate: '',
-      endDate: '',
+      startDate: moment(),
+      endDate: moment(),
       city: ''
     }
   }
@@ -68,15 +70,23 @@ class NavBar extends Component {
               </ul>
                 <div className="nav-container">
                 <form className="songkick-search">
-                <input
-                  placeholder="Start date - YYYY-MM-DD"
-                  value={ this.state.startDate }
-                  onChange={ event => this._onStartChange(event.target.value) }
+                <DatePicker
+                  minDate={moment()}
+                  placeholderText="Click to select a date"
+                  todayButton={'Today'}
+                  selected={ this.state.startDate }
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                  onChange={ this._onStartChange.bind(this) }
                 />
-                <input
-                  placeholder="End date - YYYY-MM-DD"
-                  value={ this.state.endDate }
-                  onChange={ event => this._onEndChange(event.target.value) }
+                <DatePicker
+                  minDate={moment()}
+                  placeholderText="Click to select a date"
+                  todayButton={'Today'}
+                  selected={ this.state.endDate }
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                  onChange={ this._onEndChange.bind(this) }
                 />
                 <input
                   placeholder="City"
@@ -111,17 +121,23 @@ class NavBar extends Component {
   }
 
   _onSubmit(event) {
-    let startDate = this.state.startDate;
-    let endDate = this.state.endDate;
     event.preventDefault();
+    let startDate = this.state.startDate.toISOString().slice(0,10);
+    let endDate = this.state.endDate.toISOString().slice(0,10);
     // get coordinate from city name
-    Google_geocoder(this.state.city)
-    .then(resp => {
-      let lat = resp.data.results[0].geometry.location.lat;
-      let long = resp.data.results[0].geometry.location.lng;
-      this.props.setLocation({ long, lat })
+    if (this.state.city) {
+      Google_geocoder(this.state.city)
+      .then(resp => {
+        let lat = resp.data.results[0].geometry.location.lat;
+        let long = resp.data.results[0].geometry.location.lng;
+        this.props.setLocation({ long, lat })
+        this.props.fetchShows({ long, lat, startDate, endDate });
+      })
+    } else {
+      let lat = this.props.location.lat;
+      let long = this.props.location.long;
       this.props.fetchShows({ long, lat, startDate, endDate });
-    })
+    }
   }
 
 }
@@ -132,6 +148,6 @@ class NavLink extends Component{
   }
 }
 
-const mapStateToProps = (state) => {return { }};
+const mapStateToProps = (state) => {return { location: state.location }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ setLocation, fetchShows, getMyInfo, setTokens }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
