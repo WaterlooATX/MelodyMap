@@ -10,8 +10,8 @@ import _ from 'lodash';
 class Venues extends Component {
 
   componentDidMount() {
-    this.props.artists ? console.log("this.props.artists in VENUES: ", this.props.artists) : null;
-    this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
+    // this.props.artists ? console.log("this.props.artists in VENUES: ", this.props.artists) : null;
+    // this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
   }
 
 

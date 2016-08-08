@@ -16,7 +16,7 @@ export default class GenArtist extends Component {
 			bands: [],
 			clicked: false,
 			previewTrack: [],
-			songPlay: false,
+			songPlay: false
 		}
 	}
 

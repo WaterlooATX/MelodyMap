@@ -3,12 +3,26 @@ import Venues from '../containers/Venues';
 // import {bindActionCreators} from 'redux';
 // import {connect} from 'react-redux';
 import { Link } from 'react-router';
-// import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
+import { Songkick_getVenueAPI } from '../models/api';
 // import {selectShow} from '../actions/select_show';
 // import {redux_Artists} from '../actions/artists';
 
 export default class GenArtist extends Component {
 //<GenVenue venue={shows[show].venue} key={show} name={shows[show].venue.displayName}/>
+
+  constructor(props){
+    super(props);
+    this.state = {
+      getVenueResults: []
+    }
+  }
+
+  componentWillMount () {
+    Songkick_getVenueAPI(2151799).then(data => {
+      console.log(data);
+      this.setState({getVenueResults: data.data.id})
+    })
+  }
 
   render() {
     const props = this.props;
@@ -16,12 +30,14 @@ export default class GenArtist extends Component {
     const name = props.name;
     const id = venue.id;
 
+
+
     return (
       <div className="panel-heading" role="tab" id={`heading${id}`}>
           <div>
+            <h1> {this.state.getVenueResults ? this.state.getVenueResults : "hello"} </h1>
             <h3>
               {/* <img className="genImage" src = {image} alt={id} height='85' width='85'/> */}
-
 
                 <Link className = "genArtist"
                     to={ `venue/${name}`}
