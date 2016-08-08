@@ -21,12 +21,12 @@ class Venues extends Component {
         <div className="col col-md-1"></div>
           <div className="col col-md-10">
             <div className="page-header">
-              <h1>Artists</h1>
-              <SearchBar onSearchTermChange={artistSearch}/>
+              <h1>Venues</h1>
+              <SearchBar />
             </div>
             <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
               <div className="panel panel-default">
-              {Artists}
+              {Venues}
               </div>
             </div>
           </div>
