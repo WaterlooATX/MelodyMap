@@ -11,7 +11,7 @@ import {followArtist} from '../models/spotify';
 import {Google_geocoder, Songkick_getShows} from '../models/api'
 
 
-export default class NavBar extends Component {
+class NavBar extends Component {
 
   constructor(props) {
     super(props)
