@@ -1,9 +1,8 @@
-import {fetchShowsAPI} from "../models/api"
-export const FETCH_VENUE = 'FETCH_VENUE'
+export const VENUES = 'VENUES'
 
-export function fetchVenue(venueID) {
+export function setVenue(venues) {
   return {
-    type: FETCH_VENUE,
-    payload: getVenueAPI(venueID)
+    type: VENUES,
+    payload: venues
   }
 }
