@@ -1,0 +1,21 @@
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.detailImage {
+   float: right;
+   top: -16px;
+   right: -706px;
+   width: 350px;
+   display:inline-block;
+}
+
+.jumbotron {
+	padding-top: 24px;
+}
+
+.jumbotron h1 {
+	display: inline-block;
+	margin-top: 0;
+}
