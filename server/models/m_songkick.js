@@ -22,7 +22,6 @@ exports.getShows = (data) => {
       "max_date": data.dateB || today
     }
   ).then((shows) => {
-    console.log('shows from .then', shows);
     if (shows) {
       if( shows.length < 10) {
         return client.searchEvents({"location": `geo:${data.lat},${data.long}`}).then(shows => shows)
