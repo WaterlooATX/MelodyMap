@@ -78,10 +78,21 @@ class Show extends Component {
   }
 
   _spotifyInfo(showArtists){
+
+
     let reduxArtists = this.props.artists
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
-
+    let count = 0
+    let countRedux = 0
+    let bandMembers = []
     showArtists.forEach(Artist => {
+      bandMembers.push(Artist.displayName)
+      count++
+       if(count === showArtists.length) {
+         this.setState({bands: bandMembers})
+       }
+
+
 
        if(!reduxArtists[Artist.displayName]){
         reduxArtists[Artist.displayName] = {}
@@ -103,7 +114,7 @@ class Show extends Component {
               genres: artist.genres,
               img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
             }
-            this.setState({bands: this.state.bands.concat([Spotify_searchArtistsAPI])})
+
 
             //console.log(Artist.displayName,artist.name )
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
@@ -146,6 +157,17 @@ class Show extends Component {
           }
 
         })
+      } else {
+        countRedux++
+        // artist exists in redux
+        let artist = reduxArtists[Artist.displayName]
+        console.log(countRedux)
+        if(countRedux === 1) {
+          if(artist.Spotify_searchArtistsAPI) {
+            this.setState({img : artist.Spotify_searchArtistsAPI.img})
+          }
+          this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
+        }
       }
     })
 
@@ -205,10 +227,10 @@ class Bands extends Component {
     const bands = this.props.bands;
     if(bands) {
       return bands
-      .sort((a, b) => b.followers - a.followers)
+      //.sort((a, b) => b.followers - a.followers)
       .map((artist,index) => {
         return (
-          <Band key ={index} artistName={artist.displayName} artists={this.props.artists}/>
+          <Band key ={index} artistName={artist} artists={this.props.artists}/>
         )
       })
     }
