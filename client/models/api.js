@@ -57,7 +57,7 @@ export function Songkick_getShows(city, dateA, dateB) {
   return axios.post('/Songkick_getShows', {
     city,
     dateA,
-    dateB,    
+    dateB,
   });
 }
 
@@ -95,4 +95,12 @@ export function Songkick_getArtistCalendarAPI(venueID) {
   return axios.post('/Songkick_getArtistCalendar', {
     id: venueID
   });
+}
+
+export function Artist_artistInfoAPI(name) {
+  if(name.length > 2) {
+    return axios.post('/Artist_artistInfo', {
+      name: name
+    });
+  }
 }

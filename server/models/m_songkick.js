@@ -22,7 +22,6 @@ exports.getShows = (data) => {
       "max_date": data.dateB || today
     }
   ).then((shows) => {
-    console.log('shows from .then', shows);
     if (shows) {
       let concerts = shows.slice();
       concerts.forEach(show => {

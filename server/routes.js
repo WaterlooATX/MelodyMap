@@ -87,15 +87,26 @@ router.get('/callback/', (req, res) => {
 const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
 const LastFM = require("./models/m_lastFM")
+const Artist = require("./models/m_artist")
+
+
+// Artist Data
+let Artist_artistInfo = 0;
+router.post('/Artist_artistInfo', function(req, res) {
+  Artist.artistInfo(req.body.name).then((obj) => {
+    console.log(`/Artist_artistInfo ${++Artist_artistInfo}`)
+    res.send(obj)
+  })
+  .catch(error => console.log("error", error))
+})
 
 let Songkick_getEventSetlist = 0;
 router.post('/Songkick_getEventSetlist', function(req, res) {
   Songkick.getEventSetlist(req.body.id).then((obj) => {
     console.log(`/Songkick_getEventSetlist ${++Songkick_getEventSetlist}`)
     res.send(obj)
-  }).catch((error) => {
-    console.log("error", error)
   })
+  .catch(error => console.log("error", error))
 })
 
 let Songkick_getMetroAreaCalendar = 0;
