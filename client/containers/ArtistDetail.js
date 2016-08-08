@@ -24,21 +24,20 @@ export default class ArtistDetail extends Component {
   }
 
   componentDidMount() {
-    this._spotifyInfo(this.props.params.artistName)
-    this.videoSearch(this.props.params.artistName)
+    this.videoSearch(this.props.params.artistName + "music")
     this.filterArtist(this.props.params.artistName)
   }
 
 
   render() {
-    console.log("artist", this.state.artist)
+    console.log("STATE",this.state.artistImg)
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
                 <h1>{`${this.props.params.artistName}`}</h1>
                 <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
-                <img src = {this.state.artistImg}/>
+                <img className = "detailImage img-circle" src = {this.state.artistImg}/> 
                 <p>{this.state.artistBio}</p>
             </div>
           </div> 
@@ -51,24 +50,16 @@ export default class ArtistDetail extends Component {
               onVideoSelect={selectedVideo => this.setState({selectedVideo})}
               videos={this.state.videos} />
         </div>
+        <div id="footer">
+          <div className="container">
+            <p className="text-muted credit">RELATED ARTISTS DOWN HERE</p>
+          </div>
+        </div>
       </div>
     )
   }
 
 
-
-
-_spotifyInfo(artist){
-      Spotify_searchArtistsAPI(artist).then( obj => {
-        this.setState({artistUri: obj.data[0].uri})
-        this.setState({artistImg: obj.data[0].images[0].url})
-        return obj.data[0].id
-      })
-      .then(id => {
-        Spotify_getArtistTopTracksAPI(id,"US").then(tracks =>{
-        })
-      })
-  }
 
 videoSearch(term){
     YTSearch({key: API_KEY, term: term}, (videos) => {
@@ -82,15 +73,16 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
     for(var key in artists){
-      console.log(artists[artist])
+      console.log("HEYYYY", artists[artist].LastFM_getInfoAPI)
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
-        artistName: artists[artist].Spotify_searchArtistsAPI.name,  
-        artistImg: artists[artist].LastFM_getInfoAPI.image,
+        artistName: artists[artist].Spotify_searchArtistsAPI.name,
+        artistImg: artists[artist].Spotify_searchArtistsAPI.img, 
         artistUri: artists[artist].Spotify_searchArtistsAPI.uri,
         artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
         artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
-        artistSimliar: artist[artist].LastFM_getInfoAPI.similiar.artist
+        artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
+        artistTour: artists[artist].LastFM_getInfoAPI.ontour
       })
     }
   }
@@ -100,3 +92,7 @@ filterArtist(artist){
 const mapStateToProps = (state) => {return {artists: state.artists}};
 export default connect(mapStateToProps)(ArtistDetail);
 
+
+
+
+// artists[artist].LastFM_getInfoAPI.image || 
