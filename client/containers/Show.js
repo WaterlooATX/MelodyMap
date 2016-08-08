@@ -307,7 +307,7 @@ class Band extends Component {
     const artist = artists[artistName]
     let albumArt = this.state.albumArt ? this.state.albumArt : artist.getArtistAlbumsAPI ? artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
     const popularity = artist.Spotify_searchArtistsAPI ? artist.Spotify_searchArtistsAPI.popularity : 'N/A'
-    const bio = artist.LastFM_getInfoAPI ? artist.LastFM_getInfoAPI.bio.content ? artist.LastFM_getInfoAPI.bio.content.slice(0,225).split('/').join(' /').split('%').join('% '): randomBio : null
+    const bio = artist.LastFM_getInfoAPI ? artist.LastFM_getInfoAPI.bio.content ? artist.LastFM_getInfoAPI.bio.content.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] : randomBio : null
 
     const Style = {
                     "borderRadius": "500px",
