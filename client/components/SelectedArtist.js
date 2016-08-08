@@ -17,45 +17,32 @@ export default class SelectedArtist extends Component{
 	}
 	render(){
 		return (
-			<div>
+
+
+			<div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				{this.props.artists.map((artist) =>{
-						<div>
-							{/*<h3>*/}
-								<img className="genImage" src = {this.state.img} height='85' width='85'/>
+                  <div className="panel panel-default">
+					<div>
+								<ul> artist.displayName</ul>
+								{
+								// <img className="genImage" src = {this.state.img} height='85' width='85'/>
 
 
-								<Link className = "genArtist"
-								    to={ `artist/${artist.displayName}`}
-								    activeClassName='active'>{artist.displayName}
-								</Link>
+								// <Link className = "genArtist"
+								//     to={ `artist/${artist.displayName}`}
+								//     activeClassName='active'>{artist.displayName}
+								// </Link>
+}
+					</div>
 
-							{/*</h3>*/}
-						</div>
+                </div>
 								})}
-			</div>
+              </div>
+
+
 		)
 	}
  
-		//return <ul>{artistItems}</ul>
-	
-	/*render(){
-		if(!this.props.artists){
-			return(<div> Loading...</div>)
-		}
-		return(
-			<div>
-				{<div>
-					{console.log("selectedArtist: ",this.props.artists)}
-				</div>}
-				<div>
-					{this.props.artists.map((artist) => {
-						<p> artist.displayName </p>})
-					}
-				</div>
-			</div>
-		)
-		
-	}*/
 
 }
 
