@@ -15,6 +15,15 @@ export default class SelectedArtist extends Component{
 	componentDidMount(){
 		console.log("selectedArtist: ", this.props.artists);
 	}
+
+	_getArtistImage(){
+		this.props.artists.map((artist) => {
+			api.Spotify_searchArtistsAPI(artist.displayName).then((data) =>{
+				console.log("spotifydatainclient: ", data)
+			})
+		})
+	}
+
 	render(){
 		return (
 			<div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -29,13 +38,13 @@ export default class SelectedArtist extends Component{
 									    to={ `artist/${artist.displayName}`}
 									    activeClassName='active'>{artist.displayName}
 									</Link>
-								</h3>
 
+								</h3>
                 			</div>
                 		)
 					})}
                 </div>
-              </div>
+            </div>
 		)
 	}
 
