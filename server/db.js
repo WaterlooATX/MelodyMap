@@ -27,6 +27,5 @@ db.once('open', function callback () {
 });
 
 // Store artist documents in a collection called "artists"
-const artist = mongoose.model('Artist', Artist.artistSchema)
-
-module.exports = artist
+// Export the Mongoose model
+module.exports =  mongoose.model('Artist', Artist.artistSchema)
