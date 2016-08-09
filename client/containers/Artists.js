@@ -6,6 +6,8 @@ import {redux_Artists} from '../actions/artists';
 import SearchBar from '../components/SearchBar';
 import SelectedArtist from '../components/SelectedArtist'
 import {fetchArtistsAPI} from '../models/api';
+import {Spotify_searchArtistsAPI} from '../models/api'
+
 import _ from 'lodash';
 
 class Artists extends Component {
@@ -20,16 +22,16 @@ class Artists extends Component {
 
   _artistSearch(term){
     fetchArtistsAPI(term).then((artists) => {
-
-      //const arry = []
-      console.log(artists)
-      this.setState({
-        artistBlocks: artists.data
-      });
-       
-      // }
-      // return arry
+      artists.data.map((artist) => {
+        return Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
+          //console.log(spotify.data)
+          this.setState({
+            artistBlocks: artists.data,      
+            artistImages: spotify.data,
+          });
+        });
       })
+    })
   }
 
   render(){
@@ -54,7 +56,7 @@ class Artists extends Component {
               :
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                   <div className="panel panel-default">
-                    <SelectedArtist artists={this.state.artistBlocks}/>
+                    <SelectedArtist artists={this.state.artistBlocks} images={this.state.artistImages}/>
                
                 </div>
               </div>
