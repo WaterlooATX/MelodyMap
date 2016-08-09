@@ -109,7 +109,7 @@ filterArtist(artist){
     else{
       return artists.map(artist => {
         return artist.image.map(image => {
-          if(image.size === "medium"){
+          if(image.size === "large"){
             return <div className="similar-artist">
               <img className = "img-circle" src = {image["#text"]}/>
               <Link className = "genArtist"
