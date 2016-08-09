@@ -8,40 +8,21 @@ import { Songkick_getVenueAPI } from '../models/api';
 // import {redux_Artists} from '../actions/artists';
 
 export default class GenArtist extends Component {
-//<GenVenue venue={shows[show].venue} key={show} name={shows[show].venue.displayName}/>
-
-  constructor(props){
-    super(props);
-    this.state = {
-      getVenueResults: null
-    }
-  }
-
-  componentWillMount () {
-    Songkick_getVenueAPI(2151799).then(data => {
-      // console.log(data);
-      this.setState({getVenueResults: data.data.id})
-    })
-  }
 
   render() {
-    const props = this.props;
-    const venue = props.venue;
-    const name = props.name;
-    const id = venue.id;
 
-
+    console.log('this.props.venue ' , this.props.venue);
+    let venue = this.props.venue
 
     return (
-      <div className="panel-heading" role="tab" id={`heading${id}`}>
+      <div className="panel-heading" role="tab" id={`heading${venue.id}`}>
           <div>
-            <h1> {this.state.getVenueResults ? this.state.getVenueResults : "hello"} </h1>
-            <h3>
+            <h1>
               {/* <img className="genImage" src = {image} alt={id} height='85' width='85'/> */}
 
                 <Link className = "genArtist"
-                    to={ `venue/${name}`}
-                    activeClassName='active'>{name}
+                    to={ `/venue/${venue.name}`}
+                    activeClassName='active'>{venue.name}
                 </Link>
 
               {/*
@@ -53,7 +34,7 @@ export default class GenArtist extends Component {
               */}
 
 
-            </h3>
+            </h1>
           </div>
       </div>
     )

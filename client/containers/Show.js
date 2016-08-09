@@ -212,23 +212,6 @@ class Show extends Component {
 
 class Bands extends Component {
 
-  render() {
-    const bands = this._createBand()
-    const venue = this._createVenueObj()
-    return (
-      <div>
-        <AccordionTitle
-          venue={venue}
-          songkick={this.props.songkick}
-          doorsOpen={this.props.doorsOpen}
-          onNavigateClick={ this.props.onNavigateClick }
-        />
-        {bands}
-        {this.props.venue ? this._venue(): this._venueLoading()}
-      </div>
-    )
-  }
-
   _createBand() {
     const bands = this.props.bands;
     if(bands) {
@@ -256,6 +239,7 @@ class Bands extends Component {
 
   _createVenueObj() {
     let reduxVenues = this.props.venues
+    // console.log('this.props.venues ' , this.props.venues);
     let venue = this.props.venueInfo
 
     if(venue) {
@@ -275,7 +259,24 @@ class Bands extends Component {
     redux_Venues(reduxVenues)
     return venue
   }
-}
+
+  render() {
+    const bands = this._createBand()
+    const venue = this._createVenueObj()
+    return (
+      <div>
+        <AccordionTitle
+          venue={venue}
+          songkick={this.props.songkick}
+          doorsOpen={this.props.doorsOpen}
+          onNavigateClick={ this.props.onNavigateClick }
+        />
+        {bands}
+        {this.props.venue ? this._venue(): this._venueLoading()}
+      </div>
+    )
+  }
+
 }
 
 class AccordionTitle extends Component {
