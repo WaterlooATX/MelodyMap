@@ -83,9 +83,12 @@
 }
 .marker {
     margin-top: 5px;
+    cursor: pointer;
 }
 .fa-map-marker:before {
     font-size: 40px;
+    color: #f75a50;
+    -webkit-text-stroke: 1px black;
 }
 #rightBtn {
     margin-top: 0px !important;

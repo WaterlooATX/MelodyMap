@@ -53,7 +53,15 @@ class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands bands={ this.state.bands } doorsOpen={ this._doorsOpen() } venue={ props.venue } venueInfo={ this.state.venueInfo } songkick={ props.songkick } artists={this.props.artists} />
+              <Bands
+                bands={ this.state.bands }
+                doorsOpen={ this._doorsOpen() }
+                venue={ props.venue }
+                venueInfo={ this.state.venueInfo }
+                songkick={ props.songkick }
+                artists={ this.props.artists }
+                onNavigateClick={ this.props.onNavigateClick }
+              />
             </div>
         </div>
       </div>
@@ -215,7 +223,12 @@ class Bands extends Component {
     const venue = this._createVenueObj()
     return (
       <div>
-        <AccordionTitle venue={venue} songkick={this.props.songkick} doorsOpen={this.props.doorsOpen}/>
+        <AccordionTitle
+          venue={venue}
+          songkick={this.props.songkick}
+          doorsOpen={this.props.doorsOpen}
+          onNavigateClick={ this.props.onNavigateClick }
+        />
         {bands}
         {this.props.venue ? this._venue(): this._venueLoading()}
       </div>
@@ -277,7 +290,7 @@ class AccordionTitle extends Component {
   _renderVenue() {
     return (
       <div className="panel-top">
-        <div className="marker" onClick={/* this.props.onMarkerClick.bind(this, this.props.venue.address) */null}>
+        <div className="marker" onClick={ this.props.onNavigateClick.bind(this) }>
           <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
         </div>
         <div className="left">
