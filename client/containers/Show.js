@@ -6,6 +6,7 @@ import moment from 'moment';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
+import {redux_Venues} from '../actions/venues'
 
 
 class Show extends Component {
@@ -24,7 +25,6 @@ class Show extends Component {
 
   componentDidMount() {
     // array of artist that are preforming
-    // console.log(this.props.artistsNames)
     this._spotifyInfo(this.props.showArtists)
   }
 
@@ -54,6 +54,8 @@ class Show extends Component {
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <Bands
+                // pass down venues redux state
+                venues={ this.props.venues}
                 bands={ this.state.bands }
                 doorsOpen={ this._doorsOpen() }
                 venue={ props.venue }
@@ -86,21 +88,18 @@ class Show extends Component {
   }
 
   _spotifyInfo(showArtists){
-
-
     let reduxArtists = this.props.artists
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
     let count = 0
     let countRedux = 0
     let bandMembers = []
     showArtists.forEach(Artist => {
+
       bandMembers.push(Artist.displayName)
       count++
        if(count === showArtists.length) {
          this.setState({bands: bandMembers})
        }
-
-
 
        if(!reduxArtists[Artist.displayName]){
         reduxArtists[Artist.displayName] = {}
@@ -123,8 +122,6 @@ class Show extends Component {
               img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
             }
 
-
-            //console.log(Artist.displayName,artist.name )
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
 
             let spotify = Spotify_searchArtistsAPI
@@ -154,7 +151,6 @@ class Show extends Component {
               })
               .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
 
-
           } else {
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = null
             LastFM_getInfoAPI(Artist.displayName)
@@ -163,7 +159,6 @@ class Show extends Component {
               })
               .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
           }
-
         })
       } else {
         countRedux++
@@ -218,23 +213,6 @@ class Show extends Component {
 
 class Bands extends Component {
 
-  render() {
-    const bands = this._createBand()
-    const venue = this._createVenueObj()
-    return (
-      <div>
-        <AccordionTitle
-          venue={venue}
-          songkick={this.props.songkick}
-          doorsOpen={this.props.doorsOpen}
-          onNavigateClick={ this.props.onNavigateClick }
-        />
-        {bands}
-        {this.props.venue ? this._venue(): this._venueLoading()}
-      </div>
-    )
-  }
-
   _createBand() {
     const bands = this.props.bands;
     if(bands) {
@@ -261,10 +239,13 @@ class Bands extends Component {
   }
 
   _createVenueObj() {
-    var venue = this.props.venueInfo
+    let reduxVenues = this.props.venues
+    // console.log('this.props.venues ' , this.props.venues);
+    let venue = this.props.venueInfo
+
     if(venue) {
-      const temp = {
-        id: this.props.songkick.venue.id,
+      reduxVenues[venue.id] = {
+        id: venue.id,
         ageRestriction: this.props.songkick.ageRestriction || "none",
         capacity: venue.capacity || 'N/A',
         street: venue.street,
@@ -275,10 +256,29 @@ class Bands extends Component {
         name: venue.displayName,
         address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
       }
-      venue = temp
+
+    redux_Venues(reduxVenues)
+    return reduxVenues[venue.id]
     }
-    return venue
   }
+
+  render() {
+    const bands = this._createBand()
+    const venue = this._createVenueObj()
+    return (
+      <div>
+        <AccordionTitle
+          venue={venue}
+          songkick={this.props.songkick}
+          doorsOpen={this.props.doorsOpen}
+          onNavigateClick={ this.props.onNavigateClick }
+        />
+        {bands}
+        {this.props.venue ? this._venue(): this._venueLoading()}
+      </div>
+    )
+  }
+
 }
 
 class AccordionTitle extends Component {
@@ -372,6 +372,6 @@ class Band extends Component {
   }
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists}, dispatch);
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists, venues: state.venues }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
