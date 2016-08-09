@@ -10,14 +10,13 @@ import _ from 'lodash';
 class Venues extends Component {
 
   componentDidMount() {
-    // this.props.artists ? console.log("this.props.artists in VENUES: ", this.props.artists) : null;
+    this.props.venues ? console.log("this.props.venues in VENUES: ", this.props.venues) : console.log('null ' , null);
     // this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
   }
 
 
   render() {
     const Venues = this._createVenues();
-    this.props.state? console.log("STATE: ", this.props.state) : console.log("no state yet");
     return (
       <div className="container">
         <div className="col col-md-1"></div>
@@ -53,7 +52,7 @@ class Venues extends Component {
 
 }
 
-const mapStateToProps = (state) => {return state};
+const mapStateToProps = (state) => {return {shows: state.shows, venues: state.venues}};
 // const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps)(Venues);
 
