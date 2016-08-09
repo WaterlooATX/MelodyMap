@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
 import { Link } from 'react-router';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show';
@@ -21,8 +19,6 @@ export default class GenArtist extends Component {
 	}
 
 	componentDidMount(){
-		//this._spotifyInfo(this.props.artists)
-
 	}
 
 
@@ -80,9 +76,5 @@ export default class GenArtist extends Component {
           audioElem.pause();
        }
     }
-
-	_checkSelected(propsSelected) {
-	  return (propsSelected) ? "active list-group-item" : "list-group-item";
-	}
 
 }
