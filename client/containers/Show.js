@@ -278,6 +278,7 @@ class Bands extends Component {
       }
       venue = temp
     }
+    redux_Venues(venue)
     return venue
   }
 }
@@ -374,5 +375,5 @@ class Band extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: reduxVenues}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
