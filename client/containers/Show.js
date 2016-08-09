@@ -87,21 +87,19 @@ class Show extends Component {
   }
 
   _spotifyInfo(showArtists){
-
-
     let reduxArtists = this.props.artists
+    console.log('this.props.artists ' , this.props.artists);
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
     let count = 0
     let countRedux = 0
     let bandMembers = []
     showArtists.forEach(Artist => {
+
       bandMembers.push(Artist.displayName)
       count++
        if(count === showArtists.length) {
          this.setState({bands: bandMembers})
        }
-
-
 
        if(!reduxArtists[Artist.displayName]){
         reduxArtists[Artist.displayName] = {}
@@ -124,8 +122,6 @@ class Show extends Component {
               img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
             }
 
-
-            //console.log(Artist.displayName,artist.name )
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
 
             let spotify = Spotify_searchArtistsAPI
@@ -155,7 +151,6 @@ class Show extends Component {
               })
               .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
 
-
           } else {
             reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = null
             LastFM_getInfoAPI(Artist.displayName)
@@ -164,7 +159,6 @@ class Show extends Component {
               })
               .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
           }
-
         })
       } else {
         countRedux++
@@ -262,7 +256,10 @@ class Bands extends Component {
   }
 
   _createVenueObj() {
-    var venue = this.props.venueInfo
+    let reduxVenues = this.props.venues
+    let venue = this.props.venueInfo
+
+
     if(venue) {
       const temp = {
         id: this.props.songkick.venue.id,
