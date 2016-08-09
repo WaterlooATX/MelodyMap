@@ -1,6 +1,13 @@
 const Songkick = require("./m_songkick")
 const Spotify = require("./m_spotifyApi")
 const LastFM = require("./m_lastFM")
+const db = require("../db")
+
+// const Artist = new db.artist({
+//   spotifyURL: a.external_urls,
+//   id: a.id,
+//   name: a.name,
+// })
 
 
 exports.artistInfo = (name) => {
@@ -16,11 +23,30 @@ exports.artistInfo = (name) => {
             artistImages: a.images,
             img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
             popularity: a.popularity,
-            followers: a.followers.total
+            followers: a.followers.total,
+            relatedArtists: null,
+            albums: null,
+            topTracks: null,
+            summaryBio: null,
+            fullBio: null
           }
         }
+      } else {
+        return {
+          spotifyURL: null,
+          id: null,
+          name: null,
+          artistImages: null,
+          img: "http://assets.audiomack.com/default-artist-image.jpg",
+          popularity: null,
+          followers: null,
+          relatedArtists: null,
+          albums: null,
+          topTracks: null,
+          summaryBio: null,
+          fullBio: null
+        }
       }
-      return {id: null}
     })
     .then(artist => {
       return Spotify.getArtistRelatedArtists(artist.id)
