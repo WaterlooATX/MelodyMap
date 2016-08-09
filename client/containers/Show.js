@@ -6,6 +6,7 @@ import moment from 'moment';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
+import {redux_Venues} from '../actions/venues'
 
 
 class Show extends Component {
@@ -373,5 +374,5 @@ class Band extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: reduxVenues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);

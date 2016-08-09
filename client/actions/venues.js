@@ -1,6 +1,6 @@
 export const VENUES = 'VENUES'
 
-export function setVenue(venues) {
+export function redux_Venues(venues) {
   return {
     type: VENUES,
     payload: venues
