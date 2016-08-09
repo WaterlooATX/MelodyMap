@@ -30,9 +30,11 @@ export default class SelectedArtist extends Component{
 							    to={ `artist/${artist.displayName}`}
 							    activeClassName='active'>{artist.displayName}
 							</Link>
+						
+				
 
 							{artist.tracks ? this._speaker(artist.tracks) : null}
-
+							{artist.onTourUntil?<p className="tour"> ON TOUR </p> : null}
 						</h3>
 					
         			</div>

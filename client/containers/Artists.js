@@ -21,6 +21,7 @@ class Artists extends Component {
 
   _artistSearch(term){
     fetchArtistsAPI(term).then((artists) => {
+      console.log("artists: ", artists.data)
        artists.data.map((artist, index) => {
           const Artists = artists.data
         Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
@@ -35,11 +36,12 @@ class Artists extends Component {
           })
         });
       })
+
     })
   }
 
   render(){
-    const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 400)
+    const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 300)
     const Artists = this._createArtists()
       return(
         <div className="container">
