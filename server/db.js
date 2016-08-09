@@ -1,6 +1,6 @@
 // mongoose 4.3.x
 var mongoose = require('mongoose');
-
+var Artist = require("./ARTISTS_Schema");
 /*
  * Mongoose by default sets the auto_reconnect option to true.
  * We recommend setting socket options at both the server and replica set level.
@@ -19,26 +19,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function callback () {
 
-  // Create a Artist schema
-  const artistSchema = mongoose.Schema({
-    spotifyURL: String,
-    id: Number,
-    name: String,
-    artistImages: Array,
-    img: String,
-    popularity: Number,
-    followers: Number,
-    relatedArtists: Array,
-    albums: Array,
-    topTracks: Array,
-    summaryBio: String,
-    fullBio: String
-  })
-
-  // Store artist documents in a collection called "artists"
-  const Artist = mongoose.model('artists', artistSchema)
-
-
   // Only close the connection when your app is terminating
   mongoose.connection.db.close(function (err) {
     if(err) throw err;
@@ -46,4 +26,6 @@ db.once('open', function callback () {
 
 });
 
-module.exports = db
+// Store artist documents in a collection called "artists"
+// Export the Mongoose model
+module.exports =  mongoose.model('Artist', Artist.artistSchema)
