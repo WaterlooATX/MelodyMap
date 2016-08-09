@@ -98,7 +98,6 @@ filterArtist(artist){
     }
     else{
       return genres.map(genre => {
-        console.log("GENRE",genre)
         return <li className= "genre-item" key ={genre.url}>{genre.name}</li>
       })
     }
