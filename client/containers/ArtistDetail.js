@@ -38,7 +38,7 @@ export default class ArtistDetail extends Component {
                 <ul>
                 {this.getGenre(this.state.artistGenre)}
                 </ul>
-                <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
+                <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <p>{this.state.artistBio}</p>
             </div>
           </div>
@@ -69,11 +69,12 @@ filterArtist(artist){
   var artists = this.props.artists
   var shows = this.props.shows
     for(var key in artists){
+      console.log(artists[artist].Spotify_searchArtistsAPI)
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
         artistName: artists[artist].Spotify_searchArtistsAPI.name,
         artistImg: artists[artist].Spotify_searchArtistsAPI.img,
-        artistUri: artists[artist].Spotify_searchArtistsAPI.uri,
+        artistID: artists[artist].Spotify_searchArtistsAPI.id,
         artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
         artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
         artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
