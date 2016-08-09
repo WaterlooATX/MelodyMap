@@ -35,12 +35,12 @@ export default class SelectedArtist extends Component{
 		return (
 	         <div>
 			{this.props.artists.map((artist) =>{
-				return this.props.images.map((spotify)=>{
+				//this.props.images.map((spotify)=>{
 					//console.log("selected artist", spotify.images[0])
 				return (
-          			<div key={ spotify.id } className="panel-heading" role="tab" id={`heading${artist.id}`}>
+          			<div key={ artist.id } className="panel-heading" role="tab" id={`heading${artist.id}`}>
           				<h3>
-							<img className="genImage" src = {spotify && spotify.images[0] ? spotify.images[0].url : this.state.img} height='85' width='85'/>
+							<img className="genImage" src = {this.props.images[0].images[0].url} height='85' width='85'/>
 
 							<Link className = "genArtist"
 							    to={ `artist/${artist.displayName}`}
@@ -53,7 +53,7 @@ export default class SelectedArtist extends Component{
         			</div>
 		)
 					
-				})
+				//})
 					})}
 			</div>
 	)}
