@@ -254,7 +254,8 @@ class Bands extends Component {
         state: venue.city.state.displayName,
         website: venue.website,
         name: venue.displayName,
-        address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
+        address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`,
+        phone: venue.phone
       }
 
     redux_Venues(reduxVenues)
