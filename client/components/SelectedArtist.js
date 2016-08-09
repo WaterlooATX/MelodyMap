@@ -13,21 +13,8 @@ export default class SelectedArtist extends Component{
 	}
 
 	componentDidMount(){
-		console.log("Images: ", this.props.images)
+		console.log("Images: ", this.props.artists)
 	}
-
-	// _getArtistImage(artist){
-	// 	Spotify_searchArtistsAPI(artist).then((spotify) =>{
-	// 		//console.log(spotify)
-	// 		if(spotify.data[0]){
-	// 			if(spotify.data[0].images[0]){
-	// 				let image = spotify.data[0].images[0].url
-	// 			}
-	// 		} else{
-	// 				let image = this.state.img			
-	// 		}
-	// 	})
-	// }
 
 	render(){
 		// let image;
@@ -35,29 +22,38 @@ export default class SelectedArtist extends Component{
 		return (
 	         <div>
 			{this.props.artists.map((artist) =>{
-				//this.props.images.map((spotify)=>{
-					//console.log("selected artist", spotify.images[0])
+				//var image = artist.spotify[0];
 				return (
           			<div key={ artist.id } className="panel-heading" role="tab" id={`heading${artist.id}`}>
           				<h3>
-							<img className="genImage" src = {this.state.img} height='85' width='85'/>
+							<img className="genImage" src = {this._setImage(artist)} height='85' width='85'/>
 
 							<Link className = "genArtist"
 							    to={ `artist/${artist.displayName}`}
 							    activeClassName='active'>{artist.displayName}
 							</Link>
 
-							{/*track ? this._speaker(track) : null*/}
-
 						</h3>
+					
         			</div>
 		)
-					
-				//})
-					})}
+			})}
 			</div>
 	)}
 
+
+			_setImage(artist){
+				var Artist = artist.spotify;
+				var img = this.state.img;
+				if(Artist){
+					if(Artist.length >0){
+						if(Artist[0].images[0]){
+							img = Artist[0].images[0].url
+						} 
+					} 
+				} 
+				return(img)
+			}
 
 			_speaker(track) {
 				return (

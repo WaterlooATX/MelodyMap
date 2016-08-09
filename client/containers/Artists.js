@@ -16,20 +16,19 @@ class Artists extends Component {
     super(props);
     this.state={
       artistBlocks: [],
-      selectedArtists: null,
     }
   }
 
   _artistSearch(term){
     fetchArtistsAPI(term).then((artists) => {
-       artists.data.map((artist) => {
+       artists.data.map((artist, index) => {
+          const Artists = artists.data
         Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
-          console.log("spotify", spotify.data)
+          Artists[index]["spotify"] = spotify.data
           this.setState({
-            artistBlocks: artists.data,      
-            artistImages: spotify.data,
+            artistBlocks: Artists,      
           });
-         });
+         })
       })
     })
   }
@@ -56,7 +55,7 @@ class Artists extends Component {
               :
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                   <div className="panel panel-default">
-                    <SelectedArtist artists={this.state.artistBlocks} images={this.state.artistImages}/>
+                    <SelectedArtist artists={this.state.artistBlocks}/>
                
                 </div>
               </div>
