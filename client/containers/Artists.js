@@ -22,14 +22,14 @@ class Artists extends Component {
 
   _artistSearch(term){
     fetchArtistsAPI(term).then((artists) => {
-      artists.data.map((artist) => {
-        return Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
-          //console.log(spotify.data)
+       artists.data.map((artist) => {
+        Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
+          console.log("spotify", spotify.data)
           this.setState({
             artistBlocks: artists.data,      
             artistImages: spotify.data,
           });
-        });
+         });
       })
     })
   }
