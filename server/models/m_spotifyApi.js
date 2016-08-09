@@ -7,39 +7,26 @@ var spotifyApi = new SpotifyWebApi({
   clientSecret: 'abdbe447833643d5b85616f5691e2142'
 })
 
-// Search artists whose name contains 'Love'
 exports.searchArtists = (name) => {
   return spotifyApi.searchArtists(name)
-    .then(function(data) {
-      return data.body.artists.items
-    }, function(err) {
-      console.error(err)
-    })
+    .then(data => data.body.artists.items)
+    .catch(err => console.error(err));
 }
 
 exports.getArtistTopTracks = (artistID, countryCode) => {
   return spotifyApi.getArtistTopTracks(artistID, countryCode)
-    .then(function(data) {
-      return data.body
-    }, function(err) {
-      console.error(err)
-    })
+    .then(data => data.body)
+    .catch(err => console.error(err));
 }
 
 exports.getArtistAlbums = (artistID) => {
   return spotifyApi.getArtistAlbums(artistID)
-    .then(function(data) {
-      return data.body
-    }, function(err) {
-      console.error(err)
-    })
+    .then(data => data.body)
+    .catch(err => console.error(err));
 }
 
 exports.getArtistRelatedArtists = (artistID) => {
   return spotifyApi.getArtistRelatedArtists(artistID)
-    .then(function(data) {
-      return data.body
-    }, function(err) {
-      console.error(err)
-    });
+    .then(data => data.body)
+    .catch(err => console.error(err));
 }

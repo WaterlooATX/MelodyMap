@@ -10,5 +10,5 @@ const API = require('last.fm.api'),
 exports.getInfo = (name) => {
   return api.artist.getInfo({artist: name})
     .then(json => json)
-    .catch(err => console.error(err) );
+    .catch(err => console.error(err));
 }

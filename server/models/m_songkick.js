@@ -45,29 +45,43 @@ exports.getShows = (data) => {
 }
 
 exports.getArtists = (query) => {
-  return client.searchArtists(query).then(data => data)
+  return client.searchArtists(query)
+    .then(data => data)
+    .catch(err => console.error(err));
 }
 
 exports.getVenue = (venueId) => {
-  return client.getVenue(venueId).then(data => data)
+  return client.getVenue(venueId)
+    .then(data => data)
+    .catch(err => console.error(err));
 }
 
 exports.getArtistCalendar = (artistID) => {
-  return client.getArtistCalendar(artistID).then(data => data)
+  return client.getArtistCalendar(artistID)
+    .then(data => data)
+    .catch(err => console.error(err));
 }
 
 exports.getVenueCalendar = (venueID) => {
-  return client.getVenueCalendar(venueID).then(data => data)
+  return client.getVenueCalendar(venueID)
+    .then(data => data)
+    .catch(err => console.error(err));
 }
 
 exports.getMetroAreaCalendar = (metroID) => {
-  return client.getMetroAreaCalendar(metroID).then(data => data)
+  return client.getMetroAreaCalendar(metroID)
+    .then(data => data)
+    .catch(err => console.error(err));
 }
 
 exports.getEventSetlist = (eventID) => {
-  return client.getEventSetlist(eventID).then(data => data)
+  return client.getEventSetlist(eventID)
+    .then(data => data)
+    .catch(err => console.error(err));
 }
 
 exports.getSimilarArtists = (artistID) => {
-  return client.getSimilarArtists(eventID).then(data => data)
+  return client.getSimilarArtists(eventID)
+    .then(data => data)
+    .catch(err => console.error(err));
 }
