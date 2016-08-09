@@ -48,11 +48,12 @@ export default class ShowList extends Component {
         startDate={show.start.date}
         venue={show.venue.displayName}
         venueID={show.venue.id}
+        onNavigateClick= { this.props.onNavigateClick.bind(this) }
       />
     })
   }
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow}, dispatch);
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ShowList);
