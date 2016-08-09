@@ -17,6 +17,7 @@ class Venues extends Component {
 
   render() {
     const Venues = this._createVenues();
+    this.props.state? console.log("STATE: ", this.props.state) : console.log("no state yet");
     return (
       <div className="container">
         <div className="col col-md-1"></div>
@@ -43,8 +44,8 @@ class Venues extends Component {
       // console.log(shows[show]);
       // let itemExists = mapped.filter(function(item){mapped})
       mapped.push(<GenVenue venue={shows[show].venue} key={show} name={shows[show].venue.displayName}/>)
-      console.log('show ' , show);
-      console.log('mapped ' , mapped);
+      // console.log('show ' , show);
+      // console.log('mapped ' , mapped);
 
     }
     return mapped;
@@ -52,7 +53,7 @@ class Venues extends Component {
 
 }
 
-const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
+const mapStateToProps = (state) => {return state};
 // const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps)(Venues);
 
