@@ -9,84 +9,105 @@ const db = require("../db")
 //   name: a.name,
 // })
 
+// addArtist()
+//  - check if in db
+//  - create artist if not
+//  - return artist data
+//  - update data if old
 
+// Artist.addArtist().then()
 exports.artistInfo = (name) => {
-  return Spotify.searchArtists(name)
-    .then(data => {
-      if(data) {
-        let a = data[0]
-        if(a) {
-          return {
-            spotifyURL: a.external_urls,
-            id: a.id,
-            name: a.name,
-            artistImages: a.images,
-            img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-            popularity: a.popularity,
-            followers: a.followers.total,
-            relatedArtists: null,
-            albums: null,
-            topTracks: null,
-            summaryBio: null,
-            fullBio: null
-          }
-        }
-      } else {
-        return {
-          spotifyURL: null,
-          id: null,
-          name: null,
-          artistImages: null,
-          img: "http://assets.audiomack.com/default-artist-image.jpg",
-          popularity: null,
-          followers: null,
-          relatedArtists: null,
-          albums: null,
-          topTracks: null,
-          summaryBio: null,
-          fullBio: null
-        }
-      }
-    })
-    .then(artist => {
-      return Spotify.getArtistRelatedArtists(artist.id)
-        .then(data => {
-          artist['relatedArtists'] = data.artists
-          return artist
-        })
-        .catch(data => artist)
-    })
-    .then(artist => {
-      return Spotify.getArtistAlbums(artist.id)
-        .then(albums => {
-          let a = albums.items.map(album => {
-            return {
-              name: album.name,
-              images: album.images,
-              id: album.id
-            }
-          })
-          artist['albums'] = a
-          return artist
-        })
-        .catch(data => artist)
-    })
-    .then(artist => {
-      return Spotify.getArtistTopTracks(artist.id, countryCode = 'us')
-        .then((data) => {
-          artist['topTracks'] = data.tracks
-          return artist
-        })
-        .catch(data => artist)
-    })
-    .then(artist => {
-      return LastFM.getInfo(name)
-        .then((data) => {
-          artist['summaryBio'] = data.artist.bio.summary
-          artist['fullBio'] = data.artist.bio.content
-          return artist
-        })
-        .catch(data => artist)
-    })
-    .catch(error => console.log("error", error))
+  const Artist = db.artist
+  console.log(Artist)
+  // Check db(spotifyName)
+  // Artist.findOne({'songKickName': name}, function(err, artist) {
+  //   if (err) return console.log(err);
+  //   console.log(artist)
+  // })
+
+
+
 }
+//
+// exports.artistInfo = (name) => {
+//   return Spotify.searchArtists(name)
+//     .then(data => {
+//       if(data) {
+//         let a = data[0]
+//         if(a) {
+//           return {
+//             spotifyURL: a.external_urls,
+//             id: a.id,
+//             songKickName: name,
+//             spotifyName: a.name,
+//             artistImages: a.images,
+//             img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
+//             popularity: a.popularity,
+//             followers: a.followers.total,
+//             relatedArtists: null,
+//             albums: null,
+//             topTracks: null,
+//             summaryBio: null,
+//             fullBio: null
+//           }
+//         }
+//       } else {
+//         return {
+//           spotifyURL: null,
+//           id: null,
+//           songKickName: null,
+//           spotifyName: null,
+//           artistImages: null,
+//           img: "http://assets.audiomack.com/default-artist-image.jpg",
+//           popularity: null,
+//           followers: null,
+//           relatedArtists: null,
+//           albums: null,
+//           topTracks: null,
+//           summaryBio: null,
+//           fullBio: null
+//         }
+//       }
+//     })
+//     .then(artist => {
+//       return Spotify.getArtistRelatedArtists(artist.id)
+//         .then(data => {
+//           artist['relatedArtists'] = data.artists
+//           return artist
+//         })
+//         .catch(data => artist)
+//     })
+//     .then(artist => {
+//       return Spotify.getArtistAlbums(artist.id)
+//         .then(albums => {
+//           let a = albums.items.map(album => {
+//             return {
+//               name: album.name,
+//               images: album.images,
+//               id: album.id
+//             }
+//           })
+//           artist['albums'] = a
+//           return artist
+//         })
+//         .catch(data => artist)
+//     })
+//     .then(artist => {
+//       return Spotify.getArtistTopTracks(artist.id, countryCode = 'us')
+//         .then((data) => {
+//           artist['topTracks'] = data.tracks
+//           return artist
+//         })
+//         .catch(data => artist)
+//     })
+//     .then(artist => {
+//       return LastFM.getInfo(name)
+//         .then((data) => {
+//           artist['summaryBio'] = data.artist.bio.summary
+//           artist['fullBio'] = data.artist.bio.content
+//           return artist
+//         })
+//         .catch(data => artist)
+//     })
+//     .catch(error => console.log("error", error))
+// }
