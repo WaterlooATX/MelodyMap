@@ -37,17 +37,15 @@ const db = require("../db")
 //     })
 // }
 lookupArtist = (name) => {
-  console.log('lookupArtist', db.collection('artists').find());
-  return db.collection('artists').find({ name: name })
+  return db.artists.find()
+  //return db.collection('artists').find({ name: name })
 }
 
-insertArtist = (artist) => {
-  // console.log('insertArtist', db.artists.insert(artist));
+function insertArtist(artist) {
   return db.collection('artists').insert(artist)
 }
 
 exports.artistInfo = (name) => {
-  console.log('about to lookup some artistInfo', name);
   lookupArtist(name).then(artists => {
     console.log('wsup homie', artists);
     if (artists[0]) {
