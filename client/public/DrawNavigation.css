@@ -1,0 +1,36 @@
+.navigation-container {
+  position: relative;
+}
+
+.navigation-close {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  font-size: 3em;
+  cursor: pointer;
+  border: 1px solid #dfd7ca;
+  border-radius: 10px;
+  background-color: rgba(248, 245, 240, 0.6);
+}
+
+.glyphicon-remove-sign {
+  -webkit-text-stroke: 1px black;
+  color: #f75a50;
+  margin: 0 5px;
+}
+
+.navigation-close-text {
+  margin: 0 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .navigation-close {
+    font-size: 2em;
+  }
+}

@@ -17,8 +17,7 @@ export default class ArtistDetail extends Component {
     super(props);
     this.state = {  
       videos: [],
-      selectedVideo: null,
-      topTracks: []
+      selectedVideo: null
     }
   }
 
@@ -45,7 +44,7 @@ export default class ArtistDetail extends Component {
           </div> 
         <div >
           <VideoDetail video={this.state.selectedVideo} />
-          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} frameBorder="0" allowTransparency="true"></iframe>
+          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="400px" height= "500px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
         <div id="footer">
           <div className="container">
@@ -71,6 +70,7 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
   var shows = this.props.shows
+  console.log("SHOWSSSSS",shows)
     for(var key in artists){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
@@ -83,6 +83,9 @@ filterArtist(artist){
         artistTour: artists[artist].LastFM_getInfoAPI.ontour
       })
     }
+   for(var key in shows){
+    console.log("WHATS HAPPENING",shows[artist])
+   }  
   }
 
   onTour(tour){
