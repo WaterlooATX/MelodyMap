@@ -40,7 +40,7 @@ export default class SelectedArtist extends Component{
 				return (
           			<div key={ artist.id } className="panel-heading" role="tab" id={`heading${artist.id}`}>
           				<h3>
-							<img className="genImage" src = {this.props.images[0].images[0].url} height='85' width='85'/>
+							<img className="genImage" src = {this.state.img} height='85' width='85'/>
 
 							<Link className = "genArtist"
 							    to={ `artist/${artist.displayName}`}
