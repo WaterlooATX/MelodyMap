@@ -27,7 +27,7 @@ export default class ArtistDetail extends Component {
   }
 
 
-  render() {
+  render() { 
     return (
         <div>
           <div className="container">

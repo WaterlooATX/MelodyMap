@@ -19,6 +19,8 @@
 .media-container {
   display: flex;
   flex-direction: row;
+  margin-left: 114.5px;
+  margin-right: 114.5px;
 }
 
 .container-similar {
