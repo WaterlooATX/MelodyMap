@@ -55,6 +55,7 @@ class Show extends Component {
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <Bands
+                venues={ this.props.venues}
                 bands={ this.state.bands }
                 doorsOpen={ this._doorsOpen() }
                 venue={ props.venue }
@@ -88,9 +89,6 @@ class Show extends Component {
 
   _spotifyInfo(showArtists){
     let reduxArtists = this.props.artists
-
-    console.log('this.props.artists ' , this.props.artists);
-
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
     let count = 0
     let countRedux = 0
@@ -259,31 +257,39 @@ class Bands extends Component {
 
   _createVenueObj() {
     let reduxVenues = this.props.venues
+    console.log('reduxVenues ' , reduxVenues);
+    console.log('this.props.venues ' , this.props.venues);
+
     let venue = this.props.venueInfo
 
     // if the reduxVenues array does not have venueId, add that object below
+    if (redux_Venues){
 
     if(venue) {
 
+      // if (!reduxVenues[venue.id]) {
 
+        reduxVenues[venue.id]  = {
+          id: venue.id,
+          ageRestriction: this.props.songkick.ageRestriction || "none",
+          capacity: venue.capacity || 'N/A',
+          street: venue.street,
+          geo: {lat: venue.lat, long: venue.lng},
+          city: venue.city.displayName,
+          state: venue.city.state.displayName,
+          website: venue.website,
+          name: venue.displayName,
+          address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
+        }
 
-      const temp = {
-        id: this.props.songkick.venue.id,
-        ageRestriction: this.props.songkick.ageRestriction || "none",
-        capacity: venue.capacity || 'N/A',
-        street: venue.street,
-        geo: {lat: venue.lat, long: venue.lng},
-        city: venue.city.displayName,
-        state: venue.city.state.displayName,
-        website: venue.website,
-        name: venue.displayName,
-        address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
-      }
-      venue = temp
+        reduxVenues[venue.id]
+        // venue = temp
+      // }
     }
-    redux_Venues(venue)
+    redux_Venues(reduxVenues)
     return venue
   }
+}
 }
 
 class AccordionTitle extends Component {
@@ -377,6 +383,6 @@ class Band extends Component {
   }
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists }};
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists, venues: state.venues }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
