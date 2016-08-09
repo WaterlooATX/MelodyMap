@@ -21,8 +21,18 @@ db.once('open', function callback () {
 
   // Create a Artist schema
   const artistSchema = mongoose.Schema({
+    spotifyURL: String,
     id: Number,
     name: String,
+    artistImages: Array,
+    img: String,
+    popularity: Number,
+    followers: Number,
+    relatedArtists: Array,
+    albums: Array,
+    topTracks: Array,
+    summaryBio: String,
+    fullBio: String
   })
 
   // Store artist documents in a collection called "artists"
