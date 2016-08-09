@@ -25,7 +25,6 @@ class Show extends Component {
 
   componentDidMount() {
     // array of artist that are preforming
-    // console.log(this.props.artistsNames)
     this._spotifyInfo(this.props.showArtists)
   }
 
@@ -257,34 +256,21 @@ class Bands extends Component {
 
   _createVenueObj() {
     let reduxVenues = this.props.venues
-    console.log('reduxVenues ' , reduxVenues);
-    console.log('this.props.venues ' , this.props.venues);
-
     let venue = this.props.venueInfo
 
-    // if the reduxVenues array does not have venueId, add that object below
-    if (redux_Venues){
-
     if(venue) {
-
-      // if (!reduxVenues[venue.id]) {
-
-        reduxVenues[venue.id]  = {
-          id: venue.id,
-          ageRestriction: this.props.songkick.ageRestriction || "none",
-          capacity: venue.capacity || 'N/A',
-          street: venue.street,
-          geo: {lat: venue.lat, long: venue.lng},
-          city: venue.city.displayName,
-          state: venue.city.state.displayName,
-          website: venue.website,
-          name: venue.displayName,
-          address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
-        }
-
-        reduxVenues[venue.id]
-        // venue = temp
-      // }
+      reduxVenues[venue.id] = {
+        id: venue.id,
+        ageRestriction: this.props.songkick.ageRestriction || "none",
+        capacity: venue.capacity || 'N/A',
+        street: venue.street,
+        geo: {lat: venue.lat, long: venue.lng},
+        city: venue.city.displayName,
+        state: venue.city.state.displayName,
+        website: venue.website,
+        name: venue.displayName,
+        address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
+      }
     }
     redux_Venues(reduxVenues)
     return venue
