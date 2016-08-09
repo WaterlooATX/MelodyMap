@@ -115,7 +115,7 @@ filterArtist(artist){
               <img className = "img-circle" src = {image["#text"]}/>
               <Link className = "genArtist"
                         to={ `/artist/${artist.name}`}
-                        activeClassName='active'>{artist.name}
+                        activeClassName='active'>{artist.name}>
 
               </Link>
             </div>
