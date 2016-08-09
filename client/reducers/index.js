@@ -13,7 +13,8 @@ const rootReducer = combineReducers({
   selectedShow: selectShowReducer,
   location: locationReducer,
   artists: artistReducer,
-  venues: venuesReducer
+  venues: venuesReducer,
+  selectedVenue: selectVenueReducer
 })
 
 export default rootReducer;

@@ -55,6 +55,7 @@ class Show extends Component {
             <div className="panel-body">
               <Bands
                 // pass down venues redux state
+                venueID={ this.props.venueID }
                 venues={ this.props.venues}
                 bands={ this.state.bands }
                 doorsOpen={ this._doorsOpen() }
@@ -241,25 +242,31 @@ class Bands extends Component {
   _createVenueObj() {
     let reduxVenues = this.props.venues
     // console.log('this.props.venues ' , this.props.venues);
+    let venueID = this.props.venueID
     let venue = this.props.venueInfo
 
-    if(venue) {
-      reduxVenues[venue.id] = {
-        id: venue.id,
-        ageRestriction: this.props.songkick.ageRestriction || "none",
-        capacity: venue.capacity || 'N/A',
-        street: venue.street,
-        geo: {lat: venue.lat, long: venue.lng},
-        city: venue.city.displayName,
-        state: venue.city.state.displayName,
-        website: venue.website,
-        name: venue.displayName,
-        address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`,
-        phone: venue.phone
-      }
+    if (!reduxVenues[venueID]) {
 
-    redux_Venues(reduxVenues)
-    return reduxVenues[venue.id]
+      if(venue) {
+        reduxVenues[venueID] = {
+          id: venue.id,
+          ageRestriction: this.props.songkick.ageRestriction || "none",
+          capacity: venue.capacity || 'N/A',
+          street: venue.street,
+          geo: {lat: venue.lat, long: venue.lng},
+          city: venue.city.displayName,
+          state: venue.city.state.displayName,
+          website: venue.website,
+          name: venue.displayName,
+          address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`,
+          phone: venue.phone
+        }
+
+      redux_Venues(reduxVenues)
+      return reduxVenues[venueID]
+      }
+    } else {
+      return reduxVenues[venueID];
     }
   }
 
@@ -373,6 +380,6 @@ class Band extends Component {
   }
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists, venues: state.venues }};
+const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
