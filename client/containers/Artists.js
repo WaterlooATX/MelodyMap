@@ -23,23 +23,23 @@ class Artists extends Component {
     fetchArtistsAPI(term).then((artists) => {
        artists.data.map((artist, index) => {
           const Artists = artists.data
-          console.log(artist)
         Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
           Artists[index]["spotify"] = spotify.data;
-          const Id = spotify.id
-         });
-        Spotify_getArtistTopTracksAPI(artist.id, "US").then((tracks)=>{
-          Artists[index]["tracks"] = tracks.data
-          this.setState({
-            artistBlocks: Artists,      
-          });
-        })
+          spotify.data.map((track,i)=>{
+             Spotify_getArtistTopTracksAPI(track.id, "US").then((tracks)=>{
+              Artists[index]["tracks"] = tracks.data;
+              this.setState({
+                artistBlocks: Artists,
+              })
+             })           
+          })
+        });
       })
     })
   }
 
   render(){
-    const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 200)
+    const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 400)
     const Artists = this._createArtists()
       return(
         <div className="container">
