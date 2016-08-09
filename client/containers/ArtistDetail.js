@@ -69,7 +69,6 @@ filterArtist(artist){
   var artists = this.props.artists
   var shows = this.props.shows
     for(var key in artists){
-      console.log(artists[artist].Spotify_searchArtistsAPI)
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
         artistName: artists[artist].Spotify_searchArtistsAPI.name,
@@ -115,7 +114,7 @@ filterArtist(artist){
               <img className = "img-circle" src = {image["#text"]}/>
               <Link className = "genArtist"
                         to={ `/artist/${artist.name}`}
-                        activeClassName='active'>{artist.name}>
+                        activeClassName='active'>{artist.name}
 
               </Link>
             </div>
