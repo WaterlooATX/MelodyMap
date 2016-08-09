@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+
 // Create a Artist schema
-const artistSchema = new Schema({
+const artistSchema = new mongoose.Schema({
   spotifyURL: String,
   id: Number,
   name: String,
@@ -13,7 +13,8 @@ const artistSchema = new Schema({
   albums: Array,
   topTracks: Array,
   summaryBio: String,
-  fullBio: String
+  fullBio: String,
+  updated_at: { type: Date, default: Date.now }
 });
 
 
