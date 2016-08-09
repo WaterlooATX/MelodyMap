@@ -262,8 +262,9 @@ class Bands extends Component {
           phone: venue.phone
         }
 
-      redux_Venues(reduxVenues)
-      return reduxVenues[venueID]
+        // add to redux venues
+        redux_Venues(reduxVenues)
+        return reduxVenues[venueID]
       }
     } else {
       return reduxVenues[venueID];
@@ -304,7 +305,7 @@ class AccordionTitle extends Component {
         <div className="left">
           <div id="venueName">
             {/* Route to VenueDetails page on click of venue */}
-            { <Link to={`/venue/${this.props.venue.name}`} activeClassName='active'>{this.props.venue.name}</Link> }
+            { <Link to={`/venue/${this.props.venue.name}/${this.props.venue.id}`} activeClassName='active'>{this.props.venue.name}</Link> }
             <div id="venueAdress">
               { this.props.venue.address }
             </div>

@@ -40,11 +40,8 @@ class Venues extends Component {
     const venues = this.props.venues
     const mapped = []
     for (let venueId in venues) {
-      // console.log(shows[show]);
       // let itemExists = mapped.filter(function(item){mapped})
       mapped.push(<GenVenue venue={venues[venueId]} key={venueId} />)
-      // console.log('show ' , show);
-      // console.log('mapped ' , mapped);
 
     }
     return mapped;

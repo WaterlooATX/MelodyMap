@@ -24,7 +24,6 @@ export default class VenueDetail extends Component {
   render() {
     let venueName = this.props.params.venueName
     let redux_Venue = this.props.venues
-    console.log('redux_Venue ' , redux_Venue);
 
     return (
         <div>
