@@ -17,7 +17,6 @@ export default class SelectedArtist extends Component{
 	}
 
 	render(){
-		// let image;
 		var track;
 		return (
 	         <div>

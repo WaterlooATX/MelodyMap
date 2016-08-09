@@ -6,7 +6,7 @@ import {redux_Artists} from '../actions/artists';
 import SearchBar from '../components/SearchBar';
 import SelectedArtist from '../components/SelectedArtist'
 import {fetchArtistsAPI} from '../models/api';
-import {Spotify_searchArtistsAPI} from '../models/api'
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api'
 
 import _ from 'lodash';
 
@@ -23,12 +23,17 @@ class Artists extends Component {
     fetchArtistsAPI(term).then((artists) => {
        artists.data.map((artist, index) => {
           const Artists = artists.data
+          console.log(artist)
         Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
-          Artists[index]["spotify"] = spotify.data
+          Artists[index]["spotify"] = spotify.data;
+          const Id = spotify.id
+         });
+        Spotify_getArtistTopTracksAPI(artist.id, "US").then((tracks)=>{
+          Artists[index]["tracks"] = tracks.data
           this.setState({
             artistBlocks: Artists,      
           });
-         })
+        })
       })
     })
   }
