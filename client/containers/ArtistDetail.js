@@ -42,16 +42,14 @@ export default class ArtistDetail extends Component {
                 <p>{this.state.artistBio}</p>
             </div>
           </div> 
-        <div >
+        <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="400px" height= "500px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
-        <div id="footer">
-          <div className="container">
+          <div className="container-similar">
             <h3> Similar Artists </h3>
             <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
           </div>
-        </div>
       </div>
     )
   }
@@ -70,7 +68,6 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
   var shows = this.props.shows
-  console.log("SHOWSSSSS",shows)
     for(var key in artists){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
@@ -84,7 +81,6 @@ filterArtist(artist){
       })
     }
    for(var key in shows){
-    console.log("WHATS HAPPENING",shows[artist])
    }  
   }
 
@@ -114,15 +110,13 @@ filterArtist(artist){
       return artists.map(artist => {
         return artist.image.map(image => {
           if(image.size === "medium"){
-            return <li>
-            <div>
+            return <div className="similar-artist">
               <img className = "img-circle" src = {image["#text"]}/>
-            </div>
               <Link className = "genArtist"
                         to={ `/artist/${artist.name}`}
                         activeClassName='active'>{artist.name}
               </Link>
-            </li>
+            </div>
           }
          else{
           return null;
