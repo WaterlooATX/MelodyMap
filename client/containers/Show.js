@@ -88,7 +88,9 @@ class Show extends Component {
 
   _spotifyInfo(showArtists){
     let reduxArtists = this.props.artists
+
     console.log('this.props.artists ' , this.props.artists);
+
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
     let count = 0
     let countRedux = 0
@@ -259,8 +261,12 @@ class Bands extends Component {
     let reduxVenues = this.props.venues
     let venue = this.props.venueInfo
 
+    // if the reduxVenues array does not have venueId, add that object below
 
     if(venue) {
+
+
+
       const temp = {
         id: this.props.songkick.venue.id,
         ageRestriction: this.props.songkick.ageRestriction || "none",
