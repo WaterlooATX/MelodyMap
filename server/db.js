@@ -9,9 +9,11 @@ var mongodbUri = 'mongodb://MelodyMap:makersquare@ds147995.mlab.com:47995/melody
 //   var db = pmongo("goodnewsdb");
 // }
 
-var db = pmongo(mongodbUri, {
-  authMechanism: 'ScramSHA1'
-});
+// var db = pmongo(mongodbUri, {
+//   authMechanism: 'ScramSHA1'
+// });
+
+var db = pmongo('melodymapdb');
 
 module.exports = db;
 

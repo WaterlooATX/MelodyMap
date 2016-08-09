@@ -36,10 +36,28 @@ const db = require("../db")
 //       }
 //     })
 // }
+lookupArtist = (name) => {
+  console.log('lookupArtist', db.collection('artists').find());
+  return db.collection('artists').find({ name: name })
+}
+
+insertArtist = (artist) => {
+  // console.log('insertArtist', db.artists.insert(artist));
+  return db.collection('artists').insert(artist)
+}
+
 exports.artistInfo = (name) => {
-  return Spotify.searchArtists(name)
-    .then(data => {
-      return data.map(a => {
+  console.log('about to lookup some artistInfo', name);
+  lookupArtist(name).then(artists => {
+    console.log('wsup homie', artists);
+    if (artists[0]) {
+      console.log('artist already exists!', artists[0]);
+      return artists[0];
+    } else {
+      console.log('this is a new artist, hitting API');
+      let newArtist = Spotify.searchArtists(name)
+      .then(data => {
+        let a = data[0];
         return ({
           spotifyURL: a.external_urls,
           id: a.id,
@@ -49,9 +67,12 @@ exports.artistInfo = (name) => {
           img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
           popularity: a.popularity,
           followers: a.followers.total
-        })
+        });
       })
-    })
+      newArtist.then(data => insertArtist(data));
+      return newArtist;
+    }
+  })
 }
 
 // Spotify.searchArtists(name)
