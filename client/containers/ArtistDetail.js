@@ -17,7 +17,8 @@ export default class ArtistDetail extends Component {
     super(props);
     this.state = {  
       videos: [],
-      selectedVideo: null
+      selectedVideo: null,
+      topTracks: []
     }
   }
 
@@ -28,14 +29,13 @@ export default class ArtistDetail extends Component {
 
 
   render() {
-    console.log(this.state.artistSimliar)
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
                 <img className = "detailImage img-circle" src = {this.state.artistImg}/> 
                 <h1>{`${this.props.params.artistName}`}</h1>
-                <h3 className = "text-muted">{this.onTour(this.state.artistTour)}</h3>
+                <h3>{this.onTour(this.state.artistTour)}</h3>
                 <ul>
                 {this.getGenre(this.state.artistGenre)}
                 </ul>
@@ -45,7 +45,7 @@ export default class ArtistDetail extends Component {
           </div> 
         <div >
           <VideoDetail video={this.state.selectedVideo} />
-          <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
+          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} frameBorder="0" allowTransparency="true"></iframe>
         </div>
         <div id="footer">
           <div className="container">
@@ -70,6 +70,7 @@ videoSearch(term){
 
 filterArtist(artist){
   var artists = this.props.artists
+  var shows = this.props.shows
     for(var key in artists){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
@@ -86,7 +87,7 @@ filterArtist(artist){
 
   onTour(tour){
     if(tour === "1"){
-      return <div>ON TOUR NOW!</div>
+      return <div className = "text-muted">ON TOUR NOW!</div>
     }
     else{
       return null
@@ -110,13 +111,12 @@ filterArtist(artist){
       return artists.map(artist => {
         return artist.image.map(image => {
           if(image.size === "medium"){
-            console.log("IMAGE", image["#text"])
             return <li>
             <div>
               <img className = "img-circle" src = {image["#text"]}/>
             </div>
               <Link className = "genArtist"
-                        to={ `artist/${artist.name}`}
+                        to={ `/artist/${artist.name}`}
                         activeClassName='active'>{artist.name}
               </Link>
             </li>
@@ -129,13 +129,22 @@ filterArtist(artist){
     }
   }
 
+  getTopTracks(tracks){
+      if(!tracks){
+        return null;
+      }
+      else{
+      return tracks.map(track => {
+        return track.id
+      })
+    }
+  }
+
+
 }
 
 
-const mapStateToProps = (state) => {return {artists: state.artists}};
+const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
 export default connect(mapStateToProps)(ArtistDetail);
 
 
-
-
-// artists[artist].LastFM_getInfoAPI.image || 
