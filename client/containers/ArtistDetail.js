@@ -5,6 +5,7 @@ import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
+import { Link } from 'react-router';
 
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
@@ -36,9 +37,7 @@ export default class ArtistDetail extends Component {
                 <h1>{`${this.props.params.artistName}`}</h1>
                 <h3 className = "text-muted">{this.onTour(this.state.artistTour)}</h3>
                 <ul>
-                {
-                  this.getGenre(this.state.artistGenre)
-                }
+                {this.getGenre(this.state.artistGenre)}
                 </ul>
                 <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <p>{this.state.artistBio}</p>
@@ -84,34 +83,51 @@ filterArtist(artist){
       })
     }
   }
-onTour(tour){
-  if(tour === "1"){
-    return <div>ON TOUR NOW!</div>
+
+  onTour(tour){
+    if(tour === "1"){
+      return <div>ON TOUR NOW!</div>
+    }
+    else{
+      return null
+    }
   }
-  else{
-    return null
+  getGenre(genres){
+    if(!genres){
+      return null
+    }
+    else{
+      return genres.map(genre => {
+        return <li>{genre.name}</li>
+      })
+    }
   }
-}
-getGenre(genres){
-  if(!genres){
-    return null
+  similarArtists(artists){
+    if(!artists){
+      return null
+    }
+    else{
+      return artists.map(artist => {
+        return artist.image.map(image => {
+          if(image.size === "medium"){
+            console.log("IMAGE", image["#text"])
+            return <li>
+            <div>
+              <img className = "img-circle" src = {image["#text"]}/>
+            </div>
+              <Link className = "genArtist"
+                        to={ `artist/${artist.name}`}
+                        activeClassName='active'>{artist.name}
+              </Link>
+            </li>
+          }
+         else{
+          return null;
+         } 
+        })
+      })
+    }
   }
-  else{
-    return genres.map(genre => {
-      return <li>{genre.name}</li>
-    })
-  }
-}
-similarArtists(artists){
-  if(!artists){
-    return null
-  }
-  else{
-    return artists.map(artist => {
-      return <li>{artist.name}</li>
-    })
-  }
-}
 
 }
 
