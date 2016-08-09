@@ -38,7 +38,9 @@ const DrawMap = (props) => {
           onClick={ (marker) => _onMarkerClickHandler(marker, show) }
           defaultAnimation= { 2 }
         >
-          {props.selectedShow === show ? <InfoWindow content={ show.displayName } /> : null }
+          {props.selectedShow === show ?
+          <InfoWindow><div>{ show.displayName }&nbsp;&nbsp;<a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></div></InfoWindow> :
+          null }
         </Marker>
         )
       })
