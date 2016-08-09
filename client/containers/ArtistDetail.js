@@ -5,6 +5,7 @@ import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
+import { Link } from 'react-router';
 
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
@@ -15,9 +16,6 @@ export default class ArtistDetail extends Component {
     constructor(props){
     super(props);
     this.state = {  
-      artist: null,
-      artistUri: null,
-      artistImg: null,
       videos: [],
       selectedVideo: null
     }
@@ -30,37 +28,29 @@ export default class ArtistDetail extends Component {
 
 
   render() {
-    console.log("STATE",this.state.artistGenre)
+    console.log(this.state.artistSimliar)
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
                 <img className = "detailImage img-circle" src = {this.state.artistImg}/> 
-                <h1>{`${this.props.params.artistName}`}{this.onTour(this.state.artistTour)}</h1>
+                <h1>{`${this.props.params.artistName}`}</h1>
+                <h3 className = "text-muted">{this.onTour(this.state.artistTour)}</h3>
                 <ul>
-                {
-                  this.getGenre(this.state.artistGenre)
-                }
+                {this.getGenre(this.state.artistGenre)}
                 </ul>
                 <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <p>{this.state.artistBio}</p>
             </div>
           </div> 
-          <h3>
-            <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
-          </h3>
-        <div>
+        <div >
           <VideoDetail video={this.state.selectedVideo} />
-          <VideoList
-              onVideoSelect={selectedVideo => this.setState({selectedVideo})}
-              videos={this.state.videos} />
+          <iframe src="https://embed.spotify.com/?uri=spotify:trackset:TopTracks:5Z7ygHQo02SUrFmcgpwsKW,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameBorder="0" allowTransparency="true"></iframe>
         </div>
         <div id="footer">
           <div className="container">
-            <p className="text-muted credit">RELATED ARTISTS DOWN HERE</p>
-          </div>
-          <div>
-            <p> Artists </p>
+            <h3> Similar Artists </h3>
+            <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
           </div>
         </div>
       </div>
@@ -93,28 +83,51 @@ filterArtist(artist){
       })
     }
   }
-onTour(tour){
-  if(tour === "1"){
-    return <div>ON TOUR NOW!</div>
-  }
-  else{
-    return null
-  }
-}
 
-getGenre(genres){
-  if(!genres){
-    console.log("NOTHING GENRE")
-    return null
+  onTour(tour){
+    if(tour === "1"){
+      return <div>ON TOUR NOW!</div>
+    }
+    else{
+      return null
+    }
   }
-  else{
-    return genres.map(genre => {
-      console.log("ANYTHING GEBRE?", genre.name)
-      return <li>{genre.name}</li>
-    })
+  getGenre(genres){
+    if(!genres){
+      return null
+    }
+    else{
+      return genres.map(genre => {
+        return <li>{genre.name}</li>
+      })
+    }
   }
-}
-
+  similarArtists(artists){
+    if(!artists){
+      return null
+    }
+    else{
+      return artists.map(artist => {
+        return artist.image.map(image => {
+          if(image.size === "medium"){
+            console.log("IMAGE", image["#text"])
+            return <li>
+            <div>
+              <img className = "img-circle" src = {image["#text"]}/>
+            </div>
+              <Link className = "genArtist"
+                        to={ `artist/${artist.name}`}
+                        activeClassName='active'>{artist.name}
+              </Link>
+            </li>
+          }
+         else{
+          return null;
+         } 
+        })
+      })
+    }
+  }
 
 }
 
