@@ -54,6 +54,7 @@ class Show extends Component {
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <Bands
+                // pass down venues redux state
                 venues={ this.props.venues}
                 bands={ this.state.bands }
                 doorsOpen={ this._doorsOpen() }
@@ -255,9 +256,10 @@ class Bands extends Component {
         name: venue.displayName,
         address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`
       }
-    }
+
     redux_Venues(reduxVenues)
-    return venue
+    return reduxVenues[venue.id]
+    }
   }
 
   render() {
