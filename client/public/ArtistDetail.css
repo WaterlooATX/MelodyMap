@@ -42,6 +42,10 @@
 }
 
 .similar-artist img {
-  height: 64px;
-  width: 64px;
+  height: 100;
+  width: 100px;
+}
+
+.genre-item{
+  text-transform: capitalize;
 }
