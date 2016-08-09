@@ -44,7 +44,7 @@ export default class ArtistDetail extends Component {
           </div>
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
-          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="400px" height= "500px" frameBorder="0" allowTransparency="true"></iframe>
+          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
           <div className="container-similar">
             <h3> Similar Artists </h3>
@@ -62,7 +62,7 @@ videoSearch(term){
           videos: videos,
           selectedVideo: videos[0]
       })
-    });
+    })
   }
 
 filterArtist(artist){
