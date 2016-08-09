@@ -10,8 +10,8 @@ import _ from 'lodash';
 class Venues extends Component {
 
   componentDidMount() {
-    this.props.artists ? console.log("this.props.artists in VENUES: ", this.props.artists) : null;
-    this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
+    this.props.venues ? console.log("this.props.venues in VENUES: ", this.props.venues) : console.log('null ' , null);
+    // this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
   }
 
 
@@ -37,17 +37,22 @@ class Venues extends Component {
   }
 
   _createVenues() {
-    const shows = this.props.shows
+    const venues = this.props.venues
     const mapped = []
-    for (let show in shows) {
-      mapped.push(<GenVenue venue={shows[show].venue} key={show} name={shows[show].venue.displayName}/>)
+    for (let venueId in venues) {
+      // console.log(shows[show]);
+      // let itemExists = mapped.filter(function(item){mapped})
+      mapped.push(<GenVenue venue={venues[venueId]} key={venueId} />)
+      // console.log('show ' , show);
+      // console.log('mapped ' , mapped);
+
     }
-    return mapped
+    return mapped;
   }
 
 }
 
-const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
+const mapStateToProps = (state) => {return {shows: state.shows, venues: state.venues}};
 // const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps)(Venues);
 

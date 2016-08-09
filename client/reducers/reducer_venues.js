@@ -1,8 +1,8 @@
-import { FETCH_ARTIST } from '../actions/artists'
+import { VENUES } from "../actions/venues";
 
 export default function(state = {}, action) {
   switch (action.type) {
-    case FETCH_ARTIST:
+    case VENUES:
     return action.payload
   }
   return state

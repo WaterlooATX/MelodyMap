@@ -9,9 +9,19 @@ h3{
     margin: 0;
     border: 1px solid white;
     font-weight: bold;
+
 }
 #speaker {
     margin-top: 8px !important;
     margin-right: 12px !important;
     float: right !important;
+    display: inline-block;
+}
+
+.tour{
+    /*display: inline-block;*/
+    /*float: right;*/
+    margin-left: 10px;
+    font-size: 14px;
+
 }

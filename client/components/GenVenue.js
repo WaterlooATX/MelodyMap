@@ -3,29 +3,26 @@ import Venues from '../containers/Venues';
 // import {bindActionCreators} from 'redux';
 // import {connect} from 'react-redux';
 import { Link } from 'react-router';
-// import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
+import { Songkick_getVenueAPI } from '../models/api';
 // import {selectShow} from '../actions/select_show';
 // import {redux_Artists} from '../actions/artists';
 
 export default class GenArtist extends Component {
-//<GenVenue venue={shows[show].venue} key={show} name={shows[show].venue.displayName}/>
 
   render() {
-    const props = this.props;
-    const venue = props.venue;
-    const name = props.name;
-    const id = venue.id;
+
+    console.log('this.props.venue ' , this.props.venue);
+    let venue = this.props.venue
 
     return (
-      <div className="panel-heading" role="tab" id={`heading${id}`}>
+      <div className="panel-heading" role="tab" id={`heading${venue.id}`}>
           <div>
-            <h3>
+            <h1>
               {/* <img className="genImage" src = {image} alt={id} height='85' width='85'/> */}
 
-
                 <Link className = "genArtist"
-                    to={ `venue/${name}`}
-                    activeClassName='active'>{name}
+                    to={ `/venue/${venue.name}`}
+                    activeClassName='active'>{venue.name}
                 </Link>
 
               {/*
@@ -37,7 +34,7 @@ export default class GenArtist extends Component {
               */}
 
 
-            </h3>
+            </h1>
           </div>
       </div>
     )

@@ -15,7 +15,7 @@ const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 export default class ArtistDetail extends Component {
     constructor(props){
     super(props);
-    this.state = {  
+    this.state = {
       videos: [],
       selectedVideo: null
     }
@@ -32,7 +32,7 @@ export default class ArtistDetail extends Component {
         <div>
           <div className="container">
             <div className="jumbotron">
-                <img className = "detailImage img-circle" src = {this.state.artistImg}/> 
+                <img className = "detailImage img-circle" src = {this.state.artistImg}/>
                 <h1>{`${this.props.params.artistName}`}</h1>
                 <h3>{this.onTour(this.state.artistTour)}</h3>
                 <ul>
@@ -41,7 +41,7 @@ export default class ArtistDetail extends Component {
                 <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <p>{this.state.artistBio}</p>
             </div>
-          </div> 
+          </div>
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="400px" height= "500px" frameBorder="0" allowTransparency="true"></iframe>
@@ -72,7 +72,7 @@ filterArtist(artist){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
         artistName: artists[artist].Spotify_searchArtistsAPI.name,
-        artistImg: artists[artist].Spotify_searchArtistsAPI.img, 
+        artistImg: artists[artist].Spotify_searchArtistsAPI.img,
         artistUri: artists[artist].Spotify_searchArtistsAPI.uri,
         artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
         artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
@@ -81,7 +81,7 @@ filterArtist(artist){
       })
     }
    for(var key in shows){
-   }  
+   }
   }
 
   onTour(tour){
@@ -115,12 +115,13 @@ filterArtist(artist){
               <Link className = "genArtist"
                         to={ `/artist/${artist.name}`}
                         activeClassName='active'>{artist.name}
+
               </Link>
             </div>
           }
          else{
           return null;
-         } 
+         }
         })
       })
     }
@@ -143,5 +144,4 @@ filterArtist(artist){
 
 const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
 export default connect(mapStateToProps)(ArtistDetail);
-
 
