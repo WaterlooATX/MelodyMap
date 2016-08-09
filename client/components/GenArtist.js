@@ -19,9 +19,6 @@ export default class GenArtist extends Component {
 	}
 
 	componentDidMount(){
-		this.props.selectedArtist?
-		console.log(this.props.selectedArtist)
-		: console.log("not yet")
 	}
 
 
