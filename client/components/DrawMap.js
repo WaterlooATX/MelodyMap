@@ -31,17 +31,16 @@ const DrawMap = (props) => {
   function _createMarkers() {
     if (Array.isArray(props.shows)) {
       return props.shows.map((show, index) => {
-        return ( <Marker
-          key={ index }
-          position={ {lat: +show.venue.lat, lng: +show.venue.lng} }
-          title ={ show.venue.displayName }
-          onClick={ (marker) => _onMarkerClickHandler(marker, show) }
-          defaultAnimation= { 2 }
-        >
-          {props.selectedShow === show ?
-          <InfoWindow><div>{ show.displayName }&nbsp;&nbsp;<a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></div></InfoWindow> :
-          null }
-        </Marker>
+        return (
+          <Marker
+            key={ index }
+            position={ {lat: +show.venue.lat, lng: +show.venue.lng} }
+            title ={ show.venue.displayName }
+            onClick={ (marker) => _onMarkerClickHandler(marker, show) }
+            defaultAnimation= { 2 }
+           >
+            {props.selectedShow === show ? <InfoWindow><div>{ show.displayName }&nbsp;&nbsp;<a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></div></InfoWindow> : null }
+         </Marker>
         )
       })
     }

@@ -28,20 +28,17 @@ class NavBar extends Component {
   }
 
   componentDidMount() {
-    // grab url, send accessToken/refreshToken to actions
-    const url = document.location.href.split('/')
+  // grab url, send accessToken/refreshToken to actions
+    const url = document.location.href.split("/")
     const self = this;
-    if(url[5]){
-      //Spotify call to follow artist
-      // followArtist(url[5],'3TNt4aUIxgfy9aoaft5Jj2')
+    if (url[5]) {
+    //Spotify call to follow artist followArtist(url[5],'3TNt4aUIxgfy9aoaft5Jj2')
       this.setState({loggedIn: true});
       this.props.setTokens(url[5], url[6]);
 
-      this.props.getMyInfo().then(function(data){
-        {data.payload.display_name || data.payload.images[0] ?
-          self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}})
-          :
-          self.setState({spotifyData: {username: data.payload.id, image: 'http://assets.audiomack.com/default-artist-image.jpg'}})
+      this.props.getMyInfo().then( (data) => {
+        {
+          data.payload.display_name || data.payload.images[0] ? self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}}) : self.setState({spotifyData: {username: data.payload.id, image: "http://assets.audiomack.com/default-artist-image.jpg"}})
         }
       })
     }
@@ -95,11 +92,7 @@ class NavBar extends Component {
                 />
                 <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
               </form>
-              {!this.state.loggedIn ?
-                <NavLogin />
-                :
-                <UserLogin spotifyData={this.state.spotifyData}/>
-              }
+              {!this.state.loggedIn ? <NavLogin /> : <UserLogin spotifyData={this.state.spotifyData}/>}
               </div>
             </div>
           </div>
@@ -109,34 +102,33 @@ class NavBar extends Component {
   }
 
   _onStartChange(startDate) {
-    this.setState({ startDate });
+    this.setState({startDate});
   }
 
   _onEndChange(endDate) {
-    this.setState({ endDate });
+    this.setState({endDate});
   }
 
   _onCityChange(city) {
-    this.setState({ city });
+    this.setState({city});
   }
 
   _onSubmit(event) {
     event.preventDefault();
-    let startDate = this.state.startDate.toISOString().slice(0,10);
-    let endDate = this.state.endDate.toISOString().slice(0,10);
+    let startDate = this.state.startDate.toISOString().slice(0, 10);
+    let endDate = this.state.endDate.toISOString().slice(0, 10);
     // get coordinate from city name
     if (this.state.city) {
-      Google_geocoder(this.state.city)
-      .then(resp => {
+      Google_geocoder(this.state.city).then(resp => {
         let lat = resp.data.results[0].geometry.location.lat;
         let long = resp.data.results[0].geometry.location.lng;
-        this.props.setLocation({ long, lat })
-        this.props.fetchShows({ long, lat, startDate, endDate });
+        this.props.setLocation({long, lat})
+        this.props.fetchShows({long, lat, startDate, endDate});
       })
     } else {
       let lat = this.props.location.lat;
       let long = this.props.location.long;
-      this.props.fetchShows({ long, lat, startDate, endDate });
+      this.props.fetchShows({long, lat, startDate, endDate});
     }
   }
 

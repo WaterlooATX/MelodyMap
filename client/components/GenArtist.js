@@ -18,10 +18,6 @@ export default class GenArtist extends Component {
 		}
 	}
 
-	componentDidMount(){
-	}
-
-
 	render(){
 		const props = this.props;
 		const artist = props.artist;
@@ -33,45 +29,47 @@ export default class GenArtist extends Component {
 		artist.Spotify_searchArtistsAPI ? image = artist.Spotify_searchArtistsAPI.img : image = this.state.img;
 
 		return (
-
-			<div className="col-md-4 gridding" id={`heading${name}`}>
-				<div>
-					<img className="genImage" src = {image} alt={name} height='85' width='85'/>
-						<br></br>
-						<Link className = "selArtist"
-							id="selArtist"
-						    to={ `artist/${name}`}
-						    activeClassName='active'>{name}
-						</Link>
-						{track ? this._speaker(track) : null}
-
-				</div>
-			</div>
-
-		)
-	}
+		  <div className="col-md-4 gridding" id={`heading${name}`}>
+		    <div>
+		      <img className="genImage" src={image} alt={name} height="85" width="85"/>
+		      <br></br>
+		      <Link
+		        className="selArtist"
+		        id="selArtist"
+		        to={`artist/${name}`}
+		        activeClassName="active">{name}
+		      </Link>
+		      {track ? this._speaker(track) : null}
+		    </div>
+		  </div>
+		 )
+		}
 
 	_speaker(track) {
 		return (
-			<i className="speaker fa fa-volume-up fa-2x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
-			<audio src={track}>
-			</audio></i>
+		  <i
+		    className="speaker fa fa-volume-up fa-2x"
+		    id="speaker"
+		    aria-hidden="true"
+		    type="button"
+		    onClick={this._toggleSound.bind(this)}>
+		    <audio src={track}></audio>
+		  </i>
 		)
 	}
 
 	_toggleSound(event) {
-       var playButton = event.target;
-       var parent = playButton.parentElement;
-       var audioElem = parent.getElementsByTagName('audio')[0];
-       if (this.state.songPlay === false) {
-          playButton.className = "fa fa-pause fa-3x";
-          this.setState({songPlay : true})
-          audioElem.play();
-       } else {
-          this.setState({songPlay : false})
-          playButton.className = "fa fa-volume-up fa-3x";
-          audioElem.pause();
-       }
-    }
-
+	  let playButton = event.target;
+	  let parent = playButton.parentElement;
+	  let audioElem = parent.getElementsByTagName("audio")[0];
+	  if (this.state.songPlay === false) {
+	    playButton.className = "fa fa-pause fa-3x";
+	    this.setState({songPlay: true})
+	    audioElem.play();
+	  } else {
+	    this.setState({songPlay: false})
+	    playButton.className = "fa fa-volume-up fa-3x";
+	    audioElem.pause();
+	  }
+	}
 }
