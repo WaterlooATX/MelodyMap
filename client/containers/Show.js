@@ -19,7 +19,6 @@ class Show extends Component {
       previewTrack: null,
       clicked: false,
       venueInfo: null,
-      songPlay: false
     }
   }
 
@@ -184,20 +183,26 @@ class Show extends Component {
   }
 
   _toggleSound(event) {
-       var playButton = event.target;
-       var parent = playButton.parentElement;
-       var audioElem = parent.getElementsByTagName('audio')[0];
-       if (this.state.songPlay === false) {
-          playButton.className = "fa fa-pause fa-3x";
-          this.setState({songPlay : true})
-          audioElem.play();
-       } else {
-          this.setState({songPlay : false})
-          playButton.className = "fa fa-volume-up fa-3x";
-          audioElem.pause();
-       }
+    let songPlay = this.props.songPlay;
+    let playButton = event.target;
+    let parent = playButton.parentElement;
+    let audioElem = parent.getElementsByTagName('audio')[0];
+    if (!songPlay) {
+      this.props.songPlayToggle(audioElem)
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
+    } else if (songPlay === audioElem) {
+      audioElem.pause();
+      playButton.className = "fa fa-volume-up fa-3x";
+      this.props.songPlayToggle(false)
+    } else if (songPlay !== audioElem) {
+      songPlay.pause()
+      $("fa fa-pause fa-3x").addClass("fa fa-volume-up fa-3x").removeClass("fa fa-pause fa-3x");
+      this.props.songPlayToggle(audioElem)
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
     }
-
+  }
 
   // Tests selected show in redux state and conditionally sets
   // inline style property for show list item if it is selected show
