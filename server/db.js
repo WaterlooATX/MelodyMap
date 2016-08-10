@@ -35,20 +35,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
 
-  // To use our schema definition, we need to convert our blogSchema into a Model we can work with
-  var kittySchema = mongoose.Schema({
-    name: String
-  });
 
-  // Instances of Models are documents.
-  var Kitten = mongoose.model('Kitten', kittySchema);
-  var silence = new Kitten({
-    name: 'Silence'
-  });
-  silence.save(function(err, fluffy) {
-    if (err) return console.error(err);
-
-  });
 });
 
 
