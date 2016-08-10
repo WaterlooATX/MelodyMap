@@ -7,7 +7,7 @@ import { Songkick_getVenueAPI } from '../models/api';
 // import {selectShow} from '../actions/select_show';
 // import {redux_Artists} from '../actions/artists';
 
-export default class GenArtist extends Component {
+export default class GenVenue extends Component {
 
   render() {
 
@@ -18,7 +18,6 @@ export default class GenArtist extends Component {
       <div className="panel-heading" role="tab" id={`heading${venue.id}`}>
           <div>
             <h1>
-              {/* <img className="genImage" src = {image} alt={id} height='85' width='85'/> */}
               <Link className = "genArtist"
                   to={ `/venue/${venue.name}/${venue.id}`}
                   activeClassName='active'>{venue.name}

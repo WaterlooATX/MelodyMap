@@ -30,6 +30,8 @@ export default class VenueDetail extends Component {
 
     let description = venue.description
 
+    let venueNameForUrl = venue.name.split(' ').join('+')
+
     return (
         <div>
           <div className="container">
@@ -45,9 +47,15 @@ export default class VenueDetail extends Component {
                 <p>artist bio</p>
             </div>
           </div>
-        <div className="media-container">
-            iframe video detail
-        </div>
+          <div className="media-container">
+            // Google Place Venue
+            <iframe
+              width="600" height="450"
+              src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+              &q=${venueNameForUrl},${venue.city}+${venue.state}
+              &zoom=17`}>
+            </iframe>
+          </div>
           <div className="container-similar">
             <h3> Similar Artists </h3>
             <p className="text-muted credit">similar artists list</p>

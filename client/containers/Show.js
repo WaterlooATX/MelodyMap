@@ -241,13 +241,13 @@ class Bands extends Component {
 
   _createVenueObj() {
     let reduxVenues = this.props.venues
-    // console.log('this.props.venues ' , this.props.venues);
     let venueID = this.props.venueID
     let venue = this.props.venueInfo
 
     if (!reduxVenues[venueID]) {
 
       if(venue) {
+        // Build venue entry in redux state
         reduxVenues[venueID] = {
           id: venue.id,
           ageRestriction: this.props.songkick.ageRestriction || "none",
