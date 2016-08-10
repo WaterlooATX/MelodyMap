@@ -46,28 +46,19 @@ class Artists extends Component {
       return(
         <div className="container">
           <div className="col col-md-1"></div>
-            <div className="col col-md-10">
-              <div className="page-header">
-                <h1>Artists</h1>
-                <SearchBar onSearchTermChange={artistSearch}/>
-
-              </div>
-              {!this.state.artistBlocks.length ? 
-
-              <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div className="panel panel-default">
-                {Artists}
-                </div>
-              </div>
-              :
-                <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                  <div className="panel panel-default">
-                    <SelectedArtist artists={this.state.artistBlocks}/>
-               
-                </div>
-              </div>
-              }
+            <div className="page-header">
+              <h1>Artists</h1>
+              <SearchBar onSearchTermChange={artistSearch}/>
             </div>
+            {!this.state.artistBlocks.length ? 
+              <div className='container'>
+                {Artists}
+              </div>
+            :
+              <div className='container'>
+                <SelectedArtist artists={this.state.artistBlocks}/>
+              </div>
+            }
           <div className="col col-md-1"></div>
         </div>
       )

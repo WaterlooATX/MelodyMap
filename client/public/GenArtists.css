@@ -1,27 +1,41 @@
 .genImage{
-    padding: 5px;
-    border-radius: 100%;
-    height: 90px;
-    width: 90px;
+    padding: 3px;
+    border-radius: 10%;
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+    margin-left: 40px;
+    box-shadow: 
+
 }
 
-h3{
+.gridding{
     margin: 0;
     border: 1px solid white;
     font-weight: bold;
+    padding:20px;
 
 }
+
 #speaker {
-    margin-top: 8px !important;
-    margin-right: 12px !important;
-    float: right !important;
+    margin-right: 30px !important;
+    vertical-align: center !important;
     display: inline-block;
+    text-align: center;
+    float: right;
 }
 
 .tour{
-    /*display: inline-block;*/
-    /*float: right;*/
-    margin-left: 10px;
     font-size: 14px;
+    /*text-align: center;*/
+    /*margin: 0 auto;*/
+    margin-left: 35%;
+}
 
+  #selArtist {
+    display: inline-block;
+    font-size: 22px;
+    margin-left: 35%;
+    text-align: center;
+    /*margin: 0 auto !important;*/
 }
