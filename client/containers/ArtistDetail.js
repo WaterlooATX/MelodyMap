@@ -109,7 +109,19 @@ filterArtist(artist){
     else{
       return artists.map(artist => {
         return artist.image.map(image => {
+          console.log("IMAGES",image)
           if(image.size === "large"){
+            if(image["#text"] === ""){
+              return <div className='similar-artist'>
+                <img className ="img-circle" src = "http://assets.audiomack.com/default-artist-image.jpg" />
+                <Link className ="genArtist"
+                        to={ `/artist/${artist.name}`}
+                                activeClassName='active'>{artist.name}
+
+                </Link>
+                </div>
+            }
+            else{
             return <div className="similar-artist">
               <img className = "img-circle" src = {image["#text"]}/>
               <Link className = "genArtist"
@@ -118,6 +130,7 @@ filterArtist(artist){
 
               </Link>
             </div>
+          }
           }
          else{
           return null;
