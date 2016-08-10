@@ -15,7 +15,9 @@ class Artists extends Component {
     super(props);
     this.state={
       artistBlocks: [],
-      term: ''
+      term: '',
+      songPlayed: false,
+      songButton: null
     }
   }
 
@@ -78,18 +80,24 @@ class Artists extends Component {
     }
   }
 
-  _createArtists() {
+  _songPlayToggle(songPlayed, songButton){
+    this.setState({ songPlayed, songButton })
+  }
+
+  _createArtists(){
     const artists = this.props.artists
     const mapped = []
-    for (let artist in artists) {
-      mapped.push(
-        <GenArtist
-          artist={artists[artist]}
-          key={artist}
-          name={artist}
-          selectedartists={this.state.selectedartists}
-          artistblocks={this.state.artistblocks}/>
-      )
+    for(let artist in artists) {
+      mapped.push(<GenArtist
+        artist={artists[artist]}
+        key={artist}
+        name={artist}
+        selectedArtists={this.state.selectedArtists}
+        artistBlocks={this.state.artistBlocks}
+        songPlayed={ this.state.songPlayed }
+        songButton={ this.state.songButton }
+        songPlayToggle={ this._songPlayToggle.bind(this) }
+      />)
     }
     return mapped
   }

@@ -54,8 +54,8 @@ export default class ShowList extends Component {
     this.props.selectShow(showWithId[0]);
   }
 
-  _songPlayToggle(songPlay, songButton){
-    this.setState({ songPlay, songButton })
+  _songPlayToggle(songPlayed, songButton){
+    this.setState({ songPlayed, songButton })
   }
 
   _createShows(shows) {
@@ -75,7 +75,7 @@ export default class ShowList extends Component {
         venue={ show.venue.displayName }
         venueID={ show.venue.id }
         onNavigateClick={ this.props.onNavigateClick.bind(this) }
-        songPlay={ this.state.songPlay }
+        songPlayed={ this.state.songPlayed }
         songButton={ this.state.songButton }
         songPlayToggle={ this._songPlayToggle.bind(this) }
       />
