@@ -49,7 +49,7 @@ export default class VenueDetail extends Component {
     let venueNameForMap = venue.name.split(' ').join('+')
 
     if (venue.website) {
-      let website = venue.website.slice(7)
+      var website = venue.website.slice(7)
       if (website.charAt(website.length - 1) === '/') {
         website = website.slice(0, -1)
       }
