@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 // Create a Artist schema
 const artistSchema = new mongoose.Schema({
   spotifyURL: String,
-  id: Number,
+  id: String,
   songKickName: String,
   spotifyName: String,
   artistImages: Array,
@@ -18,5 +18,8 @@ const artistSchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
+// Created a Mongoose schema which maps to a MongoDB collection and defines
+// the shape of the documents within that collection.
 
-module.exports.artistSchema = artistSchema;
+// exported the Mongoose Artist model
+module.exports = mongoose.model("Artist", artistSchema);

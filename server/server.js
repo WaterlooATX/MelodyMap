@@ -5,7 +5,7 @@ var routes = require('./routes');
 var bodyParser = require('body-parser');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-
+var mongoose = require('mongoose');
 
 var app = express();
 
