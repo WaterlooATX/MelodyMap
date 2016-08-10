@@ -56,6 +56,7 @@ export default class GenArtist extends Component {
 		    id="speaker"
 		    aria-hidden="true"
 		    type="button"
+		    onClick={this._toggleSound.bind(this)}>
 		    <audio src={track}></audio>
 		  </i>
 		)
