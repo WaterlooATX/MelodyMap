@@ -31,7 +31,7 @@ ReactDOM.render(
 	          <Route path="artists" component={Artists} />
             <Route path="venues" component={Venues} />
 	          <Route path="artist/:artistName" component={ArtistDetail} />
-            <Route path="venue/:venueName" component={VenueDetail} />
+            <Route path="venue/:venueName/:venueId" component={VenueDetail} />
           </Route>
         </Router>
   </Provider>),
