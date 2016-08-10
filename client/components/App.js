@@ -6,9 +6,7 @@ const App = (props) => {
     <div>
       <NavBar/>
       <div className="temp">
-        <div className="temp">
-          {props.children}
-        </div>
+        {props.children}
       </div>
     </div>
   )
