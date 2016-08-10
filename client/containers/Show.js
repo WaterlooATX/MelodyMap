@@ -107,7 +107,7 @@ class Show extends Component {
        }
 
        if(!reduxArtists[Artist.displayName]){
-        reduxArtists[Artist.displayName] = {songKickID: Artist.id}
+        reduxArtists[Artist.displayName] = {songKickID: Artist.artist.id}
 
         Spotify_searchArtistsAPI(Artist.displayName).then( obj => { // async
           const artist = obj.data[0]
@@ -179,7 +179,6 @@ class Show extends Component {
     })
 
     // update redux artist
-            console.log(reduxArtists)
     redux_Artists(reduxArtists)
   }
 
