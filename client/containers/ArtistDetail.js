@@ -27,7 +27,7 @@ export default class ArtistDetail extends Component {
   }
 
 
-  render() {
+  render() { 
     return (
         <div>
           <div className="container">
@@ -38,13 +38,13 @@ export default class ArtistDetail extends Component {
                 <ul>
                 {this.getGenre(this.state.artistGenre)}
                 </ul>
-                <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:1vCWHaC5f2uS3yhpwWbIA6&size=basic&theme=light&show-count=0" width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
+                <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 <p>{this.state.artistBio}</p>
             </div>
           </div>
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
-          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="400px" height= "500px" frameBorder="0" allowTransparency="true"></iframe>
+          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
           <div className="container-similar">
             <h3> Similar Artists </h3>
@@ -62,7 +62,7 @@ videoSearch(term){
           videos: videos,
           selectedVideo: videos[0]
       })
-    });
+    })
   }
 
 filterArtist(artist){
@@ -73,7 +73,7 @@ filterArtist(artist){
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
         artistName: artists[artist].Spotify_searchArtistsAPI.name,
         artistImg: artists[artist].Spotify_searchArtistsAPI.img,
-        artistUri: artists[artist].Spotify_searchArtistsAPI.uri,
+        artistID: artists[artist].Spotify_searchArtistsAPI.id,
         artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
         artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
         artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
