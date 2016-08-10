@@ -23,8 +23,7 @@ export default class GenVenue extends Component {
                   activeClassName='active'>{venue.name}
               </Link>
             </h1>
-            <h3>{`The venue's ID is: ${venue.id}`}</h3>
-            <h3>{`The venue's description is: ${venue.description}`}</h3>
+            <h4>{'Upcoming Shows: Show them around here'}</h4>
           </div>
       </div>
     )

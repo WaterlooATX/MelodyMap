@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import SearchBar from '../components/SearchBar';
-import {fetchArtistsAPI} from '../models/api';
+import SearchBar from '../components/SearchBar'
 import GenVenue from '../components/GenVenue'
 import _ from 'lodash';
 
