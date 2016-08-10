@@ -260,7 +260,7 @@ class Bands extends Component {
         // Build venue entry in redux state
         reduxVenues[venueID] = {
           id: venue.id,
-          ageRestriction: this.props.songkick.ageRestriction || "none",
+          ageRestriction: this.props.songkick.ageRestriction || 'N/A',
           capacity: venue.capacity || 'N/A',
           street: venue.street,
           geo: {lat: venue.lat, long: venue.lng},

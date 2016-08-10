@@ -25,26 +25,26 @@ export default class VenueDetail extends Component {
     let props = this.props
     let venueNameURL = props.params.venueName
     let venueIdURL = props.params.venueId
+
     let redux_Venue = props.venues
     let venue = redux_Venue[venueIdURL]
 
-    let description = venue.description
-
-    let venueNameForUrl = venue.name.split(' ').join('+')
+    let venueNameForMap = venue.name.split(' ').join('+')
+    let website = venue.website.slice(7)
+    if (website.charAt(website.length - 1) === '/') { website = website.slice(0, -1) }
 
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
-
-                <h1>{`This name from redux: ${venue.name}`}</h1>
-                <h3>{`This ID from redux: ${venue.id}`}</h3>
-                <h3>{`This description from redux: ${description}`}</h3>
-
+                <h1>{venue.name}</h1>
                 <ul>
-                  artist genre
+                  {venue.website ? <li>Website: <a href={`${venue.website}`} target="_blank">{`${website}`}</a></li> : null}
+                  {venue.address ? <li>{ `Address: ${venue.address}` }</li> : null}
+                  {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
+                  {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
+                  {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
                 </ul>
-                <p>artist bio</p>
             </div>
           </div>
           <div className="media-container">
@@ -52,7 +52,7 @@ export default class VenueDetail extends Component {
             <iframe
               width="600" height="450"
               src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
-              &q=${venueNameForUrl},${venue.city}+${venue.state}
+              &q=${venueNameForMap},${venue.city}+${venue.state}
               &zoom=17`}>
             </iframe>
             {/* Google Street View Venue */}
