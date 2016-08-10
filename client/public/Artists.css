@@ -32,3 +32,12 @@
 .list-group-item:hover {
     background-color: #eee;
 }
+
+@media screen and (max-width: 767px) {
+  #artist-search-bar {
+    display: inline ;
+    width: 50%;
+    position: relative;
+    float: right;
+  }
+}
