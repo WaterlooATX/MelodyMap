@@ -74,7 +74,7 @@ class Show extends Component {
   _speaker(track) {
     return (
       <i
-        className="speaker fa fa-volume-up fa-2x"
+        className="speaker fa fa-volume-up fa-3x"
         id="speaker"
         aria-hidden="true"
         type="button"
