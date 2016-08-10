@@ -19,7 +19,6 @@ class Show extends Component {
       previewTrack: null,
       clicked: false,
       venueInfo: null,
-      songPlay: false
     }
   }
 
@@ -183,21 +182,20 @@ class Show extends Component {
     redux_Artists(reduxArtists)
   }
 
-  _toggleSound(event) {
-       var playButton = event.target;
-       var parent = playButton.parentElement;
-       var audioElem = parent.getElementsByTagName('audio')[0];
-       if (this.state.songPlay === false) {
-          playButton.className = "fa fa-pause fa-3x";
-          this.setState({songPlay : true})
-          audioElem.play();
-       } else {
-          this.setState({songPlay : false})
-          playButton.className = "fa fa-volume-up fa-3x";
-          audioElem.pause();
-       }
-    }
-
+   _toggleSound(event) {
+     var playButton = event.target;
+     var parent = playButton.parentElement;
+     var audioElem = parent.getElementsByTagName('audio')[0];
+     if (!this.props.songPlay) {
+        this.props.songPlayToggle(true)
+        playButton.className = "fa fa-pause fa-3x";
+        audioElem.play();
+     } else {
+        audioElem.pause();
+        playButton.className = "fa fa-volume-up fa-3x";
+        this.props.songPlayToggle(false)
+     }
+  }
 
   // Tests selected show in redux state and conditionally sets
   // inline style property for show list item if it is selected show

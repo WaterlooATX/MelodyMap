@@ -6,6 +6,13 @@ import {selectShow} from '../actions/select_show'
 
 export default class ShowList extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state ={
+      songPlayed: false
+    }
+  }
+
   render() {
     const shows = this.props.shows;
     if (shows.length > 0) {
@@ -46,6 +53,10 @@ export default class ShowList extends Component {
     this.props.selectShow(showWithId[0]);
   }
 
+  _songPlayToggle(bool){
+    this.setState({ songPlay: bool })
+  }
+
   _createShows(shows) {
     return shows.map(show => {
       return <Show
@@ -63,6 +74,8 @@ export default class ShowList extends Component {
         venue={show.venue.displayName}
         venueID={show.venue.id}
         onNavigateClick={this.props.onNavigateClick.bind(this)}
+        songPlay={this.state.songPlay}
+        songPlayToggle={this._songPlayToggle}
       />
     })
   }
