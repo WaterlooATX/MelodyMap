@@ -61,6 +61,7 @@ class Artists extends Component {
                   onChange={ event => this._onInputChange(event.target.value) }
 
                   />
+                  <button className="btn-default" type="submit" onClick={this._handleSubmit.bind(this)}>Search</button>
               </div>
               {/* <SearchBar onSearchTermChange={this._searchInput.bind(this)} onSubmit={this._handleSubmit}/> */}
             </div>
