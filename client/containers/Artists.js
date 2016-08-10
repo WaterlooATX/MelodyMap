@@ -48,24 +48,20 @@ class Artists extends Component {
   render() {
       return(
         <div className="container">
-          <div className="col col-md-1"></div>
-            <div className="page-header">
-              <h1>Artists</h1>
-              <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
-                <input
-                  className="form-control"
-                  value={ this.state.term }
-                  placeholder='Search Venues'
-                  onChange={ event => this._onInputChange(event.target.value) }
-                />
-                <button className="btn-default" type="submit" >Search</button>
-              </form>
-              {/* <SearchBar onSearchTermChange={this._searchInput.bind(this)} onSubmit={this._handleSubmit}/> */}
-            </div>
-            <div className='container'>
-              {this._SelectedArtistVSArtists()}
-            </div>
-          <div className="col col-md-1"></div>
+          <div className="page-header">
+            <h1>Artists</h1>
+            <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+              <input
+                className="form-control"
+                value={ this.state.term }
+                placeholder='Search Venues'
+                onChange={ event => this._onInputChange(event.target.value) }
+              />
+
+            </form>
+            {/* <SearchBar onSearchTermChange={this._searchInput.bind(this)} onSubmit={this._handleSubmit}/> */}
+          </div>
+          {this._SelectedArtistVSArtists()}
         </div>
       )
   }
