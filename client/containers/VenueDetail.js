@@ -59,7 +59,7 @@ export default class VenueDetail extends Component {
             <iframe
               width="600" height="450"
               src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
-              &location=${venue.geo}`}>
+              &location=${venue.geo.lat},${venue.geo.long}`}>
             </iframe>
           </div>
           <div className="container-similar">
