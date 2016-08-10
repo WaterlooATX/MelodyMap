@@ -18,10 +18,6 @@ export default class GenArtist extends Component {
 		}
 	}
 
-	componentDidMount(){
-	}
-
-
 	render(){
 		const props = this.props;
 		const artist = props.artist;
