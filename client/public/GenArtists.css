@@ -17,18 +17,21 @@
 }
 
 .gridding .artist-label {
+    position: relative;
     display: flex;
-    flex-direction: row;
+    width: 250px;
+    justify-content: center;
+}
+
+.gridding .artist-label .selArtist {
     font-size: 22px;
     text-align: center;
+    width: 100%;
 }
 
 .gridding .fa {
-    margin-right: 30px !important;
-    vertical-align: center !important;
-    display: inline-block;
-    text-align: center;
-    float: right;
+    position: absolute;
+    left: 220px;
     cursor: pointer;
     z-index: 10;
 }
