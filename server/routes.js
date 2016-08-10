@@ -90,6 +90,13 @@ const LastFM = require("./models/m_lastFM")
 const Artist = require("./models/m_artist")
 
 
+// let bands = "chris,Björk,Nicki Minaj,Dnce,kiiara,R.E.M.,Marilyn Manson, Jonas Blue, Katy Perry, System of a Down, Massive Attack, Foo Fighters, Meghan Trainor, Marvin Gaye, Jimi Hendrix, Oasis, Tame Impala, Kings of Leon"
+// bands.split(',').forEach(b => {
+//   Artist.artistInfo(b)
+//   .then(data => console.log(data))
+//   .catch(error => console.log("error", error))
+// })
+
 // Artist Data
 let Artist_artistInfo = 0;
 router.post('/Artist_artistInfo', function(req, res) {

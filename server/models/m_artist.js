@@ -2,6 +2,7 @@ const Songkick = require("./m_songkick")
 const Spotify = require("./m_spotifyApi")
 const LastFM = require("./m_lastFM")
 const db = require("../db")
+var mongoose = require('mongoose');
 
 // const Artist = new db.artist({
 //   spotifyURL: a.external_urls,
@@ -16,25 +17,12 @@ const db = require("../db")
 //  - update data if old
 
 // Artist.addArtist().then()
-exports.artistInfo = (name) => {
-  const Artist = db.artist
-  console.log(Artist)
-  // Check db(spotifyName)
-  // Artist.findOne({'songKickName': name}, function(err, artist) {
-  //   if (err) return console.log(err);
-  //   console.log(artist)
-  // })
-
-
-
-}
-//
 // exports.artistInfo = (name) => {
 //   return Spotify.searchArtists(name)
 //     .then(data => {
-//       if(data) {
+//       if (data) {
 //         let a = data[0]
-//         if(a) {
+//         if (a) {
 //           return {
 //             spotifyURL: a.external_urls,
 //             id: a.id,
@@ -44,70 +32,115 @@ exports.artistInfo = (name) => {
 //             img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
 //             popularity: a.popularity,
 //             followers: a.followers.total,
-//             relatedArtists: null,
-//             albums: null,
-//             topTracks: null,
-//             summaryBio: null,
-//             fullBio: null
 //           }
-//         }
-//       } else {
-//         return {
-//           spotifyURL: null,
-//           id: null,
-//           songKickName: null,
-//           spotifyName: null,
-//           artistImages: null,
-//           img: "http://assets.audiomack.com/default-artist-image.jpg",
-//           popularity: null,
-//           followers: null,
-//           relatedArtists: null,
-//           albums: null,
-//           topTracks: null,
-//           summaryBio: null,
-//           fullBio: null
 //         }
 //       }
 //     })
-//     .then(artist => {
-//       return Spotify.getArtistRelatedArtists(artist.id)
-//         .then(data => {
-//           artist['relatedArtists'] = data.artists
-//           return artist
-//         })
-//         .catch(data => artist)
-//     })
-//     .then(artist => {
-//       return Spotify.getArtistAlbums(artist.id)
-//         .then(albums => {
-//           let a = albums.items.map(album => {
-//             return {
-//               name: album.name,
-//               images: album.images,
-//               id: album.id
-//             }
-//           })
-//           artist['albums'] = a
-//           return artist
-//         })
-//         .catch(data => artist)
-//     })
-//     .then(artist => {
-//       return Spotify.getArtistTopTracks(artist.id, countryCode = 'us')
-//         .then((data) => {
-//           artist['topTracks'] = data.tracks
-//           return artist
-//         })
-//         .catch(data => artist)
-//     })
-//     .then(artist => {
-//       return LastFM.getInfo(name)
-//         .then((data) => {
-//           artist['summaryBio'] = data.artist.bio.summary
-//           artist['fullBio'] = data.artist.bio.content
-//           return artist
-//         })
-//         .catch(data => artist)
-//     })
-//     .catch(error => console.log("error", error))
 // }
+lookupArtist = (name) => {
+
+  //return db.collection('artists').find({ name: name })
+}
+var kittySchema = mongoose.Schema({
+  name: String
+});
+var Kitten = mongoose.model('Kitten', kittySchema);
+function insertArtist(artist) {
+  return db.collection('artists').insert(artist)
+}
+
+exports.artistInfo = (name) => {
+
+    // To use our schema definition, we need to convert our blogSchema into a Model we can work with
+
+
+    // Instances of Models are documents.
+
+    var cat = new Kitten({
+      name: name
+    });
+    console.log(cat.name)
+    cat.save(function(err, fluffy) {
+      if (err) return console.error(err);
+    });
+
+    // if (artists[0]) {
+    //   console.log('artist already exists!', artists[0]);
+    //   return artists[0];
+    // } else {
+    //   console.log('this is a new artist, hitting API');
+    //   let newArtist = Spotify.searchArtists(name)
+    //   .then(data => {
+    //     let a = data[0];
+    //     return ({
+    //       spotifyURL: a.external_urls,
+    //       id: a.id,
+    //       songKickName: name,
+    //       spotifyName: a.name,
+    //       artistImages: a.images,
+    //       img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
+    //       popularity: a.popularity,
+    //       followers: a.followers.total
+    //     });
+    //   })
+    //   newArtist.then(data => insertArtist(data));
+    //   return newArtist;
+    // }
+
+}
+
+// Spotify.searchArtists(name)
+//   .then(data => {
+//     if (data) {
+//       let a = data[0]
+//       if (a) {
+//         return {
+//           spotifyURL: a.external_urls,
+//           id: a.id,
+//           songKickName: name,
+//           spotifyName: a.name,
+//           artistImages: a.images,
+//           img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
+//           popularity: a.popularity,
+//           followers: a.followers.total,
+//         }
+//       }
+//     }
+//   })
+//
+// Spotify.getArtistRelatedArtists(artist.id)
+//   .then(artist => {
+//     return {
+//       relatedArtists: data.artists
+//     }
+//   })
+//
+//   Spotify.getArtistAlbums(artist.id)
+//     .then(albums => {
+//       return {
+//         albums: albums.items.map(album => {
+//           return {
+//             name: album.name,
+//             images: album.images,
+//             id: album.id
+//           }
+//         })
+//       }
+//     })
+//
+// Spotify.getArtistTopTracks(artist.id, countryCode = "us")
+//   .then(artist => {
+//     return {
+//       topTracks: artist.tracks
+//     }
+//   })
+//
+// LastFM.getInfo(name)
+//   .then(data => {
+//     return {
+//       summaryBio: data.artist.bio.summary,
+//       fullBio: data.artist.bio.content
+//     }
+//   })
+
+//.catch(error => console.log("error", error))

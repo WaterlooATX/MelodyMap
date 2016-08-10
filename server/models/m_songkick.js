@@ -1,5 +1,3 @@
-//require database up here
-
 var Songkick = require('songkick-api');
 var client = new Songkick('J4PGT8rVCHdtcfcG') //API KEY
 
