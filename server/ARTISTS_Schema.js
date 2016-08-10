@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 const artistSchema = new mongoose.Schema({
   spotifyURL: String,
   id: Number,
-  name: String,
+  songKickName: String,
+  spotifyName: String,
   artistImages: Array,
   img: String,
   popularity: Number,

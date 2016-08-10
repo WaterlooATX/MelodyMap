@@ -37,19 +37,42 @@ const Artist = mongoose.model('Artist', artistSchema);
 // }
 findArtist = (name) => Artist.findOne({name: name})
 insertArtist = (artist) => Artist.insert(artist)
-//isArtist = (name) => findArtist(name).then(data => data ? true : false)
+isArtist = (name) => findArtist(name).then(data => data ? true : false)
 
 
 
 exports.artistInfo = (name) => {
   // check if artists is in db
+  return findArtist(name)
+      //  return Spotify.searchArtists(name)
+      //  .then(data => {
+      //    let a = data[0];
+      //    let artist = new Artist({
+      //      spotifyURL: a.external_urls,
+      //      id: a.id,
+      //      songKickName: name,
+      //      spotifyName: a.name,
+      //      artistImages: a.images,
+      //      img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
+      //      popularity: a.popularity,
+      //      followers: a.followers.total,
+      //      relatedArtists: [],
+      //      albums: [],
+      //      topTracks: [],
+      //      summaryBio: "",
+      //      fullBio: ""
+      //    })
+      //    artist.save(function(err, fluffy) {
+      //      if (err) return console.error(err);
+      //    });
+      //    return artist;
+      //  })
+       //
+       //
 
-    return findArtist(name)
-  //return isArtist(name)
-    // To use our schema definition, we need to convert our blogSchema into a Model we can work with
 
 
-
+    //return isArtist(name)
 
     // var cat = new Kitten({
     //   name: name
@@ -59,28 +82,6 @@ exports.artistInfo = (name) => {
     //   if (err) return console.error(err);
     // });
 
-    // if (artists[0]) {
-    //   console.log('artist already exists!', artists[0]);
-    //   return artists[0];
-    // } else {
-    //   console.log('this is a new artist, hitting API');
-    //   let newArtist = Spotify.searchArtists(name)
-    //   .then(data => {
-    //     let a = data[0];
-    //     return ({
-    //       spotifyURL: a.external_urls,
-    //       id: a.id,
-    //       songKickName: name,
-    //       spotifyName: a.name,
-    //       artistImages: a.images,
-    //       img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-    //       popularity: a.popularity,
-    //       followers: a.followers.total
-    //     });
-    //   })
-    //   newArtist.then(data => insertArtist(data));
-    //   return newArtist;
-    // }
 
 }
 
