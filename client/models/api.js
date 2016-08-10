@@ -1,19 +1,5 @@
 import axios from 'axios'
 
-export function fetchShowsAPI(long, lat, dateA, dateB) {
-  return axios.post("/fetchShows", {
-    long,
-    lat,
-    dateA,
-    dateB
-  });
-}
-
-export function fetchArtistsAPI(query){
-  return axios.post('/fetchArtists', {
-    query: query
-  });
-}
 
 export function geolocationAPI(success, fail, options) {
   return navigator.geolocation.getCurrentPosition(success, fail, options);
@@ -44,6 +30,21 @@ export function LastFM_getInfoAPI(name) {
   return axios.post("/LastFM_getInfo", {
     name: name
   })
+}
+
+export function fetchShowsAPI(long, lat, dateA, dateB) {
+  return axios.post("/fetchShows", {
+    long,
+    lat,
+    dateA,
+    dateB
+  });
+}
+
+export function fetchArtistsAPI(query){
+  return axios.post('/fetchArtists', {
+    query: query
+  });
 }
 
 export function getArtistAlbumsAPI(artistID) {
