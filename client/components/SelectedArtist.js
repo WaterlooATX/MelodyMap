@@ -44,7 +44,11 @@ export default class SelectedArtist extends Component{
 	_setImage(artist){
 		let Artist = artist.spotify;
 		if(Artist){
-			return Artist.images.length ? Artist[0].images[0].url : "http://assets.audiomack.com/default-artist-image.jpg"
+			if(Artist[0]) {
+				return Artist[0].images.length ? Artist[0].images[0].url : "http://assets.audiomack.com/default-artist-image.jpg"
+			} else {
+				return "http://assets.audiomack.com/default-artist-image.jpg"
+			}
 		} else {
 			return "http://assets.audiomack.com/default-artist-image.jpg"
 		}
@@ -60,7 +64,7 @@ export default class SelectedArtist extends Component{
 					    id="speaker"
 					    aria-hidden="true"
 					    type="button"
-					    onClick={this._togglesound.bind(this)}>
+					    onClick={this._toggleSound.bind(this)}>
 					    <audio src={track.tracks[0].preview_url}></audio>
 					  </i>
 					)
