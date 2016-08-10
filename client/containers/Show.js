@@ -73,7 +73,12 @@ class Show extends Component {
 
   _speaker(track) {
     return (
-      <i className="speaker fa fa-volume-up fa-3x" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
+      <i
+        className="speaker fa fa-volume-up fa-2x"
+        id="speaker"
+        aria-hidden="true"
+        type="button"
+        onClick={this._toggleSound.bind(this)}>
         <audio src={track}></audio>
       </i>
     )
