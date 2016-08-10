@@ -15,34 +15,29 @@ class Artists extends Component {
   constructor(props){
     super(props);
     this.state={
-      artistBlocks: [],
+      artistBlocks: []
     }
   }
 
-  _artistSearch(term){
+  _artistSearch(term) {
     fetchArtistsAPI(term).then((artists) => {
-      console.log("artists: ", artists.data)
-       artists.data.map((artist, index) => {
-          const Artists = artists.data
-        Spotify_searchArtistsAPI(artist.displayName).then((spotify)=>{
+      artists.data.map((artist,index) => {
+        const Artists = artists.data
+        Spotify_searchArtistsAPI(artist.displayName).then((spotify) => {
           Artists[index]["spotify"] = spotify.data;
-          spotify.data.map((track,i)=>{
-             Spotify_getArtistTopTracksAPI(track.id, "US").then((tracks)=>{
+          spotify.data.map((track,i) => {
+            Spotify_getArtistTopTracksAPI(track.id, "US").then((tracks) => {
               Artists[index]["tracks"] = tracks.data;
-              this.setState({
-                artistBlocks: Artists,
-              })
-             })           
+              this.setState({artistBlocks: Artists})
+            })
           })
         });
       })
-
     })
   }
 
   render(){
     const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 300)
-    const Artists = this._createArtists()
       return(
         <div className="container">
           <div className="col col-md-1"></div>
@@ -50,25 +45,34 @@ class Artists extends Component {
               <h1>Artists</h1>
               <SearchBar onSearchTermChange={artistSearch}/>
             </div>
-            {!this.state.artistBlocks.length ? 
-              <div className='container'>
-                {Artists}
-              </div>
-            :
-              <div className='container'>
-                <SelectedArtist artists={this.state.artistBlocks}/>
-              </div>
-            }
+            <div className='container'>
+              {this._SelectedArtistVSArtists()}
+            </div>
           <div className="col col-md-1"></div>
         </div>
       )
   }
 
-  _createArtists(){
+  _SelectedArtistVSArtists() {
+    if(this.state.artistBlocks.length) {
+      return <SelectedArtist artists={this.state.artistBlocks}/>
+    } else {
+      return this._createArtists()
+    }
+  }
+
+  _createArtists() {
     const artists = this.props.artists
     const mapped = []
-    for(let artist in artists) {
-      mapped.push(<GenArtist artist={artists[artist]} key={artist} name={artist} selectedArtists={this.state.selectedArtists} artistBlocks={this.state.artistBlocks}/>)
+    for (let artist in artists) {
+      mapped.push(
+        <GenArtist
+          artist={artists[artist]}
+          key={artist}
+          name={artist}
+          selectedartists={this.state.selectedartists}
+          artistblocks={this.state.artistblocks}/>
+      )
     }
     return mapped
   }
