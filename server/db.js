@@ -1,5 +1,8 @@
-//https://devcenter.heroku.com/articles/nodejs-mongoose
-
+// https://devcenter.heroku.com/articles/nodejs-mongoose
+// http://scottksmith.com/blog/2014/05/05/beer-locker-building-a-restful-api-with-node-crud/
+// http://www.phil-hudson.com/data-driven-nodejs-tutorials-part-3-integrating-models-mongoose-and-mongodb/
+// http://javabeat.net/mongoose-nodejs-mongodb/
+// Mongoose/MongoDB Tutorials https://www.youtube.com/playlist?list=PLVBXNyNyLNq0jyDcfjOc9psQYK_leG52r
 var mongoose = require('mongoose');
 
 /*
