@@ -12,7 +12,6 @@ export default class SearchBar extends Component {
 
 	render() {
 		return (
-
 			<div id='artist-search-bar'>
 				<input
 					className="form-control"
@@ -20,7 +19,6 @@ export default class SearchBar extends Component {
 					placeholder='Search Venues'
 					onChange={ event => this.onInputChange(event.target.value) } />
 			</div>
-
 		)
 	}
 
