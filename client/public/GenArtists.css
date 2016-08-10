@@ -1,20 +1,24 @@
-.genImage{
-    padding: 3px;
+.gridding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+.genImage {
     border-radius: 10%;
     height: 250px;
     width: 250px;
     object-fit: cover;
-    margin-left: 40px;
     box-shadow: 
-
 }
 
-.gridding{
-    margin: 0;
-    border: 1px solid white;
-    font-weight: bold;
-    padding:20px;
-
+.gridding .artist-label {
+    display: flex;
+    flex-direction: row;
+    font-size: 22px;
+    text-align: center;
 }
 
 #speaker {
@@ -23,6 +27,8 @@
     display: inline-block;
     text-align: center;
     float: right;
+    cursor: pointer;
+    z-index: 10;
 }
 
 .tour{
@@ -30,12 +36,4 @@
     /*text-align: center;*/
     /*margin: 0 auto;*/
     margin-left: 35%;
-}
-
-  #selArtist {
-    display: inline-block;
-    font-size: 22px;
-    margin-left: 35%;
-    text-align: center;
-    /*margin: 0 auto !important;*/
 }

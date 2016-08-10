@@ -92,7 +92,7 @@ class Show extends Component {
     return doorsOpen
   }
 
-  _spotifyInfo(showArtists){
+  _spotifyInfo(showArtists) {
     let reduxArtists = this.props.artists
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
     let count = 0
@@ -179,7 +179,7 @@ class Show extends Component {
     })
 
     // update redux artist
-    redux_Artists(reduxArtists)
+    redux_Artists(reduxArtists);
   }
 
   _toggleSound(event) {
