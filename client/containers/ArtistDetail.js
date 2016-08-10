@@ -22,7 +22,7 @@ export default class ArtistDetail extends Component {
   }
 
   componentDidMount() {
-    this.videoSearch(this.props.params.artistName + "music")
+    this.videoSearch(this.props.params.artistName + "band")
     this.filterArtist(this.props.params.artistName)
   }
 
@@ -39,7 +39,12 @@ export default class ArtistDetail extends Component {
                 {this.getGenre(this.state.artistGenre)}
                 </ul>
                 <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
-                <p>{this.state.artistBio}</p>
+                {this.state.artistBio !== "" ? <p>{this.state.artistBio}</p> : 
+                <p> The music sails alive with the compelling combination of rich 
+                layers among mixed styles of rhythm that hit the soul. 
+                By melding hook-filled melody within hard and heavy beats, 
+                has the ability to compact a vast array of influence and experience 
+                into a singular song</p>}
             </div>
           </div>
         <div className="media-container">
@@ -80,9 +85,8 @@ filterArtist(artist){
         artistTour: artists[artist].LastFM_getInfoAPI.ontour
       })
     }
-   for(var key in shows){
-   }
   }
+
 
   onTour(tour){
     if(tour === "1"){
@@ -109,7 +113,6 @@ filterArtist(artist){
     else{
       return artists.map(artist => {
         return artist.image.map(image => {
-          console.log("IMAGES",image)
           if(image.size === "large"){
             if(image["#text"] === ""){
               return <div className='similar-artist'>
