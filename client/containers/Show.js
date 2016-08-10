@@ -189,7 +189,7 @@ class Show extends Component {
     let parent = playButton.parentElement;
     let audioElem = parent.getElementsByTagName('audio')[0];
     if (!songPlay) {
-      this.props.songPlayToggle(audioElem)
+      this.props.songPlayToggle(audioElem, playButton)
       playButton.className = "fa fa-pause fa-3x";
       audioElem.play();
     } else if (songPlay === audioElem) {
@@ -198,8 +198,8 @@ class Show extends Component {
       this.props.songPlayToggle(false)
     } else if (songPlay !== audioElem) {
       songPlay.pause()
-      $("fa fa-pause fa-3x").addClass("fa fa-volume-up fa-3x").removeClass("fa fa-pause fa-3x");
-      this.props.songPlayToggle(audioElem)
+      this.props.songButton.className = "fa fa-volume-up fa-3x";
+      this.props.songPlayToggle(audioElem, playButton);
       playButton.className = "fa fa-pause fa-3x";
       audioElem.play();
     }

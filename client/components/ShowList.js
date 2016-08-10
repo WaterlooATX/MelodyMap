@@ -10,6 +10,7 @@ export default class ShowList extends Component {
     super(props)
     this.state ={
       songPlayed: false,
+      songButton: null
     }
   }
 
@@ -53,29 +54,30 @@ export default class ShowList extends Component {
     this.props.selectShow(showWithId[0]);
   }
 
-  _songPlayToggle(songPlay){
-    this.setState({ songPlay })
+  _songPlayToggle(songPlay, songButton){
+    this.setState({ songPlay, songButton })
   }
 
   _createShows(shows) {
     return shows.map(show => {
       return <Show
-        songkick={show}
-        ageRestriction={show.ageRestriction}
-        showArtists= {show.performance}
-        city={show.location.city}
-        displayName={show.displayName}
-        doorsOpen={show.start.time || 'N/A'}
-        id={show.id}
-        key={show.id}
-        selected={(this.props.selectedShow === show) ? true : false}
-        sendToState={this._sendToState.bind(this)}
-        startDate={show.start.date}
-        venue={show.venue.displayName}
-        venueID={show.venue.id}
-        onNavigateClick={this.props.onNavigateClick.bind(this)}
-        songPlay={this.state.songPlay}
-        songPlayToggle={this._songPlayToggle.bind(this)}
+        songkick={ show }
+        ageRestriction={ show.ageRestriction }
+        showArtists= { show.performance }
+        city={ show.location.city }
+        displayName={ show.displayName }
+        doorsOpen={ show.start.time || 'N/A' }
+        id={ show.id }
+        key={ show.id }
+        selected={ (this.props.selectedShow === show) ? true : false }
+        sendToState={ this._sendToState.bind(this) }
+        startDate={ show.start.date }
+        venue={ show.venue.displayName }
+        venueID={ show.venue.id }
+        onNavigateClick={ this.props.onNavigateClick.bind(this) }
+        songPlay={ this.state.songPlay }
+        songButton={ this.state.songButton }
+        songPlayToggle={ this._songPlayToggle.bind(this) }
       />
     })
   }
