@@ -47,8 +47,13 @@ export default class VenueDetail extends Component {
     let venue = redux_Venue[venueIdURL]
 
     let venueNameForMap = venue.name.split(' ').join('+')
-    let website = venue.website.slice(7)
-    if (website.charAt(website.length - 1) === '/') { website = website.slice(0, -1) }
+
+    if (venue.website) {
+      let website = venue.website.slice(7)
+      if (website.charAt(website.length - 1) === '/') {
+        website = website.slice(0, -1)
+      }
+    }
 
     // this.state.upcomingShows ? console.log('this.state.upcomingShows ' , this.state.upcomingShows) : console.log('no shows yet');
 
