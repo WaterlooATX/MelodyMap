@@ -182,19 +182,26 @@ class Show extends Component {
     redux_Artists(reduxArtists)
   }
 
-   _toggleSound(event) {
-     var playButton = event.target;
-     var parent = playButton.parentElement;
-     var audioElem = parent.getElementsByTagName('audio')[0];
-     if (!this.props.songPlay) {
-        this.props.songPlayToggle(true)
-        playButton.className = "fa fa-pause fa-3x";
-        audioElem.play();
-     } else {
-        audioElem.pause();
-        playButton.className = "fa fa-volume-up fa-3x";
-        this.props.songPlayToggle(false)
-     }
+  _toggleSound(event) {
+    let songPlay = this.props.songPlay;
+    let playButton = event.target;
+    let parent = playButton.parentElement;
+    let audioElem = parent.getElementsByTagName('audio')[0];
+    if (!songPlay) {
+      this.props.songPlayToggle(audioElem)
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
+    } else if (songPlay === audioElem) {
+      audioElem.pause();
+      playButton.className = "fa fa-volume-up fa-3x";
+      this.props.songPlayToggle(false)
+    } else if (songPlay !== audioElem) {
+      songPlay.pause()
+      $("fa fa-pause fa-3x").addClass("fa fa-volume-up fa-3x").removeClass("fa fa-pause fa-3x");
+      this.props.songPlayToggle(audioElem)
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
+    }
   }
 
   // Tests selected show in redux state and conditionally sets

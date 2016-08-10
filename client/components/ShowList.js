@@ -9,7 +9,7 @@ export default class ShowList extends Component {
   constructor(props) {
     super(props)
     this.state ={
-      songPlayed: false
+      songPlayed: false,
     }
   }
 
@@ -53,8 +53,8 @@ export default class ShowList extends Component {
     this.props.selectShow(showWithId[0]);
   }
 
-  _songPlayToggle(bool){
-    this.setState({ songPlay: bool })
+  _songPlayToggle(songPlay){
+    this.setState({ songPlay })
   }
 
   _createShows(shows) {
@@ -75,7 +75,7 @@ export default class ShowList extends Component {
         venueID={show.venue.id}
         onNavigateClick={this.props.onNavigateClick.bind(this)}
         songPlay={this.state.songPlay}
-        songPlayToggle={this._songPlayToggle}
+        songPlayToggle={this._songPlayToggle.bind(this)}
       />
     })
   }
