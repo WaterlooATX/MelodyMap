@@ -7,7 +7,6 @@ import SearchBar from '../components/SearchBar';
 import SelectedArtist from '../components/SelectedArtist'
 import {fetchArtistsAPI} from '../models/api';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api'
-
 import _ from 'lodash';
 
 class Artists extends Component {
@@ -21,6 +20,7 @@ class Artists extends Component {
   }
 
   _artistSearch(term) {
+    console.log("_artistSearch")
     fetchArtistsAPI(term).then((artists) => {
       artists.data.map((artist,index) => {
         const Artists = artists.data
@@ -37,13 +37,32 @@ class Artists extends Component {
     })
   }
 
-  render(){
-    const artistSearch = _.debounce((term) => {this._artistSearch(term)}, 300)
+  _handleSubmit(event) {
+    console.log("submit")
+    event.preventDefault();
+    this._artistSearch(this.state.term)
+  }
+  _onInputChange(term) {
+    console.log(term)
+    this.setState({term: term})
+  }
+
+  render() {
       return(
         <div className="container">
           <div className="col col-md-1"></div>
             <div className="page-header">
               <h1>Artists</h1>
+              <div id='artist-search-bar'>
+                <input
+                  className="form-control"
+                  value={ this.state.term }
+                  placeholder='Search Venues'
+                  onChange={ event => this._onInputChange(event.target.value) }
+
+                  />
+              </div>
+              {/* <SearchBar onSearchTermChange={this._searchInput.bind(this)} onSubmit={this._handleSubmit}/> */}
             </div>
             <div className='container'>
               {this._SelectedArtistVSArtists()}
