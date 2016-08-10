@@ -6,12 +6,14 @@
     font-weight: bold;
 }
 
-.genImage {
+.genImage{
     border-radius: 10%;
     height: 250px;
     width: 250px;
     object-fit: cover;
-    box-shadow: 
+    -webkit-box-shadow: 21px -10px 44px 2px rgba(0,0,0,1);
+    -moz-box-shadow: 21px -10px 44px 2px rgba(0,0,0,1);
+    box-shadow: 21px -10px 44px 2px rgba(0,0,0,1);
 }
 
 .gridding .artist-label {
