@@ -4,6 +4,7 @@
     align-items: center;
     border: 1px solid white;
     font-weight: bold;
+    margin-bottom: 25px;
 }
 
 .genImage{
@@ -11,24 +12,29 @@
     height: 250px;
     width: 250px;
     object-fit: cover;
-    -webkit-box-shadow: 21px -10px 44px 2px rgba(0,0,0,1);
-    -moz-box-shadow: 21px -10px 44px 2px rgba(0,0,0,1);
-    box-shadow: 21px -10px 44px 2px rgba(0,0,0,1);
+    -webkit-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
+    -moz-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
+    box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
 }
 
 .gridding .artist-label {
+    position: relative;
     display: flex;
-    flex-direction: row;
+    width: 250px;
+    justify-content: center;
+}
+
+.gridding .artist-label .selArtist {
+    margin: 5px 0;
     font-size: 22px;
     text-align: center;
+    width: 100%;
 }
 
 .gridding .fa {
-    margin-right: 30px !important;
-    vertical-align: center !important;
-    display: inline-block;
-    text-align: center;
-    float: right;
+    margin: 5px 0;
+    position: absolute;
+    left: 220px;
     cursor: pointer;
     z-index: 10;
 }
