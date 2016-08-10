@@ -63,12 +63,12 @@ export default class GenArtist extends Component {
 	  let parent = playButton.parentElement;
 	  let audioElem = parent.getElementsByTagName("audio")[0];
 	  if (this.state.songPlay === false) {
-	    playButton.className = "fa fa-pause fa-3x";
+	    playButton.className = "fa fa-pause fa-2x";
 	    this.setState({songPlay: true})
 	    audioElem.play();
 	  } else {
 	    this.setState({songPlay: false})
-	    playButton.className = "fa fa-volume-up fa-3x";
+	    playButton.className = "fa fa-volume-up fa-2x";
 	    audioElem.pause();
 	  }
 	}
