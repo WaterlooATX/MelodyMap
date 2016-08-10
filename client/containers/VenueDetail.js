@@ -48,12 +48,18 @@ export default class VenueDetail extends Component {
             </div>
           </div>
           <div className="media-container">
-            // Google Place Venue
+            {/* Google Places Venue */}
             <iframe
               width="600" height="450"
               src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
               &q=${venueNameForUrl},${venue.city}+${venue.state}
               &zoom=17`}>
+            </iframe>
+            {/* Google Street View Venue */}
+            <iframe
+              width="600" height="450"
+              src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+              &location=${venue.geo}`}>
             </iframe>
           </div>
           <div className="container-similar">
