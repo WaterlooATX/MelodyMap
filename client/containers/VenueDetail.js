@@ -24,10 +24,6 @@ export default class VenueDetail extends Component {
 
 
   componentDidMount() {
-    // this.videoSearch(this.props.params.artistName + "music")
-    // this.filterArtist(this.props.params.artistName)
-
-    console.log('props.venue.name ' , this.props.params.venueId);
     this._getUpcomingShows(this.props.params.venueId);
   }
 
