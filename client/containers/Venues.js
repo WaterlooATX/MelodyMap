@@ -9,10 +9,10 @@ import _ from 'lodash';
 
 class Venues extends Component {
 
-  componentDidMount() {
-    this.props.venues ? console.log("this.props.venues in VENUES: ", this.props.venues) : console.log('null ' , null);
-    // this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
-  }
+  // componentDidMount() {
+  //   this.props.venues ? console.log("this.props.venues in VENUES: ", this.props.venues) : console.log('null ' , null);
+  //   this.props.shows ? console.log("this.props.shows in VENUES: ", this.props.shows) : null;
+  // }
 
 
   render() {
@@ -40,9 +40,7 @@ class Venues extends Component {
     const venues = this.props.venues
     const mapped = []
     for (let venueId in venues) {
-      // let itemExists = mapped.filter(function(item){mapped})
       mapped.push(<GenVenue venue={venues[venueId]} key={venueId} />)
-
     }
     return mapped;
   }

@@ -11,7 +11,7 @@ export default class GenArtist extends Component {
 
   render() {
 
-    console.log('this.props.venue ' , this.props.venue);
+    // console.log('this.props.venue ' , this.props.venue);
     let venue = this.props.venue
 
     return (
@@ -19,12 +19,13 @@ export default class GenArtist extends Component {
           <div>
             <h1>
               {/* <img className="genImage" src = {image} alt={id} height='85' width='85'/> */}
-                <Link className = "genArtist"
-                    to={ `/venue/${venue.name}/${venue.id}`}
-                    activeClassName='active'>{venue.name}
-                </Link>
+              <Link className = "genArtist"
+                  to={ `/venue/${venue.name}/${venue.id}`}
+                  activeClassName='active'>{venue.name}
+              </Link>
             </h1>
             <h3>{`The venue's ID is: ${venue.id}`}</h3>
+            <h3>{`The venue's description is: ${venue.description}`}</h3>
           </div>
       </div>
     )

@@ -22,16 +22,23 @@ export default class VenueDetail extends Component {
 
 
   render() {
-    let venueName = this.props.params.venueName
-    let redux_Venue = this.props.venues
+    let props = this.props
+    let venueNameURL = props.params.venueName
+    let venueIdURL = props.params.venueId
+    let redux_Venue = props.venues
+    let venue = redux_Venue[venueIdURL]
+
+    let description = venue.description
 
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
 
-                <h1>{`${venueName}`}</h1>
-                <h3>On tour?</h3>
+                <h1>{`This name from redux: ${venue.name}`}</h1>
+                <h3>{`This ID from redux: ${venue.id}`}</h3>
+                <h3>{`This description from redux: ${description}`}</h3>
+
                 <ul>
                   artist genre
                 </ul>
@@ -48,6 +55,11 @@ export default class VenueDetail extends Component {
       </div>
     )
   }
+
+}
+
+const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows, venues: state.venues}};
+export default connect(mapStateToProps)(VenueDetail);
 
 
 
@@ -133,10 +145,8 @@ export default class VenueDetail extends Component {
   //   }
   // }
 
-}
 
-const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows, venues: state.venues}};
-export default connect(mapStateToProps)(VenueDetail);
+
 
 
 
