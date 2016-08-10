@@ -7,14 +7,14 @@ import {redux_Artists} from '../actions/artists';
 
 
 export default class GenArtist extends Component {
+
 	constructor(props){
 		super(props);
 		this.state = {
 			img: "http://assets.audiomack.com/default-artist-image.jpg",
 			bands: [],
 			clicked: false,
-			previewTrack: [],
-			songPlay: false
+			previewTrack: []
 		}
 	}
 
@@ -30,9 +30,8 @@ export default class GenArtist extends Component {
 
 		return (
 		  <div className="col-md-4 gridding" id={`heading${name}`}>
-		    <div>
-		      <img className="genImage" src={image} alt={name} height="85" width="85"/>
-		      <br></br>
+	      <img className="genImage" src={image} alt={name} height="85" width="85"/>
+		    <div className="artist-label">
 		      <Link
 		        className="selArtist"
 		        id="selArtist"
@@ -52,24 +51,31 @@ export default class GenArtist extends Component {
 		    id="speaker"
 		    aria-hidden="true"
 		    type="button"
-		    onClick={this._toggleSound.bind(this)}>
-		    <audio src={track}></audio>
+		    onClick={ this._toggleSound.bind(this) }>
+		    <audio src={ track }></audio>
 		  </i>
 		)
 	}
 
 	_toggleSound(event) {
-	  let playButton = event.target;
-	  let parent = playButton.parentElement;
-	  let audioElem = parent.getElementsByTagName("audio")[0];
-	  if (this.state.songPlay === false) {
-	    playButton.className = "fa fa-pause fa-2x";
-	    this.setState({songPlay: true})
-	    audioElem.play();
-	  } else {
-	    this.setState({songPlay: false})
-	    playButton.className = "fa fa-volume-up fa-2x";
-	    audioElem.pause();
-	  }
+	  let songPlayed = this.props.songPlayed;
+    let playButton = event.target;
+    let parent = playButton.parentElement;
+    let audioElem = parent.getElementsByTagName('audio')[0];
+    if (!songPlayed) {
+      this.props.songPlayToggle(audioElem, playButton)
+      playButton.className = "fa fa-pause fa-2x";
+      audioElem.play();
+    } else if (songPlayed === audioElem) {
+      audioElem.pause();
+      playButton.className = "fa fa-volume-up fa-2x";
+      this.props.songPlayToggle(false, null)
+    } else if (songPlayed !== audioElem) {
+      songPlayed.pause()
+      this.props.songButton.className = "fa fa-volume-up fa-2x";
+      this.props.songPlayToggle(audioElem, playButton);
+      playButton.className = "fa fa-pause fa-2x";
+      audioElem.play();
+    }
 	}
 }

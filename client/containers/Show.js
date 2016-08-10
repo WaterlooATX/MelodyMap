@@ -92,7 +92,7 @@ class Show extends Component {
     return doorsOpen
   }
 
-  _spotifyInfo(showArtists){
+  _spotifyInfo(showArtists) {
     let reduxArtists = this.props.artists
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
     let count = 0
@@ -179,26 +179,26 @@ class Show extends Component {
     })
 
     // update redux artist
-    redux_Artists(reduxArtists)
+    redux_Artists(reduxArtists);
   }
 
   _toggleSound(event) {
-    let songPlay = this.props.songPlay;
+    let songPlayed = this.props.songPlayed;
     let playButton = event.target;
     let parent = playButton.parentElement;
     let audioElem = parent.getElementsByTagName('audio')[0];
-    if (!songPlay) {
-      this.props.songPlayToggle(audioElem)
+    if (!songPlayed) {
+      this.props.songPlayToggle(audioElem, playButton)
       playButton.className = "fa fa-pause fa-3x";
       audioElem.play();
-    } else if (songPlay === audioElem) {
+    } else if (songPlayed === audioElem) {
       audioElem.pause();
       playButton.className = "fa fa-volume-up fa-3x";
-      this.props.songPlayToggle(false)
-    } else if (songPlay !== audioElem) {
-      songPlay.pause()
-      $("fa fa-pause fa-3x").addClass("fa fa-volume-up fa-3x").removeClass("fa fa-pause fa-3x");
-      this.props.songPlayToggle(audioElem)
+      this.props.songPlayToggle(false, null)
+    } else if (songPlayed !== audioElem) {
+      songPlayed.pause()
+      this.props.songButton.className = "fa fa-volume-up fa-3x";
+      this.props.songPlayToggle(audioElem, playButton);
       playButton.className = "fa fa-pause fa-3x";
       audioElem.play();
     }
