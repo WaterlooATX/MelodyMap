@@ -17,12 +17,13 @@
 
 }
 
-#speaker {
+.gridding .fa {
     margin-right: 30px !important;
     vertical-align: center !important;
     display: inline-block;
     text-align: center;
     float: right;
+    cursor: pointer;
 }
 
 .tour{

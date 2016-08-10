@@ -7,18 +7,19 @@ import {redux_Artists} from '../actions/artists';
 
 
 export default class GenArtist extends Component {
+	
 	constructor(props){
 		super(props);
 		this.state = {
 			img: "http://assets.audiomack.com/default-artist-image.jpg",
 			bands: [],
 			clicked: false,
-			previewTrack: [],
-			songPlay: false
+			previewTrack: []
 		}
 	}
 
 	render(){
+		const state = this.state;
 		const props = this.props;
 		const artist = props.artist;
 		const name = props.name;
@@ -52,24 +53,31 @@ export default class GenArtist extends Component {
 		    id="speaker"
 		    aria-hidden="true"
 		    type="button"
-		    onClick={this._toggleSound.bind(this)}>
-		    <audio src={track}></audio>
+		    onClick={ this._toggleSound.bind(this) }>
+		    <audio src={ track }></audio>
 		  </i>
 		)
 	}
 
 	_toggleSound(event) {
-	  let playButton = event.target;
-	  let parent = playButton.parentElement;
-	  let audioElem = parent.getElementsByTagName("audio")[0];
-	  if (this.state.songPlay === false) {
-	    playButton.className = "fa fa-pause fa-3x";
-	    this.setState({songPlay: true})
-	    audioElem.play();
-	  } else {
-	    this.setState({songPlay: false})
-	    playButton.className = "fa fa-volume-up fa-3x";
-	    audioElem.pause();
-	  }
-	}
+    let songPlayed = this.props.songPlayed;
+    let playButton = event.target;
+    let parent = playButton.parentElement;
+    let audioElem = parent.getElementsByTagName('audio')[0];
+    if (!songPlayed) {
+      this.props.songPlayToggle(audioElem, playButton)
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
+    } else if (songPlayed === audioElem) {
+      audioElem.pause();
+      playButton.className = "fa fa-volume-up fa-3x";
+      this.props.songPlayToggle(false, null)
+    } else if (songPlayed !== audioElem) {
+      songPlayed.pause()
+      this.props.songButton.className = "fa fa-volume-up fa-3x";
+      this.props.songPlayToggle(audioElem, playButton);
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
+    }
+  }
 }
