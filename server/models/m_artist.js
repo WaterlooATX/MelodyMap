@@ -2,13 +2,11 @@ const Songkick = require("./m_songkick")
 const Spotify = require("./m_spotifyApi")
 const LastFM = require("./m_lastFM")
 const db = require("../db")
-var mongoose = require('mongoose');
+const artistSchema = require("../ARTISTS_Schema")
+const mongoose = require('mongoose');
 
-// const Artist = new db.artist({
-//   spotifyURL: a.external_urls,
-//   id: a.id,
-//   name: a.name,
-// })
+// Instances of Models are documents.
+const Artist = mongoose.model('Artist', artistSchema);
 
 // addArtist()
 //  - check if in db
@@ -37,32 +35,29 @@ var mongoose = require('mongoose');
 //       }
 //     })
 // }
-lookupArtist = (name) => {
+findArtist = (name) => Artist.findOne({name: name})
+insertArtist = (artist) => Artist.insert(artist)
+//isArtist = (name) => findArtist(name).then(data => data ? true : false)
 
-  //return db.collection('artists').find({ name: name })
-}
-var kittySchema = mongoose.Schema({
-  name: String
-});
-var Kitten = mongoose.model('Kitten', kittySchema);
-function insertArtist(artist) {
-  return db.collection('artists').insert(artist)
-}
+
 
 exports.artistInfo = (name) => {
+  // check if artists is in db
 
+    return findArtist(name)
+  //return isArtist(name)
     // To use our schema definition, we need to convert our blogSchema into a Model we can work with
 
 
-    // Instances of Models are documents.
 
-    var cat = new Kitten({
-      name: name
-    });
-    console.log(cat.name)
-    cat.save(function(err, fluffy) {
-      if (err) return console.error(err);
-    });
+
+    // var cat = new Kitten({
+    //   name: name
+    // });
+    // console.log(cat.name)
+    // cat.save(function(err, fluffy) {
+    //   if (err) return console.error(err);
+    // });
 
     // if (artists[0]) {
     //   console.log('artist already exists!', artists[0]);
