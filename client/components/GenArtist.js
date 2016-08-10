@@ -34,21 +34,18 @@ export default class GenArtist extends Component {
 
 		return (
 
-			<div className="panel-heading" role="tab" id={`heading${name}`}>
-					<div>
-						<h3>
-							<img className="genImage" src = {image} alt={name} height='85' width='85'/>
+			<div className="col-md-4 gridding" id={`heading${name}`}>
+				<div>
+					<img className="genImage" src = {image} alt={name} height='85' width='85'/>
+						<br></br>
+						<Link className = "selArtist"
+							id="selArtist"
+						    to={ `artist/${name}`}
+						    activeClassName='active'>{name}
+						</Link>
+						{track ? this._speaker(track) : null}
 
-
-								<Link className = "genArtist"
-								    to={ `artist/${name}`}
-								    activeClassName='active'>{name}
-								</Link>
-
-								{track ? this._speaker(track) : null}
-
-						</h3>
-					</div>
+				</div>
 			</div>
 
 		)
@@ -56,7 +53,7 @@ export default class GenArtist extends Component {
 
 	_speaker(track) {
 		return (
-			<i className="speaker fa fa-volume-up fa-3x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
+			<i className="speaker fa fa-volume-up fa-2x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
 			<audio src={track}>
 			</audio></i>
 		)

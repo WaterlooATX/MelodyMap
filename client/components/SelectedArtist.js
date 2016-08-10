@@ -13,32 +13,24 @@ export default class SelectedArtist extends Component{
 		}
 	}
 
-	componentDidMount(){
-
-	}
-
 	render(){
 		return (
 	         <div>
 			{this.props.artists.map((artist) =>{
 				return (
-          			<div key={ artist.id } className="panel-heading" role="tab" id={`heading${artist.id}`}>
-          				<h3>
-							<img className="genImage" src = {this._setImage(artist)} height='85' width='85'/>
-
-							<Link className = "genArtist"
-							    to={ `artist/${artist.displayName}`}
-							    activeClassName='active'>{artist.displayName}
-							</Link>
-						
-				
-
-							{artist.tracks ? this._speaker(artist.tracks) : null}
-							{artist.onTourUntil?<p className="tour"> ON TOUR </p> : null}
-						</h3>
-					
+          			<div key={ artist.id } className="col-md-4 gridding">         				
+						<img className="genImage" src = {this._setImage(artist)} height='85' width='85'/>
+							<br></br>
+						<Link 
+							className = "selArtist"
+							id="selArtist"
+						    to={ `artist/${artist.displayName}`}
+						    activeClassName='active'>{artist.displayName}
+						</Link>
+						{artist.tracks ? this._speaker(artist.tracks) : null}
+						{artist.onTourUntil?<p className="tour"> ON TOUR </p> : null}
         			</div>
-		)
+				)
 			})}
 			</div>
 	)}
@@ -62,7 +54,7 @@ export default class SelectedArtist extends Component{
 			if(track.tracks[0]){
 				if(track.tracks[0].preview_url){
 					return(
-						<i className="speaker fa fa-volume-up fa-3x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
+						<i className="speaker fa fa-volume-up fa-2x" id="speaker" aria-hidden="true" type="button" onClick={this._toggleSound.bind(this)}>
 						<audio src={track.tracks[0].preview_url}>
 						</audio></i>					
 					)
