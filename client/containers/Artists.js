@@ -15,7 +15,8 @@ class Artists extends Component {
   constructor(props){
     super(props);
     this.state={
-      artistBlocks: []
+      artistBlocks: [],
+      term: ''
     }
   }
 
@@ -43,7 +44,6 @@ class Artists extends Component {
           <div className="col col-md-1"></div>
             <div className="page-header">
               <h1>Artists</h1>
-              <SearchBar onSearchTermChange={artistSearch}/>
             </div>
             <div className='container'>
               {this._SelectedArtistVSArtists()}
