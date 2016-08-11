@@ -37,7 +37,7 @@ export default class SelectedArtist extends Component{
 						</Link>
 						{artist.tracks ? this._speaker(artist.tracks) : null}
 					</div>
-						<br/>
+						
 						{artist.onTourUntil ? <p className="tour"> ON TOUR</p> : null}
 				</div>
 			)
