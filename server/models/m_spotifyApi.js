@@ -12,13 +12,15 @@ const spotifyApi = new SpotifyWebApi({
 })
 
 exports.searchArtists = (name, songKickId) => {
-  return ArtistModel.findOne({ "name" : name.toString() }).then(artist => {
+  return ArtistModel.findOne({ "name" : name.name}).then(artist => {
     if(artist) {
       return artist
     } else {
       return addToDataBase()
     }
   })
+  //console.log(abc)
+
 
   function addToDataBase() {
     return spotifyApi.searchArtists(name, songKickId)

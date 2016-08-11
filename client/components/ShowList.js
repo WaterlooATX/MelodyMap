@@ -12,7 +12,8 @@ export default class ShowList extends Component {
     super(props)
     this.state ={
       songPlayed: false,
-      songButton: null
+      songButton: null,
+      artistsData: []
     }
   }
 
@@ -72,13 +73,17 @@ export default class ShowList extends Component {
     let artistsData = []
     artistsArr.forEach(name => {
       Spotify_searchArtistsAPI(name).then( obj => {
-        artistsData.push(obj)
+        if(obj.data) {
+            artistsData.push(obj.data)
+            this.setState({artistsData: artistsData})
+        }
       }).catch(err => console.log(err))
     })
 
+
     return shows.map(show => {
       return <Show
-        artistsData={artistsData}
+        artistsData={this.state.artistsData}
         songkick={ show }
         ageRestriction={ show.ageRestriction }
         showArtists= { show.performance }
