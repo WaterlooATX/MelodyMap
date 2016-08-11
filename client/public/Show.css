@@ -1,3 +1,9 @@
+.panel-title {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+
 .panel-title img {
     display: inline-block;
     float: left;
@@ -15,11 +21,13 @@
     margin-top: -1px;
 }
 #accordion .panel-title > a {
+    display: inline-block;
+    padding: 16px 24px;
     border-radius: 0 !important;
     height: 75px;
+    width: 100%;
     padding: 4px;
     line-height: 120%;
-    display: block;
     outline: none;
     text-decoration: none;
     text-transform: none;
