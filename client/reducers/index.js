@@ -6,14 +6,16 @@ import selectArtistReducer from './reducer_selectArtist'
 //import selectVenueReducer from './reducer_selectVenue'
 import artistReducer from './reducer_artists'
 import venuesReducer from './reducer_venues'
+import venueShowsReducer from './reducer_venueShows'
 
 
 const rootReducer = combineReducers({
+  venueShows: venueShowsReducer,
   shows: showReducer,
   selectedShow: selectShowReducer,
   location: locationReducer,
   artists: artistReducer,
-  venues: venuesReducer,
+  venues: venuesReducer
   //selectedVenue: selectVenueReducer
 })
 
