@@ -32,9 +32,8 @@ class Show extends Component {
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
-          <h4 className="panel-title">
+          <h4 className={ this._checkSelected(props.selected) }>
             <a
-              className={this._checkSelected(props.selected)}
               onClick={this._onClickHandler.bind(this, `heading${props.id}`)}
               role="button" data-toggle="collapse"
               data-parent="#accordion"
@@ -43,11 +42,11 @@ class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              {track ? this._speaker(track) : null}
-               <p className="artist">{ props.showArtists[0].displayName }</p>
-               <p className="venue">{ props.venue } - { props.city }</p>
-               <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+              <p className="artist">{ props.showArtists[0].displayName }</p>
+              <p className="venue">{ props.venue } - { props.city }</p>
+              <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
+              { track ? this._speaker(track) : null }
           </h4>
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
@@ -207,7 +206,7 @@ class Show extends Component {
   // Tests selected show in redux state and conditionally sets
   // inline style property for show list item if it is selected show
   _checkSelected(propsSelected) {
-    return (propsSelected) ? "active list-group-item" : "list-group-item";
+    return (propsSelected) ? "active panel-title list-group-item" : "panel-title list-group-item";
   }
 
   // Sends the show's id back to the parent (ShowList.js) on click
