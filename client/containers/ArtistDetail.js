@@ -50,7 +50,7 @@ export default class ArtistDetail extends Component {
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
-        {this.state.artistShows ? <div> <h3>Upcoming Shows</h3>
+        {this.state.artistShows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3>
         <div className="scrollable-menu">{this.getShows(this.state.artistShows)} </div></div>: null}
           <div className="container-similar">
             <h3> Similar Artists </h3>
@@ -75,9 +75,10 @@ filterArtist(artist){
   var artists = this.props.artists
   Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
       this.setState({artistShows: shows.data})
+      
     for(var key in artists){
       this.setState({
-        artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
+        artistBio: this.shortenBio(artists[artist].LastFM_getInfoAPI.bio.content),
         artistName: artists[artist].Spotify_searchArtistsAPI.name,
         artistImg: artists[artist].Spotify_searchArtistsAPI.img,
         artistID: artists[artist].Spotify_searchArtistsAPI.id,
@@ -90,7 +91,18 @@ filterArtist(artist){
     }
   })
 }
+  
 
+
+  shortenBio(bio){
+    for(var i = 0;i<bio.length;i++){
+      if(bio[i] === "<"){
+        var newBio = bio.slice(0,i)
+        console.log("newbio",newBio)
+        return newBio
+      }
+    }
+  }
 
   onTour(tour){
     if(tour === "1"){
