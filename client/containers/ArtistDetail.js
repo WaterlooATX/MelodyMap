@@ -48,12 +48,12 @@ export default class ArtistDetail extends Component {
                 <button type="button" className="btn btn-info" data-toggle="collapse" data-target="#bio">Show More</button>
             </div>
           </div>
+        {this.state.artistShows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3>
+        <div className="scrollable-menu">{this.getShows(this.state.artistShows)} </div></div>: null}
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
-        {this.state.artistShows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3>
-        <div className="scrollable-menu">{this.getShows(this.state.artistShows)} </div></div>: null}
           <div className="container-similar">
             <h3> Similar Artists </h3>
             <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
