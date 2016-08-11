@@ -27,7 +27,6 @@ class Show extends Component {
   }
 
   render() {
-    console.log(this.props.artists)
     const props = this.props;
     const thisArtist = props.artists[props.showArtists[0].displayName];
     const img = thisArtist ? thisArtist.img ? thisArtist.img : "http://assets.audiomack.com/default-artist-image.jpg" : "http://assets.audiomack.com/default-artist-image.jpg";
@@ -98,22 +97,8 @@ class Show extends Component {
     let count = 0
     let bandMembers = []
     showArtists.forEach(Artist => {
-      //let artist = this.props.allShowArtists
-      //console.log(this.props.artists)
-      // if(artist) {
-      //   // set title img, track for lead artist
-      //   if(count == 0) {
-      //     // match artist
-      //     console.log(artist.img, artist.topTracks ? artist.topTracks[0].preview_url : null)
-      //     this.setState({
-      //       previewTrack: artist.topTracks ? artist.topTracks[0].preview_url : null,
-      //       img: artist.img
-      //     })
-      //   }
-      // }
-
       // add bandMembers names to array
-      bandMembers.push(name)
+      bandMembers.push(Artist.displayName)
       count++
        if(count === showArtists.length) {
          this.setState({bands: bandMembers})
@@ -173,7 +158,7 @@ class Bands extends Component {
       //.sort((a, b) => b.followers - a.followers)
       .map((artist,index) => {
         return (
-          <Band key ={index} artistName={artist} artists={this.props.artists}/>
+          <Band key ={index} name={artist} artists={this.props.artists}/>
         )
       })
     }
@@ -277,35 +262,44 @@ class Band extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      albumArt: null
+      albumArt: 'http://assets.audiomack.com/default-album-image.jpg'
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._randomAlbumArt()
   }
 
   _randomAlbumArt() {
-    const artists = this.props.artists
-    const artistName = this.props.artistName;
-    const artist = artists[artistName]
-    console.log('aritist', artist, 'artistName', artistName);
-    const albumArt =  artist.getArtistAlbumsAPI
-    if(albumArt) {
-      let num = albumArt.items.length
-      this.setState({albumArt: albumArt.items[Math.floor(Math.random() * num)].images[1].url})
+    const artists = this.props.artists;
+    const name = this.props.name;
+    const artist = artists[name];
+    let albumArt = artist ? artist.albumsImages : null
+
+    if (albumArt && artist) {
+      const albumsImages = artist.albumsImages.map(album => {
+        return album.images ? album.images[1].url : null
+      })
+
+      if (albumsImages) {
+        let num = albumsImages.length
+        this.setState({
+          albumArt: albumsImages[Math.floor(Math.random() * num)]
+        })
+      }
     }
   }
 
   render() {
 
     const randomBio = "The music sails alive with the compelling combination of rich layers among mixed styles of rhythm that hit the soul. By melding hook-filled melody within hard and heavy beats, has the ability to compact a vast array of influence and experience into a singular song"
-    const artists = this.props.artists
-    const artistName = this.props.artistName;
-    const artist = artists[artistName]
-    let albumArt = this.state.albumArt ? this.state.albumArt : artist.getArtistAlbumsAPI ? artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
-    const popularity = artist.Spotify_searchArtistsAPI ? artist.Spotify_searchArtistsAPI.popularity : 'N/A'
-    const bio = artist.LastFM_getInfoAPI ? artist.LastFM_getInfoAPI.bio.content ? artist.LastFM_getInfoAPI.bio.content.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...' : randomBio : null
+    const artists = this.props.artists;
+    const name = this.props.name;
+    const artist = artists[name];
+    const popularity = artist ? artist.popularity : 'none'
+    let bio = artist ? artist.summaryBio : null
+    //bio = bio ? bio.summaryBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...' : randomBio
+
 
     const Style = {
                     "borderRadius": "500px",
@@ -317,9 +311,9 @@ class Band extends Component {
       <div>
         <div className="accordion-band">
           <div className="band-info">
-            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} onMouseOver={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
+            <img className="accordion-album-art img-circle" style={Style} src={this.state.albumArt} alt={name} onClick={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
             <div className="accordion-album-band-name"><b>
-              <Link to={`artist/${artistName}`} activeClassName='active'>{artistName}</Link>
+              <Link to={`artist/${name}`} activeClassName='active'>{name}</Link>
             </b></div>
           </div>
           <div className='right popularity'>
