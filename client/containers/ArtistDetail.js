@@ -18,6 +18,7 @@ export default class ArtistDetail extends Component {
     this.state = {
       videos: [],
       selectedVideo: null,
+      bio: ''
     }
   }
   componentDidMount() {
@@ -38,7 +39,7 @@ export default class ArtistDetail extends Component {
                 {this.getGenre(this.state.artistGenre)}
                 </ul>
                 <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
-                {this.state.artistBio !== "" ? <p>{this.state.artistBio}</p> : 
+                {this.state.artistBio !== "" ? <div>{this.state.artistBio} <button type="button" className="btn btn-info" data-toggle="collapse" data-target=".bio">Show More</button> <div className="bio" class="collapse">{this.state.bio}</div></div> : 
                 <p> The music sails alive with the compelling combination of rich 
                 layers among mixed styles of rhythm that hit the soul. 
                 By melding hook-filled melody within hard and heavy beats, 
@@ -92,14 +93,25 @@ filterArtist(artist){
   })
 }
   
+  
 
 
   shortenBio(bio){
+    console.log("BIO", bio.length)
     for(var i = 0;i<bio.length;i++){
       if(bio[i] === "<"){
         var newBio = bio.slice(0,i)
-        console.log("newbio",newBio)
-        return newBio
+        if(newBio.length > 400){
+          var bioSnippit = newBio.slice(0,400)
+          var bioFull = newBio.slice(401,bio.length)
+          this.setState({bio: bioFull})
+          return bioSnippit + "..."
+          console.log("BIOSNIPPIT", bioSnippit)
+          console.log("bioFull", bioFull)
+        }
+        else{
+          return newBio
+        }
       }
     }
   }
