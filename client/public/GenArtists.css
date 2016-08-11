@@ -4,15 +4,16 @@
     align-items: center;
     border: 1px solid white;
     font-weight: bold;
-    margin-bottom: 45px;
-    margin-top: 45px;
-    height: 150px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    height: 300px;
+    width: 375px;
 
 }
 
 .genImage{
-    height: 150px;
-    width: 150px;
+    height: 250px;
+    width: 250px;
     -webkit-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
     -moz-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
     box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
@@ -22,12 +23,12 @@
     position: relative;
     display: flex;
     height: 41px;
-    width: 250px;
+    width: 300px;
     justify-content: center;
 }
 
 .gridding .artist-label .selArtist {
-    margin: 5px 0;
+    margin: 0;
     font-size: 22px;
     text-align: center;
     width: 100%;
@@ -36,7 +37,7 @@
 .gridding .fa {
     margin: 5px 0;
     position: absolute;
-    left: 220px;
+    left: 240px;
     cursor: pointer;
     z-index: 10;
 }
@@ -45,6 +46,7 @@
     font-size: 14px;
     display: inline-block;
     text-align: center;
+    padding-top: 1px;
     /*text-align: center;*/
     /*margin: 0 auto;*/
 }

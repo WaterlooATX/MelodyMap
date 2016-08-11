@@ -31,6 +31,7 @@ export default class GenArtist extends Component {
 		return (
 		  <div className="col-md-4 gridding" id={`heading${name}`}>
 	      <img className="genImage" src={image} alt={name} height="105" width="105"/>
+		    <br/>
 		    <div className="artist-label">
 		      <Link
 		        className="selArtist"
