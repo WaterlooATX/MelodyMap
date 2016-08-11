@@ -17,7 +17,7 @@ export default class ArtistDetail extends Component {
     super(props);
     this.state = {
       videos: [],
-      selectedVideo: null
+      selectedVideo: null,
     }
   }
   componentDidMount() {
@@ -46,7 +46,7 @@ export default class ArtistDetail extends Component {
                 into a singular song</p>}
             </div>
           </div>
-        <div>{this.getArtistShows(this.state.songkickID)}</div>
+          <div>{this.getShows(this.state.artistShows)}</div>
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
@@ -72,7 +72,9 @@ videoSearch(term){
 
 filterArtist(artist){
   var artists = this.props.artists
-  var shows = this.props.shows
+  console.log("STUFF", artists[artist].songKickID)
+  Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
+      this.setState({artistShows: shows.data})
     for(var key in artists){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
@@ -86,7 +88,8 @@ filterArtist(artist){
         songkickID: artists[artist].songKickID
       })
     }
-  }
+  })
+}
 
 
   onTour(tour){
@@ -155,23 +158,24 @@ filterArtist(artist){
     }
   }
 
-  getArtistShows(id){
-    if(!id){
+  getShows(shows){
+    if(!shows){
       return null;
     }
     else{
-      Songkick_getArtistCalendarAPI(id).then((shows) => {
-        return shows.data.map(show => {
-          console.log("location", show.location.city)
-          return <p>{show.displayName}</p> 
-         }
-      )}
-    )}
+      console.log("SHOWSSHOWS",shows)
+      return shows.map(show => {
+        console.log("INGETSHOWSS", show)
+        return <div className="artist-Shows"> 
+          <div>{show.displayName}</div>
+          <div>{show.location.city}</div>
+        </div>
+      })
+    }
   }
+
 }
 
-
-
-const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
+const mapStateToProps = (state) => {return {artists: state.artists}};
 export default connect(mapStateToProps)(ArtistDetail);
 
