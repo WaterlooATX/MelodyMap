@@ -4,16 +4,16 @@ import {connect} from "react-redux";
 import { Link } from 'react-router';
 import NavBar from './NavBar';
 import { Songkick_getVenueCalendarAPI } from '../models/api'
-
+import {redux_Venues} from '../actions/venues';
 import _ from 'lodash';
-// import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api';
-// import VideoList from '../components/VideoList';
-// import VideoDetail from '../components/VideoDetail';
-// const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
-// import YTSearch from 'youtube-api-search';
 
+// cron-job: make sure that upcoming show data does not persist for too long in db
 
-export default class VenueDetail extends Component {
+// look for it in redux state
+  // if it doesn't have it, put it in redux state
+  // get it off redux state
+
+class VenueDetail extends Component {
 
   constructor(props) {
     super(props)
@@ -22,36 +22,49 @@ export default class VenueDetail extends Component {
     }
   }
 
-
   componentDidMount() {
-    this._getUpcomingShows(this.props.params.venueId);
+    this._updateVenueObj(this.props.params.venueId)
   }
 
-  _getUpcomingShows(venueId) {
-    Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
-      this.setState({upcomingShows: gotshows.data})
+  _updateVenueObj(venueId) {
+    var redux_Venue = this.props.venues
+    var venue = redux_Venue[this.props.params.venueId]
+
+    if (!this.props.venues[venueId].upcomingShows) {
+      Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
+        redux_Venue[venue.id].upcomingShows = gotshows.data
+        redux_Venues(redux_Venue)
+        this.setState({upcomingShows: gotshows.data})
+      })
+    } else {
+      this.setState({upcomingShows: redux_Venue[venue.id].upcomingShows})
+    }
+  }
+
+  _displayUpcomingShows(showObjs) {
+    return showObjs.map(function(show, index){
+      return (<div key={index}>{show.displayName}</div>)
     })
   }
 
 
   render() {
-    let props = this.props
-    let venueNameURL = props.params.venueName
-    let venueIdURL = props.params.venueId
+    var props = this.props
+    var venueNameURL = props.params.venueName
+    var venueIdURL = props.params.venueId
 
-    let redux_Venue = props.venues
-    let venue = redux_Venue[venueIdURL]
+    var redux_Venue = props.venues
+    var venue = redux_Venue[venueIdURL]
 
-    let venueNameForMap = venue.name.split(' ').join('+')
+    var venueNameForMap = venue.name.split(' ').join('+')
 
+    // formatting for venue website link
     if (venue.website) {
       var website = venue.website.slice(7)
       if (website.charAt(website.length - 1) === '/') {
         website = website.slice(0, -1)
       }
     }
-
-    // this.state.upcomingShows ? console.log('this.state.upcomingShows ' , this.state.upcomingShows) : console.log('no shows yet');
 
     return (
       <div>
@@ -65,8 +78,10 @@ export default class VenueDetail extends Component {
               {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
               {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
             </ul>
-            <h3>Upcoming Shows:
-            </h3>
+            <div>
+              <h2>Upcoming Shows:</h2>
+              {this.state.upcomingShows ? <h3>{this._displayUpcomingShows(this.state.upcomingShows)}</h3> : 'Generating Shows:'}
+            </div>
           </div>
         </div>
         <div className="media-container">
@@ -90,5 +105,6 @@ export default class VenueDetail extends Component {
 
 }
 
-const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows, venues: state.venues}};
-export default connect(mapStateToProps)(VenueDetail);
+const mapStateToProps = (state) => {return { venues: state.venues }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Venues: redux_Venues}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(VenueDetail);
