@@ -50,7 +50,8 @@ export default class ArtistDetail extends Component {
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
-        <div className="scrollable-menu">{this.getShows(this.state.artistShows)}</div>
+        {this.state.artistShows ? <div> <h3>Upcoming Shows</h3>
+        <div className="scrollable-menu">{this.getShows(this.state.artistShows)} </div></div>: null}
           <div className="container-similar">
             <h3> Similar Artists </h3>
             <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
@@ -173,7 +174,6 @@ filterArtist(artist){
       })
     }
   }
-
 }
 
 const mapStateToProps = (state) => {return {artists: state.artists}};
