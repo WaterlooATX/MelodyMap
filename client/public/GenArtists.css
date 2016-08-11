@@ -4,8 +4,8 @@
     align-items: center;
     border: 1px solid white;
     font-weight: bold;
-    margin-bottom: 25px;
-    margin-top: 25px;
+    margin-bottom: 30px;
+    margin-top: 30px;
     height: 300px;
     width: 375px;
 
@@ -25,19 +25,22 @@
     height: 41px;
     width: 300px;
     justify-content: center;
+    padding-bottom: 2px;
 }
 
 .gridding .artist-label .selArtist {
     margin: 0;
     font-size: 22px;
     text-align: center;
-    width: 100%;
+    width: 75%;
+    padding-bottom: 2px;
 }
 
 .gridding .fa {
     margin: 5px 0;
+    margin-left: 1px;
     position: absolute;
-    left: 240px;
+    left: 255px;
     cursor: pointer;
     z-index: 10;
 }
