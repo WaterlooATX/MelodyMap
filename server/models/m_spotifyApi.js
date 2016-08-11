@@ -52,10 +52,15 @@ exports.searchArtists = (name, songKickId) => {
               Artist.img = artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
               Artist.popularity = artist.popularity
               Artist.followers = artist.followers.total
+              spotifyApi.getArtistTopTracks(artist.id, "US").then(data => {
+                Artist.topTracks = data.body.tracks.map(track => {
+                  return {preview_url: track.preview_url, popularity: track.popularity, name: track.name }
+                })
 
-              Artist.save(function(err) {
-                if (err) return console.log(err);
-              });
+                Artist.save(function(err) {
+                  if (err) return console.log(err);
+                });
+              })
               return Artist
             }
           }
