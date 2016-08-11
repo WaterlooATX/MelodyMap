@@ -3,6 +3,8 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import Show from "../containers/Show"
 import {selectShow} from '../actions/select_show'
+import _ from 'lodash'
+import {Spotify_searchArtistsAPI} from '../models/api';
 
 export default class ShowList extends Component {
 
@@ -59,8 +61,24 @@ export default class ShowList extends Component {
   }
 
   _createShows(shows) {
+    // create array of all artist names playing in local shows
+    let artistsArr = []
+    shows.forEach(show => artistsArr.push(...show.performance))
+    artistsArr = _.uniq(artistsArr.map(artist => {
+      return {name: artist.artist.displayName}
+    }))
+
+    // get show Artists from DB or API
+    let artistsData = []
+    artistsArr.forEach(name => {
+      Spotify_searchArtistsAPI(name).then( obj => {
+        artistsData.push(obj)
+      }).catch(err => console.log(err))
+    })
+
     return shows.map(show => {
       return <Show
+        artistsData={artistsData}
         songkick={ show }
         ageRestriction={ show.ageRestriction }
         showArtists= { show.performance }
