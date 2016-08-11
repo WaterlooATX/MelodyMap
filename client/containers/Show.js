@@ -19,15 +19,17 @@ class Show extends Component {
       previewTrack: null,
       clicked: false,
       venueInfo: null,
+      _setArtistInfoCalled: false
     }
   }
 
-  componentDidMount() {
-    // array of artist that are preforming
-    this._spotifyInfo(this.props.showArtists)
+  componentWillMount() {
+    Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
+    this._setArtistInfo(this.props.showArtists)
   }
 
   render() {
+    console.log(this.props.allShowArtists, this.props.artists)
     const props = this.props, track = this.state.previewTrack;
     return (
       <div className="panel panel-default">
@@ -52,6 +54,7 @@ class Show extends Component {
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <Bands
+
                 // pass down venues redux state
                 venueID={ this.props.venueID }
                 venues={ this.props.venues}
@@ -91,36 +94,31 @@ class Show extends Component {
     return doorsOpen
   }
 
-  _spotifyInfo(showArtists) {
+  _setArtistInfo(showArtists) {
+          let count = 0
+          let bandMembers = []
+          showArtists.forEach(Artist => {
+            let artist = this.props.allShowArtists
+            //console.log(this.props.artists)
+            // if(artist) {
+            //   // set title img, track for lead artist
+            //   if(count == 0) {
+            //     // match artist
+            //     console.log(artist.img, artist.topTracks ? artist.topTracks[0].preview_url : null)
+            //     this.setState({
+            //       previewTrack: artist.topTracks ? artist.topTracks[0].preview_url : null,
+            //       img: artist.img
+            //     })
+            //   }
+            // }
 
-    if(this.props.allShowArtists) {
-      let count = 0
-      let bandMembers = []
-      showArtists.forEach(Artist => {
-        let artist = this.props.allShowArtists[Artist.displayName]
-        if(artist) {
-          // set title img, track for lead artist
-          if(count == 0) {
-            // match artist
-            this.setState({
-              previewTrack: artist.topTracks ? artist.topTracks[0].preview_url : null,
-              img: artist.img
-            })
-          }
-        }
-
-
-        // add bandMembers names to array
-        bandMembers.push(name)
-        count++
-         if(count === showArtists.length) {
-           this.setState({bands: bandMembers})
-         }
-
-      })
-    }
-    Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
-
+            // add bandMembers names to array
+            bandMembers.push(name)
+            count++
+             if(count === showArtists.length) {
+               this.setState({bands: bandMembers})
+             }
+          })
   }
 
   _toggleSound(event) {
