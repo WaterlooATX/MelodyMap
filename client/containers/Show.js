@@ -217,7 +217,9 @@ class Show extends Component {
     if(!this.state.clicked) {
       this.setState({clicked: true});
     }
-    $(`#${DOMString}`)[0].scrollIntoView( true );
+    setTimeout(function(){
+      $(`#${DOMString}`)[0].scrollIntoView( true );
+    }, 350);
   }
 
 }
