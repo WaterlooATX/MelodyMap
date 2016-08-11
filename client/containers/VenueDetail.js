@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
 import { Link } from 'react-router';
+import {venue_shows} from '../actions/venue_shows';
 import NavBar from './NavBar';
 import { Songkick_getVenueCalendarAPI } from '../models/api'
-
 import _ from 'lodash';
 // import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api';
 // import VideoList from '../components/VideoList';
@@ -12,8 +12,7 @@ import _ from 'lodash';
 // const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 // import YTSearch from 'youtube-api-search';
 
-
-export default class VenueDetail extends Component {
+class VenueDetail extends Component {
 
   constructor(props) {
     super(props)
@@ -29,7 +28,9 @@ export default class VenueDetail extends Component {
 
   _getUpcomingShows(venueId) {
     Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
+      console.log('gotshows.data ' , gotshows.data);
       this.setState({upcomingShows: gotshows.data})
+      venue_shows(gotshows.data)
     })
   }
 
@@ -51,7 +52,8 @@ export default class VenueDetail extends Component {
       }
     }
 
-    // this.state.upcomingShows ? console.log('this.state.upcomingShows ' , this.state.upcomingShows) : console.log('no shows yet');
+    this.state.upcomingShows ? console.log('this.state.upcomingShows ' , this.state.upcomingShows) : console.log('no shows yet');
+    this.props.venueShows ? console.log("venueShows in Redux", this.props.venueShows) : console.log('noooooooo');
 
     return (
       <div>
@@ -90,5 +92,6 @@ export default class VenueDetail extends Component {
 
 }
 
-const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows, venues: state.venues}};
-export default connect(mapStateToProps)(VenueDetail);
+const mapStateToProps = (state) => {return {venues: state.venues, venueShows: state.venueShows}};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ venue_shows: venue_shows}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(VenueDetail);
