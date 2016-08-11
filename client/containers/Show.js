@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
+import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
 
 
@@ -92,6 +93,7 @@ class Show extends Component {
 
   _spotifyInfo(showArtists) {
     let reduxArtists = this.props.artists
+    console.log(reduxArtists)
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
     let count = 0
     let countRedux = 0
@@ -111,27 +113,7 @@ class Show extends Component {
          this.setState({bands: bandMembers})
        }
 
-       // check if Artist is in reduxState
-       if(!reduxArtists[Artist.displayName]){
-        reduxArtists[Artist.displayName] = {songKickID: Artist.artist.id}
-          //this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
-
-
-      } else {
-        countRedux++
-        // artist exists in redux
-        let artist = reduxArtists[Artist.displayName]
-        if(countRedux === 1) {
-          if(artist.Spotify_searchArtistsAPI) {
-            this.setState({img : artist.Spotify_searchArtistsAPI.img})
-          }
-          this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
-        }
-      }
     })
-
-    // update redux artist
-    redux_Artists(reduxArtists);
   }
 
   _toggleSound(event) {
