@@ -20,9 +20,7 @@ export default class ShowList extends Component {
   }
 
   componentWillMount() {
-    //if(this.props.shows) this._fetchLocalShowArtists(this.props.shows)
-
-    console.log(this.props.shows)
+    if(this.props.shows) this._fetchLocalShowArtists(this.props.shows)
   }
 
   _fetchLocalShowArtists(shows) {
@@ -45,11 +43,12 @@ export default class ShowList extends Component {
       let self = this
       artistsArr.forEach(artist => {
         Spotify_searchArtistsAPI(artist.name).then( obj => {
+
+
           if(obj.data) {
               showArtists[artist.name] = obj.data
               // map artistsData to redux state
               redux_Artists[artist.name] = obj.data
-
               self.setState({showArtists: showArtists})
 
           }
@@ -74,7 +73,7 @@ export default class ShowList extends Component {
             id="accordion"
             role="tablist"
             aria-multiselectable="true">
-            {/* {this._createShows(shows)} */}
+            {this.state.showArtists ? this._createShows(shows): null}
           </div>
         )
       }
