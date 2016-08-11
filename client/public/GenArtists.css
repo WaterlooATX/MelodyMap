@@ -31,7 +31,7 @@
 
 .gridding .artist-label .selArtist {
     margin: 0;
-    font-size: 22px;
+    font-size: 24px;
     text-align: center;
     width: 75%;
     /*padding-bottom: 2px;*/
@@ -47,10 +47,13 @@
 }
 
 .tour {
-    font-size: 14px;
+    font-size: 16px;
     display: inline-block;
     text-align: center;
-    padding-top: 1px;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 45%;
+    /*border-width: 40px;*/
     /*text-align: center;*/
     /*margin: 0 auto;*/
 }
