@@ -39,12 +39,13 @@ export default class ArtistDetail extends Component {
                 {this.getGenre(this.state.artistGenre)}
                 </ul>
                 <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
-                {this.state.artistBio !== "" ? <div>{this.state.artistBio} <button type="button" className="btn btn-info" data-toggle="collapse" data-target=".bio">Show More</button> <div className="bio" class="collapse">{this.state.bio}</div></div> : 
+                {this.state.artistBio !== "" ? <div>{this.state.artistBio}  <div id="bio" className="collapse">{this.state.bio}</div></div> : 
                 <p> The music sails alive with the compelling combination of rich 
                 layers among mixed styles of rhythm that hit the soul. 
                 By melding hook-filled melody within hard and heavy beats, 
                 has the ability to compact a vast array of influence and experience 
                 into a singular song</p>}
+                <button type="button" className="btn btn-info" data-toggle="collapse" data-target="#bio">Show More</button>
             </div>
           </div>
         <div className="media-container">
@@ -97,17 +98,14 @@ filterArtist(artist){
 
 
   shortenBio(bio){
-    console.log("BIO", bio.length)
     for(var i = 0;i<bio.length;i++){
       if(bio[i] === "<"){
         var newBio = bio.slice(0,i)
         if(newBio.length > 400){
           var bioSnippit = newBio.slice(0,400)
-          var bioFull = newBio.slice(401,bio.length)
+          var bioFull = newBio.slice(400,bio.length)
           this.setState({bio: bioFull})
           return bioSnippit + "..."
-          console.log("BIOSNIPPIT", bioSnippit)
-          console.log("bioFull", bioFull)
         }
         else{
           return newBio
