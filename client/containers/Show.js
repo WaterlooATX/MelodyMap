@@ -92,28 +92,35 @@ class Show extends Component {
   }
 
   _spotifyInfo(showArtists) {
-    let reduxArtists = this.props.artists
-    console.log(reduxArtists)
+
+    if(this.props.allShowArtists) {
+      let count = 0
+      let bandMembers = []
+      showArtists.forEach(Artist => {
+        let artist = this.props.allShowArtists[Artist.displayName]
+        if(artist) {
+          // set title img, track for lead artist
+          if(count == 0) {
+            // match artist
+            this.setState({
+              previewTrack: artist.topTracks ? artist.topTracks[0].preview_url : null,
+              img: artist.img
+            })
+          }
+        }
+
+
+        // add bandMembers names to array
+        bandMembers.push(name)
+        count++
+         if(count === showArtists.length) {
+           this.setState({bands: bandMembers})
+         }
+
+      })
+    }
     Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
-    let count = 0
-    let countRedux = 0
-    let bandMembers = []
 
-
-
-    // Fetch Artist Info from DB or API calls
-
-
-    showArtists.forEach(Artist => {
-
-      // add bandMembers names to array
-      bandMembers.push(Artist.displayName)
-      count++
-       if(count === showArtists.length) {
-         this.setState({bands: bandMembers})
-       }
-
-    })
   }
 
   _toggleSound(event) {
@@ -229,7 +236,7 @@ class Bands extends Component {
           doorsOpen={ this.props.doorsOpen }
           onNavigateClick={ this.props.onNavigateClick }
         />
-        {bands}
+        {/* {bands} */}
         {this.props.venue ? this._venue(): this._venueLoading()}
       </div>
     )

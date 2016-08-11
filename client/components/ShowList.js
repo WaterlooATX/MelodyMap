@@ -14,8 +14,8 @@ export default class ShowList extends Component {
     this.state ={
       songPlayed: false,
       songButton: null,
-      artistsData: [],
-      _fetchLocalShowArtistsCalled: false
+      _fetchLocalShowArtistsCalled: false,
+      showArtists: []
     }
   }
 
@@ -35,14 +35,18 @@ export default class ShowList extends Component {
 
       // copy redux state
       let redux_Artists = this.props.artists
-
+      let showArtists = {}
       // get show Artists from DB or API
+
       artistsArr.forEach(artist => {
         Spotify_searchArtistsAPI(artist.name).then( obj => {
           if(obj.data) {
-
+              showArtists[artist.name] = obj.data
               // map artistsData to redux state
               redux_Artists[artist.name] = obj.data
+
+              this.setState({showArtists: showArtists})
+              console.log(this.state.showArtists)
           }
         }).catch(err => console.log(err))
       })
@@ -100,6 +104,7 @@ export default class ShowList extends Component {
 
     return shows.map(show => {
       return <Show
+        allShowArtists={this.state.showArtists}
         songkick={ show }
         ageRestriction={ show.ageRestriction }
         showArtists= { show.performance }
