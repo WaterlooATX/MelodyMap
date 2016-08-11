@@ -15,10 +15,15 @@ export default class ShowList extends Component {
       songPlayed: false,
       songButton: null,
       _fetchLocalShowArtistsCalled: false,
-      showArtists: []
+      showArtists: {}
     }
   }
 
+  componentWillMount() {
+    //if(this.props.shows) this._fetchLocalShowArtists(this.props.shows)
+
+    console.log(this.props.shows)
+  }
 
   _fetchLocalShowArtists(shows) {
     if(!this.state._fetchLocalShowArtistsCalled) {
@@ -37,7 +42,7 @@ export default class ShowList extends Component {
       let redux_Artists = this.props.artists
       let showArtists = {}
       // get show Artists from DB or API
-
+      let self = this
       artistsArr.forEach(artist => {
         Spotify_searchArtistsAPI(artist.name).then( obj => {
           if(obj.data) {
@@ -45,8 +50,8 @@ export default class ShowList extends Component {
               // map artistsData to redux state
               redux_Artists[artist.name] = obj.data
 
-              this.setState({showArtists: showArtists})
-              console.log(this.state.showArtists)
+              self.setState({showArtists: showArtists})
+
           }
         }).catch(err => console.log(err))
       })
@@ -63,30 +68,20 @@ export default class ShowList extends Component {
           <div className="show-error">{shows}</div>
         )
       } else {
-        this._fetchLocalShowArtists(shows)
         return (
           <div
             className="panel-group"
             id="accordion"
             role="tablist"
             aria-multiselectable="true">
-            {this._createShows(shows)}
+            {/* {this._createShows(shows)} */}
           </div>
         )
       }
-    } else {
-      return this._spinner()
     }
   }
 
-  _spinner() {
-    return (
-      <div className="spinner">
-        <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>
-        <h1>&nbsp;&nbsp;Fetching your location...</h1>
-      </div>
-    )
-  }
+
 
   // This callback is sent to <Show /> as props to grab show id
   // on click and then use it to update selectedShow on state
@@ -101,6 +96,7 @@ export default class ShowList extends Component {
   }
 
   _createShows(shows) {
+
 
     return shows.map(show => {
       return <Show
