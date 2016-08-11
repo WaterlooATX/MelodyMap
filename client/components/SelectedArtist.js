@@ -25,7 +25,7 @@ export default class SelectedArtist extends Component{
 		return this.props.artists.map((artist) => {
 			return (
 				<div key={artist.id} className="col-md-4 gridding">
-					<img className="genImage" src={this._setImage(artist)} height="85" width="85"/>
+					<img className="genImage" src={this._setImage(artist)} height="105" width="105"/>
 					<br/>
 					<Link
 						className="selArtist"

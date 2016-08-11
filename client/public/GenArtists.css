@@ -4,10 +4,15 @@
     align-items: center;
     border: 1px solid white;
     font-weight: bold;
-    margin-bottom: 25px;
+    margin-bottom: 45px;
+    margin-top: 45px;
+    height: 150px;
+
 }
 
 .genImage{
+    height: 150px;
+    width: 150px;
     -webkit-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
     -moz-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
     box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
