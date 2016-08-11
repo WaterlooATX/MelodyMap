@@ -15,7 +15,6 @@ const spotifyApi = new SpotifyWebApi({
 exports.searchArtists = (name, songKickId) => {
   return ArtistModel.findOne({ "name" : name}).then(artist => {
     if(artist) {
-      console.log("FOUND", name)
       return artist
     } else {
       return addToDataBase(name)
@@ -25,7 +24,6 @@ exports.searchArtists = (name, songKickId) => {
   function addToDataBase(Name) {
     return spotifyApi.searchArtists(Name)
       .then(data => {
-        console.log("ADDING", Name)
         data.body.artists.items.forEach((artist,i) => {
 
           // if songkick name is spotify name
