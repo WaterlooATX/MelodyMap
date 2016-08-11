@@ -46,18 +46,11 @@ class Show extends Component {
               aria-expanded="true"
               aria-controls={`collapse${props.id}`}
             >
-<<<<<<< 66b6d3dd9ccc2c97ce3ea7818206955d68c56af7
-              <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              <p className="artist">{ props.showArtists[0].displayName }</p>
-              <p className="venue">{ props.venue } - { props.city }</p>
-              <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
-=======
               <img src={ img } alt={props.id} height="65" width="65"/>
               { track ? this._speaker( track ) : null }
                <p className="artist">{ props.showArtists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
->>>>>>> ShowList converted for efficient redux
             </a>
               { track ? this._speaker(track) : null }
           </h4>
@@ -345,9 +338,5 @@ class Band extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
-<<<<<<< 66b6d3dd9ccc2c97ce3ea7818206955d68c56af7
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Venues: redux_Venues}, dispatch);
-=======
 const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow, redux_Venues }, dispatch);
->>>>>>> ShowList converted for efficient redux
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
