@@ -54,8 +54,6 @@ export default class ShowList extends Component {
         }).catch(err => console.log(err))
       })
     }
-
-
   }
 
   render() {
@@ -94,8 +92,6 @@ export default class ShowList extends Component {
   }
 
   _createShows(shows) {
-
-
     return shows.map(show => {
       return <Show
         songkick={ show }
@@ -118,6 +114,7 @@ export default class ShowList extends Component {
       />
     })
   }
+  
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists, location: state.location }};

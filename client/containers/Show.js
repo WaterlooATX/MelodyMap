@@ -14,9 +14,7 @@ class Show extends Component {
   constructor(props) {
     super(props)
     this.state ={
-      img: "http://assets.audiomack.com/default-artist-image.jpg",
       bands : [],
-      previewTrack: null,
       clicked: false,
       venueInfo: null,
       _setArtistInfoCalled: false
@@ -47,18 +45,16 @@ class Show extends Component {
               aria-controls={`collapse${props.id}`}
             >
               <img src={ img } alt={props.id} height="65" width="65"/>
-              { track ? this._speaker( track ) : null }
                <p className="artist">{ props.showArtists[0].displayName }</p>
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
-              { track ? this._speaker(track) : null }
+            { track ? this._speaker(track) : null }
           </h4>
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <Bands
-
                 // pass down venues redux state
                 venueID={ this.props.venueID }
                 venues={ this.props.venues}
@@ -99,30 +95,30 @@ class Show extends Component {
   }
 
   _setArtistInfo(showArtists) {
-          let count = 0
-          let bandMembers = []
-          showArtists.forEach(Artist => {
-            //let artist = this.props.allShowArtists
-            //console.log(this.props.artists)
-            // if(artist) {
-            //   // set title img, track for lead artist
-            //   if(count == 0) {
-            //     // match artist
-            //     console.log(artist.img, artist.topTracks ? artist.topTracks[0].preview_url : null)
-            //     this.setState({
-            //       previewTrack: artist.topTracks ? artist.topTracks[0].preview_url : null,
-            //       img: artist.img
-            //     })
-            //   }
-            // }
+    let count = 0
+    let bandMembers = []
+    showArtists.forEach(Artist => {
+      //let artist = this.props.allShowArtists
+      //console.log(this.props.artists)
+      // if(artist) {
+      //   // set title img, track for lead artist
+      //   if(count == 0) {
+      //     // match artist
+      //     console.log(artist.img, artist.topTracks ? artist.topTracks[0].preview_url : null)
+      //     this.setState({
+      //       previewTrack: artist.topTracks ? artist.topTracks[0].preview_url : null,
+      //       img: artist.img
+      //     })
+      //   }
+      // }
 
-            // add bandMembers names to array
-            bandMembers.push(name)
-            count++
-             if(count === showArtists.length) {
-               this.setState({bands: bandMembers})
-             }
-          })
+      // add bandMembers names to array
+      bandMembers.push(name)
+      count++
+       if(count === showArtists.length) {
+         this.setState({bands: bandMembers})
+       }
+    })
   }
 
   _toggleSound(event) {
@@ -238,7 +234,7 @@ class Bands extends Component {
           doorsOpen={ this.props.doorsOpen }
           onNavigateClick={ this.props.onNavigateClick }
         />
-        {/* {bands} */}
+        { bands }
         {this.props.venue ? this._venue(): this._venueLoading()}
       </div>
     )
@@ -277,10 +273,11 @@ class AccordionTitle extends Component {
 }
 
 class Band extends Component {
+
   constructor(props) {
     super(props)
     this.state = {
-       albumArt: null
+      albumArt: null
     }
   }
 
@@ -292,6 +289,7 @@ class Band extends Component {
     const artists = this.props.artists
     const artistName = this.props.artistName;
     const artist = artists[artistName]
+    console.log('aritist', artist, 'artistName', artistName);
     const albumArt =  artist.getArtistAlbumsAPI
     if(albumArt) {
       let num = albumArt.items.length
@@ -335,6 +333,7 @@ class Band extends Component {
       </div>
     )
   }
+
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
