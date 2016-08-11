@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
-import {selectShow} from '../actions/select_show';
-import {redux_Artists} from '../actions/artists';
-
-
 
 export default class GenArtist extends Component {
 
