@@ -12,19 +12,6 @@ const spotifyApi = new SpotifyWebApi({
 })
 
 exports.searchArtists = (name, songKickId) => {
-  // if(name is matched in DB) {
-  //   return result
-  // } else {
-  //   spotifyApi.searchArtists(name)
-  //   add every result into db
-  //   if(name is matched in DB) {
-  //     add spongKick id
-  //     return result
-  //   } else {
-  //     return closest name match
-  //   }
-  // }
-
 
   return  ArtistModel.findOne({ "songKickID" : songKickId }).then(artist => {
     //console.log("found artist",songKickId)
@@ -101,7 +88,10 @@ exports.searchArtists = (name, songKickId) => {
 
               }).catch(err => console.log(err))
 
-              return Artist
+              // give API calls 2 secs
+              setTimeout(function() {
+                return Artist
+              }, 2000)
             }
           }
         })
