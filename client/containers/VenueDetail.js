@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import NavBar from './NavBar';
 import UpcomingShows from '../components/UpcomingShows.js'
 import { Songkick_getVenueCalendarAPI } from '../models/api'
@@ -23,7 +23,7 @@ class VenueDetail extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._updateVenueObj(this.props.params.venueId)
   }
 
@@ -44,8 +44,14 @@ class VenueDetail extends Component {
 
   _displayUpcomingShows() {
     const showObjs = this.state.upcomingShows
+    var john = showObjs.filter(function(show){
+      return (show.performance.length > 2)
+    })
+    // console.log('big artists: ', john)
+
     return showObjs.map(function(show, index){
-      return (<UpcomingShows venue={show} key={venueId} source="VenueDetail"/>)
+    console.log('show ' , show);
+      return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
   }
 
@@ -99,7 +105,7 @@ class VenueDetail extends Component {
         </div>
         <div>
           <h2>Upcoming Shows:</h2>
-          {this.state.upcomingShows ? <h3>{this._displayUpcomingShows()}</h3> : 'Generating Shows:'}
+          {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
         </div>
       </div>
     )
