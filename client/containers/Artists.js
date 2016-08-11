@@ -56,7 +56,7 @@ class Artists extends Component {
               <input
                 className="form-control"
                 value={ this.state.term }
-                placeholder='Search Venues'
+                placeholder='Search Artists'
                 onChange={ event => this._onInputChange(event.target.value) }
               />
 

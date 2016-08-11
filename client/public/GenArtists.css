@@ -4,11 +4,14 @@
     align-items: center;
     border: 1px solid white;
     font-weight: bold;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    height: 375px;
+    width: 375px;
+
 }
 
 .genImage{
-    border-radius: 10%;
     height: 250px;
     width: 250px;
     object-fit: cover;
@@ -20,29 +23,38 @@
 .gridding .artist-label {
     position: relative;
     display: flex;
-    height: 41px;
-    width: 250px;
+    /*height: 48px;*/
+    width: 300px;
     justify-content: center;
+    /*padding-bottom: 1px;*/
 }
 
 .gridding .artist-label .selArtist {
-    margin: 5px 0;
-    font-size: 22px;
+    margin: 0;
+    font-size: 24px;
     text-align: center;
-    width: 100%;
+    width: 75%;
+    /*padding-bottom: 2px;*/
 }
 
 .gridding .fa {
     margin: 5px 0;
+    margin-left: 1px;
     position: absolute;
-    left: 220px;
+    left: 265px;
     cursor: pointer;
     z-index: 10;
 }
 
-.tour{
-    font-size: 14px;
+.tour {
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 45%;
+    /*border-width: 40px;*/
     /*text-align: center;*/
     /*margin: 0 auto;*/
-    margin-left: 35%;
 }
+

@@ -25,17 +25,20 @@ export default class SelectedArtist extends Component{
 		return this.props.artists.map((artist) => {
 			return (
 				<div key={artist.id} className="col-md-4 gridding">
-					<img className="genImage" src={this._setImage(artist)} height="85" width="85"/>
+					<img className="genImage" src={this._setImage(artist)} height="105" width="105"/>
 					<br/>
-					<Link
-						className="selArtist"
-						id="selArtist"
-						to={`artist/${artist.displayname}`}
-						activeClassName="active">
-						{artist.displayName}
-					</Link>
-					{artist.tracks ? this._speaker(artist.tracks) : null}
-					{artist.onTourUntil ? <p className="tour"> ON TOUR</p> : null}
+					<div className = "artist-label">
+						<Link
+							className="selArtist"
+							id="selArtist"
+							to={`artist/${artist.displayname}`}
+							activeClassName="active">
+							{artist.displayName}
+						</Link>
+						{artist.tracks ? this._speaker(artist.tracks) : null}
+					</div>
+						
+						{artist.onTourUntil ? <p className="tour"> ON TOUR</p> : null}
 				</div>
 			)
 		})
