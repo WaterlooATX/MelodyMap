@@ -46,11 +46,11 @@ export default class ArtistDetail extends Component {
                 into a singular song</p>}
             </div>
           </div>
-          <div>{this.getShows(this.state.artistShows)}</div>
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
+        <div className="scrollable-menu">{this.getShows(this.state.artistShows)}</div>
           <div className="container-similar">
             <h3> Similar Artists </h3>
             <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
@@ -163,12 +163,14 @@ filterArtist(artist){
       return null;
     }
     else{
-      console.log("SHOWSSHOWS",shows)
       return shows.map(show => {
         console.log("INGETSHOWSS", show)
-        return <div className="artist-Shows"> 
-          <div>{show.displayName}</div>
-          <div>{show.location.city}</div>
+        return <div className="list-group"> 
+          <div className = "list-group-item">
+          <p>{show.displayName}</p>
+          <p>{show.location.city}</p>
+          </div>
+          <div></div>
         </div>
       })
     }
