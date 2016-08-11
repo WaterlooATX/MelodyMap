@@ -219,7 +219,7 @@ class Bands extends Component {
           doorsOpen={ this.props.doorsOpen }
           onNavigateClick={ this.props.onNavigateClick }
         />
-        { bands }
+        { this.props.artists ? bands : null }
         {this.props.venue ? this._venue(): this._venueLoading()}
       </div>
     )
@@ -262,7 +262,7 @@ class Band extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      albumArt: 'http://assets.audiomack.com/default-album-image.jpg'
+      albumArt: null
     }
   }
 
@@ -297,9 +297,11 @@ class Band extends Component {
     const name = this.props.name;
     const artist = artists[name];
     const popularity = artist ? artist.popularity : 'none'
-    let bio = artist ? artist.summaryBio : null
+    let bio = artist ? artist.summaryBio : randomBio
     //bio = bio ? bio.summaryBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...' : randomBio
-
+    let albumArt = artist ? artist.albumsImages : null
+    albumArt = albumArt ? albumArt[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+    albumArt = this.state.albumArt ? this.state.albumArt : albumArt
 
     const Style = {
                     "borderRadius": "500px",
@@ -311,7 +313,7 @@ class Band extends Component {
       <div>
         <div className="accordion-band">
           <div className="band-info">
-            <img className="accordion-album-art img-circle" style={Style} src={this.state.albumArt} alt={name} onClick={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
+            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={name} onClick={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
             <div className="accordion-album-band-name"><b>
               <Link to={`artist/${name}`} activeClassName='active'>{name}</Link>
             </b></div>
