@@ -143,8 +143,8 @@ class Show extends Component {
       this.setState({clicked: true});
     }
     setTimeout(function(){
-      $(`#${DOMString}`)[0].scrollIntoView( true );
-    }, 350);
+      $('.Main').scrollTo(`#${DOMString}`, 250);
+    }, 400);
   }
 
 }
