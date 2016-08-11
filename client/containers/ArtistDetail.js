@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, Songkick_getArtistCalendarAPI} from '../models/api';
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
@@ -17,10 +17,9 @@ export default class ArtistDetail extends Component {
     super(props);
     this.state = {
       videos: [],
-      selectedVideo: null
+      selectedVideo: null,
     }
   }
-
   componentDidMount() {
     this.videoSearch(this.props.params.artistName + "band")
     this.filterArtist(this.props.params.artistName)
@@ -51,6 +50,7 @@ export default class ArtistDetail extends Component {
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
+        <div className="scrollable-menu">{this.getShows(this.state.artistShows)}</div>
           <div className="container-similar">
             <h3> Similar Artists </h3>
             <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
@@ -72,7 +72,8 @@ videoSearch(term){
 
 filterArtist(artist){
   var artists = this.props.artists
-  var shows = this.props.shows
+  Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
+      this.setState({artistShows: shows.data})
     for(var key in artists){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
@@ -82,10 +83,12 @@ filterArtist(artist){
         artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
         artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
         artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
-        artistTour: artists[artist].LastFM_getInfoAPI.ontour
+        artistTour: artists[artist].LastFM_getInfoAPI.ontour,
+        songkickID: artists[artist].songKickID
       })
     }
-  }
+  })
+}
 
 
   onTour(tour){
@@ -154,10 +157,25 @@ filterArtist(artist){
     }
   }
 
+  getShows(shows){
+    if(!shows){
+      return null;
+    }
+    else{
+      return shows.map(show => {
+        return <div className="list-group"> 
+          <div className = "list-group-item" key ={show.id}>
+          <p>{show.displayName}</p>
+          <p>{show.location.city}</p>
+          </div>
+          <div></div>
+        </div>
+      })
+    }
+  }
 
 }
 
-
-const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
+const mapStateToProps = (state) => {return {artists: state.artists}};
 export default connect(mapStateToProps)(ArtistDetail);
 
