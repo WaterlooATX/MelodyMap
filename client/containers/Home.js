@@ -32,12 +32,21 @@ class Home extends Component {
     if (type !== 'geo') this.props.fetchShows(this.props.location);
   }
 
+  _spinner() {
+    return (
+      <div className="spinner">
+        <span className="glyphicon glyphicon-cd" aria-hidden="true"></span>
+        <h1>&nbsp;&nbsp;Fetching your location...</h1>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="container-fluid text-center">
         <div className='row content'>
           <div className="col-sm-4 text-left Main">
-            <ShowList onNavigateClick={ this._onNavigateClick.bind(this) } />
+            {this.props.shows.length ? <ShowList onNavigateClick={ this._onNavigateClick.bind(this)} shows={ this.props.shows }/> : this._spinner }
           </div>
           <div className="col-sm-8 sidenav">
             {

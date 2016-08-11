@@ -2,20 +2,25 @@ var mongoose = require('mongoose');
 
 // Create a Artist schema
 const artistSchema = new mongoose.Schema({
+  lastFM_imgs: Array,
   spotifyURL: String,
-  id: Number,
+  id: String,
   name: String,
-  artistImages: Array,
+  images: Array,
   img: String,
   popularity: Number,
   followers: Number,
   relatedArtists: Array,
-  albums: Array,
+  albumsImages: Array,
   topTracks: Array,
   summaryBio: String,
   fullBio: String,
-  updated_at: { type: Date, default: Date.now }
+  updated_at: { type: Date, default: Date.now },
+  songKickID: Number
 });
 
+// Created a Mongoose schema which maps to a MongoDB collection and defines
+// the shape of the documents within that collection.
 
-module.exports.artistSchema = artistSchema;
+// exported the Mongoose Artist model
+module.exports = mongoose.model("Artist", artistSchema);

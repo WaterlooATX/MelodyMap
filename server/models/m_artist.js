@@ -2,13 +2,11 @@ const Songkick = require("./m_songkick")
 const Spotify = require("./m_spotifyApi")
 const LastFM = require("./m_lastFM")
 const db = require("../db")
-var mongoose = require('mongoose');
+const ArtistModel = require("../ARTISTS_Schema")
+const mongoose = require('mongoose');
 
-// const Artist = new db.artist({
-//   spotifyURL: a.external_urls,
-//   id: a.id,
-//   name: a.name,
-// })
+// Instances of Models are documents.
+
 
 // addArtist()
 //  - check if in db
@@ -16,102 +14,42 @@ var mongoose = require('mongoose');
 //  - return artist data
 //  - update data if old
 
-// Artist.addArtist().then()
-// exports.artistInfo = (name) => {
-//   return Spotify.searchArtists(name)
-//     .then(data => {
-//       if (data) {
-//         let a = data[0]
-//         if (a) {
-//           return {
-//             spotifyURL: a.external_urls,
-//             id: a.id,
-//             songKickName: name,
-//             spotifyName: a.name,
-//             artistImages: a.images,
-//             img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-//             popularity: a.popularity,
-//             followers: a.followers.total,
-//           }
-//         }
-//       }
-//     })
-// }
-lookupArtist = (name) => {
 
-  //return db.collection('artists').find({ name: name })
-}
-var kittySchema = mongoose.Schema({
-  name: String
-});
-var Kitten = mongoose.model('Kitten', kittySchema);
-function insertArtist(artist) {
-  return db.collection('artists').insert(artist)
-}
+
+
+
+// isArtist = (name) => findArtist(name).then(data => data ? true : false)
+// findArtist = (name) => Artist.findOne({name: name})
 
 exports.artistInfo = (name) => {
 
-    // To use our schema definition, we need to convert our blogSchema into a Model we can work with
+  return Spotify.searchArtists(name)
+    .then(data => {
+      const Artist = new ArtistModel();
 
+      Artist.spotifyURL = data[0].external_urls.spotify
+      Artist.id = data[0].id
+      Artist.songKickName = name
+      Artist.spotifyName = data[0].name
+      Artist.artistImages = data[0].images
+      Artist.img = data[0].images.length ? data[0].images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
+      Artist.popularity = data[0].popularity
+      Artist.followers = data[0].followers.total
+      Artist.songKickID = 1337
 
-    // Instances of Models are documents.
+      Artist.save(function(err, fluffy) {
+        if (err) return console.log(err);
+      });
 
-    var cat = new Kitten({
-      name: name
-    });
-    console.log(cat.name)
-    cat.save(function(err, fluffy) {
-      if (err) return console.error(err);
-    });
-
-    // if (artists[0]) {
-    //   console.log('artist already exists!', artists[0]);
-    //   return artists[0];
-    // } else {
-    //   console.log('this is a new artist, hitting API');
-    //   let newArtist = Spotify.searchArtists(name)
-    //   .then(data => {
-    //     let a = data[0];
-    //     return ({
-    //       spotifyURL: a.external_urls,
-    //       id: a.id,
-    //       songKickName: name,
-    //       spotifyName: a.name,
-    //       artistImages: a.images,
-    //       img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-    //       popularity: a.popularity,
-    //       followers: a.followers.total
-    //     });
-    //   })
-    //   newArtist.then(data => insertArtist(data));
-    //   return newArtist;
-    // }
+      return Artist
+    })
 
 }
 
-// Spotify.searchArtists(name)
-//   .then(data => {
-//     if (data) {
-//       let a = data[0]
-//       if (a) {
-//         return {
-//           spotifyURL: a.external_urls,
-//           id: a.id,
-//           songKickName: name,
-//           spotifyName: a.name,
-//           artistImages: a.images,
-//           img: a.images.length ? a.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-//           popularity: a.popularity,
-//           followers: a.followers.total,
-//         }
-//       }
-//     }
-//   })
-//
 // Spotify.getArtistRelatedArtists(artist.id)
 //   .then(artist => {
 //     return {
-//       relatedArtists: data.artists
+//       relatedArtists: datdata[0].artists
 //     }
 //   })
 //
@@ -138,8 +76,8 @@ exports.artistInfo = (name) => {
 // LastFM.getInfo(name)
 //   .then(data => {
 //     return {
-//       summaryBio: data.artist.bio.summary,
-//       fullBio: data.artist.bio.content
+//       summaryBio: datdata[0].artist.bio.summary,
+//       fullBio: datdata[0].artist.bio.content
 //     }
 //   })
 

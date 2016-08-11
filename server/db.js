@@ -25,7 +25,6 @@ var options = {
     }
   }
 };
-
 var mongodbUri = 'mongodb://MelodyMap:makersquare@ds147995.mlab.com:47995/melodymap'
 
 mongoose.connect(mongodbUri, options);
@@ -33,14 +32,4 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-db.once('open', function() {
-
-
-});
-
-
-
-// // clears database
-// db.deleteEverything = function () {
-//   return Promise.all([db.collection("articles").remove({})])
-// };
+db.once('open', function() {})

@@ -89,13 +89,54 @@ const Spotify = require("./models/m_spotifyApi")
 const LastFM = require("./models/m_lastFM")
 const Artist = require("./models/m_artist")
 
-
+//
 // let bands = "chris,Björk,Nicki Minaj,Dnce,kiiara,R.E.M.,Marilyn Manson, Jonas Blue, Katy Perry, System of a Down, Massive Attack, Foo Fighters, Meghan Trainor, Marvin Gaye, Jimi Hendrix, Oasis, Tame Impala, Kings of Leon"
-// bands.split(',').forEach(b => {
-//   Artist.artistInfo(b)
+// bands.split(',').forEach(name => {
+//   Spotify.searchArtists(name)
 //   .then(data => console.log(data))
 //   .catch(error => console.log("error", error))
 // })
+
+// let AlbumsCount = 0;
+// router.post('/getArtistAlbums', function(req, res) {
+//   console.log(`/getArtistAlbums ${++AlbumsCount}`)
+//   Spotify.getArtistAlbums(req.body.id)
+//     .then(albums => res.send(albums))
+//     .catch(error => console.log("error", error))
+// })
+
+
+// let Spotify_getArtistTopTracks = 0;
+// router.post('/Spotify_getArtistTopTracks', function(req, res) {
+//   console.log(`/Spotify_getArtistTopTracks ${++Spotify_getArtistTopTracks}`)
+//   Spotify.getArtistTopTracks(req.body.id, req.body.code)
+//     .then(data => res.send(data))
+//     .catch(error => console.log("error", error))
+// })
+
+// let LastFM_getInfos = 0;
+// router.post('/LastFM_getInfo', function(req, res) {
+//   console.log(`/LastFM_getInfo ${++LastFM_getInfos}`)
+//   LastFM.getInfo(req.body.name)
+//     .then(data => res.send(data))
+//     .catch(error => console.log("error", error))
+// })
+
+// let Spotify_getArtistRelatedArtists = 0;
+// router.post('/Spotify_getArtistRelatedArtists', function(req, res) {
+//   console.log(`/Spotify_getArtistRelatedArtists ${++Spotify_getArtistRelatedArtists}`)
+//   Spotify.getArtistRelatedArtists(req.body.id)
+//     .then(data => res.send(data))
+//     .catch(error => console.log("error", error))
+// })
+
+let Spotify_searchArtists = 0;
+router.post('/Spotify_searchArtists', function(req, res) {
+  console.log(`/Spotify_searchArtists ${++Spotify_searchArtists}`)
+  Spotify.searchArtists(req.body.name)
+    .then(data => res.send(JSON.stringify(data)))
+    .catch(error => console.log("error", error))
+})
 
 // Artist Data
 let Artist_artistInfo = 0;
@@ -138,22 +179,6 @@ router.post('/Songkick_getArtistCalendar', function(req, res) {
     .catch(error => console.log("error", error))
 })
 
-let LastFM_getInfos = 0;
-router.post('/LastFM_getInfo', function(req, res) {
-  console.log(`/LastFM_getInfo ${++LastFM_getInfos}`)
-  LastFM.getInfo(req.body.name)
-    .then(data => res.send(data))
-    .catch(error => console.log("error", error))
-})
-
-let Spotify_getArtistRelatedArtists = 0;
-router.post('/Spotify_getArtistRelatedArtists', function(req, res) {
-  console.log(`/Spotify_getArtistRelatedArtists ${++Spotify_getArtistRelatedArtists}`)
-  Spotify.getArtistRelatedArtists(req.body.id)
-    .then(data => res.send(data))
-    .catch(error => console.log("error", error))
-})
-
 let Songkick_getSimilarArtists = 0;
 router.post('/Songkick_getSimilarArtists', function(req, res) {
   console.log(`/Songkick_getSimilarArtists ${++Songkick_getSimilarArtists}`)
@@ -180,31 +205,6 @@ router.post('/fetchShows', function(req, res) {
 router.post('/fetchArtists', function(req,res){
   console.log("/fetchArtists", req.body)
   Songkick.getArtists(req.body)
-    .then(data => res.send(data))
-    .catch(error => console.log("error", error))
-})
-
-
-let AlbumsCount = 0;
-router.post('/getArtistAlbums', function(req, res) {
-  console.log(`/getArtistAlbums ${++AlbumsCount}`)
-  Spotify.getArtistAlbums(req.body.id)
-    .then(albums => res.send(albums))
-    .catch(error => console.log("error", error))
-})
-
-let Spotify_searchArtists = 0;
-router.post('/Spotify_searchArtists', function(req, res) {
-  console.log(`/Spotify_searchArtists ${++Spotify_searchArtists}`)
-  Spotify.searchArtists(req.body.name)
-    .then(data => res.send(data))
-    .catch(error => console.log("error", error))
-})
-
-let Spotify_getArtistTopTracks = 0;
-router.post('/Spotify_getArtistTopTracks', function(req, res) {
-  console.log(`/Spotify_getArtistTopTracks ${++Spotify_getArtistTopTracks}`)
-  Spotify.getArtistTopTracks(req.body.id, req.body.code)
     .then(data => res.send(data))
     .catch(error => console.log("error", error))
 })

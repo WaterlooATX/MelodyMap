@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import { Link } from 'react-router';
 import moment from 'moment';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
@@ -14,21 +14,23 @@ class Show extends Component {
   constructor(props) {
     super(props)
     this.state ={
-      img: "http://assets.audiomack.com/default-artist-image.jpg",
       bands : [],
-      previewTrack: null,
       clicked: false,
       venueInfo: null,
+      _setArtistInfoCalled: false
     }
   }
 
-  componentDidMount() {
-    // array of artist that are preforming
-    this._spotifyInfo(this.props.showArtists)
+  componentWillMount() {
+    Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
+    this._setArtistInfo(this.props.showArtists)
   }
 
   render() {
-    const props = this.props, track = this.state.previewTrack;
+    const props = this.props;
+    const thisArtist = props.artists[props.showArtists[0].displayName];
+    const img = thisArtist ? thisArtist.img ? thisArtist.img : "http://assets.audiomack.com/default-artist-image.jpg" : "http://assets.audiomack.com/default-artist-image.jpg";
+    const track = thisArtist ? thisArtist.topTracks[0] ? thisArtist.topTracks[0].preview_url : null : null;
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -41,12 +43,12 @@ class Show extends Component {
               aria-expanded="true"
               aria-controls={`collapse${props.id}`}
             >
-              <img src={this.state.img} alt={props.id} height="65" width="65"/>
-              <p className="artist">{ props.showArtists[0].displayName }</p>
-              <p className="venue">{ props.venue } - { props.city }</p>
-              <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+              <img src={ img } alt={props.id} height="65" width="65"/>
+               <p className="artist">{ props.showArtists[0].displayName }</p>
+               <p className="venue">{ props.venue } - { props.city }</p>
+               <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
-              { track ? this._speaker(track) : null }
+            { track ? this._speaker(track) : null }
           </h4>
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
@@ -77,7 +79,7 @@ class Show extends Component {
         aria-hidden="true"
         type="button"
         onClick={this._toggleSound.bind(this)}>
-        <audio src={track}></audio>
+        <audio src={ track }></audio>
       </i>
     )
   }
@@ -91,94 +93,17 @@ class Show extends Component {
     return doorsOpen
   }
 
-  _spotifyInfo(showArtists) {
-    let reduxArtists = this.props.artists
-    Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
+  _setArtistInfo(showArtists) {
     let count = 0
-    let countRedux = 0
     let bandMembers = []
     showArtists.forEach(Artist => {
-
+      // add bandMembers names to array
       bandMembers.push(Artist.displayName)
       count++
        if(count === showArtists.length) {
          this.setState({bands: bandMembers})
        }
-
-       if(!reduxArtists[Artist.displayName]){
-        reduxArtists[Artist.displayName] = {songKickID: Artist.artist.id}
-
-        Spotify_searchArtistsAPI(Artist.displayName).then( obj => { // async
-          const artist = obj.data[0]
-          if(artist) {
-
-            // CHANGE only set img for head artist
-            this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
-            let Spotify_searchArtistsAPI = {
-              spotifyOpen: artist.external_urls.spotify,
-              id: artist.id,
-              displayName: Artist.displayName,
-              name: artist.name,
-              uri: artist.uri,
-              popularity: artist.popularity,
-              followers: artist.followers.total,
-              genres: artist.genres,
-              img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
-            }
-
-            reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
-
-            let spotify = Spotify_searchArtistsAPI
-            getArtistAlbumsAPI(spotify.id)
-              .then(albums => {
-                reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = albums.data ? albums.data : null
-              })
-              .catch(reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = null)
-
-            LastFM_getInfoAPI(spotify.name)
-              .then(info => {
-                reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
-              })
-              .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
-
-            Spotify_getArtistTopTracksAPI(spotify.id,"US")
-              .then(artistTracks => {
-
-                reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
-                if(this.state.bands[0]) {
-                  let headliner = this.state.bands[0]
-                  let artist = this.props.artists[headliner]
-                  if(artist) {
-                    this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
-                  }
-                }
-              })
-              .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
-
-          } else {
-            reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = null
-            LastFM_getInfoAPI(Artist.displayName)
-              .then(info => {
-                reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
-              })
-              .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
-          }
-        })
-      } else {
-        countRedux++
-        // artist exists in redux
-        let artist = reduxArtists[Artist.displayName]
-        if(countRedux === 1) {
-          if(artist.Spotify_searchArtistsAPI) {
-            this.setState({img : artist.Spotify_searchArtistsAPI.img})
-          }
-          this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
-        }
-      }
     })
-
-    // update redux artist
-    redux_Artists(reduxArtists);
   }
 
   _toggleSound(event) {
@@ -233,7 +158,7 @@ class Bands extends Component {
       //.sort((a, b) => b.followers - a.followers)
       .map((artist,index) => {
         return (
-          <Band key ={index} artistName={artist} artists={this.props.artists}/>
+          <Band key ={index} name={artist} artists={this.props.artists}/>
         )
       })
     }
@@ -294,7 +219,7 @@ class Bands extends Component {
           doorsOpen={ this.props.doorsOpen }
           onNavigateClick={ this.props.onNavigateClick }
         />
-        {bands}
+        { this.props.artists ? bands : null }
         {this.props.venue ? this._venue(): this._venueLoading()}
       </div>
     )
@@ -333,37 +258,50 @@ class AccordionTitle extends Component {
 }
 
 class Band extends Component {
+
   constructor(props) {
     super(props)
     this.state = {
-       albumArt: null
+      albumArt: null
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._randomAlbumArt()
   }
 
   _randomAlbumArt() {
-    const artists = this.props.artists
-    const artistName = this.props.artistName;
-    const artist = artists[artistName]
-    const albumArt =  artist.getArtistAlbumsAPI
-    if(albumArt) {
-      let num = albumArt.items.length
-      this.setState({albumArt: albumArt.items[Math.floor(Math.random() * num)].images[1].url})
+    const artists = this.props.artists;
+    const name = this.props.name;
+    const artist = artists[name];
+    let albumArt = artist ? artist.albumsImages : null
+
+    if (albumArt && artist) {
+      const albumsImages = artist.albumsImages.map(album => {
+        return album.images ? album.images[1].url : null
+      })
+
+      if (albumsImages) {
+        let num = albumsImages.length
+        this.setState({
+          albumArt: albumsImages[Math.floor(Math.random() * num)]
+        })
+      }
     }
   }
 
   render() {
 
     const randomBio = "The music sails alive with the compelling combination of rich layers among mixed styles of rhythm that hit the soul. By melding hook-filled melody within hard and heavy beats, has the ability to compact a vast array of influence and experience into a singular song"
-    const artists = this.props.artists
-    const artistName = this.props.artistName;
-    const artist = artists[artistName]
-    let albumArt = this.state.albumArt ? this.state.albumArt : artist.getArtistAlbumsAPI ? artist.getArtistAlbumsAPI.items[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
-    const popularity = artist.Spotify_searchArtistsAPI ? artist.Spotify_searchArtistsAPI.popularity : 'N/A'
-    const bio = artist.LastFM_getInfoAPI ? artist.LastFM_getInfoAPI.bio.content ? artist.LastFM_getInfoAPI.bio.content.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...' : randomBio : null
+    const artists = this.props.artists;
+    const name = this.props.name;
+    const artist = artists[name];
+    const popularity = artist ? artist.popularity : 'none'
+    let bio = artist ? artist.summaryBio : randomBio
+    //bio = bio ? bio.summaryBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...' : randomBio
+    let albumArt = artist ? artist.albumsImages : null
+    albumArt = albumArt ? albumArt[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+    albumArt = this.state.albumArt ? this.state.albumArt : albumArt
 
     const Style = {
                     "borderRadius": "500px",
@@ -375,9 +313,9 @@ class Band extends Component {
       <div>
         <div className="accordion-band">
           <div className="band-info">
-            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={artistName} onMouseOver={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
+            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={name} onClick={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
             <div className="accordion-album-band-name"><b>
-              <Link to={`artist/${artistName}`} activeClassName='active'>{artistName}</Link>
+              <Link to={`artist/${name}`} activeClassName='active'>{name}</Link>
             </b></div>
           </div>
           <div className='right popularity'>
@@ -391,8 +329,9 @@ class Band extends Component {
       </div>
     )
   }
+
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow, redux_Venues }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
