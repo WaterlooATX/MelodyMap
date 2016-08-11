@@ -21,14 +21,15 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    ipLocationAPI().then(this._setNewCoords.bind(this))
-    geolocationAPI(this._setNewCoords.bind(this))
+    ipLocationAPI().then(location => this._setNewCoords.call(this, location, 'ip'))
+    geolocationAPI(location => this._setNewCoords.call(this, location, 'geo'))
   }
 
-  _setNewCoords(location) {
-    if (location.data) this.props.setLocation({ long: location.data.lon , lat: location.data.lat })
-    else if (location.coords) this.props.setLocation({ long: location.coords.longitude , lat: location.coords.latitude })
-    this.props.fetchShows(this.props.location);
+  _setNewCoords(location, type) {
+    if (location.data) var { long, lat } = { long: location.data.lon , lat: location.data.lat };
+    else if (location.coords) var { long, lat } = { long: location.coords.longitude, lat: location.coords.latitude };
+    this.props.setLocation({ long, lat });
+    if (type !== 'geo') this.props.fetchShows(this.props.location);
   }
 
   render() {

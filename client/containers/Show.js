@@ -220,6 +220,7 @@ class Show extends Component {
     }
     $(`#${DOMString}`)[0].scrollIntoView( true );
   }
+
 }
 
 class Bands extends Component {
@@ -287,9 +288,9 @@ class Bands extends Component {
     return (
       <div>
         <AccordionTitle
-          venue={venue}
-          songkick={this.props.songkick}
-          doorsOpen={this.props.doorsOpen}
+          venue={ venue }
+          songkick={ this.props.songkick }
+          doorsOpen={ this.props.doorsOpen }
           onNavigateClick={ this.props.onNavigateClick }
         />
         {bands}
@@ -392,5 +393,5 @@ class Band extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);

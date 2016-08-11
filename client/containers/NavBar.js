@@ -122,8 +122,8 @@ class NavBar extends Component {
       Google_geocoder(this.state.city).then(resp => {
         let lat = resp.data.results[0].geometry.location.lat;
         let long = resp.data.results[0].geometry.location.lng;
-        this.props.setLocation({long, lat})
         this.props.fetchShows({long, lat, startDate, endDate});
+        this.props.setLocation({long, lat});
       })
     } else {
       let lat = this.props.location.lat;
