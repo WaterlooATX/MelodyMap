@@ -7,48 +7,44 @@ import { Songkick_getVenueCalendarAPI } from '../models/api'
 import {redux_Venues} from '../actions/venues';
 import _ from 'lodash';
 
-// make sure that upcoming show data does not persist for too long in server
+// cron-job: make sure that upcoming show data does not persist for too long in db
 
-// check if venue.upcomingShows === null
-  // if it is, make API call
-    // .then call and set to state
-  // else, read from state
+// look for it in redux state
+  // if it doesn't have it, put it in redux state
+  // get it off redux state
 
 class VenueDetail extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      // upcomingShows: null
+      upcomingShows: null
     }
   }
 
-
   componentDidMount() {
-  }
-
-  _getUpcomingShows(venueId) {
-    Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
-      // this.setState({upcomingShows: gotshows.data})
-      this.props.venues[this.props.params.venueId].upcomingShows = gotshows;
-      redux_Venues(this.props.venues)
-    })
+    this._updateVenueObj(this.props.params.venueId)
   }
 
   _updateVenueObj(venueId) {
-    if (!this.props.venues[this.props.params.venueId].upcomingShows) {
+    var redux_Venue = this.props.venues
+    var venue = redux_Venue[this.props.params.venueId]
+
+    if (!this.props.venues[venueId].upcomingShows) {
       Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
-      // this.setState({upcomingShows: gotshows.data})
-        this.props.venues[this.props.params.venueId].upcomingShows = gotshows.data;
-        redux_Venues(this.props.venues)
-      console.log('this.props.venues ' , this.props.venues);
-      console.log('this.props.venues[this.props.params.venueId].upcomingShows ' , this.props.venues[this.props.params.venueId].upcomingShows);
+        redux_Venue[venue.id].upcomingShows = gotshows.data
+        redux_Venues(redux_Venue)
+        this.setState({upcomingShows: gotshows.data})
       })
+    } else {
+      this.setState({upcomingShows: redux_Venue[venue.id].upcomingShows})
     }
-    // else {
-    //   this.setState({upcomingShows: venue.upcomingShows})
-    // }
-    // return this.state.upcomingShows;
+  }
+
+  _displayUpcomingShows(showObjs) {
+    return showObjs.map(function(show, index){
+      return (<div key={index}>{show.displayName}</div>)
+    })
   }
 
 
@@ -70,14 +66,6 @@ class VenueDetail extends Component {
       }
     }
 
-
-    this._updateVenueObj(venue.id);
-
-
-    // this.props.venueShows ? console.log("venueShows in Redux", this.props.venueShows) : console.log('noooooooo');
-    // this.state.upcomingShows ? console.log('this.state.upcomingShows ' , this.state.upcomingShows) : console.log('no shows yet');
-    venue.upcomingShows ? console.log('redux upcoming venues' , venue.upcomingShows): console.log('null')
-
     return (
       <div>
         <div className="container">
@@ -90,8 +78,10 @@ class VenueDetail extends Component {
               {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
               {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
             </ul>
-            <h3>Upcoming Shows:
-            </h3>
+            <div>
+              <h2>Upcoming Shows:</h2>
+              {this.state.upcomingShows ? <h3>{this._displayUpcomingShows(this.state.upcomingShows)}</h3> : 'Generating Shows:'}
+            </div>
           </div>
         </div>
         <div className="media-container">

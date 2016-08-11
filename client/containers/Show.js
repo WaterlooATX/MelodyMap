@@ -274,7 +274,6 @@ class Bands extends Component {
           phone: venue.phone,
           upcomingShows: null
         }
-
         // add to redux venues
         redux_Venues(reduxVenues)
         return reduxVenues[venueID]
