@@ -163,7 +163,7 @@ filterArtist(artist){
       Songkick_getArtistCalendarAPI(id).then((shows) => {
         return shows.data.map(show => {
           console.log("location", show.location.city)
-          return <p>{show.displayName}{show.location.city}</p> 
+          return <p>{show.displayName}</p> 
          }
       )}
     )}
