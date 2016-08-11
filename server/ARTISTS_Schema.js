@@ -10,7 +10,7 @@ const artistSchema = new mongoose.Schema({
   popularity: Number,
   followers: Number,
   relatedArtists: Array,
-  albums: Array,
+  albumsImages: Array,
   topTracks: Array,
   summaryBio: String,
   fullBio: String,

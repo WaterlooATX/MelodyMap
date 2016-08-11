@@ -52,14 +52,54 @@ exports.searchArtists = (name, songKickId) => {
               Artist.img = artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
               Artist.popularity = artist.popularity
               Artist.followers = artist.followers.total
+
+              // Add Top Tracks
               spotifyApi.getArtistTopTracks(artist.id, "US").then(data => {
                 Artist.topTracks = data.body.tracks.map(track => {
                   return {preview_url: track.preview_url, popularity: track.popularity, name: track.name }
                 })
 
+                // Save to DB
                 Artist.save(function(err) {
                   if (err) return console.log(err);
                 });
+              }).catch(err => console.log(err))
+
+              // Add Alubm cover images
+              spotifyApi.getArtistAlbums(artist.id).then(data => {
+                Artist.albumsImages = data.body.items.map(album => {
+                  return {images: album.images, name: album.name}
+                })
+
+                //Save to DB
+                Artist.save(function(err) {
+                  if (err) return console.log(err);
+                });
+              }).catch(err => console.log(err))
+
+              // wait and call relatedArtists to stay under api limits
+              setTimeout(function() {
+                spotifyApi.getArtistRelatedArtists(artist.id).then(data => {
+
+                  Artist.relatedArtists = data.body.artists.map(art => {
+                    return {
+                      songKickID: songKickId,
+                      spotifyURL: artist.external_urls.spotify,
+                      id: artist.id,
+                      name: artist.name,
+                      images: artist.images,
+                      img: artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
+                      popularity: artist.popularity,
+                      followers: artist.followers.total
+                    }
+                  })
+                  //Save to DB
+                  Artist.save(function(err) {
+                    if (err) return console.log(err);
+                  });
+              }, 10000)
+
+
               })
               return Artist
             }
