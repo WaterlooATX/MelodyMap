@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, Songkick_getArtistCalendarAPI} from '../models/api';
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
@@ -28,6 +28,7 @@ export default class ArtistDetail extends Component {
 
 
   render() { 
+    Songkick_getArtistCalendarAPI(306199).then((data) => console.log("GETARTISTSCALENDAR",data))
     return (
         <div>
           <div className="container">
@@ -73,6 +74,7 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
   var shows = this.props.shows
+  console.log("YOYOYO",artists)
     for(var key in artists){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
@@ -152,6 +154,10 @@ filterArtist(artist){
         return track.id
       })
     }
+  }
+
+  getArtistShows(id){
+    Songkick_getArtistCalendarAPI(id).then((data) => console.log("GETARTISTSCALENDAR",data))
   }
 
 
