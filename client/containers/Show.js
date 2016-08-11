@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import { Link } from 'react-router';
 import moment from 'moment';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, getArtistAlbumsAPI, Songkick_getVenueAPI, LastFM_getInfoAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
@@ -23,6 +23,8 @@ class Show extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.artistsData)
+
     // array of artist that are preforming
     this._spotifyInfo(this.props.showArtists)
   }
@@ -97,73 +99,27 @@ class Show extends Component {
     let count = 0
     let countRedux = 0
     let bandMembers = []
+
+
+
+    // Fetch Artist Info from DB or API calls
+
+
     showArtists.forEach(Artist => {
 
+      // add bandMembers names to array
       bandMembers.push(Artist.displayName)
       count++
        if(count === showArtists.length) {
          this.setState({bands: bandMembers})
        }
 
+       // check if Artist is in reduxState
        if(!reduxArtists[Artist.displayName]){
         reduxArtists[Artist.displayName] = {songKickID: Artist.artist.id}
+          //this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
 
-        Spotify_searchArtistsAPI(Artist.displayName).then( obj => { // async
-          const artist = obj.data[0]
-          if(artist) {
 
-            // CHANGE only set img for head artist
-            this.setState({img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"})
-            let Spotify_searchArtistsAPI = {
-              spotifyOpen: artist.external_urls.spotify,
-              id: artist.id,
-              displayName: Artist.displayName,
-              name: artist.name,
-              uri: artist.uri,
-              popularity: artist.popularity,
-              followers: artist.followers.total,
-              genres: artist.genres,
-              img : artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
-            }
-
-            reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = Spotify_searchArtistsAPI
-
-            let spotify = Spotify_searchArtistsAPI
-            getArtistAlbumsAPI(spotify.id)
-              .then(albums => {
-                reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = albums.data ? albums.data : null
-              })
-              .catch(reduxArtists[Artist.displayName]["getArtistAlbumsAPI"] = null)
-
-            LastFM_getInfoAPI(spotify.name)
-              .then(info => {
-                reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
-              })
-              .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
-
-            Spotify_getArtistTopTracksAPI(spotify.id,"US")
-              .then(artistTracks => {
-
-                reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = artistTracks.data.tracks ? artistTracks.data.tracks : null
-                if(this.state.bands[0]) {
-                  let headliner = this.state.bands[0]
-                  let artist = this.props.artists[headliner]
-                  if(artist) {
-                    this.setState({previewTrack: artist.Spotify_getArtistTopTracksAPI ? (artist.Spotify_getArtistTopTracksAPI[0] ? artist.Spotify_getArtistTopTracksAPI[0].preview_url : null) : null})
-                  }
-                }
-              })
-              .catch(reduxArtists[Artist.displayName]["Spotify_getArtistTopTracksAPI"] = null)
-
-          } else {
-            reduxArtists[Artist.displayName]["Spotify_searchArtistsAPI"] = null
-            LastFM_getInfoAPI(Artist.displayName)
-              .then(info => {
-                reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = info.data.artist ? info.data.artist : null
-              })
-              .catch(reduxArtists[Artist.displayName]["LastFM_getInfoAPI"] = null)
-          }
-        })
       } else {
         countRedux++
         // artist exists in redux
