@@ -24,39 +24,45 @@ exports.searchArtists = (name, songKickId) => {
   // }
 
 
-  ArtistModel.findOne({ "songKickId" : songKickId }, function (err, artist) {
-    if (err) return handleError(err);
-    console.log(artist)
+  return  ArtistModel.findOne({ "songKickID" : songKickId }).then(artist => {
+    //console.log("found artist",songKickId)
+    if(artist) {
+      return artist
+    } else {
+      return addToDataBase();
+    }
   })
 
-  return spotifyApi.searchArtists(name, songKickId)
-    .then(data => {
-      data.body.artists.items.forEach(artist => {
+  function addToDataBase() {
+    return spotifyApi.searchArtists(name, songKickId)
+      .then(data => {
+        data.body.artists.items.forEach(artist => {
 
-        const Artist = new ArtistModel();
-        //Artist.find({songKickId: songKickId}, artist => console.log(artist))
-        // if songkick name is spotify name
+          // if songkick name is spotify name
+          if(name == artist.name) {
+            let bool = true;
+            if(bool) {
+              bool = false
+              const Artist = new ArtistModel();
+              Artist.songKickID = songKickId
+              Artist.spotifyURL = artist.external_urls.spotify
+              Artist.id = artist.id
+              Artist.name= artist.name
+              Artist.images = artist.images
+              Artist.img = artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
+              Artist.popularity = artist.popularity
+              Artist.followers = artist.followers.total
 
-        if(name == artist.name) {
-          Artist.songKickID = songKickId
-          Artist.spotifyURL = artist.external_urls.spotify
-          Artist.id = artist.id
-          Artist.spotifyName = artist.name
-          Artist.images = artist.images
-          Artist.img = artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
-          Artist.popularity = artist.popularity
-          Artist.followers = artist.followers.total
-
-          Artist.save(function(err) {
-            if (err) return console.log(err);
-          });
-          //return Artist
-          return data.body.artists.items
-        }
+              Artist.save(function(err) {
+                if (err) return console.log(err);
+              });
+              return Artist
+            }
+          }
+        })
       })
-
-    })
-    .catch(err => console.error(err));
+      .catch(err => console.error(err));
+  }
 }
 
 exports.getArtistTopTracks = (artistID, countryCode) => {
