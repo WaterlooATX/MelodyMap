@@ -28,7 +28,7 @@ export default class ArtistDetail extends Component {
 
 
   render() { 
-    Songkick_getArtistCalendarAPI(306199).then((data) => console.log("GETARTISTSCALENDAR",data))
+    this.getArtistShows(this.state.songkickID)
     return (
         <div>
           <div className="container">
@@ -84,7 +84,8 @@ filterArtist(artist){
         artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
         artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
         artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
-        artistTour: artists[artist].LastFM_getInfoAPI.ontour
+        artistTour: artists[artist].LastFM_getInfoAPI.ontour,
+        songkickID: artists[artist].songKickID
       })
     }
   }
@@ -157,7 +158,7 @@ filterArtist(artist){
   }
 
   getArtistShows(id){
-    Songkick_getArtistCalendarAPI(id).then((data) => console.log("GETARTISTSCALENDAR",data))
+    Songkick_getArtistCalendarAPI(id).then((shows) => shows.data.map((show) => console.log("SHOWS",show)))
   }
 
 
