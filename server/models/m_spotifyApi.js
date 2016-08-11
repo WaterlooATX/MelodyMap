@@ -12,7 +12,7 @@ const spotifyApi = new SpotifyWebApi({
 })
 
 exports.searchArtists = (name, songKickId) => {
-  return ArtistModel.findOne({ "name" : name.name}).then(artist => {
+  return ArtistModel.findOne({ "name" : name}).then(artist => {
     if(artist) {
       return artist
     } else {

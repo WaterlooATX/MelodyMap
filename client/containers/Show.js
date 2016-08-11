@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
-import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
 
 
@@ -23,8 +22,6 @@ class Show extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.artistsData)
-
     // array of artist that are preforming
     this._spotifyInfo(this.props.showArtists)
   }
@@ -350,5 +347,5 @@ class Band extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow, redux_Artists: redux_Artists, redux_Venues: redux_Venues}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);

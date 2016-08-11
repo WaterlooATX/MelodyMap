@@ -5,6 +5,7 @@ import Show from "../containers/Show"
 import {selectShow} from '../actions/select_show'
 import _ from 'lodash'
 import {Spotify_searchArtistsAPI} from '../models/api';
+import {redux_Artists} from '../actions/artists'
 
 export default class ShowList extends Component {
 
@@ -13,8 +14,41 @@ export default class ShowList extends Component {
     this.state ={
       songPlayed: false,
       songButton: null,
-      artistsData: []
+      artistsData: [],
+      _fetchLocalShowArtistsCalled: false
     }
+  }
+
+
+  _fetchLocalShowArtists(shows) {
+    if(!this.state._fetchLocalShowArtistsCalled) {
+      // only run once
+      this.setState({_fetchLocalShowArtistsCalled: true})
+
+      // create array of all artist names playing in local shows
+      let artistsArr = []
+      shows.forEach(show => artistsArr.push(...show.performance))
+      artistsArr = _.uniq(artistsArr.map(artist => {
+        return {name: artist.artist.displayName}
+      }))
+
+
+      // copy redux state
+      let redux_Artists = this.props.artists
+
+      // get show Artists from DB or API
+      artistsArr.forEach(artist => {
+        Spotify_searchArtistsAPI(artist.name).then( obj => {
+          if(obj.data) {
+
+              // map artistsData to redux state
+              redux_Artists[artist.name] = obj.data
+          }
+        }).catch(err => console.log(err))
+      })
+    }
+
+
   }
 
   render() {
@@ -25,6 +59,7 @@ export default class ShowList extends Component {
           <div className="show-error">{shows}</div>
         )
       } else {
+        this._fetchLocalShowArtists(shows)
         return (
           <div
             className="panel-group"
@@ -62,28 +97,9 @@ export default class ShowList extends Component {
   }
 
   _createShows(shows) {
-    // create array of all artist names playing in local shows
-    let artistsArr = []
-    shows.forEach(show => artistsArr.push(...show.performance))
-    artistsArr = _.uniq(artistsArr.map(artist => {
-      return {name: artist.artist.displayName}
-    }))
-
-    // get show Artists from DB or API
-    let artistsData = []
-    artistsArr.forEach(name => {
-      Spotify_searchArtistsAPI(name).then( obj => {
-        if(obj.data) {
-            artistsData.push(obj.data)
-            this.setState({artistsData: artistsData})
-        }
-      }).catch(err => console.log(err))
-    })
-
 
     return shows.map(show => {
       return <Show
-        artistsData={this.state.artistsData}
         songkick={ show }
         ageRestriction={ show.ageRestriction }
         showArtists= { show.performance }
@@ -106,6 +122,6 @@ export default class ShowList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, location: state.location }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow: selectShow }, dispatch);
+const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists, location: state.location }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({redux_Artists: redux_Artists, selectShow: selectShow }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ShowList);
