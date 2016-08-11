@@ -60,6 +60,7 @@ exports.searchArtists = (name, songKickId) => {
                 Artist.topTracks = data.body.tracks.map(track => {
                   return {preview_url: track.preview_url, popularity: track.popularity, name: track.name }
                 })
+
               }).catch(err => console.log(err))
 
               // Add Alubm cover images
@@ -85,8 +86,12 @@ exports.searchArtists = (name, songKickId) => {
                       followers: artist.followers.total
                     }
                   })
+                  //Save to DB
+                  Artist.save(function(err) {
+                    if (err) return console.log(err);
+                  });
                 })
-              }, 10000)
+              }, 5000)
 
               // Add Bio
               lastFM.getInfo(name).then(data => {
@@ -95,10 +100,7 @@ exports.searchArtists = (name, songKickId) => {
                   Artist.fullBio = data.artist.bio.content
 
               }).catch(err => console.log(err))
-              //Save to DB
-              Artist.save(function(err) {
-                if (err) return console.log(err);
-              });
+
               return Artist
             }
           }
