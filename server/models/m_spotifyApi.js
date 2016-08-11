@@ -4,6 +4,7 @@ const db = require("../db")
 const ArtistModel = require("../ARTISTS_Schema")
 const mongoose = require('mongoose');
 const lastFM = require("./m_lastFM")
+const _ = require("lodash")
 
 // credentials are optional
 const spotifyApi = new SpotifyWebApi({
@@ -14,25 +15,27 @@ const spotifyApi = new SpotifyWebApi({
 exports.searchArtists = (name, songKickId) => {
   return ArtistModel.findOne({ "name" : name}).then(artist => {
     if(artist) {
+      console.log("FOUND", name)
       return artist
     } else {
-      return addToDataBase()
+      return addToDataBase(name)
     }
   })
-  //console.log(abc)
 
-
-  function addToDataBase() {
-    return spotifyApi.searchArtists(name, songKickId)
+  function addToDataBase(Name) {
+    return spotifyApi.searchArtists(Name)
       .then(data => {
-        data.body.artists.items.forEach(artist => {
+        console.log("ADDING", Name)
+        data.body.artists.items.forEach((artist,i) => {
 
           // if songkick name is spotify name
-          if(name == artist.name) {
+          const Artist = new ArtistModel();
+          if(Name == artist.name) {
+
             let bool = true;
             if(bool) {
               bool = false
-              const Artist = new ArtistModel();
+
               Artist.songKickID = songKickId
               Artist.spotifyURL = artist.external_urls.spotify
               Artist.id = artist.id
@@ -57,31 +60,31 @@ exports.searchArtists = (name, songKickId) => {
                 })
               }).catch(err => console.log(err))
 
-              //wait and call relatedArtists to stay under api limits
-              setTimeout(function() {
-                spotifyApi.getArtistRelatedArtists(artist.id).then(data => {
-
-                  Artist.relatedArtists = data.body.artists.map(art => {
-                    return {
-                      songKickID: songKickId,
-                      spotifyURL: artist.external_urls.spotify,
-                      id: artist.id,
-                      name: artist.name,
-                      images: artist.images,
-                      img: artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-                      popularity: artist.popularity,
-                      followers: artist.followers.total
-                    }
-                  })
-                  //Save to DB
-                  Artist.save(function(err) {
-                    if (err) return console.log(err);
-                  });
-                })
-              }, 5000)
+              // //wait and call relatedArtists to stay under api limits
+              // setTimeout(function() {
+              //   spotifyApi.getArtistRelatedArtists(artist.id).then(data => {
+              //
+              //     Artist.relatedArtists = data.body.artists.map(art => {
+              //       return {
+              //         songKickID: songKickId,
+              //         spotifyURL: artist.external_urls.spotify,
+              //         id: artist.id,
+              //         name: artist.name,
+              //         images: artist.images,
+              //         img: artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
+              //         popularity: artist.popularity,
+              //         followers: artist.followers.total
+              //       }
+              //     })
+              //     //Save to DB
+              //     Artist.save(function(err) {
+              //       if (err) return console.log(err);
+              //     });
+              //   })
+              // }, 5000)
 
               // Add Bio
-              lastFM.getInfo(name).then(data => {
+              lastFM.getInfo(Name).then(data => {
                   Artist.lastFM_imgs = data.artist.images
                   Artist.summaryBio = data.artist.bio.summary
                   Artist.fullBio = data.artist.bio.content
@@ -95,8 +98,7 @@ exports.searchArtists = (name, songKickId) => {
             }
           }
         })
-      })
-      .catch(err => console.error(err));
+      }).catch(err => console.log("ERROR", Name));
   }
 }
 
