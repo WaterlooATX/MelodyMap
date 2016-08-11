@@ -72,7 +72,6 @@ videoSearch(term){
 
 filterArtist(artist){
   var artists = this.props.artists
-  console.log("STUFF", artists[artist].songKickID)
   Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
       this.setState({artistShows: shows.data})
     for(var key in artists){
@@ -164,9 +163,8 @@ filterArtist(artist){
     }
     else{
       return shows.map(show => {
-        console.log("INGETSHOWSS", show)
         return <div className="list-group"> 
-          <div className = "list-group-item">
+          <div className = "list-group-item" key ={show.id}>
           <p>{show.displayName}</p>
           <p>{show.location.city}</p>
           </div>
