@@ -6,7 +6,7 @@ const artistSchema = new mongoose.Schema({
   id: String,
   songKickName: String,
   spotifyName: String,
-  artistImages: Array,
+  images: Array,
   img: String,
   popularity: Number,
   followers: Number,
@@ -15,7 +15,8 @@ const artistSchema = new mongoose.Schema({
   topTracks: Array,
   summaryBio: String,
   fullBio: String,
-  updated_at: { type: Date, default: Date.now }
+  updated_at: { type: Date, default: Date.now },
+  songKickID: Number
 });
 
 // Created a Mongoose schema which maps to a MongoDB collection and defines

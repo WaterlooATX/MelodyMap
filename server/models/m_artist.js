@@ -14,28 +14,6 @@ const mongoose = require('mongoose');
 //  - return artist data
 //  - update data if old
 
-// Artist.addArtist().then()
-// exports.artistInfo = (name) => {
-//   return Spotify.searchArtists(name)
-//     .then(data => {
-//       if (data) {
-//         let a = data[0]
-//         if (a) {
-//           return {
-//             spotifyURL: data[0].external_urls,
-//             id: data[0].id,
-//             songKickName: name,
-//             spotifyName: data[0].name,
-//             artistImages: data[0].images,
-//             img: data[0].images.length ? data[0].images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-//             popularity: data[0].popularity,
-//             followers: data[0].followers.total,
-//           }
-//         }
-//       }
-//     })
-// }
-
 
 
 
@@ -62,18 +40,18 @@ exports.artistInfo = (name) => {
       Artist.save(function(err, fluffy) {
         if (err) return console.log(err);
       });
-      
+
       return Artist
     })
 
 }
 
-Spotify.getArtistRelatedArtists(artist.id)
-  .then(artist => {
-    return {
-      relatedArtists: datdata[0].artists
-    }
-  })
+// Spotify.getArtistRelatedArtists(artist.id)
+//   .then(artist => {
+//     return {
+//       relatedArtists: datdata[0].artists
+//     }
+//   })
 //
 //   Spotify.getArtistAlbums(artist.id)
 //     .then(albums => {
