@@ -271,7 +271,8 @@ class Bands extends Component {
           website: venue.website,
           name: venue.displayName,
           address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`,
-          phone: venue.phone
+          phone: venue.phone,
+          upcomingShows: null
         }
 
         // add to redux venues

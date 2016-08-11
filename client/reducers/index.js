@@ -10,8 +10,8 @@ import venuesReducer from './reducer_venues'
 
 
 const rootReducer = combineReducers({
-  venueShows: venueShowsReducer,
-  // shows: showReducer,
+  // venueShows: venueShowsReducer,
+  shows: showReducer,
   selectedShow: selectShowReducer,
   location: locationReducer,
   artists: artistReducer,
