@@ -105,13 +105,6 @@ const Artist = require("./models/m_artist")
 //     .catch(error => console.log("error", error))
 // })
 
-// let Spotify_searchArtists = 0;
-// router.post('/Spotify_searchArtists', function(req, res) {
-//   console.log(`/Spotify_searchArtists ${++Spotify_searchArtists}`)
-//   Spotify.searchArtists(req.body.name)
-//     .then(data => res.send(data))
-//     .catch(error => console.log("error", error))
-// })
 
 // let Spotify_getArtistTopTracks = 0;
 // router.post('/Spotify_getArtistTopTracks', function(req, res) {
@@ -137,10 +130,13 @@ const Artist = require("./models/m_artist")
 //     .catch(error => console.log("error", error))
 // })
 
-  Songkick.getShows({lat: 30.2672, long: -97.7431})
-    .then(data => console.log(data))
+let Spotify_searchArtists = 0;
+router.post('/Spotify_searchArtists', function(req, res) {
+  console.log(`/Spotify_searchArtists ${++Spotify_searchArtists}`)
+  Spotify.searchArtists(req.body.name)
+    .then(data => res.send(JSON.stringify(data)))
     .catch(error => console.log("error", error))
-
+})
 
 // Artist Data
 let Artist_artistInfo = 0;
