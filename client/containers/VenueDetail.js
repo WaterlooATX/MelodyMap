@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
 import { Link } from 'react-router';
-import {venue_shows} from '../actions/venue_shows';
 import NavBar from './NavBar';
 import { Songkick_getVenueCalendarAPI } from '../models/api'
+import {redux_Venues} from '../actions/venues';
 import _ from 'lodash';
 // import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api';
 // import VideoList from '../components/VideoList';
@@ -92,6 +92,6 @@ class VenueDetail extends Component {
 
 }
 
-const mapStateToProps = (state) => {return {venues: state.venues, venueShows: state.venueShows}};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ venue_shows: venue_shows}, dispatch);
+const mapStateToProps = (state) => {return { venues: state.venues }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(VenueDetail);
