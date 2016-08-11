@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 // Create a Artist schema
 const artistSchema = new mongoose.Schema({
+  lastFM_imgs: Array,
   spotifyURL: String,
   id: String,
   name: String,

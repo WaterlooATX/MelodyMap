@@ -3,6 +3,8 @@ const SpotifyWebApi = require('spotify-web-api-node')
 const db = require("../db")
 const ArtistModel = require("../ARTISTS_Schema")
 const mongoose = require('mongoose');
+const lastFM = require("./m_lastFM")
+
 // credentials are optional
 const spotifyApi = new SpotifyWebApi({
   clientId: 'c7364a23c3714de1882fded9f4142b18',
@@ -58,11 +60,6 @@ exports.searchArtists = (name, songKickId) => {
                 Artist.topTracks = data.body.tracks.map(track => {
                   return {preview_url: track.preview_url, popularity: track.popularity, name: track.name }
                 })
-
-                // Save to DB
-                Artist.save(function(err) {
-                  if (err) return console.log(err);
-                });
               }).catch(err => console.log(err))
 
               // Add Alubm cover images
@@ -70,14 +67,9 @@ exports.searchArtists = (name, songKickId) => {
                 Artist.albumsImages = data.body.items.map(album => {
                   return {images: album.images, name: album.name}
                 })
-
-                //Save to DB
-                Artist.save(function(err) {
-                  if (err) return console.log(err);
-                });
               }).catch(err => console.log(err))
 
-              // wait and call relatedArtists to stay under api limits
+              //wait and call relatedArtists to stay under api limits
               setTimeout(function() {
                 spotifyApi.getArtistRelatedArtists(artist.id).then(data => {
 
@@ -93,14 +85,20 @@ exports.searchArtists = (name, songKickId) => {
                       followers: artist.followers.total
                     }
                   })
-                  //Save to DB
-                  Artist.save(function(err) {
-                    if (err) return console.log(err);
-                  });
+                })
               }, 10000)
 
+              // Add Bio
+              lastFM.getInfo(name).then(data => {
+                  Artist.lastFM_imgs = data.artist.images
+                  Artist.summaryBio = data.artist.bio.summary
+                  Artist.fullBio = data.artist.bio.content
 
-              })
+              }).catch(err => console.log(err))
+              //Save to DB
+              Artist.save(function(err) {
+                if (err) return console.log(err);
+              });
               return Artist
             }
           }
@@ -110,20 +108,20 @@ exports.searchArtists = (name, songKickId) => {
   }
 }
 
-exports.getArtistTopTracks = (artistID, countryCode) => {
-  return spotifyApi.getArtistTopTracks(artistID, countryCode)
-    .then(data => data.body)
-    .catch(err => console.error(err));
-}
-
-exports.getArtistAlbums = (artistID) => {
-  return spotifyApi.getArtistAlbums(artistID)
-    .then(data => data.body)
-    .catch(err => console.error(err));
-}
-
-exports.getArtistRelatedArtists = (artistID) => {
-  return spotifyApi.getArtistRelatedArtists(artistID)
-    .then(data => data.body)
-    .catch(err => console.error(err));
-}
+// exports.getArtistTopTracks = (artistID, countryCode) => {
+//   return spotifyApi.getArtistTopTracks(artistID, countryCode)
+//     .then(data => data.body)
+//     .catch(err => console.error(err));
+// }
+//
+// exports.getArtistAlbums = (artistID) => {
+//   return spotifyApi.getArtistAlbums(artistID)
+//     .then(data => data.body)
+//     .catch(err => console.error(err));
+// }
+//
+// exports.getArtistRelatedArtists = (artistID) => {
+//   return spotifyApi.getArtistRelatedArtists(artistID)
+//     .then(data => data.body)
+//     .catch(err => console.error(err));
+// }
