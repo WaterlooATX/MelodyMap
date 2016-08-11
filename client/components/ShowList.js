@@ -38,18 +38,17 @@ export default class ShowList extends Component {
 
       // copy redux state
       let redux_Artists = this.props.artists
-      let showArtists = {}
+      //let showArtists = {}
       // get show Artists from DB or API
       let self = this
       artistsArr.forEach(artist => {
         Spotify_searchArtistsAPI(artist.name).then( obj => {
 
-
           if(obj.data) {
-              showArtists[artist.name] = obj.data
+              //showArtists[artist.name] = obj.data
               // map artistsData to redux state
               redux_Artists[artist.name] = obj.data
-              self.setState({showArtists: showArtists})
+              //self.setState({showArtists: showArtists})
 
           }
         }).catch(err => console.log(err))
@@ -73,7 +72,7 @@ export default class ShowList extends Component {
             id="accordion"
             role="tablist"
             aria-multiselectable="true">
-            {this.state.showArtists ? this._createShows(shows): null}
+            { this._createShows(shows) }
           </div>
         )
       }
@@ -99,7 +98,6 @@ export default class ShowList extends Component {
 
     return shows.map(show => {
       return <Show
-        allShowArtists={this.state.showArtists}
         songkick={ show }
         ageRestriction={ show.ageRestriction }
         showArtists= { show.performance }

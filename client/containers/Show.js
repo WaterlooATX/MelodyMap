@@ -29,8 +29,11 @@ class Show extends Component {
   }
 
   render() {
-    console.log(this.props.allShowArtists, this.props.artists)
-    const props = this.props, track = this.state.previewTrack;
+    console.log(this.props.artists)
+    const props = this.props;
+    const thisArtist = props.artists[props.showArtists[0].displayName];
+    const img = thisArtist ? thisArtist.img ? thisArtist.img : "http://assets.audiomack.com/default-artist-image.jpg" : "http://assets.audiomack.com/default-artist-image.jpg";
+    const track = thisArtist ? thisArtist.topTracks[0] ? thisArtist.topTracks[0].preview_url : null : null;
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -43,10 +46,18 @@ class Show extends Component {
               aria-expanded="true"
               aria-controls={`collapse${props.id}`}
             >
+<<<<<<< 66b6d3dd9ccc2c97ce3ea7818206955d68c56af7
               <img src={this.state.img} alt={props.id} height="65" width="65"/>
               <p className="artist">{ props.showArtists[0].displayName }</p>
               <p className="venue">{ props.venue } - { props.city }</p>
               <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+=======
+              <img src={ img } alt={props.id} height="65" width="65"/>
+              { track ? this._speaker( track ) : null }
+               <p className="artist">{ props.showArtists[0].displayName }</p>
+               <p className="venue">{ props.venue } - { props.city }</p>
+               <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
+>>>>>>> ShowList converted for efficient redux
             </a>
               { track ? this._speaker(track) : null }
           </h4>
@@ -80,7 +91,7 @@ class Show extends Component {
         aria-hidden="true"
         type="button"
         onClick={this._toggleSound.bind(this)}>
-        <audio src={track}></audio>
+        <audio src={ track }></audio>
       </i>
     )
   }
@@ -98,7 +109,7 @@ class Show extends Component {
           let count = 0
           let bandMembers = []
           showArtists.forEach(Artist => {
-            let artist = this.props.allShowArtists
+            //let artist = this.props.allShowArtists
             //console.log(this.props.artists)
             // if(artist) {
             //   // set title img, track for lead artist
@@ -334,5 +345,9 @@ class Band extends Component {
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
+<<<<<<< 66b6d3dd9ccc2c97ce3ea7818206955d68c56af7
 const mapDispatchToProps = (dispatch) => bindActionCreators({selectShow: selectShow, redux_Venues: redux_Venues}, dispatch);
+=======
+const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow, redux_Venues }, dispatch);
+>>>>>>> ShowList converted for efficient redux
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
