@@ -20,7 +20,6 @@ export default class ArtistDetail extends Component {
       selectedVideo: null
     }
   }
-
   componentDidMount() {
     this.videoSearch(this.props.params.artistName + "band")
     this.filterArtist(this.props.params.artistName)
@@ -28,7 +27,6 @@ export default class ArtistDetail extends Component {
 
 
   render() { 
-    this.getArtistShows(this.state.songkickID)
     return (
         <div>
           <div className="container">
@@ -48,6 +46,7 @@ export default class ArtistDetail extends Component {
                 into a singular song</p>}
             </div>
           </div>
+        <div>{this.getArtistShows(this.state.songkickID)}</div>
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
@@ -74,7 +73,6 @@ videoSearch(term){
 filterArtist(artist){
   var artists = this.props.artists
   var shows = this.props.shows
-  console.log("YOYOYO",artists)
     for(var key in artists){
       this.setState({
         artistBio: artists[artist].LastFM_getInfoAPI.bio.content,
@@ -158,11 +156,20 @@ filterArtist(artist){
   }
 
   getArtistShows(id){
-    Songkick_getArtistCalendarAPI(id).then((shows) => shows.data.map((show) => console.log("SHOWS",show)))
+    if(!id){
+      return null;
+    }
+    else{
+      Songkick_getArtistCalendarAPI(id).then((shows) => {
+        return shows.data.map(show => {
+          console.log("location", show.location.city)
+          return <p>{show.displayName}{show.location.city}</p> 
+         }
+      )}
+    )}
   }
-
-
 }
+
 
 
 const mapStateToProps = (state) => {return {artists: state.artists, shows: state.shows}};
