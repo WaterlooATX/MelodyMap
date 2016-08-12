@@ -78,10 +78,8 @@ filterArtist(artist){
   var artists = this.props.artists
 
   Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
-    console.log("SHOWS", shows)
       this.setState({artistShows: shows.data})
     for(var key in artists){
-      console.log("ARTISTS", artists[artist])
       this.setState({
         artistBio: this.shortenBio(artists[artist].fullBio),
         artistName: artists[artist].name,
@@ -90,6 +88,7 @@ filterArtist(artist){
         artistGenre: artists[artist].genre,
         artistTopTracks: artists[artist].topTracks,
         artistTour: artists[artist].onTour,
+        artistSimilar: artists[artist].relatedArtists[0].artist
       })
     }
   })
@@ -135,6 +134,7 @@ filterArtist(artist){
       return null
     }
     else{
+      console.log(artists)
       return artists.map(artist => {
         return artist.image.map(image => {
           if(image.size === "large"){
