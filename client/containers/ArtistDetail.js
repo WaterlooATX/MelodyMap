@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, Songkick_getArtistCalendarAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, Songkick_getArtistCalendarAPI, Songkick_getSimilarArtistsAPI} from '../models/api';
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
@@ -57,7 +57,7 @@ export default class ArtistDetail extends Component {
         </div>
           <div className="container-similar">
             <h3> Similar Artists </h3>
-            <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
+            <p className="text-muted credit">{this.similarArtists(this.state.artistSimilar)}</p>
           </div>
       </div>
     )
@@ -76,27 +76,23 @@ videoSearch(term){
 
 filterArtist(artist){
   var artists = this.props.artists
+
   Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
       this.setState({artistShows: shows.data})
-
     for(var key in artists){
       this.setState({
-        artistBio: this.shortenBio(artists[artist].LastFM_getInfoAPI.bio.content),
-        artistName: artists[artist].Spotify_searchArtistsAPI.name,
-        artistImg: artists[artist].Spotify_searchArtistsAPI.img,
-        artistID: artists[artist].Spotify_searchArtistsAPI.id,
-        artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
-        artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
-        artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
-        artistTour: artists[artist].LastFM_getInfoAPI.ontour,
-        songkickID: artists[artist].songKickID
+        artistBio: this.shortenBio(artists[artist].fullBio),
+        artistName: artists[artist].name,
+        artistImg: artists[artist].img,
+        artistID: artists[artist].id,
+        artistGenre: artists[artist].genre,
+        artistTopTracks: artists[artist].topTracks,
+        artistTour: artists[artist].onTour,
+        artistSimilar: artists[artist].relatedArtists[0].artist
       })
     }
   })
 }
-
-
-
 
   shortenBio(bio){
     for(var i = 0;i<bio.length;i++){
