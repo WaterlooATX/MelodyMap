@@ -50,7 +50,7 @@ class VenueDetail extends Component {
     // console.log('big artists: ', john)
 
     return showObjs.map(function(show, index){
-    console.log('show ' , show);
+    // console.log('show ' , show);
       return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
 

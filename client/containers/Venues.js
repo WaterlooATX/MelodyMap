@@ -24,11 +24,9 @@ class Venues extends Component {
               <h1>Venues</h1>
               <SearchBar />
             </div>
-            <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <div className="panel panel-default">
+              <div className="">
               {Venues}
               </div>
-            </div>
           </div>
         <div className="col col-md-1"></div>
       </div>
