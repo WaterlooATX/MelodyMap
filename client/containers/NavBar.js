@@ -23,13 +23,14 @@ class NavBar extends Component {
       spotifyData: { username: '', image: '' },
       startDate: moment(),
       endDate: moment(),
-      city: ''
+      city: '',
+      search: false
     }
   }
 
   componentDidMount() {
   // grab url, send accessToken/refreshToken to actions
-    const url = document.location.href.split("/")
+    const url = document.location.href.split("/");
     const self = this;
     if (url[5]) {
     //Spotify call to follow artist followArtist(url[5],'3TNt4aUIxgfy9aoaft5Jj2')
@@ -42,6 +43,7 @@ class NavBar extends Component {
         }
       })
     }
+
   }
 
   render () {
@@ -55,43 +57,51 @@ class NavBar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <NavLink to="/" className="navbar-brand" onlyActiveOnIndex>Melody Map</NavLink>
+              <NavLink to="/" className="navbar-brand" onlyActiveOnIndex onClick={ this.props.onLink.bind(this, true) }>Melody Map</NavLink>
 
             </div>
             <div className="collapse navbar-collapse" id="myNavbar">
               <ul className="nav navbar-nav">
-                <li><NavLink to="/artists" activeClassName="active">Artists</NavLink></li>
-                <li><NavLink to="/venues" activeClassName="active">Venues</NavLink></li>
+                <li><NavLink to="/artists" activeClassName="active" onClick={ this.props.onLink.bind(this, false) }>Artists</NavLink></li>
+                <li><NavLink to="/venues" activeClassName="active" onClick={ this.props.onLink.bind(this, false) }>Venues</NavLink></li>
                 {/* <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
-                <div className="nav-container">
+              <div className="nav-container">
+              { this.props.visibleSearch ?
+                this.state.search ?
                 <form className="songkick-search">
-                <DatePicker
-                  minDate={moment()}
-                  placeholderText="Click to select a date"
-                  todayButton={'Today'}
-                  selected={ this.state.startDate }
-                  startDate={this.state.startDate}
-                  endDate={this.state.endDate}
-                  onChange={ this._onStartChange.bind(this) }
-                />
-                <DatePicker
-                  minDate={moment()}
-                  placeholderText="Click to select a date"
-                  todayButton={'Today'}
-                  selected={ this.state.endDate }
-                  startDate={this.state.startDate}
-                  endDate={this.state.endDate}
-                  onChange={ this._onEndChange.bind(this) }
-                />
-                <input
-                  placeholder="City"
-                  value={ this.state.city }
-                  onChange={ event => this._onCityChange(event.target.value) }
-                />
-                <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
-              </form>
+                  <DatePicker
+                    minDate={moment()}
+                    placeholderText="Click to select a date"
+                    todayButton={'Today'}
+                    selected={ this.state.startDate }
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
+                    onChange={ this._onStartChange.bind(this) }
+                  />
+                  <DatePicker
+                    minDate={moment()}
+                    placeholderText="Click to select a date"
+                    todayButton={'Today'}
+                    selected={ this.state.endDate }
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
+                    onChange={ this._onEndChange.bind(this) }
+                  />
+                  <input
+                    placeholder="City"
+                    value={ this.state.city }
+                    onChange={ event => this._onCityChange(event.target.value) }
+                  />
+                  <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
+                </form>
+                : <div className="songkick-search">
+                    <a onClick={ this._onSearchClick.bind(this) } >Show Search</a>
+                  </div>
+                : <div className="songkick-search"></div>
+              }
+
               {!this.state.loggedIn ? <NavLogin /> : <UserLogin spotifyData={this.state.spotifyData}/>}
               </div>
             </div>
@@ -99,6 +109,10 @@ class NavBar extends Component {
         </nav>
       </div>
     )
+  }
+
+  _onSearchClick() {
+    this.setState({ search: true });
   }
 
   _onStartChange(startDate) {
@@ -130,6 +144,7 @@ class NavBar extends Component {
       let long = this.props.location.long;
       this.props.fetchShows({long, lat, startDate, endDate});
     }
+    this.setState({ search: false });
   }
 
 }
