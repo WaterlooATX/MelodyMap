@@ -8,8 +8,13 @@ export default class SelectedArtist extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			songPlay: false
+			songPlay: false,
+			albumArt: null
 		}
+	}
+	componentDidMount(){
+		console.log(this.props.artists)
+		//this._randomAlbumArt()
 	}
 
 	render() {
@@ -25,30 +30,28 @@ export default class SelectedArtist extends Component{
 		return this.props.artists.map((artist) => {
 			return (
 				<div key={artist.id} className="col-md-4 gridding">
-					<img className="genImage" src={this._setImage(artist)} height="105" width="105"/>
-					<br/>
-					<div className = "artist-label">
+					<div className = "artist-label" id="selected">
 						<Link
 							className="selArtist"
 							id="selArtist"
-							to={`artist/${artist.displayname}`}
+							to={`artist/${artist.name}`}
 							activeClassName="active">
-							{artist.displayName}
+					<img className="genImage" src={this._setImage(artist)} onMouseOver={this._randomAlbumArt.bind(this,artist)} height="105" width="105"/>
+					<br/>
+							{artist.name}
 						</Link>
-						{artist.tracks ? this._speaker(artist.tracks) : null}
+						{artist.topTracks ? this._speaker(artist.topTracks) : null}
 					</div>
-						
-						{artist.onTourUntil ? <p className="tour"> ON TOUR</p> : null}
+						{artist.onTour == "1" || artist.onTourUntil ? <p className=" tour">ON TOUR</p> : null}
 				</div>
 			)
 		})
 	}
 
 	_setImage(artist){
-		let Artist = artist.spotify;
-		if(Artist){
-			if(Artist[0]) {
-				return Artist[0].images.length ? Artist[0].images[0].url : "http://assets.audiomack.com/default-artist-image.jpg"
+		if(artist.images){
+			if(artist.images[0]) {
+				return artist.images[0].url ? artist.images[0].url : "http://assets.audiomack.com/default-artist-image.jpg"
 			} else {
 				return "http://assets.audiomack.com/default-artist-image.jpg"
 			}
@@ -57,23 +60,41 @@ export default class SelectedArtist extends Component{
 		}
 	}
 
+	_randomAlbumArt(artist) {
+		console.log(artist)
+    // let artists = this.props.artists
+     let albumArt = artist.albumImages ? artist.albumsImages : null
+
+     if (albumArt) {
+      const albumsImages = artist.albumsImages.map(album => {
+        return album.images ? album.images[1].url : null
+      })
+
+      if (albumsImages) {
+        let num = albumsImages.length
+        this.setState({
+          albumArt: albumsImages[Math.floor(Math.random() * num)]
+        })
+      }
+    }
+  }
+
 	_speaker(track) {
-		if(track.tracks){
-			if(track.tracks[0]){
-				if(track.tracks[0].preview_url){
+
+			if(track[0]){
+				if(track[0].preview_url){
 					return (
 					  <i
 					    className="speaker fa fa-volume-up fa-2x"
-					    id="speaker"
+					    id="selSpeaker"
 					    aria-hidden="true"
 					    type="button"
 					    onClick={this._toggleSound.bind(this)}>
-					    <audio src={track.tracks[0].preview_url}></audio>
+					    <audio src={track[0].preview_url}></audio>
 					  </i>
 					)
 				}
 			}
-		}
 	}
 
 	_toggleSound(event) {
