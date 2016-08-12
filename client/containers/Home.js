@@ -46,7 +46,7 @@ class Home extends Component {
       <div className="container-fluid text-center">
         <div className='row content'>
           <div className="col-sm-4 text-left Main">
-            {this.props.shows.length ? <ShowList onNavigateClick={ this._onNavigateClick.bind(this)} shows={ this.props.shows }/> : this._spinner }
+            {this.props.shows.length ? <ShowList onNavigateClick={ this._onNavigateClick.bind(this)} shows={ this.props.shows }/> : this._spinner() }
           </div>
           <div className="col-sm-8 sidenav">
             {
