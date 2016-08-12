@@ -40,11 +40,12 @@ exports.getShows = (data) => {
       if (concerts.length < 10) {
         return client.searchEvents({
           "location": `geo:${data.lat},${data.long}`
-        }).then(shows => {
-          let concerts = shows.slice();
-          concerts.forEach(show => {
-            if (show.venue.lat === null) show.venue.lat = show.location.lat;
-            if (show.venue.lng === null) show.venue.lng = show.location.lng;
+        }).then(Shows => {
+          sendArtistNamesToSpotify(Shows)
+          let concerts = Shows.slice();
+          concerts.forEach(Show => {
+            if (Show.venue.lat === null) Show.venue.lat = Show.location.lat;
+            if (Show.venue.lng === null) Show.venue.lng = Show.location.lng;
           });
           return concerts;
         })

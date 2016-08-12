@@ -33,7 +33,7 @@ exports.searchArtists = (name, songKickID) => {
 
     return spotifyApi.searchArtists(Name)
       .then(data => {
-
+        let artist_return = null
         data.body.artists.items.forEach((artist, i) => {
 
           // if songkick name is spotify name
@@ -72,7 +72,7 @@ exports.searchArtists = (name, songKickID) => {
                 }
               })
             }).catch(err => console.log(err))
-            
+
             // Add Bio
             lastFM.getInfo(Name).then(data => {
               if (data.artist) {
@@ -93,7 +93,6 @@ exports.searchArtists = (name, songKickID) => {
 
             }, 2000)
             return Artist
-
           }
         })
       }).catch(err => console.log("ERROR", Name));
