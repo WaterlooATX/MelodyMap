@@ -6,7 +6,6 @@ import {selectShow} from '../actions/select_show'
 import _ from 'lodash'
 import {Spotify_searchArtistsAPI} from '../models/api';
 import {redux_Artists} from '../actions/artists'
-import {addArtistToRedux} from '../models/addArtistToRedux'
 
 export default class ShowList extends Component {
 
