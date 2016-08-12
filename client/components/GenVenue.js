@@ -7,18 +7,17 @@ export default class GenVenue extends Component {
 
   render() {
     let venue = this.props.venue
+    console.log('venue ' , venue);
 
     return (
-      <div className="panel-heading" role="tab" id={`heading${venue.id}`}>
-          <div>
-            <h1>
-              <Link className = "genArtist"
-                  to={ `/venue/${venue.name}/${venue.id}`}
-                  activeClassName='active'>{venue.name}
-              </Link>
-            </h1>
-            <h4>{'Upcoming Shows: Show them around here'}</h4>
-          </div>
+      <div className="panel-heading genvenue-venue" role="tab" id={`heading${venue.id}`}>
+        <h1>
+          <Link className = "genArtist"
+              to={ `/venue/${venue.name}/${venue.id}`}
+              activeClassName='active'>{venue.name}
+          </Link>
+        </h1>
+        <h4>{venue.address}</h4>
       </div>
     )
   }
