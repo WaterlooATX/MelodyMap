@@ -23,19 +23,20 @@ class Artists extends Component {
 
   _artistSearch(term) {
     console.log("_artistSearch")
+    var artistArry = [];
     fetchArtistsAPI(term).then((artists) => {
-      artists.data.map((artist,index) => {
-        const Artists = artists.data
-        Spotify_searchArtistsAPI(artist.displayName).then((spotify) => {
-          Artists[index]["spotify"] = spotify.data;
-          spotify.data.map((track,i) => {
-            Spotify_getArtistTopTracksAPI(track.id, "US").then((tracks) => {
-              Artists[index]["tracks"] = tracks.data;
-              this.setState({artistBlocks: Artists})
-            })
-          })
-        });
+     var mapped = artists.data.map((artist,index) => {
+        return {onTourUntil: artist.onTourUntil, name: artist.displayName, id: artist.id}
+       })
+     mapped.forEach((artist)=>{
+      Spotify_searchArtistsAPI(artist).then((spotify)=>{
+        if(spotify.data){
+          spotify.data["onTourUntil"] = artist.onTourUntil
+          artistArry.push(spotify.data)
+          this.setState({artistBlocks: artistArry})
+        }
       })
+     })
     })
   }
 
@@ -61,7 +62,6 @@ class Artists extends Component {
               />
 
             </form>
-            {/* <SearchBar onSearchTermChange={this._searchInput.bind(this)} onSubmit={this._handleSubmit}/> */}
           </div>
           {this._SelectedArtistVSArtists()}
         </div>
@@ -70,7 +70,7 @@ class Artists extends Component {
 
   _SelectedArtistVSArtists() {
     if(this.state.artistBlocks.length) {
-      return <SelectedArtist artists={this.state.artistBlocks}/>
+      return <SelectedArtist artists={this.state.artistBlocks} songPlayToggle={this._songPlayToggle.bind(this)} songPlayed={ this.state.songPlayed } songButton={ this.state.songButton }/>
     } else {
       return this._createArtists()
     }
@@ -82,6 +82,14 @@ class Artists extends Component {
 
   _createArtists() {
     const artists = this.props.artists
+    for(let artist in artists){
+
+      fetchArtistsAPI(artist).then((Artist)=>{
+        // console.log(Artist)
+        artists[artist]['onTourUntil'] = Artist.data[0].onTourUntil
+      })
+    }
+    //console.log("Artists: ", artists)
     const mapped = []
     for (let artist in artists) {
       mapped.push(
