@@ -12,32 +12,37 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: 'abdbe447833643d5b85616f5691e2142'
 })
 
-exports.searchArtists = (name, songKickId) => {
-  return ArtistModel.findOne({ "name" : name}).then(artist => {
-    if(artist) {
+let Spotify_searchArtists = 0;
+exports.searchArtists = (name, songKickID) => {
+  return ArtistModel.findOne({"songKickID": songKickID})
+  .then(artist => {
+    if (artist) {
+      console.log(`${++Spotify_searchArtists} found ${name}`)
       return artist
     } else {
       return addToDataBase(name)
     }
   })
 
+  // artist whos names dont match will always make a new api call!
   function addToDataBase(Name) {
     return spotifyApi.searchArtists(Name)
       .then(data => {
-        data.body.artists.items.forEach((artist,i) => {
+
+        data.body.artists.items.forEach((artist, i) => {
 
           // if songkick name is spotify name
-
-          if(Name == artist.name) {
+          if (Name == artist.name) {
+            console.log(`${++Spotify_searchArtists} adding ${Name}`)
             const Artist = new ArtistModel();
             let bool = true;
-            if(bool) {
+            if (bool) {
               bool = false
 
-              Artist.songKickID = songKickId
+              Artist.songKickID = songKickID
               Artist.spotifyURL = artist.external_urls.spotify
               Artist.id = artist.id
-              Artist.name= artist.name
+              Artist.name = artist.name
               Artist.images = artist.images
               Artist.img = artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
               Artist.popularity = artist.popularity
@@ -46,7 +51,12 @@ exports.searchArtists = (name, songKickId) => {
               // Add Top Tracks
               spotifyApi.getArtistTopTracks(artist.id, "US").then(data => {
                 Artist.topTracks = data.body.tracks.map(track => {
-                  return {preview_url: track.preview_url, popularity: track.popularity, name: track.name, id: track.id}
+                  return {
+                    preview_url: track.preview_url,
+                    popularity: track.popularity,
+                    name: track.name,
+                    id: track.id
+                  }
                 })
 
               }).catch(err => console.log(err))
@@ -54,7 +64,10 @@ exports.searchArtists = (name, songKickId) => {
               // Add Alubm cover images
               spotifyApi.getArtistAlbums(artist.id).then(data => {
                 Artist.albumsImages = data.body.items.map(album => {
-                  return {images: album.images, name: album.name}
+                  return {
+                    images: album.images,
+                    name: album.name
+                  }
                 })
               }).catch(err => console.log(err))
 
@@ -64,7 +77,7 @@ exports.searchArtists = (name, songKickId) => {
               //
               //     Artist.relatedArtists = data.body.artists.map(art => {
               //       return {
-              //         songKickID: songKickId,
+              //         songKickID: songKickID,
               //         spotifyURL: artist.external_urls.spotify,
               //         id: artist.id,
               //         name: artist.name,
@@ -82,11 +95,11 @@ exports.searchArtists = (name, songKickId) => {
 
               // Add Bio
               lastFM.getInfo(Name).then(data => {
-                  Artist.lastFM_imgs = data.artist.image
-                  Artist.summaryBio = data.artist.bio.summary
-                  Artist.fullBio = data.artist.bio.content
-                  Artist.onTour = data.artist.ontour
-                  Artist.genre = data.artist.tags.tag
+                Artist.lastFM_imgs = data.artist.image
+                Artist.summaryBio = data.artist.bio.summary
+                Artist.fullBio = data.artist.bio.content
+                Artist.onTour = data.artist.ontour
+                Artist.genre = data.artist.tags.tag
 
 
               }).catch(err => console.log(err))

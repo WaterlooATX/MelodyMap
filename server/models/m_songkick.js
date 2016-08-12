@@ -9,26 +9,27 @@ const _ = require('lodash');
 // This search returns only upcoming events.
 exports.getShows = (data) => {
   sendArtistNamesToSpotify = shows => {
-    let artists = []
-    shows.forEach(show => artists.push(...show.performance))
-    artists = _.uniq(artists.map(artist => {
-      return {name: artist.artist.displayName, id: artist.artist.id}
-    }))
-    artists.forEach(artist => Spotify.searchArtists(artist.name, artist.id))
-  }
-  // Search based on a songkick metro area id
-  // austin 'geo:30.2669444,-97.7431'
-  // `geo:${coords.lat},${coords.long}`
-  let today = new Date()
-  today = today.toISOString().slice(0,10)
-  console.log(`geo:${data.lat},${data.long}`, data.dateA || today, data.dateB || today);
-  return client.searchEvents(
-    {
-      "location": `geo:${data.lat},${data.long}`,
-      "min_date": data.dateA || today,
-      "max_date": data.dateB || today
+      let artists = []
+      shows.forEach(show => artists.push(...show.performance))
+      artists = _.uniq(artists.map(artist => {
+        return {
+          name: artist.artist.displayName,
+          id: artist.artist.id
+        }
+      }))
+      artists.forEach(artist => Spotify.searchArtists(artist.name, artist.id))
     }
-  ).then((shows) => {
+    // Search based on a songkick metro area id
+    // austin 'geo:30.2669444,-97.7431'
+    // `geo:${coords.lat},${coords.long}`
+  let today = new Date()
+  today = today.toISOString().slice(0, 10)
+  console.log(`geo:${data.lat},${data.long}`, data.dateA || today, data.dateB || today);
+  return client.searchEvents({
+    "location": `geo:${data.lat},${data.long}`,
+    "min_date": data.dateA || today,
+    "max_date": data.dateB || today
+  }).then((shows) => {
     if (shows) {
       sendArtistNamesToSpotify(shows)
       let concerts = shows.slice();
@@ -36,8 +37,10 @@ exports.getShows = (data) => {
         if (show.venue.lat === null) show.venue.lat = show.location.lat;
         if (show.venue.lng === null) show.venue.lng = show.location.lng;
       });
-      if( concerts.length < 10) {
-        return client.searchEvents({"location": `geo:${data.lat},${data.long}`}).then(shows => {
+      if (concerts.length < 10) {
+        return client.searchEvents({
+          "location": `geo:${data.lat},${data.long}`
+        }).then(shows => {
           let concerts = shows.slice();
           concerts.forEach(show => {
             if (show.venue.lat === null) show.venue.lat = show.location.lat;

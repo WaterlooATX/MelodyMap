@@ -32,9 +32,11 @@ export default class ShowList extends Component {
       let artistsArr = []
       shows.forEach(show => artistsArr.push(...show.performance))
       artistsArr = _.uniq(artistsArr.map(artist => {
-        return {name: artist.artist.displayName}
+        return {
+          name: artist.artist.displayName,
+          id: artist.artist.id
+        }
       }))
-
 
       // copy redux state
       let redux_Artists = this.props.artists
@@ -42,7 +44,7 @@ export default class ShowList extends Component {
       // get show Artists from DB or API
       let self = this
       artistsArr.forEach(artist => {
-        Spotify_searchArtistsAPI(artist.name).then( obj => {
+        Spotify_searchArtistsAPI(artist).then( obj => {
 
           if(obj.data) {
               //showArtists[artist.name] = obj.data
@@ -114,7 +116,7 @@ export default class ShowList extends Component {
       />
     })
   }
-  
+
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists, location: state.location }};

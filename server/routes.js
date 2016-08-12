@@ -130,10 +130,9 @@ router.post('/Spotify_getArtistRelatedArtists', function(req, res) {
     .catch(error => console.log("error", error))
 })
 
-let Spotify_searchArtists = 0;
+
 router.post('/Spotify_searchArtists', function(req, res) {
-  console.log(`/Spotify_searchArtists ${++Spotify_searchArtists}`)
-  Spotify.searchArtists(req.body.name)
+  Spotify.searchArtists(req.body.name, req.body.id)
     .then(data => res.send(JSON.stringify(data)))
     .catch(error => console.log("error", error))
 })
@@ -179,13 +178,6 @@ router.post('/Songkick_getArtistCalendar', function(req, res) {
     .catch(error => console.log("error", error))
 })
 
-let Songkick_getSimilarArtists = 0;
-router.post('/Songkick_getSimilarArtists', function(req, res) {
-  console.log(`/Songkick_getSimilarArtists ${++Songkick_getSimilarArtists}`)
-  Songkick.getSimilarArtists(req.body.id)
-    .then(data => res.send(data))
-    .catch(error => console.log("error", error))
-})
 
 let Songkick_getVenue = 0;
 router.post('/Songkick_getVenue', function(req, res) {
