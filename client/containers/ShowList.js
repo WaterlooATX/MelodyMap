@@ -1,11 +1,12 @@
-import React, {Component} from "react"
-import {bindActionCreators} from 'redux'
-import {connect} from "react-redux"
-import Show from "../containers/Show"
-import {selectShow} from '../actions/select_show'
-import _ from 'lodash'
+import React, {Component} from "react";
+import {bindActionCreators} from 'redux';
+import {connect} from "react-redux";
+import _ from 'lodash';
+import {selectShow} from '../actions/select_show';
 import {Spotify_searchArtistsAPI} from '../models/api';
-import {redux_Artists} from '../actions/artists'
+import {redux_Artists} from '../actions/artists';
+import Show from "./Show";
+
 
 export default class ShowList extends Component {
 

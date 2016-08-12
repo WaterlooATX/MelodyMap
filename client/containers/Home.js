@@ -6,7 +6,7 @@ import {fetchShows} from '../actions/shows'
 import {setLocation} from '../actions/location'
 import {selectShow} from '../actions/select_show'
 import {getMyInfo, setTokens} from '../actions/spotify'
-import ShowList from '../components/ShowList'
+import ShowList from './ShowList'
 import DrawMap from '../components/DrawMap'
 import DrawNavigation from '../components/DrawNavigation'
 

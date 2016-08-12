@@ -10,6 +10,15 @@
   display: flex;
   flex: 1;
   justify-content: center;
+  align-items: center;
+}
+
+.songkick-search a {
+  cursor: pointer;
+}
+
+.songkick-search a:hover {
+  text-decoration: none;
 }
 
 .songkick-search input {

@@ -1,15 +1,31 @@
 import React, {Component} from "react"
 import NavBar from "../containers/NavBar"
 
-const App = (props) => {
-  return (
-    <div>
-      <NavBar/>
-      <div className="temp">
-        {props.children}
-      </div>
-    </div>
-  )
-}
+export default class App extends Component {
+  constructor(props) {
+    super(props);
 
-export default App;
+    this.state = {
+      visibleSearch: true
+    }
+  }
+
+  _onLink(bool) {
+    this.setState({ visibleSearch: bool });
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar
+          onLink={ this._onLink.bind(this) }
+          visibleSearch={ this.state.visibleSearch }
+        />
+        <div className="temp">
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
+
+}
