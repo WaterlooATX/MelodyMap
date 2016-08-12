@@ -16,7 +16,9 @@ const artistSchema = new mongoose.Schema({
   summaryBio: String,
   fullBio: String,
   updated_at: { type: Date, default: Date.now },
-  songKickID: Number
+  songKickID: Number,
+  onTour: String,
+  genre: Array
 });
 
 // Created a Mongoose schema which maps to a MongoDB collection and defines

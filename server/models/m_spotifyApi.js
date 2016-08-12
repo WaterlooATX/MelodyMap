@@ -46,7 +46,6 @@ exports.searchArtists = (name, songKickId) => {
               // Add Top Tracks
               spotifyApi.getArtistTopTracks(artist.id, "US").then(data => {
                 Artist.topTracks = data.body.tracks.map(track => {
-                  console.log(track.id)
                   return {preview_url: track.preview_url, popularity: track.popularity, name: track.name, id: track.id}
                 })
 
@@ -83,9 +82,12 @@ exports.searchArtists = (name, songKickId) => {
 
               // Add Bio
               lastFM.getInfo(Name).then(data => {
-                  Artist.lastFM_imgs = data.artist.images
+                  Artist.lastFM_imgs = data.artist.image
                   Artist.summaryBio = data.artist.bio.summary
                   Artist.fullBio = data.artist.bio.content
+                  Artist.onTour = data.artist.ontour
+                  Artist.genre = data.artist.tags.tag
+
 
               }).catch(err => console.log(err))
 
