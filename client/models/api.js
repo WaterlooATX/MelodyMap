@@ -13,9 +13,10 @@ export function Google_geocoder(city) {
   return axios(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=AIzaSyBJ8mgAx4EEDwXqJcDKsE996qbtAu0kQ2o`);
 }
 
-export function Spotify_searchArtistsAPI(name) {
+export function Spotify_searchArtistsAPI(artist) {
   return axios.post('/Spotify_searchArtists', {
-    name: name
+    name: artist.name,
+    id: artist.id
   });
 }
 
