@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import moment from 'moment';
 import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'

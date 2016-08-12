@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux";
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import NavBar from './NavBar';
+import UpcomingShows from '../components/UpcomingShows.js'
 import { Songkick_getVenueCalendarAPI } from '../models/api'
 import {redux_Venues} from '../actions/venues';
 import _ from 'lodash';
@@ -22,7 +23,7 @@ class VenueDetail extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._updateVenueObj(this.props.params.venueId)
   }
 
@@ -33,27 +34,34 @@ class VenueDetail extends Component {
     if (!this.props.venues[venueId].upcomingShows) {
       Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
         redux_Venue[venue.id].upcomingShows = gotshows.data
-        redux_Venues(redux_Venue)
         this.setState({upcomingShows: gotshows.data})
+        redux_Venues(redux_Venue)
       })
     } else {
       this.setState({upcomingShows: redux_Venue[venue.id].upcomingShows})
     }
   }
 
-  _displayUpcomingShows(showObjs) {
+  _displayUpcomingShows() {
+    const showObjs = this.state.upcomingShows
+    var john = showObjs.filter(function(show){
+      return (show.performance.length > 2)
+    })
+    // console.log('big artists: ', john)
+
     return showObjs.map(function(show, index){
-      return (<div key={index}>{show.displayName}</div>)
+    console.log('show ' , show);
+      return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
   }
 
 
   render() {
-    var props = this.props
-    var venueNameURL = props.params.venueName
-    var venueIdURL = props.params.venueId
+    // var props = this.props
+    var venueNameURL = this.props.params.venueName
+    var venueIdURL = this.props.params.venueId
 
-    var redux_Venue = props.venues
+    var redux_Venue = this.props.venues
     var venue = redux_Venue[venueIdURL]
 
     var venueNameForMap = venue.name.split(' ').join('+')
@@ -78,26 +86,26 @@ class VenueDetail extends Component {
               {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
               {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
             </ul>
-            <div>
-              <h2>Upcoming Shows:</h2>
-              {this.state.upcomingShows ? <h3>{this._displayUpcomingShows(this.state.upcomingShows)}</h3> : 'Generating Shows:'}
+            <div className="media-container">
+              {/* Google Places Venue */}
+              <iframe
+                width="600" height="450"
+                src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+                &q=${venueNameForMap},${venue.city}+${venue.state}
+                &zoom=17`}>
+              </iframe>
+              {/* Google Street View Venue */}
+              <iframe
+                width="600" height="450"
+                src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+                &location=${venue.geo.lat},${venue.geo.long}`}>
+              </iframe>
             </div>
           </div>
         </div>
-        <div className="media-container">
-          {/* Google Places Venue */}
-          <iframe
-            width="600" height="450"
-            src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
-            &q=${venueNameForMap},${venue.city}+${venue.state}
-            &zoom=17`}>
-          </iframe>
-          {/* Google Street View Venue */}
-          <iframe
-            width="600" height="450"
-            src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
-            &location=${venue.geo.lat},${venue.geo.long}`}>
-          </iframe>
+        <div className="upcoming-shows-container">
+          <h2>Upcoming Shows:</h2>
+          {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
         </div>
       </div>
     )
