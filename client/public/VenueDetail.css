@@ -1,6 +1,21 @@
 .upcoming-shows-container {
-    margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
+    margin: 15px;
+    width: 90%;
+    border: 3px;
+    padding: 22px;
+    border: 2px solid #eee;
+    border-radius: 2px;
+}
+
+.venue-basic-info {
+  margin: 5px;
+}
+
+.venue-media {
+  margin: 0px;
+  margin-top: 20px;
+}
+
+.venue-detail-jumbotron {
+  min-height: 0px;
 }
