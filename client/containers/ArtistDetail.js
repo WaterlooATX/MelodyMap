@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, Songkick_getArtistCalendarAPI, Songkick_getSimilarArtistsAPI} from '../models/api';
+import {Songkick_getArtistCalendarAPI, Songkick_getSimilarArtistsAPI, fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api';
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
@@ -23,7 +23,12 @@ export default class ArtistDetail extends Component {
     }
   }
   componentDidMount() {
-    this.videoSearch(this.props.params.artistName + "band")
+    this.videoSearch(this.props.params.artistName)
+    this.filterArtist(this.props.params.artistName)
+  } 
+
+  componentWillReceiveProps() {
+    this.videoSearch(this.props.params.artistName)
     this.filterArtist(this.props.params.artistName)
   }
 
@@ -80,6 +85,7 @@ filterArtist(artist){
   Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
       this.setState({artistShows: shows.data})
     for(var key in artists){
+      console.log(artists)
       this.setState({
         artistBio: this.shortenBio(artists[artist].fullBio),
         artistName: artists[artist].name,
@@ -90,7 +96,9 @@ filterArtist(artist){
         artistTour: artists[artist].onTour,
         artistSimilar: artists[artist].relatedArtists[0].artist
       })
-    }
+    } return artists[artist].relatedArtists[0].artist
+  }).then(artists => {
+    this.updateSimilarArtist(artists)
   })
 }
 
@@ -193,6 +201,21 @@ filterArtist(artist){
       })
     }
   }
+  updateSimilarArtist(artists){
+    return artists.map(artist => {
+      console.log("ARTISTS", artist)
+      fetchArtistsAPI(artist.name)
+        .then(data =>{
+            console.log("dataAA", data.data[0].id)
+            return data.data[0].id
+      }).then(id =>{
+        Spotify_searchArtistsAPI({name:artist.name, id:id})
+      }).then(newData=> {console.log("STUFFFFFF", newData)})
+    })
+      
+  }
+
+
 }
 
 const mapStateToProps = (state) => {return {artists: state.artists}};
