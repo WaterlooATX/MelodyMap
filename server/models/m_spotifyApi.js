@@ -103,6 +103,7 @@ exports.searchArtists = (name, songKickID) => {
                 Artist.fullBio = data.artist.bio.content
                 Artist.onTour = data.artist.ontour
                 Artist.genre = data.artist.tags.tag
+                Artist.relatedArtists = data.artists.similar
               }
             }).catch(err => console.log(err))
 
@@ -112,7 +113,7 @@ exports.searchArtists = (name, songKickID) => {
                 if (err) return console.log(err);
               });
 
-            }, 500)
+            }, 2000)
             return Artist
 
           }
