@@ -76,17 +76,19 @@ videoSearch(term){
 
 filterArtist(artist){
   var artists = this.props.artists
+
   Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
       this.setState({artistShows: shows.data})
 
     for(var key in artists){
+      console.log("ARTISTS", artists[artist])
       this.setState({
-        artistBio: this.shortenBio(artists[artist].LastFM_getInfoAPI.bio.content),
-        artistName: artists[artist].Spotify_searchArtistsAPI.name,
-        artistImg: artists[artist].Spotify_searchArtistsAPI.img,
-        artistID: artists[artist].Spotify_searchArtistsAPI.id,
-        artistGenre: artists[artist].LastFM_getInfoAPI.tags.tag,
-        artistTopTracks: artists[artist].Spotify_getArtistTopTracksAPI,
+        artistBio: this.shortenBio(artists[artist].fullBio),
+        artistName: artists[artist].name,
+        artistImg: artists[artist].img,
+        artistID: artists[artist].id,
+        artistGenre: artists[artist].genre,
+        artistTopTracks: artists[artist].topTracks,
         artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
         artistTour: artists[artist].LastFM_getInfoAPI.ontour,
         songkickID: artists[artist].songKickID
@@ -176,6 +178,7 @@ filterArtist(artist){
       }
       else{
       return tracks.map(track => {
+        console.log("TRACK", track)
         return track.id
       })
     }
