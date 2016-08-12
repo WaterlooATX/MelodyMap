@@ -24,10 +24,17 @@ class Artists extends Component {
   _artistSearch(term) {
     console.log("_artistSearch")
     fetchArtistsAPI(term).then((artists) => {
-      console.log("Artists: ", artists)
-      artists.data.map((artist,index) => {
+     var mapped = artists.data.map((artist,index) => {
         return {name: artist.displayName, id: artist.id}
-      //   Spotify_searchArtistsAPI(artist.displayName).then((spotify) => {
+       })
+     mapped.forEach((artist)=>{
+      Spotify_searchArtistsAPI(artist).then((data)=>{
+        console.log("data: ", data)
+      })
+     })
+    })
+  }
+        //   Spotify_searchArtistsAPI(artist.displayName).then((spotify) => {
       //     Artists[index]["spotify"] = spotify.data;
       //     spotify.data.map((track,i) => {
       //       Spotify_getArtistTopTracksAPI(track.id, "US").then((tracks) => {
@@ -36,9 +43,6 @@ class Artists extends Component {
       //       })
       //     })
       //   });
-       })
-    })
-  }
 
   _handleSubmit(event) {
     event.preventDefault();
