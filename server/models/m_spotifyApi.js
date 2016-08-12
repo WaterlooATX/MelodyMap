@@ -46,7 +46,8 @@ exports.searchArtists = (name, songKickId) => {
               // Add Top Tracks
               spotifyApi.getArtistTopTracks(artist.id, "US").then(data => {
                 Artist.topTracks = data.body.tracks.map(track => {
-                  return {preview_url: track.preview_url, popularity: track.popularity, name: track.name }
+                  console.log(track.id)
+                  return {preview_url: track.preview_url, popularity: track.popularity, name: track.name, id: track.id}
                 })
 
               }).catch(err => console.log(err))
