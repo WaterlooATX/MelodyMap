@@ -6,6 +6,7 @@ import {selectShow} from '../actions/select_show'
 import _ from 'lodash'
 import {Spotify_searchArtistsAPI} from '../models/api';
 import {redux_Artists} from '../actions/artists'
+import {addArtistToRedux} from '../models/addArtistToRedux'
 
 export default class ShowList extends Component {
 
@@ -14,52 +15,12 @@ export default class ShowList extends Component {
     this.state ={
       songPlayed: false,
       songButton: null,
-      _fetchLocalShowArtistsCalled: false,
-      showArtists: {}
-    }
-  }
-
-  componentWillMount() {
-    if(this.props.shows) this._fetchLocalShowArtists(this.props.shows)
-  }
-
-  _fetchLocalShowArtists(shows) {
-    if(!this.state._fetchLocalShowArtistsCalled) {
-      // only run once
-      this.setState({_fetchLocalShowArtistsCalled: true})
-
-      // create array of all artist names playing in local shows
-      let artistsArr = []
-      shows.forEach(show => artistsArr.push(...show.performance))
-      artistsArr = _.uniq(artistsArr.map(artist => {
-        return {
-          name: artist.artist.displayName,
-          id: artist.artist.id
-        }
-      }))
-
-      // copy redux state
-      let redux_Artists = this.props.artists
-      //let showArtists = {}
-      // get show Artists from DB or API
-      let self = this
-      artistsArr.forEach(artist => {
-        Spotify_searchArtistsAPI(artist).then( obj => {
-
-          if(obj.data) {
-              //showArtists[artist.name] = obj.data
-              // map artistsData to redux state
-              redux_Artists[artist.name] = obj.data
-              //self.setState({showArtists: showArtists})
-
-          }
-        }).catch(err => console.log(err))
-      })
     }
   }
 
   render() {
     const shows = this.props.shows;
+    this._addArtistToRedux(shows)
     if (shows.length > 0) {
       if (typeof shows === "string") {
         return (
@@ -78,7 +39,36 @@ export default class ShowList extends Component {
       }
     }
   }
+  //Move to models
+  _addArtistToRedux(shows) {
+    let Artist = this.props.artists
+    shows.forEach(show => addArtists(show))
 
+    function addArtists(show) {
+      let artists = [...show.performance]
+      artists = _.uniq(artists.map(artist => {
+        return {
+          name: artist.artist.displayName,
+          id: artist.artist.id
+        }
+      }))
+      artists.forEach(artist => addArtist(artist))
+    }
+
+    function addArtist(artist) {
+      if (!Artist[artist.name]) getArtistData(artist)
+    }
+
+    function getArtistData(artist) {
+      Spotify_searchArtistsAPI(artist).then(obj => {
+        if (obj.data) {
+          Artist[artist.name] = obj.data
+          redux_Artists(Artist)
+          console.log(Artist)
+        }
+      }).catch(err => console.log(err))
+    }
+  }
 
 
   // This callback is sent to <Show /> as props to grab show id
