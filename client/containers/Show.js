@@ -297,8 +297,16 @@ class Band extends Component {
     const name = this.props.name;
     const artist = artists[name];
     const popularity = artist ? artist.popularity : 'none'
-    let bio = artist ? artist.summaryBio : randomBio
-    //bio = bio ? bio.summaryBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...' : randomBio
+    let bio = artist ? checkBio(artist.fullBio) : randomBio
+
+    function checkBio(fullBio) {
+      if(fullBio.length) {
+        return fullBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...'
+      } else {
+        return randomBio
+      }
+    }
+
     let albumArt = artist ? artist.albumsImages : null
     albumArt = albumArt ? albumArt[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
     albumArt = this.state.albumArt ? this.state.albumArt : albumArt
