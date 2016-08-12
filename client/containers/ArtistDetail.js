@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, Songkick_getArtistCalendarAPI} from '../models/api';
+import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI, Songkick_getArtistCalendarAPI, Songkick_getSimilarArtistsAPI} from '../models/api';
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
@@ -57,7 +57,7 @@ export default class ArtistDetail extends Component {
         </div>
           <div className="container-similar">
             <h3> Similar Artists </h3>
-            <p className="text-muted credit">{this.similarArtists(this.state.artistSimliar)}</p>
+            <p className="text-muted credit">{this.similarArtists(this.state.artistSimilar)}</p>
           </div>
       </div>
     )
@@ -78,8 +78,8 @@ filterArtist(artist){
   var artists = this.props.artists
 
   Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
+    console.log("SHOWS", shows)
       this.setState({artistShows: shows.data})
-
     for(var key in artists){
       console.log("ARTISTS", artists[artist])
       this.setState({
@@ -89,16 +89,11 @@ filterArtist(artist){
         artistID: artists[artist].id,
         artistGenre: artists[artist].genre,
         artistTopTracks: artists[artist].topTracks,
-        artistSimliar: artists[artist].LastFM_getInfoAPI.similar.artist,
-        artistTour: artists[artist].LastFM_getInfoAPI.ontour,
-        songkickID: artists[artist].songKickID
+        artistTour: artists[artist].onTour,
       })
     }
   })
 }
-
-
-
 
   shortenBio(bio){
     for(var i = 0;i<bio.length;i++){
@@ -178,7 +173,6 @@ filterArtist(artist){
       }
       else{
       return tracks.map(track => {
-        console.log("TRACK", track)
         return track.id
       })
     }
