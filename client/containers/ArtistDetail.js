@@ -25,7 +25,7 @@ export default class ArtistDetail extends Component {
   }
   componentDidMount() {
     this.videoSearch(this.props.params.artistName)
-    this.filterArtist(this.props.params.artistName)
+    this.getArtist(this.props.params.artistName)
   } 
 
   componentWillReceiveProps() {
@@ -35,7 +35,6 @@ export default class ArtistDetail extends Component {
 
 
   render() {
-    console.log("ARTISTSBLOCKS", this.state.artistBlocks)
     return (
         <div>
           <div className="container">
@@ -80,29 +79,6 @@ videoSearch(term){
       })
     })
   }
-
-filterArtist(artist){
-  var artists = this.props.artists
-
-  Songkick_getArtistCalendarAPI(artists[artist].songKickID).then(shows => {
-      this.setState({artistShows: shows.data})
-    for(var key in artists){
-      console.log(artists)
-      this.setState({
-        artistBio: this.shortenBio(artists[artist].fullBio),
-        artistName: artists[artist].name,
-        artistImg: artists[artist].img,
-        artistID: artists[artist].id,
-        artistGenre: artists[artist].genre,
-        artistTopTracks: artists[artist].topTracks,
-        artistTour: artists[artist].onTour,
-        artistSimilar: artists[artist].relatedArtists[0].artist
-      })
-    } return artists[artist].relatedArtists[0].artist
-  }).then(artists => {
-    this.updateSimilarArtist(artists)
-  })
-}
 
   shortenBio(bio){
     for(var i = 0;i<bio.length;i++){
@@ -203,25 +179,33 @@ filterArtist(artist){
       })
     }
   }
-  updateSimilarArtist(artists){
+  getArtist(artist){
     let artistsArr = []
-    artists.map(artist => {
-      fetchArtistsAPI(artist.name).then(data => {
+      fetchArtistsAPI(artist).then(data => {
         var mapped = data.data.map(artistData => {
         return { name:artistData.displayName, id:artistData.id }
         })
       mapped.forEach((artist)=>{
       Spotify_searchArtistsAPI(artist).then((spotify)=>{
-        console.log("SPOTIFY DATA",spotify)
         if(spotify.data){
+          this.setState({
+        artistBio: this.shortenBio(spotify.data.fullBio),
+        artistName: spotify.data.name,
+        artistImg: spotify.data.img,
+        artistID: spotify.data.id,
+        artistGenre: spotify.data.genre,
+        artistTopTracks: spotify.data.topTracks,
+        artistTour: spotify.data.onTour,
+        artistSimilar: spotify.data.relatedArtists[0].artist
+      })
+
           artistsArr.push(spotify.data)
           this.setState({artistBlocks: artistsArr})
         }
       })
      })    
     })
-  })
-}
+  }
 
 }
 
