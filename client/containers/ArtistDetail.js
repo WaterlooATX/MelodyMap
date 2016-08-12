@@ -134,7 +134,6 @@ filterArtist(artist){
       return null
     }
     else{
-      console.log(artists)
       return artists.map(artist => {
         return artist.image.map(image => {
           if(image.size === "large"){
