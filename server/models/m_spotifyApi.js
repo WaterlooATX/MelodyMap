@@ -93,8 +93,9 @@ exports.searchArtists = (name, songKickId) => {
                 Artist.save(function(err) {
                   if (err) return console.log(err);
                 });
-                return Artist
+
               }, 2000)
+              return Artist
             }
           }
         })
