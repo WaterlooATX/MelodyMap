@@ -72,29 +72,7 @@ exports.searchArtists = (name, songKickID) => {
                 }
               })
             }).catch(err => console.log(err))
-
-            // //wait and call relatedArtists to stay under api limits
-            // setTimeout(function() {
-            //   spotifyApi.getArtistRelatedArtists(artist.id).then(data => {
-            //
-            //     Artist.relatedArtists = data.body.artists.map(art => {
-            //       return {
-            //         songKickID: songKickID,
-            //         spotifyURL: artist.external_urls.spotify,
-            //         id: artist.id,
-            //         name: artist.name,
-            //         images: artist.images,
-            //         img: artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg",
-            //         popularity: artist.popularity,
-            //         followers: artist.followers.total
-            //       }
-            //     })
-            //     //Save to DB
-
-            //   })
-            // }, 5000)
-
-
+            
             // Add Bio
             lastFM.getInfo(Name).then(data => {
               if (data.artist) {
