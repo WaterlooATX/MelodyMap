@@ -122,13 +122,13 @@ const Artist = require("./models/m_artist")
 //     .catch(error => console.log("error", error))
 // })
 
-// let Spotify_getArtistRelatedArtists = 0;
-// router.post('/Spotify_getArtistRelatedArtists', function(req, res) {
-//   console.log(`/Spotify_getArtistRelatedArtists ${++Spotify_getArtistRelatedArtists}`)
-//   Spotify.getArtistRelatedArtists(req.body.id)
-//     .then(data => res.send(data))
-//     .catch(error => console.log("error", error))
-// })
+let Spotify_getArtistRelatedArtists = 0;
+router.post('/Spotify_getArtistRelatedArtists', function(req, res) {
+  console.log(`/Spotify_getArtistRelatedArtists ${++Spotify_getArtistRelatedArtists}`)
+  Spotify.getArtistRelatedArtists(req.body.id)
+    .then(data => res.send(data))
+    .catch(error => console.log("error", error))
+})
 
 let Spotify_searchArtists = 0;
 router.post('/Spotify_searchArtists', function(req, res) {
