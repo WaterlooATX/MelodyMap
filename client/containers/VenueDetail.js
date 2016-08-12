@@ -86,24 +86,24 @@ class VenueDetail extends Component {
               {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
               {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
             </ul>
+            <div className="media-container">
+              {/* Google Places Venue */}
+              <iframe
+                width="600" height="450"
+                src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+                &q=${venueNameForMap},${venue.city}+${venue.state}
+                &zoom=17`}>
+              </iframe>
+              {/* Google Street View Venue */}
+              <iframe
+                width="600" height="450"
+                src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+                &location=${venue.geo.lat},${venue.geo.long}`}>
+              </iframe>
+            </div>
           </div>
         </div>
-        <div className="media-container">
-          {/* Google Places Venue */}
-          <iframe
-            width="600" height="450"
-            src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
-            &q=${venueNameForMap},${venue.city}+${venue.state}
-            &zoom=17`}>
-          </iframe>
-          {/* Google Street View Venue */}
-          <iframe
-            width="600" height="450"
-            src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
-            &location=${venue.geo.lat},${venue.geo.long}`}>
-          </iframe>
-        </div>
-        <div>
+        <div className="upcoming-shows-container">
           <h2>Upcoming Shows:</h2>
           {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
         </div>
