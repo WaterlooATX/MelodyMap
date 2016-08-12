@@ -16,12 +16,17 @@ export default class UpcomingShows extends Component {
 
     return (
       <div className='upcoming-show'>
-        { artistArr[0] }
-        { artistArr[1] ? <span> with {artistArr[1]}</span> : null }
-        {additionalArtists}
-        {show.start.datetime? <div>{moment(show.start.datetime).format('LLLL')}</div> : <div>{moment(show.start.date).format('LL')}</div>}
-        <div>{show.venue.displayName}, {show.location.city}</div>
-        {show.status !== 'ok' ? <div><span className="label label-danger">{show.status}</span></div> : null}
+          <div className='upcoming-show-buttons'>
+            {show.status !== 'ok'
+              ? <div><span className="label label-danger upcoming-show-status">{show.status}</span></div>
+              : <a href={this.props.show.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>}
+          </div>
+          <div className='upcoming-show-info'>
+            <div className='upcoming-show-artists'>{ artistArr[0] } { artistArr[1] ? <span> with {artistArr[1]}</span> : null } {additionalArtists}</div>
+            {show.start.datetime ? <div>{moment(show.start.datetime).format('LLLL')}</div> : <div>{moment(show.start.date).format('LL')}</div>}
+            <div>{show.venue.displayName}, {show.location.city}</div>
+          </div>
+
       </div>
     )
   }

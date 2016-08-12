@@ -5,3 +5,19 @@
 .upcoming-shows-container {
   font-size: 20px;
 }
+
+.upcoming-show-info {
+  display: inline-block;
+}
+
+.upcoming-show-buttons {
+  float: right;
+}
+
+.upcoming-show-artist {
+  font-size: 25px;
+}
+
+.upcoming-show-status {
+
+}

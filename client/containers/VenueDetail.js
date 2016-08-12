@@ -53,6 +53,15 @@ class VenueDetail extends Component {
     console.log('show ' , show);
       return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
+
+    // use google place search
+    // google place detail
+    // Place Photo Requests
+
+    // _getPlaceInfo(name, lat, long) {
+
+    // }
+
   }
 
 
@@ -77,18 +86,19 @@ class VenueDetail extends Component {
     return (
       <div>
         <div className="container">
-          <div className="jumbotron">
+          <div className="jumbotron venue-detail-jumbotron">
             <h1>{venue.name}</h1>
-            <ul>
+            <ul className="venue-basic-info">
               {venue.website ? <li>Website: <a href={`${venue.website}`} target="_blank">{`${website}`}</a></li> : null}
               {venue.address ? <li>{ `Address: ${venue.address}` }</li> : null}
               {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
               {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
               {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
             </ul>
-            <div className="media-container">
+            <div className="media-container venue-media">
               {/* Google Places Venue */}
               <iframe
+                className=""
                 width="600" height="450"
                 src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
                 &q=${venueNameForMap},${venue.city}+${venue.state}
@@ -96,6 +106,7 @@ class VenueDetail extends Component {
               </iframe>
               {/* Google Street View Venue */}
               <iframe
+                className=""
                 width="600" height="450"
                 src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
                 &location=${venue.geo.lat},${venue.geo.long}`}>
@@ -103,9 +114,18 @@ class VenueDetail extends Component {
             </div>
           </div>
         </div>
-        <div className="upcoming-shows-container">
-          <h2>Upcoming Shows:</h2>
-          {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
+
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-2"></div>
+            <div className="col-md-8">
+              <div className="upcoming-shows-container">
+                <h2>Upcoming Shows:</h2>
+                {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
+              </div>
+            </div>
+            <div className="col-md-2"></div>
+          </div>
         </div>
       </div>
     )
