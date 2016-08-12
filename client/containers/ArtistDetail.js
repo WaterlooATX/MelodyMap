@@ -19,7 +19,8 @@ export default class ArtistDetail extends Component {
     this.state = {
       videos: [],
       selectedVideo: null,
-      bio: ''
+      bio: '',
+      artistBlocks: []
     }
   }
   componentDidMount() {
@@ -34,6 +35,7 @@ export default class ArtistDetail extends Component {
 
 
   render() {
+    console.log("ARTISTSBLOCKS", this.state.artistBlocks)
     return (
         <div>
           <div className="container">
@@ -202,19 +204,24 @@ filterArtist(artist){
     }
   }
   updateSimilarArtist(artists){
-    return artists.map(artist => {
-      console.log("ARTISTS", artist)
-      fetchArtistsAPI(artist.name)
-        .then(data =>{
-            console.log("dataAA", data.data[0].id)
-            return data.data[0].id
-      }).then(id =>{
-        Spotify_searchArtistsAPI({name:artist.name, id:id})
-      }).then(newData=> {console.log("STUFFFFFF", newData)})
+    let artistsArr = []
+    artists.map(artist => {
+      fetchArtistsAPI(artist.name).then(data => {
+        var mapped = data.data.map(artistData => {
+        return { name:artistData.displayName, id:artistData.id }
+        })
+      mapped.forEach((artist)=>{
+      Spotify_searchArtistsAPI(artist).then((spotify)=>{
+        console.log("SPOTIFY DATA",spotify)
+        if(spotify.data){
+          artistsArr.push(spotify.data)
+          this.setState({artistBlocks: artistsArr})
+        }
+      })
+     })    
     })
-      
-  }
-
+  })
+}
 
 }
 
