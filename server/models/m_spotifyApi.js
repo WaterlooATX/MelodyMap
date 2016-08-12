@@ -27,9 +27,9 @@ exports.searchArtists = (name, songKickId) => {
         data.body.artists.items.forEach((artist,i) => {
 
           // if songkick name is spotify name
-          const Artist = new ArtistModel();
-          if(Name == artist.name) {
 
+          if(Name == artist.name) {
+            const Artist = new ArtistModel();
             let bool = true;
             if(bool) {
               bool = false
@@ -75,11 +75,10 @@ exports.searchArtists = (name, songKickId) => {
               //       }
               //     })
               //     //Save to DB
-              //     Artist.save(function(err) {
-              //       if (err) return console.log(err);
-              //     });
+
               //   })
               // }, 5000)
+
 
               // Add Bio
               lastFM.getInfo(Name).then(data => {
@@ -91,6 +90,9 @@ exports.searchArtists = (name, songKickId) => {
 
               // give API calls 2 secs
               setTimeout(function() {
+                Artist.save(function(err) {
+                  if (err) return console.log(err);
+                });
                 return Artist
               }, 2000)
             }
