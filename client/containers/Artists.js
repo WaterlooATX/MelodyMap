@@ -24,18 +24,19 @@ class Artists extends Component {
   _artistSearch(term) {
     console.log("_artistSearch")
     fetchArtistsAPI(term).then((artists) => {
+      console.log("Artists: ", artists)
       artists.data.map((artist,index) => {
-        const Artists = artists.data
-        Spotify_searchArtistsAPI(artist.displayName).then((spotify) => {
-          Artists[index]["spotify"] = spotify.data;
-          spotify.data.map((track,i) => {
-            Spotify_getArtistTopTracksAPI(track.id, "US").then((tracks) => {
-              Artists[index]["tracks"] = tracks.data;
-              this.setState({artistBlocks: Artists})
-            })
-          })
-        });
-      })
+        return {name: artist.displayName, id: artist.id}
+      //   Spotify_searchArtistsAPI(artist.displayName).then((spotify) => {
+      //     Artists[index]["spotify"] = spotify.data;
+      //     spotify.data.map((track,i) => {
+      //       Spotify_getArtistTopTracksAPI(track.id, "US").then((tracks) => {
+      //         Artists[index]["tracks"] = tracks.data;
+      //         this.setState({artistBlocks: Artists})
+      //       })
+      //     })
+      //   });
+      // })
     })
   }
 
@@ -70,7 +71,7 @@ class Artists extends Component {
 
   _SelectedArtistVSArtists() {
     if(this.state.artistBlocks.length) {
-      return <SelectedArtist artists={this.state.artistBlocks}/>
+      return <SelectedArtist artists={this.state.artistBlocks} songPlayToggle={this._songPlayToggle.bing(this)} songPlayed={ this.state.songPlayed } songButton={ this.state.songButton }/>
     } else {
       return this._createArtists()
     }

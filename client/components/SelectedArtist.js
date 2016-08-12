@@ -77,17 +77,25 @@ export default class SelectedArtist extends Component{
 	}
 
 	_toggleSound(event) {
+			let songPlayed = this.props.songPlayed;
 			let playButton = event.target;
 			let parent = playButton.parentElement;
 			let audioElem = parent.getElementsByTagName("audio")[0];
-			if (!this.state.songPlay) {
-			  playButton.className = "fa fa-pause fa-2x";
-			  this.setState({songPlay: true})
-			  audioElem.play();
-			} else {
-			  this.setState({songPlay: false})
-			  playButton.className = "fa fa-volume-up fa-2x";
-			  audioElem.pause();
-			}
-		}
+			if (!songPlayed) {
+		      this.props.songPlayToggle(audioElem, playButton)
+		      playButton.className = "fa fa-pause fa-2x";
+		      audioElem.play();
+		    } else if (songPlayed === audioElem) {
+		      audioElem.pause();
+		      playButton.className = "fa fa-volume-up fa-2x";
+		      this.props.songPlayToggle(false, null)
+		    } else if (songPlayed !== audioElem) {
+		      songPlayed.pause()
+		      this.props.songButton.className = "fa fa-volume-up fa-2x";
+		      this.props.songPlayToggle(audioElem, playButton);
+		      playButton.className = "fa fa-pause fa-2x";
+		      audioElem.play();
+		    }
+	}
+		
 }
