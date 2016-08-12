@@ -2,10 +2,13 @@
   margin: 20px;
 }
 
-.upcoming-shows-container {
+/*.upcoming-shows-container {
   font-size: 20px;
+  border-style: solid;
+  border-width: 10px;
+  border-color: #eee;
 }
-
+*/
 .upcoming-show-info {
   display: inline-block;
 }
@@ -14,7 +17,7 @@
   float: right;
 }
 
-.upcoming-show-artist {
+.upcoming-show-artists {
   font-size: 25px;
 }
 

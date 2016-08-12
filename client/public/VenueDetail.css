@@ -2,7 +2,9 @@
     margin: 15px;
     width: 90%;
     border: 3px;
-    padding: 10px;
+    padding: 22px;
+    border: 2px solid #eee;
+    border-radius: 2px;
 }
 
 .venue-basic-info {

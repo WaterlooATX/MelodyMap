@@ -8,7 +8,7 @@ export default class UpcomingShows extends Component {
     var show = this.props.show
     let artists = this.props.show.performance
     let artistArr = artists.map(function(artist){
-      return <Link to={`/artist/${artist.displayName}`} className="upcoming-show-link">{artist.displayName}</Link>
+      return <Link to={`/artist/${artist.displayName}`} className="upcoming-show-artists">{artist.displayName}</Link>
     })
     let additionalArtists = artistArr.slice(2).map(function(artist){
       return (<span>, {artist}</span>)
