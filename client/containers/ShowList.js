@@ -64,7 +64,6 @@ export default class ShowList extends Component {
         if (obj.data) {
           Artist[artist.name] = obj.data
           redux_Artists(Artist)
-          console.log(Artist)
         }
       }).catch(err => console.log(err))
     }
