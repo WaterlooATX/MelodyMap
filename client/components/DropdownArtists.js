@@ -7,16 +7,16 @@ export default class DropdownArtists extends Component {
   _createBand() {
     const bands = this.props.bands;
     if(isReduxLoaded(this.props.artists) && bands) {
-      console.log(this.props.artists)
-      return bands
-      //.sort((a, b) => b.followers - a.followers)
-      .map((artist,index) => {
-
-        return (
-          <DropdownArtist key ={index} name={artist} artists={this.props.artists}/>
-        )
-      })
+      return this._mappedArtists(bands)
     }
+  }
+
+  _mappedArtists(bands) {
+    return bands.map((name, index) => {
+      return (
+        <DropdownArtist key ={index} artist={this.props.artists[name]}/>
+      )
+    })
   }
 
   _venueLoading() {
