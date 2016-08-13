@@ -2,11 +2,8 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
 import {redux_Artists} from '../actions/artists';
-import SearchBar from '../components/SearchBar';
-import {fetchArtistsAPI} from '../models/api';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api'
+import {fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api'
 import ArtistList from '../components/ArtistList'
-// import ArtistItem from '../components/ArtistItem'
 import _ from 'lodash';
 
 class Artists extends Component {
