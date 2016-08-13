@@ -55,9 +55,10 @@ class VenueDetail extends Component {
     // Place Photo Requests
 
   _getPlaceInfo(name, lat, long) {
-    Google_placeIdAPI().then((resp) => {
-      console.log(resp.data)
-    })
+    Google_placeIdAPI()
+    // .then((resp) => {
+    //   console.log(resp.data)
+    // })
   }
 
   render() {

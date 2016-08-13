@@ -4,14 +4,30 @@ var googleAPI = 'AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew';
 
 
 
-export function Google_placeIdAPI() {
-  return axios({
-  method: 'get',
-  url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?
-    location=-33.8670522,151.1957362&radius=500&type=restaurant&name=cruise&key=${googleAPI}`,
-  response: 'jsonp'
-});
+export function Google_placeIdAPI(dotings) {
+  $.ajax({
+            url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&name=cruise&key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew",
+            type: "GET",
+            dataType: 'jsonp',
+            cache: false,
+            success: function(response){
+              dotings(response);
+            }
+        });
 }
+
+function dotings (bam) {
+  console.log(bam);
+}
+
+// }export function Google_placeIdAPI() {
+//   return axios({
+//   method: 'get',
+//   url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?
+//     location=-33.8670522,151.1957362&radius=500&type=restaurant&name=cruise&key=${googleAPI}`,
+//   response: 'jsonp'
+// });
+// }
 
 
 // {
