@@ -16,6 +16,7 @@ class Artists extends Component {
   }
 
   _artistSearch(term) {
+    this.setState({searchedArtists: {}})
     fetchArtistsAPI(term).then(artists => {
       const mappedArtists = this._mapData(artists)
       mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist))
@@ -80,7 +81,7 @@ class Artists extends Component {
   }
 
   _artistList() {
-    if (this.state.searchedArtists.length) {
+    if (Object.keys(this.state.searchedArtists).length) {
       return this.state.searchedArtists
     } else {
       return this.props.artists
@@ -88,6 +89,7 @@ class Artists extends Component {
   }
 
   render() {
+      const artists = this._artistList()
       return(
         <div className="container">
           <div className="page-header">
@@ -101,7 +103,7 @@ class Artists extends Component {
               />
             </form>
           </div>
-          <ArtistList artists={this._artistList()} />
+          <ArtistList artists={artists} />
         </div>
       )
    }
