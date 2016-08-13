@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import GenArtist from '../components/GenArtist';
 import {redux_Artists} from '../actions/artists';
 import SearchBar from '../components/SearchBar';
-import SelectedArtist from '../components/SelectedArtist'
 import {fetchArtistsAPI} from '../models/api';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api'
+import ArtistList from '../components/ArtistList'
+import ArtistItem from '../components/ArtistItem'
 import _ from 'lodash';
 
 class Artists extends Component {
@@ -14,37 +14,40 @@ class Artists extends Component {
   constructor(props){
     super(props);
     this.state={
-      searchedArtists: [],
-      term: '',
-      songPlayed: false,
-      songButton: null
+      searchedArtists: {},
+      term: ''
     }
   }
 
   _artistSearch(term) {
     const artistArry = [];
     fetchArtistsAPI(term).then((artists) => {
-     const mapped = artists.data.map((artist,index) => {
-        return {onTourUntil: artist.onTourUntil, name: artist.displayName, id: artist.id}
-       })
-     mapped.forEach((artist)=>{
-       // check that aritst isnt is redux
-
-         Spotify_searchArtistsAPI(artist).then((spotify)=>{
-           if(spotify.data){
-             spotify.data["onTourUntil"] = artist.onTourUntil
-             artistArry.push(spotify.data)
-             this._addArtistToRedux(spotify.data)
-             this.setState({searchedArtists: artistArry})
-           }
-         })
-     })
+      const mapped = artists.data.map(artist => {
+        return {
+          onTourUntil: artist.onTourUntil,
+          name: artist.displayName,
+          id: artist.id
+        }
+      })
+      mapped.forEach((artist) => {
+        // check that aritst isnt is redux
+        Spotify_searchArtistsAPI(artist).then((spotify) => {
+          if (spotify.data) {
+            this.createArtistObject(spotify.data)
+          }
+        })
+      })
     })
   }
 
-  _addArtistToRedux(artist) {
-    // this.props.artist[artist.name] = artist
-    // redux_Artists(Artist)
+  _createArtistObject(artist) {
+    const Artists = this.props.artists
+    const searchedArtists = this.state.searchedArtists
+    spotify.data["onTourUntil"] = artist.onTourUntil
+    searchedArtists[spotify.data.name] = spotify.data
+    Artists[spotify.data.name] = spotify.data
+    this.setState({searchedArtists: searchedArtists})
+    redux_Artists(Artist)
   }
 
   _handleSubmit(event) {
@@ -57,7 +60,11 @@ class Artists extends Component {
   }
 
   _artistList(){
-
+    if(this.state.searchedArtists.length) {
+      return this.state.searchedArtists
+    } else {
+      return this.props.artists
+    }
   }
 
   render() {
@@ -74,67 +81,12 @@ class Artists extends Component {
               />
             </form>
           </div>
-          <ArtistList artistList={this._artistList()} />
-          {this._SelectedArtistVSArtists()}
+          {/* <ArtistList artistList={this._artistList()} /> */}
         </div>
       )
   }
-
 }
 
-class ArtistList extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-    }
-  }
-
-  render() {
-    return (
-
-    )
-  }
-
-  _songPlayToggle(songPlayed, songButton) {
-    this.setState({ songPlayed, songButton })
-  }
-
-  _createArtists() {
-    const artists = this.props.artists
-    for(let artist in artists){
-
-      // fetchArtistsAPI(artist).then((Artist)=>{
-      //   // console.log(Artist)
-      //   artists[artist]['onTourUntil'] = Artist.data[0].onTourUntil
-      // })
-    }
-    //console.log("Artists: ", artists)
-    const mapped = []
-    for (let artist in artists) {
-      mapped.push(
-        <GenArtist
-          artist={artists[artist]}
-          key={artist}
-          name={artist}
-          selectedartists={this.state.selectedartists}
-          artistBlocks={this.state.artistBlocks}
-          songPlayed={ this.state.songPlayed }
-          songButton={ this.state.songButton }
-          songPlayToggle={ this._songPlayToggle.bind(this) }
-        />
-      )
-    }
-    return mapped
-  }
-}
-
-class ArtistItem extends Component {
-  render() {
-    return (
-
-    )
-  }
-}
 
 const mapStateToProps = (state) => {return {artists: state.artists }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
