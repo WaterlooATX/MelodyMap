@@ -139,10 +139,6 @@ class Show extends Component {
 
 }
 
-
-
-
-
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow, redux_Venues }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Show);

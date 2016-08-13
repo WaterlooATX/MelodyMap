@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import DropdownArtistTitle from './DropdownArtistTitle'
 import DropdownArtist from './DropdownArtist'
 import {isReduxLoaded} from '../models/helpers'
+
 export default class DropdownArtists extends Component {
 
   _createBand() {

@@ -28,21 +28,35 @@ export default class DropdownArtist extends Component {
       <div>
         <div className="accordion-band">
           <div className="band-info">
-            <img className="accordion-album-art img-circle"  src={albumArt} alt={name} onClick={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
-            <div className="accordion-album-band-name"><b>
-              <Link to={`artist/${name}`} activeClassName='active'>{name}</Link>
-            </b></div>
+            <img
+              className="accordion-album-art img-circle"
+              src={albumArt}
+              alt={name}
+              onClick={this._randomAlbumArt.bind(this)}
+              onTouchStart={this._randomAlbumArt.bind(this)}
+            />
+            <div className="accordion-album-band-name">
+              <b>
+                <Link to={`artist/${name}`} activeClassName='active'>{name}</Link>
+              </b>
+            </div>
           </div>
           <div className='right popularity'>
             <div className="accordion-text">{getBio(artist)}</div>
               <div className="text-center">{`Popularity`}</div>
             <div className="progress">
-              <div className="progress-bar" role="progressbar" aria-valuenow={popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${popularity}%`}}></div>
+              <div
+                className="progress-bar"
+                role="progressbar"
+                aria-valuenow={popularity}
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={{width: `${popularity}%`}}>
+              </div>
             </div>
           </div>
         </div>
       </div>
     )
   }
-
 }
