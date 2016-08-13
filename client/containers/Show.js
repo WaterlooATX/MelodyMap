@@ -7,6 +7,8 @@ import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
+import {Speaker} from '../components/Speaker'
+import {toggleSound} from '../models/toggleSound'
 
 
 class Show extends Component {
@@ -48,7 +50,7 @@ class Show extends Component {
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
-            { track ? this._speaker(track) : null }
+            { track ? Speaker.call(this, track, this._toggleSound.bind(this), 3) : null }
           </h4>
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
@@ -71,18 +73,6 @@ class Show extends Component {
     )
   }
 
-  _speaker(track) {
-    return (
-      <i
-        className="speaker fa fa-volume-up fa-3x"
-        id="speaker"
-        aria-hidden="true"
-        type="button"
-        onClick={this._toggleSound.bind(this)}>
-        <audio src={ track }></audio>
-      </i>
-    )
-  }
 
   _doorsOpen() {
     // doorsOpen variable set to display pretty date with moment.js
