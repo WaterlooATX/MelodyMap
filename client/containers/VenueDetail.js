@@ -21,14 +21,15 @@ class VenueDetail extends Component {
     this.state = {
       upcomingShows: null,
       currVenue: this.props.venues[this.props.params.venueId],
-      placeId: null
+      placeIdObj: null,
+      placeId: null,
+      photoReference: null
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._updateVenueObj(this.props.params.venueId)
     this._getPlaceInfo(this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long)
-    console.log('this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long ' , this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long);
   }
 
   _updateVenueObj(venueId) {
@@ -59,20 +60,25 @@ class VenueDetail extends Component {
     // replace website formatting below here
   }
 
-  _formatVenueName(name) {
-    return name.split(' ').join('%20')
-  }
-
     // use google place search
     // google place detail
     // Place Photo Requests
 
   _getPlaceInfo(name, lat, long) {
-    let formattedName = this._formatVenueName(name)
+    let formattedName = name.split(' ').join('%20')
     Google_placeIdAPI(formattedName, lat, long)
       .then((resp) => {
-        console.log(resp.data)
-    })
+        if (resp.data[0]) {
+          this.setState({
+            placeIdObj: resp.data[0],
+            placeId: resp.data[0].id,
+            photoReference: resp.data[0].photos[0].photo_reference || null
+          })
+        }
+        console.log('this.state.placeIdObj ' , this.state.placeIdObj);
+        console.log('this.state.placeId ' , this.state.placeId);
+        console.log('this.state.photoReference ' , this.state.photoReference);
+      })
   }
 
 
