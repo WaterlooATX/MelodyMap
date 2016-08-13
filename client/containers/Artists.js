@@ -82,7 +82,7 @@ class Artists extends Component {
   }
 
   _artistList() {
-    isReduxLoaded(this.state.searchedArtists) ? this.state.searchedArtists : this.props.artists
+    return isReduxLoaded(this.state.searchedArtists) ? this.state.searchedArtists : this.props.artists
   }
 
   render() {
