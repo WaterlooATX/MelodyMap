@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router';
 import {Speaker} from './Speaker'
-import {topTrack} from '../models/helpers'
+import {topTrack, getAlbumArt} from '../models/helpers'
 
 export default class ArtistItem extends Component {
   constructor(props){
@@ -38,10 +38,7 @@ export default class ArtistItem extends Component {
 	}
 
   _setImage(artist) {
-    let albumArt = artist ? artist.albumsImages : null
-    albumArt = albumArt ? albumArt[0] : null
-    albumArt = albumArt ? albumArt.images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
-    return albumArt = this.state.albumArt ? this.state.albumArt : albumArt
+    return this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
   }
 
   _randomAlbumArt(artist) {
