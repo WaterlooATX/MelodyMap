@@ -43,7 +43,6 @@ export const getRandomAlbumArt = (Artist) => {
   }
 }
 export const addArtistToRedux = (shows, Artist, Spotify_searchArtistsAPI, redux_Artists) => {
-  console.log(Artist)
   shows.forEach(show => addArtists(show))
 
   function addArtists(show) {

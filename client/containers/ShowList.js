@@ -25,7 +25,6 @@ export default class ShowList extends Component {
           <div className="show-error">{shows}</div>
         )
       } else {
-        console.log(this.props.artists)
         addArtistToRedux(shows, this.props.artists, Spotify_searchArtistsAPI, redux_Artists)
         return (
           <div
