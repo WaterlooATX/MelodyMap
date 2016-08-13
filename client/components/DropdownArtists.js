@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
 import DropdownArtistTitle from './DropdownArtistTitle'
 import DropdownArtist from './DropdownArtist'
-
+import {isReduxLoaded} from '../models/helpers'
 export default class DropdownArtists extends Component {
 
   _createBand() {
     const bands = this.props.bands;
-    if(bands) {
+    if(isReduxLoaded(this.props.artists) && bands) {
+      console.log(this.props.artists)
       return bands
       //.sort((a, b) => b.followers - a.followers)
       .map((artist,index) => {
+
         return (
           <DropdownArtist key ={index} name={artist} artists={this.props.artists}/>
         )

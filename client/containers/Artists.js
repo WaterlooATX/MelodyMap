@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {redux_Artists} from '../actions/artists';
 import {fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api'
 import ArtistList from '../components/ArtistList'
+import {isReduxLoaded} from '../models/helpers'
 import _ from 'lodash';
 
 class Artists extends Component {
@@ -81,15 +82,10 @@ class Artists extends Component {
   }
 
   _artistList() {
-    if (Object.keys(this.state.searchedArtists).length) {
-      return this.state.searchedArtists
-    } else {
-      return this.props.artists
-    }
+    isReduxLoaded(this.state.searchedArtists) ? this.state.searchedArtists : this.props.artists
   }
 
   render() {
-      const artists = this._artistList()
       return(
         <div className="container">
           <div className="page-header">
@@ -103,7 +99,7 @@ class Artists extends Component {
               />
             </form>
           </div>
-          <ArtistList artists={artists} />
+          <ArtistList artists={this._artistList()} />
         </div>
       )
    }

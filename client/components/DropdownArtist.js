@@ -1,24 +1,25 @@
 import {Link} from 'react-router';
 import React, {Component} from 'react';
-import {getAlbumArt} from '../models/helpers'
+import {getAlbumArt, getBio} from '../models/helpers'
 
 export default class DropdownArtist extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      albumArt: null
+      albumArt: null,
+      artist: null
     }
   }
 
   componentDidMount() {
     this._randomAlbumArt()
+
+    this.setState({artist: this.props.artists[this.props.name]})
   }
 
   _randomAlbumArt() {
-    const artists = this.props.artists;
-    const name = this.props.name;
-    const artist = artists[name];
+    const artist = this.state.artist
     let albumArt = artist ? artist.albumsImages : null
 
     if (albumArt && artist) {
@@ -36,22 +37,8 @@ export default class DropdownArtist extends Component {
   }
 
   render() {
-
-    const randomBio = "The music sails alive with the compelling combination of rich layers among mixed styles of rhythm that hit the soul. By melding hook-filled melody within hard and heavy beats, has the ability to compact a vast array of influence and experience into a singular song"
-    const artists = this.props.artists;
-    const name = this.props.name;
-    const artist = artists[name];
+    const artist = this.state.artist
     const popularity = artist ? artist.popularity : 'none'
-    let bio = artist ? checkBio(artist.fullBio) : randomBio
-
-    function checkBio(fullBio) {
-      if(fullBio && fullBio.length) {
-        return fullBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...'
-      } else {
-        return randomBio
-      }
-    }
-
     const albumArt = this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
 
     const Style = {
@@ -70,7 +57,7 @@ export default class DropdownArtist extends Component {
             </b></div>
           </div>
           <div className='right popularity'>
-            <div className="accordion-text">{bio}</div>
+            <div className="accordion-text">{getBio(artist)}</div>
               <div className="text-center">{`Popularity`}</div>
             <div className="progress">
               <div className="progress-bar" role="progressbar" aria-valuenow={popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${popularity}%`}}></div>
