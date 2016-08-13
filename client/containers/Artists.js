@@ -14,7 +14,7 @@ class Artists extends Component {
   constructor(props){
     super(props);
     this.state={
-      artistBlocks: [],
+      searchedArtists: [],
       term: '',
       songPlayed: false,
       songButton: null
@@ -22,9 +22,9 @@ class Artists extends Component {
   }
 
   _artistSearch(term) {
-    var artistArry = [];
+    const artistArry = [];
     fetchArtistsAPI(term).then((artists) => {
-     var mapped = artists.data.map((artist,index) => {
+     const mapped = artists.data.map((artist,index) => {
         return {onTourUntil: artist.onTourUntil, name: artist.displayName, id: artist.id}
        })
      mapped.forEach((artist)=>{
@@ -35,7 +35,7 @@ class Artists extends Component {
              spotify.data["onTourUntil"] = artist.onTourUntil
              artistArry.push(spotify.data)
              this._addArtistToRedux(spotify.data)
-             this.setState({artistBlocks: artistArry})
+             this.setState({searchedArtists: artistArry})
            }
          })
      })
@@ -51,12 +51,16 @@ class Artists extends Component {
     event.preventDefault();
     this._artistSearch(this.state.term)
   }
+
   _onInputChange(term) {
     this.setState({term: term})
   }
 
+  _artistList(){
+
+  }
+
   render() {
-    console.log(this.props.artists)
       return(
         <div className="container">
           <div className="page-header">
@@ -70,17 +74,25 @@ class Artists extends Component {
               />
             </form>
           </div>
+          <ArtistList artistList={this._artistList()} />
           {this._SelectedArtistVSArtists()}
         </div>
       )
   }
 
-  _SelectedArtistVSArtists() {
-    if(this.state.artistBlocks.length) {
-      return <SelectedArtist artists={this.state.artistBlocks} songPlayToggle={this._songPlayToggle.bind(this)} songPlayed={ this.state.songPlayed } songButton={ this.state.songButton }/>
-    } else {
-      return this._createArtists()
+}
+
+class ArtistList extends Component {
+  constructor(props){
+    super(props);
+    this.state={
     }
+  }
+
+  render() {
+    return (
+
+    )
   }
 
   _songPlayToggle(songPlayed, songButton) {
@@ -116,6 +128,13 @@ class Artists extends Component {
   }
 }
 
+class ArtistItem extends Component {
+  render() {
+    return (
+
+    )
+  }
+}
 
 const mapStateToProps = (state) => {return {artists: state.artists }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
