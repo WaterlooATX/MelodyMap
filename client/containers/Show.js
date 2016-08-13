@@ -300,7 +300,7 @@ class Band extends Component {
     let bio = artist ? checkBio(artist.fullBio) : randomBio
 
     function checkBio(fullBio) {
-      if(fullBio.length) {
+      if(fullBio && fullBio.length) {
         return fullBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...'
       } else {
         return randomBio
@@ -308,7 +308,8 @@ class Band extends Component {
     }
 
     let albumArt = artist ? artist.albumsImages : null
-    albumArt = albumArt ? albumArt[0].images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+    albumArt = albumArt ? albumArt[0] : null
+    albumArt = albumArt ? albumArt.images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
     albumArt = this.state.albumArt ? this.state.albumArt : albumArt
 
     const Style = {
