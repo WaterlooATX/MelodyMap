@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
 var app = express();
+exports.app = app;
 
 var port = process.env.PORT || 4000;
 
