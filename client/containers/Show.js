@@ -9,6 +9,7 @@ import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
 import {Speaker} from '../components/Speaker'
 import {topTrack} from '../models/helpers'
+import DropdownArtists from '../components/DropdownArtists'
 
 
 class Show extends Component {
@@ -54,7 +55,7 @@ class Show extends Component {
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
-              <Bands
+              <DropdownArtists
                 // pass down venues redux state
                 venueID={ this.props.venueID }
                 venues={ this.props.venues}
@@ -138,197 +139,9 @@ class Show extends Component {
 
 }
 
-class Bands extends Component {
 
-  _createBand() {
-    const bands = this.props.bands;
-    if(bands) {
-      return bands
-      //.sort((a, b) => b.followers - a.followers)
-      .map((artist,index) => {
-        return (
-          <Band key ={index} name={artist} artists={this.props.artists}/>
-        )
-      })
-    }
-  }
 
-  _venueLoading() {
-    return (
-      <a id="rightBtn" href="" className="btn btn-success" target="_blank" role="button">Loading</a>
-    )
-  }
 
-  _venue() {
-    return (
-      <a id="rightBtn" href={this.props.songkick.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>
-    )
-  }
-
-  _createVenueObj() {
-    let reduxVenues = this.props.venues
-    let venueID = this.props.venueID
-    let venue = this.props.venueInfo
-
-    if (!reduxVenues[venueID]) {
-
-      if(venue) {
-        // Build venue entry in redux state
-        reduxVenues[venueID] = {
-          id: venue.id,
-          ageRestriction: this.props.songkick.ageRestriction || 'N/A',
-          capacity: venue.capacity || 'N/A',
-          street: venue.street,
-          geo: {lat: venue.lat, long: venue.lng},
-          city: venue.city.displayName,
-          state: venue.city.state.displayName,
-          website: venue.website,
-          name: venue.displayName,
-          address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`,
-          phone: venue.phone,
-          upcomingShows: null
-        }
-        // add to redux venues
-        redux_Venues(reduxVenues)
-        return reduxVenues[venueID]
-      }
-    } else {
-      return reduxVenues[venueID];
-    }
-  }
-
-  render() {
-    const bands = this._createBand()
-    const venue = this._createVenueObj()
-    return (
-      <div>
-        <AccordionTitle
-          venue={ venue }
-          songkick={ this.props.songkick }
-          doorsOpen={ this.props.doorsOpen }
-          onNavigateClick={ this.props.onNavigateClick }
-        />
-        { this.props.artists ? bands : null }
-        {this.props.venue ? this._venue(): this._venueLoading()}
-      </div>
-    )
-  }
-
-}
-
-class AccordionTitle extends Component {
-
-  render() {
-    return this.props.venue ? this._renderVenue() : null
-  }
-
-  _renderVenue() {
-    return (
-      <div className="panel-top">
-        <div className="marker" onClick={ this.props.onNavigateClick.bind(this) }>
-          <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-        </div>
-        <div className="left">
-          <div id="venueName">
-            {/* Route to VenueDetails page on click of venue */}
-            { <Link to={`/venue/${this.props.venue.name}/${this.props.venue.id}`} activeClassName='active'>{this.props.venue.name}</Link> }
-            <div id="venueAdress">
-              { this.props.venue.address }
-            </div>
-              <div id="doorsOpen">
-                { !this.props.doorsOpen.includes('Invalid date') ? `Doors open ${this.props.doorsOpen}` : null }
-              </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-}
-
-class Band extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      albumArt: null
-    }
-  }
-
-  componentDidMount() {
-    this._randomAlbumArt()
-  }
-
-  _randomAlbumArt() {
-    const artists = this.props.artists;
-    const name = this.props.name;
-    const artist = artists[name];
-    let albumArt = artist ? artist.albumsImages : null
-
-    if (albumArt && artist) {
-      const albumsImages = artist.albumsImages.map(album => {
-        return album.images ? album.images[1].url : null
-      })
-
-      if (albumsImages) {
-        let num = albumsImages.length
-        this.setState({
-          albumArt: albumsImages[Math.floor(Math.random() * num)]
-        })
-      }
-    }
-  }
-
-  render() {
-
-    const randomBio = "The music sails alive with the compelling combination of rich layers among mixed styles of rhythm that hit the soul. By melding hook-filled melody within hard and heavy beats, has the ability to compact a vast array of influence and experience into a singular song"
-    const artists = this.props.artists;
-    const name = this.props.name;
-    const artist = artists[name];
-    const popularity = artist ? artist.popularity : 'none'
-    let bio = artist ? checkBio(artist.fullBio) : randomBio
-
-    function checkBio(fullBio) {
-      if(fullBio && fullBio.length) {
-        return fullBio.slice(0,225).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...'
-      } else {
-        return randomBio
-      }
-    }
-
-    let albumArt = artist ? artist.albumsImages : null
-    albumArt = albumArt ? albumArt[0] : null
-    albumArt = albumArt ? albumArt.images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
-    albumArt = this.state.albumArt ? this.state.albumArt : albumArt
-
-    const Style = {
-                    "borderRadius": "500px",
-                    "WebkitBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
-                    "MozBoxShadow": "2px 2px 5px 0px rgba(0, 0, 0, 1)",
-                    "boxShadow": "6px 6px 10px 0px rgba(0, 0, 0, 1)"
-                  }
-    return (
-      <div>
-        <div className="accordion-band">
-          <div className="band-info">
-            <img className="accordion-album-art img-circle" style={Style} src={albumArt} alt={name} onClick={this._randomAlbumArt.bind(this)} onTouchStart={this._randomAlbumArt.bind(this)}/>
-            <div className="accordion-album-band-name"><b>
-              <Link to={`artist/${name}`} activeClassName='active'>{name}</Link>
-            </b></div>
-          </div>
-          <div className='right popularity'>
-            <div className="accordion-text">{bio}</div>
-              <div className="text-center">{`Popularity`}</div>
-            <div className="progress">
-              <div className="progress-bar" role="progressbar" aria-valuenow={popularity} aria-valuemin="0" aria-valuemax="100" style={{width: `${popularity}%`}}></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-}
 
 const mapStateToProps = (state) => {return { shows: state.shows, artists: state.artists, venues: state.venues }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ selectShow, redux_Venues }, dispatch);
