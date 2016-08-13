@@ -65,7 +65,6 @@ export default class ArtistDetail extends Component {
             <h3> Similar Artists </h3>
             <p className="text-muted credit">{this.similarArtists(this.state.artistSimilar)}</p>
           </div>
-        <UpcomingShows />  
       </div>
     )
   }
