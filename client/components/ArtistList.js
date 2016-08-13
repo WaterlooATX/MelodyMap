@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class ArtistList extends Component {
+export default class ArtistList extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -12,7 +12,10 @@ class ArtistList extends Component {
   render() {
     const Artists = this._createArtists()
     return (
-      {Artists}
+      <div>
+        asd
+      </div>
+
     )
   }
 
@@ -28,21 +31,21 @@ class ArtistList extends Component {
       //   // console.log(Artist)
       //   artists[artist]['onTourUntil'] = Artist.data[0].onTourUntil
       // })
+      console.log(artist)
     }
-    //console.log("Artists: ", artists)
-    const mapped = []
-    for (let artist in artists) {
-      mapped.push(
-        <ArtistItem
-          artist={artists[artist]}
-          key={artist}
-          name={artist}
-          songPlayed={ this.state.songPlayed }
-          songButton={ this.state.songButton }
-          songPlayToggle={ this._songPlayToggle.bind(this) }
-        />
-      )
-    }
-    return mapped
+  //   const mapped = []
+  //   for (let artist in artists) {
+  //     mapped.push(
+  //       <ArtistItem
+  //         artist={artists[artist]}
+  //         key={artist}
+  //         name={artist}
+  //         songPlayed={ this.state.songPlayed }
+  //         songButton={ this.state.songButton }
+  //         songPlayToggle={ this._songPlayToggle.bind(this) }
+  //       />
+  //     )
+  //   }
+  //   return mapped
   }
 }

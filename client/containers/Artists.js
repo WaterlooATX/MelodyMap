@@ -6,7 +6,7 @@ import SearchBar from '../components/SearchBar';
 import {fetchArtistsAPI} from '../models/api';
 import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api'
 import ArtistList from '../components/ArtistList'
-import ArtistItem from '../components/ArtistItem'
+// import ArtistItem from '../components/ArtistItem'
 import _ from 'lodash';
 
 class Artists extends Component {
@@ -31,23 +31,32 @@ class Artists extends Component {
       })
       mapped.forEach((artist) => {
         // check that aritst isnt is redux
-        Spotify_searchArtistsAPI(artist).then((spotify) => {
-          if (spotify.data) {
-            this.createArtistObject(spotify.data)
-          }
-        })
+        if(this.props.artists && !this.props.artists[artist.name]) {
+          Spotify_searchArtistsAPI(artist).then((spotify) => {
+            if (spotify.data) {
+              this._addRedux(spotify.data, artist)
+            }
+          })
+        } else {
+          this._getRedux(spotify.data, artist)
+        }
       })
     })
   }
 
-  _createArtistObject(artist) {
+  _getRedux(spotify) {
+    searchedArtists[spotify.name] = this.props.artists[spotify.name]
+    this.setState({searchedArtists: searchedArtists})
+  }
+
+  _addRedux(spotify, artist) {
     const Artists = this.props.artists
     const searchedArtists = this.state.searchedArtists
-    spotify.data["onTourUntil"] = artist.onTourUntil
-    searchedArtists[spotify.data.name] = spotify.data
-    Artists[spotify.data.name] = spotify.data
+    spotify["onTourUntil"] = artist.onTourUntil
+    searchedArtists[spotify.name] = spotify
+    Artists[spotify.name] = spotify
     this.setState({searchedArtists: searchedArtists})
-    redux_Artists(Artist)
+    redux_Artists(Artists)
   }
 
   _handleSubmit(event) {
@@ -81,7 +90,7 @@ class Artists extends Component {
               />
             </form>
           </div>
-          {/* <ArtistList artistList={this._artistList()} /> */}
+          <ArtistList artists={this._artistList()} />
         </div>
       )
   }
