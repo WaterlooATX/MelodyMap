@@ -18,12 +18,14 @@ const DrawMap = (props) => {
 
   function _setCenter(){
     const locA = props.selectedShow;
-    const locB = _findClosestShow();
+    // Loc B commented out because centering map on closest show hurts UX more than it helps
+    //const locB = _findClosestShow();
     const locC = props.location;
     let center;
 
     if (locA) center = {lat: +locA.venue.lat, lng: +locA.venue.lng};
-    else if (locB) center = {lat: +locB.venue.lat, lng: +locB.venue.lng};
+    // Loc B commented out because centering map on closest show hurts UX more than it helps
+    //else if (locB) center = {lat: +locB.venue.lat, lng: +locB.venue.lng};
     else center = {lat: +locC.lat, lng: +locC.long};
     return center;
   }
