@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export const topTrack = (Artist) => Artist ? Artist.topTracks[0] ? Artist.topTracks[0].preview_url : null : null
 export const getArtistImg = (Artist) => Artist ? Artist.img : "http://assets.audiomack.com/default-artist-image.jpg"
 export const getAlbumArt = (Artist) => {
@@ -26,6 +27,7 @@ export const isReduxLoaded = (obj) => {
     return false
   }
 }
+
 export const getRandomAlbumArt = (Artist) => {
   let albumArt = Artist ? Artist.albumsImages : null
 
@@ -38,5 +40,34 @@ export const getRandomAlbumArt = (Artist) => {
       let num = albumsImages.length
       return albumsImages[Math.floor(Math.random() * num)]
     }
+  }
+}
+export const addArtistToRedux = (shows, Artist, Spotify_searchArtistsAPI, redux_Artists) => {
+  console.log(Artist)
+  shows.forEach(show => addArtists(show))
+
+  function addArtists(show) {
+    let artists = [...show.performance]
+    artists = _.uniq(artists.map(artist => {
+      return {
+        name: artist.artist.displayName,
+        id: artist.artist.id
+      }
+    }))
+    artists.forEach(artist => addArtist(artist))
+  }
+
+  function addArtist(artist) {
+    if (!Artist[artist.name]) getArtistData(artist)
+  }
+
+  function getArtistData(artist) {
+    Spotify_searchArtistsAPI(artist).then(obj => {
+      if (obj.data) {
+        Artist[artist.name] = obj.data
+
+        redux_Artists(Artist)
+      }
+    }).catch(err => console.log(err))
   }
 }

@@ -1,12 +1,11 @@
 import React, {Component} from "react";
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import _ from 'lodash';
 import {selectShow} from '../actions/select_show';
 import {Spotify_searchArtistsAPI} from '../models/api';
 import {redux_Artists} from '../actions/artists';
 import Show from "./Show";
-
+import {addArtistToRedux} from '../models/helpers'
 
 export default class ShowList extends Component {
 
@@ -26,7 +25,8 @@ export default class ShowList extends Component {
           <div className="show-error">{shows}</div>
         )
       } else {
-        this._addArtistToRedux(shows)
+        console.log(this.props.artists)
+        addArtistToRedux(shows, this.props.artists, Spotify_searchArtistsAPI, redux_Artists)
         return (
           <div
             className="panel-group"
@@ -39,36 +39,6 @@ export default class ShowList extends Component {
       }
     }
   }
-  //Move to models
-  _addArtistToRedux(shows) {
-    let Artist = this.props.artists
-    shows.forEach(show => addArtists(show))
-
-    function addArtists(show) {
-      let artists = [...show.performance]
-      artists = _.uniq(artists.map(artist => {
-        return {
-          name: artist.artist.displayName,
-          id: artist.artist.id
-        }
-      }))
-      artists.forEach(artist => addArtist(artist))
-    }
-
-    function addArtist(artist) {
-      if (!Artist[artist.name]) getArtistData(artist)
-    }
-
-    function getArtistData(artist) {
-      Spotify_searchArtistsAPI(artist).then(obj => {
-        if (obj.data) {
-          Artist[artist.name] = obj.data
-          redux_Artists(Artist)
-        }
-      }).catch(err => console.log(err))
-    }
-  }
-
 
   // This callback is sent to <Show /> as props to grab show id
   // on click and then use it to update selectedShow on state
@@ -105,7 +75,6 @@ export default class ShowList extends Component {
       />
     })
   }
-
 }
 
 const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, artists: state.artists, location: state.location }};
