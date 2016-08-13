@@ -7,6 +7,8 @@ import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
+import {Speaker} from '../components/Speaker'
+import {topTrack} from '../models/helpers'
 
 
 class Show extends Component {
@@ -30,7 +32,6 @@ class Show extends Component {
     const props = this.props;
     const thisArtist = props.artists[props.showArtists[0].displayName];
     const img = thisArtist ? thisArtist.img ? thisArtist.img : "http://assets.audiomack.com/default-artist-image.jpg" : "http://assets.audiomack.com/default-artist-image.jpg";
-    const track = thisArtist ? thisArtist.topTracks[0] ? thisArtist.topTracks[0].preview_url : null : null;
     return (
       <div className="panel panel-default">
         <div className="panel-heading" role="tab" id={`heading${props.id}`}>
@@ -48,7 +49,7 @@ class Show extends Component {
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
-            { track ? this._speaker(track) : null }
+            {Speaker.call(this, topTrack(thisArtist), this._toggleSound.bind(this), 3)}
           </h4>
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
@@ -71,18 +72,6 @@ class Show extends Component {
     )
   }
 
-  _speaker(track) {
-    return (
-      <i
-        className="speaker fa fa-volume-up fa-3x"
-        id="speaker"
-        aria-hidden="true"
-        type="button"
-        onClick={this._toggleSound.bind(this)}>
-        <audio src={ track }></audio>
-      </i>
-    )
-  }
 
   _doorsOpen() {
     // doorsOpen variable set to display pretty date with moment.js
