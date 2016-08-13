@@ -10,43 +10,53 @@ import ArtistList from '../components/ArtistList'
 import _ from 'lodash';
 
 class Artists extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       searchedArtists: {},
       term: ''
     }
   }
 
   _artistSearch(term) {
-    const artistArry = [];
-    fetchArtistsAPI(term).then((artists) => {
-      const mapped = artists.data.map(artist => {
-        return {
-          onTourUntil: artist.onTourUntil,
-          name: artist.displayName,
-          id: artist.id
-        }
-      })
-      mapped.forEach((artist) => {
-        // check that aritst isnt is redux
-        if(this.props.artists && !this.props.artists[artist.name]) {
-          Spotify_searchArtistsAPI(artist).then((spotify) => {
-            if (spotify.data) {
-              this._addRedux(spotify.data, artist)
-            }
-          })
-        } else {
-          this._getRedux(spotify.data, artist)
-        }
-      })
+    fetchArtistsAPI(term).then(artists => {
+      const mappedArtists = this._mapData(artists)
+      mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist))
     })
   }
 
-  _getRedux(spotify) {
-    searchedArtists[spotify.name] = this.props.artists[spotify.name]
-    this.setState({searchedArtists: searchedArtists})
+  _spotifySearch(artist) {
+    Spotify_searchArtistsAPI(artist).then((spotify) => {
+      if (spotify.data) {
+        this._addRedux(spotify.data, artist)
+      }
+    })
+  }
+
+  _isInRedux(artist) {
+    if (this.props.artists && !this.props.artists[artist.name]) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  _mapData(artists) {
+    return artists.data.map(artist => {
+      return {
+        onTourUntil: artist.onTourUntil,
+        name: artist.displayName,
+        id: artist.id
+      }
+    })
+  }
+
+  _getRedux(artist) {
+    const searchedArtists = this.state.searchedArtists
+    searchedArtists[artist.name] = this.props.artists[artist.name]
+    this.setState({
+      searchedArtists: searchedArtists
+    })
   }
 
   _addRedux(spotify, artist) {
@@ -55,7 +65,9 @@ class Artists extends Component {
     spotify["onTourUntil"] = artist.onTourUntil
     searchedArtists[spotify.name] = spotify
     Artists[spotify.name] = spotify
-    this.setState({searchedArtists: searchedArtists})
+    this.setState({
+      searchedArtists: searchedArtists
+    })
     redux_Artists(Artists)
   }
 
@@ -65,11 +77,13 @@ class Artists extends Component {
   }
 
   _onInputChange(term) {
-    this.setState({term: term})
+    this.setState({
+      term: term
+    })
   }
 
-  _artistList(){
-    if(this.state.searchedArtists.length) {
+  _artistList() {
+    if (this.state.searchedArtists.length) {
       return this.state.searchedArtists
     } else {
       return this.props.artists
@@ -93,9 +107,8 @@ class Artists extends Component {
           <ArtistList artists={this._artistList()} />
         </div>
       )
-  }
+   }
 }
-
 
 const mapStateToProps = (state) => {return {artists: state.artists }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
