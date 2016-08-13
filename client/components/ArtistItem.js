@@ -11,7 +11,7 @@ export default class ArtistItem extends Component {
 	}
 
 	componentDidMount(){
-		this._randomAlbumArt()
+		//this._randomAlbumArt()
 	}
 
   render() {
@@ -36,15 +36,10 @@ export default class ArtistItem extends Component {
 	}
 
   _setImage(artist) {
-    if (artist.images) {
-      if (artist.images[0]) {
-        return artist.images[0].url ? artist.images[0].url : "http://assets.audiomack.com/default-artist-image.jpg"
-      } else {
-        return "http://assets.audiomack.com/default-artist-image.jpg"
-      }
-    } else {
-      return "http://assets.audiomack.com/default-artist-image.jpg"
-    }
+    let albumArt = artist ? artist.albumsImages : null
+    albumArt = albumArt ? albumArt[0] : null
+    albumArt = albumArt ? albumArt.images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+    return albumArt = this.state.albumArt ? this.state.albumArt : albumArt
   }
 
   _randomAlbumArt(artist) {
