@@ -1,62 +1,95 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import GenArtist from '../components/GenArtist';
 import {redux_Artists} from '../actions/artists';
-import SearchBar from '../components/SearchBar';
-import SelectedArtist from '../components/SelectedArtist'
-import {fetchArtistsAPI} from '../models/api';
-import {Spotify_searchArtistsAPI, Spotify_getArtistTopTracksAPI} from '../models/api'
+import {fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api'
+import ArtistList from '../components/ArtistList'
 import _ from 'lodash';
 
 class Artists extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      artistBlocks: [],
-      term: '',
-      songPlayed: false,
-      songButton: null
+    this.state = {
+      searchedArtists: {},
+      term: ''
     }
   }
 
   _artistSearch(term) {
-    var artistArry = [];
-    fetchArtistsAPI(term).then((artists) => {
-     var mapped = artists.data.map((artist,index) => {
-        return {onTourUntil: artist.onTourUntil, name: artist.displayName, id: artist.id}
-       })
-     mapped.forEach((artist)=>{
-       // check that aritst isnt is redux
-
-         Spotify_searchArtistsAPI(artist).then((spotify)=>{
-           if(spotify.data){
-             spotify.data["onTourUntil"] = artist.onTourUntil
-             artistArry.push(spotify.data)
-             this._addArtistToRedux(spotify.data)
-             this.setState({artistBlocks: artistArry})
-           }
-         })
-     })
+    this.setState({searchedArtists: {}})
+    fetchArtistsAPI(term).then(artists => {
+      const mappedArtists = this._mapData(artists)
+      mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist))
     })
   }
 
-  _addArtistToRedux(artist) {
-    // this.props.artist[artist.name] = artist
-    // redux_Artists(Artist)
+  _spotifySearch(artist) {
+    Spotify_searchArtistsAPI(artist).then((spotify) => {
+      if (spotify.data) {
+        this._addRedux(spotify.data, artist)
+      }
+    })
+  }
+
+  _isInRedux(artist) {
+    if (this.props.artists && !this.props.artists[artist.name]) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  _mapData(artists) {
+    return artists.data.map(artist => {
+      return {
+        onTourUntil: artist.onTourUntil,
+        name: artist.displayName,
+        id: artist.id
+      }
+    })
+  }
+
+  _getRedux(artist) {
+    const searchedArtists = this.state.searchedArtists
+    searchedArtists[artist.name] = this.props.artists[artist.name]
+    this.setState({
+      searchedArtists: searchedArtists
+    })
+  }
+
+  _addRedux(spotify, artist) {
+    const Artists = this.props.artists
+    const searchedArtists = this.state.searchedArtists
+    spotify["onTourUntil"] = artist.onTourUntil
+    searchedArtists[spotify.name] = spotify
+    Artists[spotify.name] = spotify
+    this.setState({
+      searchedArtists: searchedArtists
+    })
+    redux_Artists(Artists)
   }
 
   _handleSubmit(event) {
     event.preventDefault();
     this._artistSearch(this.state.term)
   }
+
   _onInputChange(term) {
-    this.setState({term: term})
+    this.setState({
+      term: term
+    })
+  }
+
+  _artistList() {
+    if (Object.keys(this.state.searchedArtists).length) {
+      return this.state.searchedArtists
+    } else {
+      return this.props.artists
+    }
   }
 
   render() {
-    console.log(this.props.artists)
+      const artists = this._artistList()
       return(
         <div className="container">
           <div className="page-header">
@@ -70,52 +103,11 @@ class Artists extends Component {
               />
             </form>
           </div>
-          {this._SelectedArtistVSArtists()}
+          <ArtistList artists={artists} />
         </div>
       )
-  }
-
-  _SelectedArtistVSArtists() {
-    if(this.state.artistBlocks.length) {
-      return <SelectedArtist artists={this.state.artistBlocks} songPlayToggle={this._songPlayToggle.bind(this)} songPlayed={ this.state.songPlayed } songButton={ this.state.songButton }/>
-    } else {
-      return this._createArtists()
-    }
-  }
-
-  _songPlayToggle(songPlayed, songButton) {
-    this.setState({ songPlayed, songButton })
-  }
-
-  _createArtists() {
-    const artists = this.props.artists
-    for(let artist in artists){
-
-      // fetchArtistsAPI(artist).then((Artist)=>{
-      //   // console.log(Artist)
-      //   artists[artist]['onTourUntil'] = Artist.data[0].onTourUntil
-      // })
-    }
-    //console.log("Artists: ", artists)
-    const mapped = []
-    for (let artist in artists) {
-      mapped.push(
-        <GenArtist
-          artist={artists[artist]}
-          key={artist}
-          name={artist}
-          selectedartists={this.state.selectedartists}
-          artistBlocks={this.state.artistBlocks}
-          songPlayed={ this.state.songPlayed }
-          songButton={ this.state.songButton }
-          songPlayToggle={ this._songPlayToggle.bind(this) }
-        />
-      )
-    }
-    return mapped
-  }
+   }
 }
-
 
 const mapStateToProps = (state) => {return {artists: state.artists }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
