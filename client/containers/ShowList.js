@@ -20,13 +20,13 @@ export default class ShowList extends Component {
 
   render() {
     const shows = this.props.shows;
-    this._addArtistToRedux(shows)
     if (shows.length > 0) {
       if (typeof shows === "string") {
         return (
           <div className="show-error">{shows}</div>
         )
       } else {
+        this._addArtistToRedux(shows)
         return (
           <div
             className="panel-group"

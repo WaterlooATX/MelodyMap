@@ -45,10 +45,10 @@ export default class DropdownArtists extends Component {
           street: venue.street,
           geo: {lat: venue.lat, long: venue.lng},
           city: venue.city.displayName,
-          state: venue.city.state.displayName,
+          state: venue.city.state ? venue.city.state.displayName : null,
           website: venue.website,
           name: venue.displayName,
-          address: `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}`,
+          address: venue.city.state ? `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}` : null,
           phone: venue.phone,
           upcomingShows: null
         }
