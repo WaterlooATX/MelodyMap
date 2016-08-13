@@ -26,3 +26,17 @@ export const isReduxLoaded = (obj) => {
     return false
   }
 }
+export const getRandomAlbumArt = (Artist) => {
+  let albumArt = Artist ? Artist.albumsImages : null
+
+  if (albumArt && Artist) {
+    const albumsImages = Artist.albumsImages.map(album => {
+      return album.images ? album.images[1].url : null
+    })
+
+    if (albumsImages) {
+      let num = albumsImages.length
+      return albumsImages[Math.floor(Math.random() * num)]
+    }
+  }
+}
