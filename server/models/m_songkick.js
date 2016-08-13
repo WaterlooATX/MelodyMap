@@ -1,8 +1,9 @@
-const Songkick = require('songkick-api');
-const client = new Songkick('J4PGT8rVCHdtcfcG')
-const Spotify = require("./m_spotifyApi")
 const _ = require('lodash');
+const Songkick = require('songkick-api');
+const Spotify = require('./m_spotifyApi');
+const { SONGKICK_FM_APIKEY } = require('./api_keys');
 
+const client = new Songkick(SONGKICK_FM_APIKEY)
 
 // When specifying min_date or max_date, you need to use both parameters.
 // Use the same value for both to get events for a single day.

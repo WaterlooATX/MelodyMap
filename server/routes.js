@@ -1,13 +1,15 @@
 const querystring = require('querystring');
 const express = require('express');
+const SpotifyWebApi = require('spotify-web-api-node');
+const { SPOTIFYWEB_CLIENTID, SPOTIFYWEB_CLIENTSECRET } = require('./models/api_keys');
+
 const router = new express.Router();
 // configure the express server
 
 //--------------SPOTIFY LOGIN ROUTES-------------------//
 //-----------------------------------------------------//
-const SpotifyWebApi = require('spotify-web-api-node')
-const client_id = '94433df23e8d4d448cf9cb7d32fbc21f'; // Your client id
-const client_secret ='b43fa687da68462eb2c4708bd7445031'; // Your secret
+const client_id = SPOTIFYWEB_CLIENTID;
+const client_secret = SPOTIFYWEB_CLIENTSECRET;
 const redirect_uri = 'http://localhost:4000/callback/'; // Your redirect uri
 const stateKey = 'spotify_auth_state';
 // your application requests authorization

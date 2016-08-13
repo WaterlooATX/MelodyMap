@@ -1,15 +1,16 @@
 // https://github.com/thelinmichael/spotify-web-api-node
-const SpotifyWebApi = require('spotify-web-api-node')
-const db = require("../db")
-const ArtistModel = require("../ARTISTS_Schema")
+const SpotifyWebApi = require('spotify-web-api-node');
+const _ = require('lodash');
 const mongoose = require('mongoose');
-const lastFM = require("./m_lastFM")
-const _ = require("lodash")
+const db = require('../db');
+const ArtistModel = require('../ARTISTS_Schema');
+const lastFM = require('./m_lastFM');
+const { SPOTIFY_CLIENTID, SPOTIFY_CLIENTSECRET } = require('./api_keys');
 
 // credentials are optional
 const spotifyApi = new SpotifyWebApi({
-  clientId: 'c7364a23c3714de1882fded9f4142b18',
-  clientSecret: 'abdbe447833643d5b85616f5691e2142'
+  clientId: SPOTIFY_CLIENTID,
+  clientSecret: SPOTIFY_CLIENTSECRET
 })
 
 const catchedArtists = {}

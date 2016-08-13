@@ -1,14 +1,15 @@
 // https://github.com/leemm/last.fm.api
+const { LAST_FM_APIKEY, LAST_FM_APISECRET } = require('./api_keys');
 
 const API = require('last.fm.api'),
-    api = new API({
-        apiKey: 'fb53a66a5f324cfd2cfd15ec4fc5fbcd',
-        apiSecret: '3e43c10b9e2e55a1c45952c13ad150cd'
-    });
+  api = new API({
+    apiKey: LAST_FM_APIKEY,
+    apiSecret: LAST_FM_APISECRET
+  });
 
 
 exports.getInfo = (name) => {
   return api.artist.getInfo({artist: name})
-    .then(json => json)
-    .catch(err => console.error(err));
+  .then(json => json)
+  .catch(err => console.error(err));
 }
