@@ -19,13 +19,16 @@ class VenueDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      upcomingShows: null
+      upcomingShows: null,
+      currVenue: this.props.venues[this.props.params.venueId],
+      placeId: null
     }
   }
 
   componentWillMount() {
     this._updateVenueObj(this.props.params.venueId)
-    this._getPlaceInfo()
+    this._getPlaceInfo(this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long)
+    console.log('this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long ' , this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long);
   }
 
   _updateVenueObj(venueId) {
@@ -46,8 +49,18 @@ class VenueDetail extends Component {
   _displayUpcomingShows() {
     const showObjs = this.state.upcomingShows
     return showObjs.map(function(show, index){
+    // console.log('show ' , show);
       return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
+  }
+
+
+  _formatWebsite() {
+    // replace website formatting below here
+  }
+
+  _formatVenueName(name) {
+    return name.split(' ').join('%20')
   }
 
     // use google place search
@@ -55,11 +68,14 @@ class VenueDetail extends Component {
     // Place Photo Requests
 
   _getPlaceInfo(name, lat, long) {
-    Google_placeIdAPI()
+    let formattedName = this._formatVenueName(name)
+    Google_placeIdAPI(formattedName, lat, long)
       .then((resp) => {
         console.log(resp.data)
     })
   }
+
+
 
   render() {
     // var props = this.props

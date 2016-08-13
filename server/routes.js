@@ -126,8 +126,8 @@ const Google = require("./models/m_google")
 // })
 
 router.get("/Google_placeIdAPI", function(req, res) {
-  console.log('/Google_placeIdAPI ')
-  Google.placeIdAPI()
+  // console.log('/Google_placeIdAPI in routes: req.params(name), req.params(lat), req.params(long)', req.param('name'), req.param('lat'), req.param('long'));
+  Google.placeIdAPI(req.param('name'), req.param('lat'), req.param('long'))
     .then(data => res.send(data))
     .catch(error => console.log("error", error))
 })

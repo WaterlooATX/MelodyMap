@@ -4,14 +4,17 @@ var googleAPI = 'AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew';
 
 
 
-export function Google_placeIdAPI() {
-  return axios("/Google_placeIdAPI")
+export function Google_placeIdAPI(name, lat, long) {
+console.log('API.JS: name, lat, long ' , name, lat, long);
+  return axios('/Google_placeIdAPI', {
+    params: {
+      name: name,
+      lat: lat,
+      long: long
+    }
+  })
 }
 
-
-//     `https://maps.googleapis.com/maps/api/place/nearbysearch/json?
-//      location=-33.8670522,151.1957362&radius=500&type=restaurant&name=cruise&key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr`);
-// }
 
 
 
