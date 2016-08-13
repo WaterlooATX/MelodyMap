@@ -6,7 +6,7 @@ import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
-
+import UpcomingShows from '../components/UpcomingShows'
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
@@ -65,6 +65,7 @@ export default class ArtistDetail extends Component {
             <h3> Similar Artists </h3>
             <p className="text-muted credit">{this.similarArtists(this.state.artistSimilar)}</p>
           </div>
+        <UpcomingShows />  
       </div>
     )
   }
@@ -185,6 +186,10 @@ videoSearch(term){
         var mapped = data.data.map(artistData => {
         return { name:artistData.displayName, id:artistData.id }
         })
+      Songkick_getArtistCalendarAPI(artist).then(shows =>{
+        console.log("SHOWS",shows)
+        this.setState({artistShows: shows})
+      })  
       mapped.forEach((artist)=>{
       Spotify_searchArtistsAPI(artist).then((spotify)=>{
         if(spotify.data){
