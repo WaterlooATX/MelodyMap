@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Link} from 'react-router';
 import NavBar from './NavBar';
 import UpcomingShows from '../components/UpcomingShows.js'
-import { Songkick_getVenueCalendarAPI } from '../models/api'
+import { Songkick_getVenueCalendarAPI, Google_placeIdAPI } from '../models/api'
 import {redux_Venues} from '../actions/venues';
 import _ from 'lodash';
 
@@ -25,6 +25,7 @@ class VenueDetail extends Component {
 
   componentWillMount() {
     this._updateVenueObj(this.props.params.venueId)
+    this._getPlaceInfo()
   }
 
   _updateVenueObj(venueId) {
@@ -44,26 +45,20 @@ class VenueDetail extends Component {
 
   _displayUpcomingShows() {
     const showObjs = this.state.upcomingShows
-    var john = showObjs.filter(function(show){
-      return (show.performance.length > 2)
-    })
-    // console.log('big artists: ', john)
-
     return showObjs.map(function(show, index){
-    // console.log('show ' , show);
       return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
+  }
 
     // use google place search
     // google place detail
     // Place Photo Requests
 
-    // _getPlaceInfo(name, lat, long) {
-
-    // }
-
+  _getPlaceInfo(name, lat, long) {
+    Google_placeIdAPI().then((resp) => {
+      console.log(resp.data)
+    })
   }
-
 
   render() {
     // var props = this.props

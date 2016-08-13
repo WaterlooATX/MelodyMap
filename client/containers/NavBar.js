@@ -134,6 +134,7 @@ class NavBar extends Component {
     // get coordinate from city name
     if (this.state.city) {
       Google_geocoder(this.state.city).then(resp => {
+      console.log('resp from navbar' , resp);
         let lat = resp.data.results[0].geometry.location.lat;
         let long = resp.data.results[0].geometry.location.lng;
         this.props.fetchShows({long, lat, startDate, endDate});
