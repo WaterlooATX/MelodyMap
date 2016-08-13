@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router';
+import {Speaker} from './Speaker'
+import {topTrack} from '../models/helpers'
 
 export default class ArtistItem extends Component {
   constructor(props){
@@ -28,7 +30,7 @@ export default class ArtistItem extends Component {
         <br/>
             {artist.name}
           </Link>
-          {artist.topTracks ? this._speaker(artist.topTracks) : null}
+          {Speaker.call(this, topTrack(artist), this._toggleSound.bind(this), 2)}
         </div>
           {artist.onTour == "1" || artist.onTourUntil ? <p className=" tour">ON TOUR</p> : null}
       </div>
@@ -59,23 +61,6 @@ export default class ArtistItem extends Component {
         })
       }
     }
-  }
-
-  _speaker(track) {
-      if(track[0]){
-        if(track[0].preview_url){
-          return (
-            <i
-              className="speaker fa fa-volume-up fa-2x"
-              id="selSpeaker"
-              aria-hidden="true"
-              type="button"
-              onClick={this._toggleSound.bind(this)}>
-              <audio src={track[0].preview_url}></audio>
-            </i>
-          )
-        }
-      }
   }
 
   _toggleSound(event) {
