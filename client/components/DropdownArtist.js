@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import React, {Component} from 'react';
 import {getAlbumArt, getBio, getRandomAlbumArt, topTrack} from '../models/helpers'
-import {Speaker} from './Speaker'
+import Speaker from './Speaker'
 
 export default class DropdownArtist extends Component {
 
@@ -37,16 +37,11 @@ export default class DropdownArtist extends Component {
               onClick={this._randomAlbumArt.bind(this)}
               onTouchStart={this._randomAlbumArt.bind(this)}
             />
-            {/* <div className="accordion-album-band-name">
-              <b>
-
-              </b>
-            </div> */}
           </div>
           <div className='right popularity'>
-            <div className="text-center" style={{fontSize: "20px"}}>
-              <Link to={`artist/${name}`} activeClassName='active'><b>{name}</b></Link>
-              {Speaker.call(this, topTrack(artist), this.props.toggleSound.bind(this), 3)}
+            <div className="text-center">
+              <Link to={`artist/${name}`} activeClassName='active'><b style={{fontSize: "20px"}}>{name}   </b></Link>
+              <Speaker track={topTrack(artist)} size={2}/>
             </div>
             <div className="text-center">{`Popularity`}</div>
             <div className="progress" style={{marginBottom: "5px"}}>
