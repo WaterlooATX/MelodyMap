@@ -156,9 +156,6 @@ class VenueDetail extends Component {
       }
     }
 
-    this.state.placeIdObj ?
-      console.log('placeIdObj ' , this.state.placeIdObj) :
-      null
 
     return (
       <div>
