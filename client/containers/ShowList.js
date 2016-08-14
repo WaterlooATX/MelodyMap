@@ -39,6 +39,27 @@ export default class ShowList extends Component {
     }
   }
 
+  _toggleSound(event) {
+    let songPlayed = this.state.songPlayed;
+    let playButton = event.target;
+    let parent = playButton.parentElement;
+    let audioElem = parent.getElementsByTagName('audio')[0];
+    if (!songPlayed) {
+      this._songPlayToggle(audioElem, playButton)
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
+    } else if (songPlayed === audioElem) {
+      audioElem.pause();
+      playButton.className = "fa fa-volume-up fa-3x";
+      this._songPlayToggle(false, null)
+    } else if (songPlayed !== audioElem) {
+      songPlayed.pause()
+      this.state.songButton.className = "fa fa-volume-up fa-3x";
+      this._songPlayToggle(audioElem, playButton);
+      playButton.className = "fa fa-pause fa-3x";
+      audioElem.play();
+    }
+  }
   // This callback is sent to <Show /> as props to grab show id
   // on click and then use it to update selectedShow on state
   _sendToState(arg) {
@@ -59,6 +80,7 @@ export default class ShowList extends Component {
     const sorted = this._sortShowsByPopularity(shows)
     return sorted.map(show => {
       return <Show
+        toggleSound={ this._toggleSound.bind(this) }
         songkick={ show }
         ageRestriction={ show.ageRestriction }
         showArtists= { show.performance }

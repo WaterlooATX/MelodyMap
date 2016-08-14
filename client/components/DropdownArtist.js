@@ -20,28 +20,6 @@ export default class DropdownArtist extends Component {
     this.setState({albumArt: getRandomAlbumArt(this.props.artist)})
   }
 
-  _toggleSound(event) {
-    let songPlayed = this.props.songPlayed;
-    let playButton = event.target;
-    let parent = playButton.parentElement;
-    let audioElem = parent.getElementsByTagName('audio')[0];
-    if (!songPlayed) {
-      this.props.songPlayToggle(audioElem, playButton)
-      playButton.className = "fa fa-pause fa-3x";
-      audioElem.play();
-    } else if (songPlayed === audioElem) {
-      audioElem.pause();
-      playButton.className = "fa fa-volume-up fa-3x";
-      this.props.songPlayToggle(false, null)
-    } else if (songPlayed !== audioElem) {
-      songPlayed.pause()
-      this.props.songButton.className = "fa fa-volume-up fa-3x";
-      this.props.songPlayToggle(audioElem, playButton);
-      playButton.className = "fa fa-pause fa-3x";
-      audioElem.play();
-    }
-  }
-
   render() {
     const artist = this.props.artist
     const name = artist ? artist.name : null
@@ -68,7 +46,7 @@ export default class DropdownArtist extends Component {
           <div className='right popularity'>
             <div className="text-center" style={{fontSize: "20px"}}>
               <Link to={`artist/${name}`} activeClassName='active'><b>{name}</b></Link>
-              {Speaker.call(this, topTrack(artist), this._toggleSound.bind(this), 3)}
+              {Speaker.call(this, topTrack(artist), this.props.toggleSound.bind(this), 3)}
             </div>
             <div className="text-center">{`Popularity`}</div>
             <div className="progress" style={{marginBottom: "5px"}}>

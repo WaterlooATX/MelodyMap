@@ -49,12 +49,13 @@ class Show extends Component {
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
-            {Speaker.call(this, topTrack(thisArtist), this._toggleSound.bind(this), 3)}
+            {Speaker.call(this, topTrack(thisArtist), this.props.toggleSound.bind(this), 3)}
           </h4>
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <DropdownArtists
+                toggleSound={ this.props.toggleSound }
                 songPlayed={ this.props.songPlayed }
                 songButton={ this.props.songButton }
                 songPlayToggle={ this.props.songPlayToggle }
@@ -109,28 +110,6 @@ class Show extends Component {
          this.setState({bands: bandMembers})
        }
     })
-  }
-
-  _toggleSound(event) {
-    let songPlayed = this.props.songPlayed;
-    let playButton = event.target;
-    let parent = playButton.parentElement;
-    let audioElem = parent.getElementsByTagName('audio')[0];
-    if (!songPlayed) {
-      this.props.songPlayToggle(audioElem, playButton)
-      playButton.className = "fa fa-pause fa-3x";
-      audioElem.play();
-    } else if (songPlayed === audioElem) {
-      audioElem.pause();
-      playButton.className = "fa fa-volume-up fa-3x";
-      this.props.songPlayToggle(false, null)
-    } else if (songPlayed !== audioElem) {
-      songPlayed.pause()
-      this.props.songButton.className = "fa fa-volume-up fa-3x";
-      this.props.songPlayToggle(audioElem, playButton);
-      playButton.className = "fa fa-pause fa-3x";
-      audioElem.play();
-    }
   }
 
   // Tests selected show in redux state and conditionally sets
