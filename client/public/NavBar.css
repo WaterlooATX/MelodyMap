@@ -41,6 +41,12 @@
   display: inline-block;
   vertical-align: center;
 }
+.navbar .nav>li>a {
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
 
 @media screen and (max-width: 767px) {
   .nav-container {
