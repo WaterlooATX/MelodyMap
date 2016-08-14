@@ -26,7 +26,7 @@ export default class ArtistDetail extends Component {
   componentDidMount() {
     this.videoSearch(this.props.params.artistName)
     this.getArtist(this.props.params.artistName)
-  } 
+  }
 
   componentWillReceiveProps() {
     this.videoSearch(this.props.params.artistName)
@@ -203,7 +203,7 @@ videoSearch(term){
           this.setState({artistBlocks: artistsArr})
         }
       })
-     })    
+     })
     })
   }
 

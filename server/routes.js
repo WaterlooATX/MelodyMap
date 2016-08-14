@@ -84,12 +84,13 @@ router.get('/callback/', (req, res) => {
   }
 });
 
-//------------------SHOW & ARTIST ROUTES---------------//
+//------------------SHOW, VENUE, ARTIST ROUTES---------------//
 //-----------------------------------------------------//
 const Songkick = require("./models/m_songkick");
 const Spotify = require("./models/m_spotifyApi")
 const LastFM = require("./models/m_lastFM")
 const Artist = require("./models/m_artist")
+const Google = require("./models/m_google")
 
 //
 // let bands = "chris,Björk,Nicki Minaj,Dnce,kiiara,R.E.M.,Marilyn Manson, Jonas Blue, Katy Perry, System of a Down, Massive Attack, Foo Fighters, Meghan Trainor, Marvin Gaye, Jimi Hendrix, Oasis, Tame Impala, Kings of Leon"
@@ -123,6 +124,22 @@ const Artist = require("./models/m_artist")
 //     .then(data => res.send(data))
 //     .catch(error => console.log("error", error))
 // })
+
+router.get('/Google_placeIdAPI', function(req, res) {
+  Google.placeIdAPI(req.param('name'), req.param('lat'), req.param('long'))
+    .then(data => res.send(data))
+    .catch(error => console.log('error', error))
+})
+
+router.get('/Google_photoAPI', function(req, res) {
+  // console.log('routes Google_photoAPI photoReference', req.param('photoReference'));
+  Google.photoAPI(req.param('photoReference'))
+    .then((data) => {
+      // console.log('routes Google_photoAPI data' , data.data);
+      res.send(data.data)
+    })
+    .catch(error => console.log('BOOM', error))
+})
 
 let Spotify_getArtistRelatedArtists = 0;
 router.post('/Spotify_getArtistRelatedArtists', function(req, res) {

@@ -1,5 +1,29 @@
 import axios from 'axios'
 
+var googleAPI = 'AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew';
+
+
+
+export function Google_placeIdAPI(name, lat, long) {
+  return axios('/Google_placeIdAPI', {
+    params: {
+      name: name,
+      lat: lat,
+      long: long
+    }
+  })
+}
+
+export function Google_photoAPI(photoReference) {
+  // console.log('api.js photoReference ' , photoReference);
+  return axios('/Google_photoAPI', {
+    params: {
+      photoReference: photoReference
+    }
+  })
+}
+
+
 
 export function geolocationAPI(success, fail, options) {
   return navigator.geolocation.getCurrentPosition(success, fail, options);
