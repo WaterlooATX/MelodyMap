@@ -15,7 +15,13 @@ export default class DropdownArtists extends Component {
   _mappedArtists(bands) {
     return bands.map((name, index) => {
       return (
-        <DropdownArtist key ={index} artist={this.props.artists[name]}/>
+        <DropdownArtist
+          songPlayed={ this.props.songPlayed }
+          songButton={ this.props.songButton }
+          songPlayToggle={ this.props.songPlayToggle }
+          key ={index}
+          artist={this.props.artists[name]}
+        />
       )
     })
   }

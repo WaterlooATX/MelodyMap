@@ -55,6 +55,9 @@ class Show extends Component {
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <DropdownArtists
+                songPlayed={ this.props.songPlayed }
+                songButton={ this.props.songButton }
+                songPlayToggle={ this.props.songPlayToggle }
                 bands={ this.state.bands }
                 doorsOpen={ this._doorsOpen() }
                 venue={ this.state.venueInfo }
