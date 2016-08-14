@@ -21,6 +21,7 @@ export default class DropdownArtist extends Component {
 
   render() {
     const artist = this.props.artist
+    const name = artist ? artist.name : null
     const popularity = artist ? artist.popularity : 'none'
     const albumArt = this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
 
@@ -35,16 +36,18 @@ export default class DropdownArtist extends Component {
               onClick={this._randomAlbumArt.bind(this)}
               onTouchStart={this._randomAlbumArt.bind(this)}
             />
-            <div className="accordion-album-band-name">
+            {/* <div className="accordion-album-band-name">
               <b>
-                <Link to={`artist/${name}`} activeClassName='active'>{name}</Link>
+
               </b>
-            </div>
+            </div> */}
           </div>
           <div className='right popularity'>
-            <div className="accordion-text">{getBio(artist)}</div>
-              <div className="text-center">{`Popularity`}</div>
-            <div className="progress">
+            <div className="text-center" style={{fontSize: "20px"}}>
+              <Link to={`artist/${name}`} activeClassName='active'><b>{name}</b></Link>
+            </div>
+            <div className="text-center">{`Popularity`}</div>
+            <div className="progress" style={{marginBottom: "5px"}}>
               <div
                 className="progress-bar"
                 role="progressbar"
@@ -54,6 +57,7 @@ export default class DropdownArtist extends Component {
                 style={{width: `${popularity}%`}}>
               </div>
             </div>
+            <div className="accordion-text">{getBio(artist)}</div>
           </div>
         </div>
       </div>
