@@ -1,7 +1,9 @@
 const _ = require('lodash');
 const Songkick = require('songkick-api');
 const Spotify = require('./m_spotifyApi');
-const { SONGKICK_FM_APIKEY } = require('./api_keys');
+const {
+  SONGKICK_FM_APIKEY
+} = require('./api_keys');
 
 const client = new Songkick(SONGKICK_FM_APIKEY)
 
@@ -10,15 +12,30 @@ const client = new Songkick(SONGKICK_FM_APIKEY)
 // This search returns only upcoming events.
 exports.getShows = (data) => {
   sendArtistNamesToSpotify = shows => {
-      let artists = []
-      shows.forEach(show => artists.push(...show.performance))
-      artists = _.uniq(artists.map(artist => {
+    let artists = []
+    shows.forEach(show => artists.push(...show.performance))
+    artists = _.uniq(artists.map(show => {
+      return {
+        name: show.artist.displayName,
+        id: show.artist.id
+      }
+    }))
+    artists.forEach(artist => Spotify.searchArtists(artist.name, artist.id))
+  }
+
+  mapVenues = shows => {
+      let venues = []
+      venues = _.uniq(venues.map(show => {
         return {
-          name: artist.artist.displayName,
-          id: artist.artist.id
+          name: show.venue.displayName,
+          id: show.venue.id,
+          geo: {
+            lat: show.venue.lat,
+            long: show.venue.lng
+          }
         }
       }))
-      artists.forEach(artist => Spotify.searchArtists(artist.name, artist.id))
+      venues.forEach(venue => getVenue(venue.id))
     }
     // Search based on a songkick metro area id
     // austin 'geo:30.2669444,-97.7431'
@@ -32,6 +49,7 @@ exports.getShows = (data) => {
     "max_date": data.dateB || today
   }).then((shows) => {
     if (shows) {
+      mapVenues(shows)
       sendArtistNamesToSpotify(shows)
       let concerts = shows.slice();
       concerts.forEach(show => {
@@ -42,6 +60,7 @@ exports.getShows = (data) => {
         return client.searchEvents({
           "location": `geo:${data.lat},${data.long}`
         }).then(Shows => {
+          mapVenues(shows)
           sendArtistNamesToSpotify(Shows)
           let concerts = Shows.slice();
           concerts.forEach(Show => {
@@ -63,10 +82,50 @@ exports.getArtists = (query) => {
     .catch(err => console.error(err));
 }
 
+let getVenue = 0;
+const VenueModel = require('../VENUE_Schema');
 exports.getVenue = (venueId) => {
-  return client.getVenue(venueId)
-    .then(data => data)
-    .catch(err => console.error(err));
+
+
+  return VenueModel.findOne({
+      "id": venueId
+    })
+    .then(venue => {
+      if (venue) {
+        console.log(`${++getVenue} found ${venueId}`)
+        return venue
+      } else {
+        return getVenueInfo(venueId)
+      }
+    })
+
+  function getVenueInfo(venueId) {
+    return client.getVenue(venueId)
+      .then(data => addToDatabase(data))
+      .catch(err => console.error(err));
+  }
+
+  function addToDatabase(venue) {
+    const Venue = new VenueModel();
+    console.log(`${++getVenue} adding ${venueId}`)
+    Venue.id = venueId
+    Venue.capacity = venue.capacity || 'N/A'
+    Venue.street = venue.street
+    Venue.geo = {
+      lat: venue.lat,
+      long: venue.lng
+    }
+    Venue.city = venue.city.displayName
+    Venue.state = venue.city.state ? venue.city.state.displayName : null
+    Venue.website = venue.website
+    Venue.name = venue.displayName
+    Venue.address = venue.city.state ? `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}` : null
+    Venue.phone = venue.phone
+    Venue.save(function(err) {
+      if (err) return console.log(err);
+    });
+    return Venue
+  }
 }
 
 exports.getArtistCalendar = (artistID) => {
