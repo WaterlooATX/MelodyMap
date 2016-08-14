@@ -1,9 +1,32 @@
+.home-navbar {
+  padding-bottom: 3px !important;
+}
+
 .navbar-collapse {
   margin-right: 0;
 }
+
 .nav-container {
   display: flex;
   flex: 1;
+}
+
+.navbar .nav > li > a {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+}
+
+.navbar-brand {
+  font-size: 33px;
+  font-family: 'Pacifico', cursive;
+  margin-right: 10px;
 }
 
 .songkick-search {
@@ -40,12 +63,6 @@
   padding-top: 3px;
   display: inline-block;
   vertical-align: center;
-}
-.navbar .nav>li>a {
-    font-size: 17px;
-    line-height: 22px;
-    font-weight: 800;
-    text-transform: uppercase;
 }
 
 @media screen and (max-width: 767px) {

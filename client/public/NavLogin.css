@@ -13,8 +13,8 @@
 }
 button.spotify {
   background: #81b33a;
-  width: 210px;
-  height: 35px;
+  width: 180px;
+  height: 37px;
   border-radius: 10px;
   border: 0;
   text-transform: uppercase;
@@ -22,7 +22,7 @@ button.spotify {
   font-weight: bold;
   color: white;
   float: right;
-  margin: 13px 0;
+  margin: 13px 0 13px 13px;
   padding-top: 3px;
   display: inline-block;
 }

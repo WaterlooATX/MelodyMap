@@ -39,7 +39,9 @@ class NavBar extends Component {
 
       this.props.getMyInfo().then( (data) => {
         {
-          data.payload.display_name || data.payload.images[0] ? self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}}) : self.setState({spotifyData: {username: data.payload.id, image: "http://assets.audiomack.com/default-artist-image.jpg"}})
+          data.payload.display_name || data.payload.images[0] ?
+            self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}}) :
+            self.setState({spotifyData: {username: data.payload.id, image: "http://assets.audiomack.com/default-artist-image.jpg"}})
         }
       })
     }
@@ -49,7 +51,7 @@ class NavBar extends Component {
   render () {
     return (
       <div>
-        <nav className="navbar navbar-default">
+        <nav className="navbar navbar-default home-navbar">
           <div className="container-fluid">
             <div className="navbar-header">
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -97,7 +99,7 @@ class NavBar extends Component {
                   <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
                 </form>
                 : <div className="songkick-search">
-                    <a onClick={ this._onSearchClick.bind(this) } >Show Search</a>
+                    <a onClick={ this._onSearchClick.bind(this) }>Show Search</a>
                   </div>
                 : <div className="songkick-search"></div>
               }
