@@ -34,10 +34,9 @@ class VenueDetail extends Component {
   }
 
   _updateVenueObj(venueId) {
-    var redux_Venue = this.props.venues
-    var venue = redux_Venue[this.props.params.venueId]
-
-    if (!this.props.venues[venueId].upcomingShows) {
+    let redux_Venue = this.props.venues
+    let venue = redux_Venue[this.props.params.venueId]
+    if (!this.props.venues[venueId].upcomingShows.length) {
       Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
         redux_Venue[venue.id].upcomingShows = gotshows.data
         this.setState({upcomingShows: gotshows.data})
