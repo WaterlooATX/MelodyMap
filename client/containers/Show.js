@@ -19,13 +19,12 @@ class Show extends Component {
     this.state ={
       bands : [],
       clicked: false,
-      venueInfo: null,
-      _setArtistInfoCalled: false
+      venueInfo: null
     }
   }
 
   componentWillMount() {
-    Songkick_getVenueAPI(this.props.venueID).then(venue => this.setState({venueInfo: venue.data}))
+    this._getVenue(this.props.venueID)
     this._setArtistInfo(this.props.showArtists)
   }
 
@@ -68,38 +67,24 @@ class Show extends Component {
       </div>
     )
   }
-  
-  _createVenueObj() {
-    let reduxVenues = this.props.venues
-    let venueID = this.props.venueID
-    let venue = this.props.venueInfo
 
-    if (!reduxVenues[venueID]) {
-
-      if(venue) {
-        // Build venue entry in redux state
-        reduxVenues[venueID] = {
-          id: venue.id,
-          ageRestriction: this.props.songkick.ageRestriction || 'N/A',
-          capacity: venue.capacity || 'N/A',
-          street: venue.street,
-          geo: {lat: venue.lat, long: venue.lng},
-          city: venue.city.displayName,
-          state: venue.city.state ? venue.city.state.displayName : null,
-          website: venue.website,
-          name: venue.displayName,
-          address: venue.city.state ? `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}` : null,
-          phone: venue.phone,
-          upcomingShows: null
-        }
-        // add to redux venues
-        //redux_Venues(reduxVenues)
-        return reduxVenues[venueID]
-      }
+  _getVenue(id) {
+    if(this.props.venues[id]) {
+      this.setState({venueInfo: this.props.venues[id]})
     } else {
-      return reduxVenues[venueID];
+      Songkick_getVenueAPI(id).then(venue => this._addVenueRedux(venue.data))
     }
   }
+
+  _addVenueRedux(venue) {
+    const reduxVenues = this.props.venues
+    // Build venue entry in redux state
+    reduxVenues[venue.id] = venue
+    // add to redux venues
+    redux_Venues(reduxVenues)
+    this.setState({venueInfo: venue})
+  }
+
 
   _doorsOpen() {
     // doorsOpen variable set to display pretty date with moment.js
