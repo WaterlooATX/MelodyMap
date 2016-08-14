@@ -56,14 +56,61 @@ class VenueDetail extends Component {
     })
   }
 
+  // to encode photo data to base64
+  // _base64_encode (stringToEncode) {
+  //   if (typeof window !== 'undefined') {
+  //     if (typeof window.btoa !== 'undefined') {
+  //       return window.btoa(escape(encodeURIComponent(stringToEncode)))
+  //     }
+  //   } else {
+  //     return new Buffer(stringToEncode).toString('base64')
+  //   }
 
-  _formatWebsite() {
-    // replace website formatting below here
-  }
+  //   var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+  //   var o1
+  //   var o2
+  //   var o3
+  //   var h1
+  //   var h2
+  //   var h3
+  //   var h4
+  //   var bits
+  //   var i = 0
+  //   var ac = 0
+  //   var enc = ''
+  //   var tmpArr = []
 
-    // use google place search
-    // google place detail
-    // Place Photo Requests
+  //   if (!stringToEncode) {
+  //     return stringToEncode
+  //   }
+
+  //   stringToEncode = unescape(encodeURIComponent(stringToEncode))
+
+  //   do {
+  //     // pack three octets into four hexets
+  //     o1 = stringToEncode.charCodeAt(i++)
+  //     o2 = stringToEncode.charCodeAt(i++)
+  //     o3 = stringToEncode.charCodeAt(i++)
+
+  //     bits = o1 << 16 | o2 << 8 | o3
+
+  //     h1 = bits >> 18 & 0x3f
+  //     h2 = bits >> 12 & 0x3f
+  //     h3 = bits >> 6 & 0x3f
+  //     h4 = bits & 0x3f
+
+  //     // use hexets to index into b64, and append result to encoded string
+  //     tmpArr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4)
+  //   } while (i < stringToEncode.length)
+
+  //   enc = tmpArr.join('')
+
+  //   var r = stringToEncode.length % 3
+
+  //   return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3)
+  // }
+
+
 
   _getPlaceInfo(name, lat, long) {
     let formattedName = name.split(' ').join('%20')
@@ -75,25 +122,17 @@ class VenueDetail extends Component {
             placeId: resp.data[0].id,
             photoReference: resp.data[0].photos[0].photo_reference || null
           })
-          this._getPlacePhoto(this.state.photoReference)
+          // this._getPlacePhoto(this._base64_encode(this.state.photoReference))
         }
-        // console.log('this.state.placeIdObj ' , this.state.placeIdObj);
-        // console.log('this.state.placeId ' , this.state.placeId);
-        // console.log('this.state.photoReference ' , this.state.photoReference);
-
       })
   }
 
   _getPlacePhoto(photoReference) {
-    console.log('_getPlacePhoto WAS CALLED' , photoReference);
-
     Google_photoAPI(photoReference)
       .then((resp) => {
-        console.log('VenueDetail.js resp photo', resp.data)
         this.setState({
           photo: resp.data
         })
-        console.log('photo in state' , this.state.photo);
       })
   }
 
@@ -116,11 +155,16 @@ class VenueDetail extends Component {
         website = website.slice(0, -1)
       }
     }
-// data:image;base64,{{Raw Binary Data}}
+
+    this.state.placeIdObj ?
+      console.log('placeIdObj ' , this.state.placeIdObj) :
+      null
+
     return (
       <div>
         <div className="container">
-          <div className="venue-picture">{this.state.photo ? <img src={`data:image/*;base64,${this.state.photo}`}/> : null}</div>
+          {/* img tag to display photo from state */}
+          {/* {this.state.photo ? <img width="200" height="200" src={`data:image/jpg;base64,${this.state.photo}`} />: <div>no state image yet</div>} */}
           <div className="jumbotron venue-detail-jumbotron">
             <h1>{venue.name}</h1>
             <ul className="venue-basic-info">

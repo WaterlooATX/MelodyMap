@@ -135,8 +135,8 @@ router.get('/Google_photoAPI', function(req, res) {
   // console.log('routes Google_photoAPI photoReference', req.param('photoReference'));
   Google.photoAPI(req.param('photoReference'))
     .then((data) => {
-      console.log('routes Google_photoAPI data' , data);
-      res.send(data)
+      // console.log('routes Google_photoAPI data' , data.data);
+      res.send(data.data)
     })
     .catch(error => console.log('BOOM', error))
 })
