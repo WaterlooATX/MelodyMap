@@ -13,12 +13,12 @@ const venueSchema = new mongoose.Schema({
   name: String,
   address: String,
   phone: String,
-  upcomingShows: Array
-  updated_at: { type: Date, default: Date.now },
+  upcomingShows: Array,
+  updated_at: { type: Date, default: Date.now }
 });
 
 // Created a Mongoose schema which maps to a MongoDB collection and defines
 // the shape of the documents within that collection.
 
 // exported the Mongoose Venue model
-module.exports = mongoose.model("Venue", artistSchema);
+module.exports = mongoose.model("Venue", venueSchema);
