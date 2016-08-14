@@ -5,7 +5,6 @@ var googleAPI = 'AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew';
 
 
 export function Google_placeIdAPI(name, lat, long) {
-console.log('API.JS: name, lat, long ' , name, lat, long);
   return axios('/Google_placeIdAPI', {
     params: {
       name: name,
@@ -15,7 +14,14 @@ console.log('API.JS: name, lat, long ' , name, lat, long);
   })
 }
 
-
+export function Google_photoAPI(photoReference) {
+  // console.log('api.js photoReference ' , photoReference);
+  return axios('/Google_photoAPI', {
+    params: {
+      photoReference: photoReference
+    }
+  })
+}
 
 
 

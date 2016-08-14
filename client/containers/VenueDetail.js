@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Link} from 'react-router';
 import NavBar from './NavBar';
 import UpcomingShows from '../components/UpcomingShows.js'
-import { Songkick_getVenueCalendarAPI, Google_placeIdAPI } from '../models/api'
+import { Songkick_getVenueCalendarAPI, Google_placeIdAPI, Google_photoAPI } from '../models/api'
 import {redux_Venues} from '../actions/venues';
 import _ from 'lodash';
 
@@ -23,7 +23,8 @@ class VenueDetail extends Component {
       currVenue: this.props.venues[this.props.params.venueId],
       placeIdObj: null,
       placeId: null,
-      photoReference: null
+      photoReference: null,
+      photo: null
     }
   }
 
@@ -68,16 +69,31 @@ class VenueDetail extends Component {
     let formattedName = name.split(' ').join('%20')
     Google_placeIdAPI(formattedName, lat, long)
       .then((resp) => {
-        if (resp.data[0]) {
+        if (resp.data[0] && resp.data[0].id) {
           this.setState({
             placeIdObj: resp.data[0],
             placeId: resp.data[0].id,
             photoReference: resp.data[0].photos[0].photo_reference || null
           })
+          this._getPlacePhoto(this.state.photoReference)
         }
-        console.log('this.state.placeIdObj ' , this.state.placeIdObj);
-        console.log('this.state.placeId ' , this.state.placeId);
-        console.log('this.state.photoReference ' , this.state.photoReference);
+        // console.log('this.state.placeIdObj ' , this.state.placeIdObj);
+        // console.log('this.state.placeId ' , this.state.placeId);
+        // console.log('this.state.photoReference ' , this.state.photoReference);
+
+      })
+  }
+
+  _getPlacePhoto(photoReference) {
+    console.log('_getPlacePhoto WAS CALLED' , photoReference);
+
+    Google_photoAPI(photoReference)
+      .then((resp) => {
+        console.log('VenueDetail.js resp photo', resp.data)
+        this.setState({
+          photo: resp.data
+        })
+        console.log('photo in state' , this.state.photo);
       })
   }
 
@@ -100,10 +116,11 @@ class VenueDetail extends Component {
         website = website.slice(0, -1)
       }
     }
-
+// data:image;base64,{{Raw Binary Data}}
     return (
       <div>
         <div className="container">
+          <div className="venue-picture">{this.state.photo ? <img src={`data:image/*;base64,${this.state.photo}`}/> : null}</div>
           <div className="jumbotron venue-detail-jumbotron">
             <h1>{venue.name}</h1>
             <ul className="venue-basic-info">

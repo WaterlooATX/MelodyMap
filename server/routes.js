@@ -125,11 +125,20 @@ const Google = require("./models/m_google")
 //     .catch(error => console.log("error", error))
 // })
 
-router.get("/Google_placeIdAPI", function(req, res) {
-  // console.log('/Google_placeIdAPI in routes: req.params(name), req.params(lat), req.params(long)', req.param('name'), req.param('lat'), req.param('long'));
+router.get('/Google_placeIdAPI', function(req, res) {
   Google.placeIdAPI(req.param('name'), req.param('lat'), req.param('long'))
     .then(data => res.send(data))
-    .catch(error => console.log("error", error))
+    .catch(error => console.log('error', error))
+})
+
+router.get('/Google_photoAPI', function(req, res) {
+  // console.log('routes Google_photoAPI photoReference', req.param('photoReference'));
+  Google.photoAPI(req.param('photoReference'))
+    .then((data) => {
+      console.log('routes Google_photoAPI data' , data);
+      res.send(data)
+    })
+    .catch(error => console.log('BOOM', error))
 })
 
 let Spotify_getArtistRelatedArtists = 0;
