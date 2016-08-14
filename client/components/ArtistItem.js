@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router';
-import {Speaker} from './Speaker'
+import Speaker from './Speaker'
 import {getAlbumArt, getRandomAlbumArt, topTrack} from '../models/helpers'
 
 export default class ArtistItem extends Component {
   constructor(props){
 		super(props);
 		this.state={
-			songPlay: false,
 			albumArt: null
 		}
 	}
@@ -37,7 +36,7 @@ export default class ArtistItem extends Component {
             <br/>
             {artist.name}
           </Link>
-          {Speaker.call(this, topTrack(artist), this._toggleSound.bind(this), 2)}
+          <Speaker track={topTrack(artist)} size={2}/>
         </div>
           {artist.onTour == "1" || artist.onTourUntil ? <p className=" tour">ON TOUR</p> : null}
       </div>
@@ -46,27 +45,5 @@ export default class ArtistItem extends Component {
 
   _randomAlbumArt() {
     this.setState({albumArt: getRandomAlbumArt(this.props.artist)})
-  }
-
-  _toggleSound(event) {
-    let songPlayed = this.props.songPlayed;
-    let playButton = event.target;
-    let parent = playButton.parentElement;
-    let audioElem = parent.getElementsByTagName("audio")[0];
-    if (!songPlayed) {
-      this.props.songPlayToggle(audioElem, playButton)
-      playButton.className = "fa fa-pause fa-2x";
-      audioElem.play();
-    } else if (songPlayed === audioElem) {
-      audioElem.pause();
-      playButton.className = "fa fa-volume-up fa-2x";
-      this.props.songPlayToggle(false, null)
-    } else if (songPlayed !== audioElem) {
-      songPlayed.pause()
-      this.props.songButton.className = "fa fa-volume-up fa-2x";
-      this.props.songPlayToggle(audioElem, playButton);
-      playButton.className = "fa fa-pause fa-2x";
-      audioElem.play();
-    }
   }
 }
