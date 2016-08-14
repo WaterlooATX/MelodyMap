@@ -26,7 +26,6 @@ export default class UpcomingShows extends Component {
             {show.start.datetime ? <div>{moment(show.start.datetime).format('LLLL')}</div> : <div>{moment(show.start.date).format('LL')}</div>}
             <div>{show.venue.displayName}, {show.location.city}</div>
           </div>
-
       </div>
     )
   }
