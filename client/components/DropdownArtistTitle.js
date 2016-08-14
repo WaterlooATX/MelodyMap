@@ -20,7 +20,7 @@ export default class DropdownArtistsTitle extends Component {
         <div className="left">
           <div id="venueName">
             {/* Route to VenueDetails page on click of venue */}
-            <Link to={`/venue/${this.props.venue.name}/${this.props.venue.id}`} activeClassName='active'>{this.props.venue.name}</Link>
+            <Link to={`/venue/${this.props.venue.name}/${this.props.venue.id}`} activeClassName='active'><b>{this.props.venue.name}</b></Link>
             <div id="venueAdress">
               { this.props.venue.address }
             </div>
