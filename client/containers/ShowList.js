@@ -51,8 +51,13 @@ export default class ShowList extends Component {
     this.setState({ songPlayed, songButton })
   }
 
+  _sortShowsByPopularity(shows) {
+    return shows.sort((a,b) => b.popularity - a.popularity)
+  }
+
   _createShows(shows) {
-    return shows.map(show => {
+    const sorted = this._sortShowsByPopularity(shows)
+    return sorted.map(show => {
       return <Show
         songkick={ show }
         ageRestriction={ show.ageRestriction }

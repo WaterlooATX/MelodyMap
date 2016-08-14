@@ -25,7 +25,7 @@ class Artists extends Component {
   }
 
   _spotifySearch(artist) {
-    Spotify_searchArtistsAPI(artist).then((spotify) => {
+    Spotify_searchArtistsAPI(artist).then(spotify => {
       if (spotify.data) {
         this._addRedux(spotify.data, artist)
       }

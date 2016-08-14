@@ -5,7 +5,7 @@ export const getAlbumArt = (Artist) => {
   let albumArt = Artist ? Artist.albumsImages : null
   albumArt = albumArt ? albumArt[0] : null
   albumArt = albumArt ? albumArt.images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
-  return albumArt
+  return albumArt || Artist.img
 }
 export const getBio = (Artist) => {
   const randomBio = "The music sails alive with the compelling combination of rich layers among mixed styles of rhythm that hit the soul. By melding hook-filled melody within hard and heavy beats, has the ability to compact a vast array of influence and experience into a singular song"
