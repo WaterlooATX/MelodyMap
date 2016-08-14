@@ -181,9 +181,7 @@ router.post('/Songkick_getArtistCalendar', function(req, res) {
 })
 
 
-let Songkick_getVenue = 0;
 router.post('/Songkick_getVenue', function(req, res) {
-  console.log(`/Songkick_getVenue ${++Songkick_getVenue}`)
   Songkick.getVenue(req.body.id)
     .then(data => res.send(data))
     .catch(error => console.log("error", error))
