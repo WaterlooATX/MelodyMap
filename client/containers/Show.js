@@ -7,8 +7,8 @@ import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
-import {Speaker} from '../components/Speaker'
-import {topTrack} from '../models/helpers'
+import Speaker from '../components/Speaker'
+import {topTrack, toggleSound} from '../models/helpers'
 import DropdownArtists from '../components/DropdownArtists'
 
 
@@ -27,6 +27,7 @@ class Show extends Component {
     this._getVenue(this.props.venueID)
     this._setArtistInfo(this.props.showArtists)
   }
+
 
   render() {
     const props = this.props;
@@ -49,16 +50,12 @@ class Show extends Component {
                <p className="venue">{ props.venue } - { props.city }</p>
                <p className="date">{ moment(props.startDate, "YYYY-MM-DD").calendar().split(' at')[0] }</p>
             </a>
-            {Speaker.call(this, topTrack(thisArtist), this.props.toggleSound.bind(this), 3)}
+            <Speaker track={topTrack(thisArtist)} size={3}/>
           </h4>
         </div>
         <div id={`collapse${props.id}`} data-parent="#accordion" className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading${props.id}`}>
             <div className="panel-body">
               <DropdownArtists
-                toggleSound={ this.props.toggleSound }
-                songPlayed={ this.props.songPlayed }
-                songButton={ this.props.songButton }
-                songPlayToggle={ this.props.songPlayToggle }
                 bands={ this.state.bands }
                 doorsOpen={ this._doorsOpen() }
                 venue={ this.state.venueInfo }
