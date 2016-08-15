@@ -20,6 +20,11 @@
   padding: 0;
 }
 
+.panel .panel-title {
+  border-bottom: 0px;
+  font-weight: 400;
+}
+
 .panel-group .panel+.panel {
   margin-top: -1px;
 }
