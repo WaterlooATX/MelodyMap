@@ -43,7 +43,7 @@ button.spotify {
 @media screen and (max-width: 767px) {
   button.spotify {
     display: inline-block;
-    margin: 0 50px 20px 0;
+    margin: 0 50px 15px 0;
     width: 210px;
     float: none;
   }
