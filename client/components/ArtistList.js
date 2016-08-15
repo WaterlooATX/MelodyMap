@@ -39,12 +39,9 @@ export default class ArtistList extends Component {
   render() {
     const Artists = this._createArtists()
     return (
-      <div>
         <div>
           {Artists}
         </div>
-      </div>
-
     )
   }
 }
