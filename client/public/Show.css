@@ -29,6 +29,10 @@
   margin-top: -1px;
 }
 
+div.panel-top {
+  padding: 10px;
+}
+
 #accordion .panel-title > a {
   display: inline-block;
   padding: 16px 24px;
