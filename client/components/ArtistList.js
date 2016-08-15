@@ -40,8 +40,11 @@ export default class ArtistList extends Component {
     const Artists = this._createArtists()
     return (
       <div>
-        {Artists}
+        <div>
+          {Artists}
+        </div>
       </div>
+
     )
   }
 }
