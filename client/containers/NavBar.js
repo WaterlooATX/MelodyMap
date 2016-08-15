@@ -34,16 +34,17 @@ class NavBar extends Component {
     //Spotify call to follow artist followArtist(url[5],'3TNt4aUIxgfy9aoaft5Jj2')
       this.setState({loggedIn: true});
       this.props.setTokens(url[5], url[6]);
-
-      this.props.getMyInfo().then( (data) => {
-        {
-          data.payload.display_name || data.payload.images[0] ?
-            self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}}) :
-            self.setState({spotifyData: {username: data.payload.id, image: "http://assets.audiomack.com/default-artist-image.jpg"}})
-        }
-      })
+      this.props.getMyInfo().then(data => self._checkData(data.payload))
     }
 
+  }
+
+  _checkData(data) {
+    if(data.display_name || data.images[0]) {
+      this.setState({spotifyData: {username: data.display_name, image: data.images[0].url}})
+    } else {
+      this.setState({spotifyData: {username: data.id, image: "http://assets.audiomack.com/default-artist-image.jpg"}})
+    }
   }
 
   render () {
