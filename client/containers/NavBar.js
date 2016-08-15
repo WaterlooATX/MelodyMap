@@ -75,7 +75,6 @@ class NavBar extends Component {
                 <form className="songkick-search">
                   <DatePicker
                     minDate={moment()}
-                    placeholderText="Click to select a date"
                     todayButton={'Today'}
                     selected={ this.state.startDate }
                     startDate={this.state.startDate}
@@ -84,7 +83,6 @@ class NavBar extends Component {
                   />
                   <DatePicker
                     minDate={moment()}
-                    placeholderText="Click to select a date"
                     todayButton={'Today'}
                     selected={ this.state.endDate }
                     startDate={this.state.startDate}
@@ -92,6 +90,7 @@ class NavBar extends Component {
                     onChange={ this._onEndChange.bind(this) }
                   />
                   <input
+                    className="input-city"
                     placeholder="City"
                     value={ this.state.city }
                     onChange={ event => this._onCityChange(event.target.value) }
@@ -99,7 +98,10 @@ class NavBar extends Component {
                   <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
                 </form>
                 : <div className="songkick-search">
-                    <a onClick={ this._onSearchClick.bind(this) }>Show Search</a>
+                    <a onClick={ this._onSearchClick.bind(this) }>
+                      <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+                      Advanced Search
+                    </a>
                   </div>
                 : <div className="songkick-search"></div>
               }
