@@ -1,65 +1,52 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar';
-import {Songkick_getArtistCalendarAPI, Songkick_getSimilarArtistsAPI, fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api';
+import {Songkick_getArtistCalendarAPI, fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api';
 import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
 import UpcomingShows from '../components/UpcomingShows'
-import {getAlbumArt, topTrack, getBio} from '../models/helpers'
+import {getAlbumArt, topTrack, getBio, getArtistImg} from '../models/helpers'
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
+import {redux_Artists} from '../actions/actions';
+
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 
 
-export default class ArtistDetail extends Component {
+class ArtistDetail extends Component {
 
   constructor(props){
     super(props);
     this.state = {
       videos: [],
       selectedVideo: null,
-      bio: '',
-      artistBlocks: []
+      shows : null
     }
   }
 
   componentDidMount() {
     this._videoSearch(this.props.params.artistName)
-    this._getArtist(this.props.params.artistName)
   }
-
-  componentWillReceiveProps() {
-    this._videoSearch(this.props.params.artistName)
-  }
-
 
   render() {
+    const artist = this._getArtist(this.props.params.artistName)
     return (
         <div>
           <div className="container">
             <div className="jumbotron">
-                <img className = "detailImage img-circle" src = {this.state.artistImg}/>
-                <h1>{`${this.props.params.artistName}`}</h1>
-                <h3>{this._onTour(this.state.artistTour)}</h3>
+                <img className = "detailImage img-circle" src = {getArtistImg(artist)}/>
+                <h1>{`${artist.name}`}</h1>
+                <h3>{this._onTour(artist.onTour)}</h3>
                 <ul>
-                {this._getGenre(this.state.artistGenre)}
+                {this._getGenre(artist.genre)}
                 </ul>
-                <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
-
-                {this.state.artistBio !== "" ? <div>{this.state.artistBio}  <div id="bio" className="collapse">{this.state.bio}</div></div> :
-                <p> The music sails alive with the compelling combination of rich
-                layers among mixed styles of rhythm that hit the soul.
-                By melding hook-filled melody within hard and heavy beats,
-                has the ability to compact a vast array of influence and experience
-                into a singular song</p>}
-
-                <button type="button" className="btn btn-info" data-toggle="collapse" data-target="#bio">Show More</button>
+                {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
+                <div id="bio" className="collapse">{getBio(artist)}</div>
             </div>
           </div>
-        {this.state.artistShows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3>
-        <div className="scrollable-menu">{this._getShows(this.state.artistShows)} </div></div>: null}
+        {/* {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null} */}
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
         </div>
@@ -69,8 +56,6 @@ export default class ArtistDetail extends Component {
       </div>
     )
   }
-
-
 
   _videoSearch(term) {
     YTSearch({
@@ -159,39 +144,19 @@ export default class ArtistDetail extends Component {
       }
   }
 
-  _getArtist(artist) {
-    let artistsArr = []
-    fetchArtistsAPI(artist).then(data => {
-      var mapped = data.data.map(artistData => {
-        return {
-          name: artistData.displayName,
-          id: artistData.id
-        }
-      })
-      mapped.forEach((artist) => {
-        Spotify_searchArtistsAPI(artist).then((spotify) => {
-          if (spotify.data) {
-            this.setState({
-              artistBio: getBio(spotify.data.fullBio),
-              artistName: spotify.data.name,
-              artistImg: spotify.data.img,
-              artistID: spotify.data.id,
-              artistGenre: spotify.data.genre,
-              artistTopTracks: spotify.data.topTracks,
-              artistTour: spotify.data.onTour,
-              artistSimilar: spotify.data.relatedArtists[0].artist
-            })
+  _isAristInRedux(name) {
+    return this.props.artists[name] ? true : false
+  }
 
-            artistsArr.push(spotify.data)
-            this.setState({
-              artistBlocks: artistsArr
-            })
-          }
-        })
-      })
-    })
+  _getArtist(name) {
+    // all arist can be redux state, but similar-artist
+    if(this._isAristInRedux(name)) {
+      return this.props.artists[name]
+    } else {
+      // fetchArtistsAPI(name) -> Spotify_searchArtistsAPI(id)
+    }
   }
 }
-
-const mapStateToProps = (state) => {return {artists: state.artists}};
-export default connect(mapStateToProps)(ArtistDetail);
+const mapStateToProps = (state) => {return {artists: state.artists }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(ArtistDetail);
