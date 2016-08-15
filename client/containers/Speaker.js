@@ -1,13 +1,8 @@
-import React, {Component} from 'react';
-
-export default class Speaker extends Component {
-  constructor(props) {
-    super(props)
-    this.state ={
-      songPlayed: false,
-      songButton: null
-    }
-  }
+import React, {Component} from 'react'
+import {bindActionCreators} from 'redux'
+import {connect} from "react-redux"
+import {setSpeaker} from '../actions/speaker'
+class Speaker extends Component {
 
   render() {
     if(this.props.track) {
@@ -27,11 +22,11 @@ export default class Speaker extends Component {
   }
 
   _songPlayToggle(songPlayed, songButton) {
-    this.setState({ songPlayed, songButton })
+    this.props.setSpeaker({songPlayed, songButton})
   }
 
   _toggleSound(event) {
-    let songPlayed = this.state.songPlayed;
+    let songPlayed = this.props.speaker.songPlayed;
     let playButton = event.target;
     let parent = playButton.parentElement;
     let audioElem = parent.getElementsByTagName('audio')[0];
@@ -45,10 +40,14 @@ export default class Speaker extends Component {
       this._songPlayToggle(false, null)
     } else if (songPlayed !== audioElem) {
       songPlayed.pause()
-      this.state.songButton.className = `fa fa-volume-up fa-${this.props.size}x`;
+      this.props.speaker.songButton.className = `fa fa-volume-up fa-${this.props.size}x`;
       this._songPlayToggle(audioElem, playButton);
       playButton.className = `fa fa-pause fa-${this.props.size}x`;
       audioElem.play();
     }
   }
 }
+
+const mapStateToProps = (state) => {return { speaker: state.speaker }};
+const mapDispatchToProps = (dispatch) => bindActionCreators({ setSpeaker }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Speaker);
