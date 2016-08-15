@@ -25,13 +25,12 @@ export default class ArtistDetail extends Component {
     }
   }
   componentDidMount() {
-    this.videoSearch(this.props.params.artistName)
-    this.getArtist(this.props.params.artistName)
+    this._videoSearch(this.props.params.artistName)
+    this._getArtist(this.props.params.artistName)
   }
 
   componentWillReceiveProps() {
-    this.videoSearch(this.props.params.artistName)
-    this.filterArtist(this.props.params.artistName)
+    this._videoSearch(this.props.params.artistName)
   }
 
 
@@ -42,9 +41,9 @@ export default class ArtistDetail extends Component {
             <div className="jumbotron">
                 <img className = "detailImage img-circle" src = {this.state.artistImg}/>
                 <h1>{`${this.props.params.artistName}`}</h1>
-                <h3>{this.onTour(this.state.artistTour)}</h3>
+                <h3>{this._onTour(this.state.artistTour)}</h3>
                 <ul>
-                {this.getGenre(this.state.artistGenre)}
+                {this._getGenre(this.state.artistGenre)}
                 </ul>
                 <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 {this.state.artistBio !== "" ? <div>{this.state.artistBio}  <div id="bio" className="collapse">{this.state.bio}</div></div> :
@@ -57,10 +56,10 @@ export default class ArtistDetail extends Component {
             </div>
           </div>
         {this.state.artistShows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3>
-        <div className="scrollable-menu">{this.getShows(this.state.artistShows)} </div></div>: null}
+        <div className="scrollable-menu">{this._getShows(this.state.artistShows)} </div></div>: null}
         <div className="media-container">
           <VideoDetail video={this.state.selectedVideo} />
-          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
+          <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this._getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
           <div className="container-similar">
             <p className="text-muted credit">{this._similarArtists(this.state.artistSimilar)}</p>
@@ -71,7 +70,7 @@ export default class ArtistDetail extends Component {
 
 
 
-videoSearch(term){
+_videoSearch(term){
     YTSearch({key: API_KEY, term: term}, (videos) => {
       this.setState({
           videos: videos,
@@ -80,7 +79,7 @@ videoSearch(term){
     })
   }
 
-  onTour(tour){
+  _onTour(tour){
     if(tour === "1"){
       return <div className = "text-muted">ON TOUR NOW!</div>
     }
@@ -89,7 +88,7 @@ videoSearch(term){
     }
   }
 
-  getGenre(genres){
+  _getGenre(genres){
     if(!genres){
       return null
     }
@@ -137,7 +136,7 @@ videoSearch(term){
     }
   }
 
-  getTopTracks(tracks){
+  _getTopTracks(tracks){
       if(!tracks){
         return null;
       }
@@ -148,7 +147,7 @@ videoSearch(term){
     }
   }
 
-  getShows(shows){
+  _getShows(shows){
     if(!shows){
       return null;
     }
@@ -164,7 +163,8 @@ videoSearch(term){
       })
     }
   }
-  getArtist(artist){
+
+  _getArtist(artist){
     let artistsArr = []
       fetchArtistsAPI(artist).then(data => {
         var mapped = data.data.map(artistData => {
