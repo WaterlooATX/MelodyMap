@@ -34,23 +34,27 @@ class ArtistDetail extends Component {
 
   _render(artist){
     return (
-          <div className="container">
-            <div className="jumbotron">
-                <img className = "detailImage img-circle" src={getArtistImg(artist)}/>
-                <h1>{`${artist.name}`}</h1>
-                <h3>{this._onTour(artist.onTour)}</h3>
-                <ul>
-                {this._getGenre(artist.genre)}
-                </ul>
-                {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
-                {getBio(artist)}
-            </div>
-            {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null}
-            <div className="media-container">
-              <VideoDetail video={this.state.selectedVideo} />
-            </div>
-              {this._similarArtists(artist.relatedArtists)}
+      <div>
+        <div className="jumbotron">
+          <div className=" col-sm-offset-2 col-sm-8">
+            <img className = "detailImage img-circle" src={getArtistImg(artist)}/>
+            <h1>{`${artist.name}`}</h1>
+            <h3>{this._onTour(artist.onTour)}</h3>
+            <ul>
+            {this._getGenre(artist.genre)}
+            </ul>
+            {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
+            {getBio(artist)}
           </div>
+        </div>
+        <div className="col-sm-offset-2 col-sm-8">
+          {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null}
+          <div className="media-container">
+            <VideoDetail video={this.state.selectedVideo} />
+          </div>
+            {this._similarArtists(artist.relatedArtists)}
+        </div>
+      </div>
     )
   }
 
