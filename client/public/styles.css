@@ -3,14 +3,14 @@
 }
 /* Remove the navbar's default margin-bottom and rounded borders */
 
-.navbar {
+/*.navbar {
     margin-bottom: 0 !important;
     border-radius: 0 !important;
 }
 .navbar-brand {
     font-size: 30px;
     font-family: 'Pacifico', cursive;
-}
+}*/
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 
 .row.content {

@@ -39,7 +39,9 @@ class NavBar extends Component {
 
       this.props.getMyInfo().then( (data) => {
         {
-          data.payload.display_name || data.payload.images[0] ? self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}}) : self.setState({spotifyData: {username: data.payload.id, image: "http://assets.audiomack.com/default-artist-image.jpg"}})
+          data.payload.display_name || data.payload.images[0] ?
+            self.setState({spotifyData: {username: data.payload.display_name, image: data.payload.images[0].url}}) :
+            self.setState({spotifyData: {username: data.payload.id, image: "http://assets.audiomack.com/default-artist-image.jpg"}})
         }
       })
     }
@@ -49,7 +51,7 @@ class NavBar extends Component {
   render () {
     return (
       <div>
-        <nav className="navbar navbar-default">
+        <nav className="navbar navbar-default home-navbar">
           <div className="container-fluid">
             <div className="navbar-header">
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -73,7 +75,6 @@ class NavBar extends Component {
                 <form className="songkick-search">
                   <DatePicker
                     minDate={moment()}
-                    placeholderText="Click to select a date"
                     todayButton={'Today'}
                     selected={ this.state.startDate }
                     startDate={this.state.startDate}
@@ -82,7 +83,6 @@ class NavBar extends Component {
                   />
                   <DatePicker
                     minDate={moment()}
-                    placeholderText="Click to select a date"
                     todayButton={'Today'}
                     selected={ this.state.endDate }
                     startDate={this.state.startDate}
@@ -90,6 +90,7 @@ class NavBar extends Component {
                     onChange={ this._onEndChange.bind(this) }
                   />
                   <input
+                    className="input-city"
                     placeholder="City"
                     value={ this.state.city }
                     onChange={ event => this._onCityChange(event.target.value) }
@@ -97,7 +98,10 @@ class NavBar extends Component {
                   <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
                 </form>
                 : <div className="songkick-search">
-                    <a onClick={ this._onSearchClick.bind(this) } >Show Search</a>
+                    <a onClick={ this._onSearchClick.bind(this) }>
+                      <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+                      Advanced Search
+                    </a>
                   </div>
                 : <div className="songkick-search"></div>
               }

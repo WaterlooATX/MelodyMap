@@ -1,9 +1,36 @@
+.home-navbar {
+  padding-bottom: 3px !important;
+}
+
 .navbar-collapse {
   margin-right: 0;
 }
+
 .nav-container {
   display: flex;
   flex: 1;
+}
+
+.navbar .nav > li > a {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+}
+
+.navbar-brand {
+  font-size: 33px;
+  font-family: 'Pacifico', cursive;
+  margin-right: 10px;
+}
+
+.glyphicon-search {
+  margin-right: 5px;
 }
 
 .songkick-search {
@@ -15,6 +42,7 @@
 
 .songkick-search a {
   cursor: pointer;
+  font-size: 13px;
 }
 
 .songkick-search a:hover {
@@ -22,15 +50,23 @@
 }
 
 .songkick-search input {
-  margin: 13px;
-  height: 33px;
+  border-radius: 4px;
+  margin: 8px;
+  height: 25px;
+  width: 90px;
+  font-size: 12px;
+  padding-left: 4px;
+}
+
+input.input-city {
+  width: 120px;
 }
 
 .songkick-search button {
   background: #81b33a;
-  width: 100px;
-  height: 35px;
-  border-radius: 10px;
+  width: 70px;
+  height: 25px;
+  border-radius: 4px;
   border: 0;
   text-transform: uppercase;
   font-size: 0.9em;
@@ -40,12 +76,6 @@
   padding-top: 3px;
   display: inline-block;
   vertical-align: center;
-}
-.navbar .nav>li>a {
-    font-size: 17px;
-    line-height: 22px;
-    font-weight: 800;
-    text-transform: uppercase;
 }
 
 @media screen and (max-width: 767px) {

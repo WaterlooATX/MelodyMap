@@ -35,7 +35,7 @@ class Show extends Component {
     const img = thisArtist ? thisArtist.img ? thisArtist.img : "http://assets.audiomack.com/default-artist-image.jpg" : "http://assets.audiomack.com/default-artist-image.jpg";
     return (
       <div className="panel panel-default">
-        <div className="panel-heading" role="tab" id={`heading${props.id}`}>
+        <div className="panel-heading show-panel-heading" role="tab" id={`heading${props.id}`}>
           <h4 className={ this._checkSelected(props.selected) }>
             <a
               onClick={this._onClickHandler.bind(this, `heading${props.id}`)}
