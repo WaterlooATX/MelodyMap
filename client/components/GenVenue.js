@@ -16,12 +16,14 @@ export default class GenVenue extends Component {
               activeClassName='active'>{venue.name}
           </Link>
         </h1>
-        <h4>
-          <a className = "venueAddress"
-               href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}
-              <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-          </a>
-        </h4>
+          <div>
+            <h4>
+              <span id="marker"><i className="fa fa-map-marker fa-3" aria-hidden="true"></i></span>
+              <a className = "venueAddress"
+                   href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}
+              </a>
+            </h4>
+          </div>
       </div>
     )
   }
