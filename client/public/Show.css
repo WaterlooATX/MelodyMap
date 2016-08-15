@@ -168,10 +168,10 @@ div.panel-top {
   text-align: center;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 770px) {
   .accordion-album-art {
-    height: 100px;
-    width: 100px;
+    height: 75px;
+    width: 75px;
     border-radius: 500px;
     -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
     -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
@@ -181,5 +181,9 @@ div.panel-top {
 
   .accordion-album-band-name {
     width: 100px;
+  }
+
+  .popularity {
+    padding: 10px;
   }
 }
