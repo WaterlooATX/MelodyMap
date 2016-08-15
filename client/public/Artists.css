@@ -6,6 +6,12 @@
   float: right;
 }
 
+.songkickEndorse{
+  float: right;
+  color: grey;
+  font-weight: bold;
+}
+
 .page-header > h1 {
   display: inline;
   font-size: 38px;
