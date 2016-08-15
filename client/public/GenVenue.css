@@ -32,12 +32,12 @@
 a.genvenue-name-link {
   font-size: 33px;
 }
-/*.genvenue-venue i {
+.genvenue-venue i {
   cursor: pointer;
   position: absolute;
   top: 68px;
   left: 18px;
-}*/
+}
 
 .genvenue-venue h4 {
   margin-left: 37px;
