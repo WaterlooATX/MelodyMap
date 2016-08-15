@@ -138,18 +138,16 @@ class VenueDetail extends Component {
 
 
   render() {
-    // var props = this.props
-    var venueNameURL = this.props.params.venueName
-    var venueIdURL = this.props.params.venueId
+    window.scrollTo(0, 0);
 
-    var redux_Venue = this.props.venues
-    var venue = redux_Venue[venueIdURL]
-
-    var venueNameForMap = venue.name.split(' ').join('+')
+    const params = this.props.params
+    const redux_Venue = this.props.venues
+    const venue = redux_Venue[params.venueId]
+    const venueNameForMap = venue.name.split(' ').join('+')
 
     // formatting for venue website link
     if (venue.website) {
-      var website = venue.website.slice(7)
+      let website = venue.website.slice(7)
       if (website.charAt(website.length - 1) === '/') {
         website = website.slice(0, -1)
       }
@@ -209,5 +207,5 @@ class VenueDetail extends Component {
 }
 
 const mapStateToProps = (state) => {return { venues: state.venues }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Venues: redux_Venues}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Venues }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(VenueDetail);
