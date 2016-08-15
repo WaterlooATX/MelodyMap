@@ -6,7 +6,7 @@ import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
-
+import UpcomingShows from '../components/UpcomingShows'
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
@@ -45,7 +45,6 @@ export default class ArtistDetail extends Component {
                 <ul>
                 {this.getGenre(this.state.artistGenre)}
                 </ul>
-                <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
                 {this.state.artistBio !== "" ? <div>{this.state.artistBio}  <div id="bio" className="collapse">{this.state.bio}</div></div> :
                 <p> The music sails alive with the compelling combination of rich
                 layers among mixed styles of rhythm that hit the soul.
@@ -168,14 +167,9 @@ videoSearch(term){
       return null;
     }
     else{
-      return shows.map(show => {
-        return <div className="list-group">
-          <div className = "list-group-item" key ={show.id}>
-          <p>{show.displayName}</p>
-          <p>{show.location.city}</p>
-          </div>
-          <div></div>
-        </div>
+      return shows.data.map(show => {
+        console.log("SHOWSSS",show)
+        return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
       })
     }
   }
@@ -185,6 +179,9 @@ videoSearch(term){
         var mapped = data.data.map(artistData => {
         return { name:artistData.displayName, id:artistData.id }
         })
+      Songkick_getArtistCalendarAPI(mapped[0].id).then(shows =>{
+        this.setState({artistShows: shows})
+      })  
       mapped.forEach((artist)=>{
       Spotify_searchArtistsAPI(artist).then((spotify)=>{
         if(spotify.data){
