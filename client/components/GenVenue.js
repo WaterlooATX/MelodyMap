@@ -22,10 +22,12 @@ export default class GenVenue extends Component {
               activeClassName='active'>{venue.name}
           </Link>
         </h1>
-        <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
         <h4><a className = "venueAddress" 
                onClick={this._confirmPageLeave.bind(this,null)} 
-               href={this.state.location ? `http://maps.google.com/?q=${venue.address}` : null}>{venue.address}</a></h4>
+               href={this.state.location ? `http://maps.google.com/?q=${venue.address}` : null}>{venue.address}
+              <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
+            </a>
+        </h4>
       </div>
     )
   }
