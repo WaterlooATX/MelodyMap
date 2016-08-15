@@ -61,6 +61,7 @@ const DrawMap = (props) => {
         googleMapElement={
           <GoogleMap
             ref={ (map) => (_Map = map) }
+            zoomControl = "true"
             defaultZoom={ 14 }
             defaultOptions={ {styles: styles, disableDefaultUI: true} }
             center={ _setCenter() }

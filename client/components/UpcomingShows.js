@@ -8,7 +8,7 @@ export default class UpcomingShows extends Component {
     var show = this.props.show
     let artists = this.props.show.performance
     let artistArr = artists.map(function(artist){
-      return <Link to={`/artist/${artist.displayName}`} className="upcoming-show-artists" key={artist.id}> {artist.displayName} </Link>
+      return <Link to={`/artist/${artist.displayName}`} className="" key={artist.id}> {artist.displayName} </Link>
     })
     let additionalArtists = artistArr.slice(2).map(function(artist){
       return (<span key={artist.id}>, {artist}</span>)
@@ -22,9 +22,15 @@ export default class UpcomingShows extends Component {
               : <a href={this.props.show.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>}
           </div>
           <div className='upcoming-show-info'>
-            <div className='upcoming-show-artists'>{ artistArr[0] } { artistArr[1] ? <span> with {artistArr[1]}</span> : null } {additionalArtists}</div>
+
+            <div className='upcoming-show-artists'>
+              <h1>{ artistArr[0] } { artistArr[1] ? <span> with {artistArr[1]}</span> : null } {additionalArtists}</h1>
+            </div>
+
             {show.start.datetime ? <div>{moment(show.start.datetime).format('LLLL')}</div> : <div>{moment(show.start.date).format('LL')}</div>}
+
             <div>{show.venue.displayName}, {show.location.city}</div>
+
           </div>
       </div>
     )

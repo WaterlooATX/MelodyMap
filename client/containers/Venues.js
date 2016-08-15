@@ -14,7 +14,7 @@ class Venues extends Component {
       <div className="container">
         <div className="col col-md-1"></div>
           <div className="col col-md-10">
-            <div className="page-header">
+            <div className="page-header venues-header">
               <h1>Venues</h1>
               <SearchBar />
             </div>
