@@ -1,4 +1,4 @@
-import { VENUES } from "../actions/venues";
+import { VENUES } from "../actions/actions";
 
 export default function(state = {}, action) {
   switch (action.type) {

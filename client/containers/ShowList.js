@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import {selectShow} from '../actions/select_show';
+import {selectShow, redux_Artists} from '../actions/actions';
 import {Spotify_searchArtistsAPI} from '../models/api';
-import {redux_Artists} from '../actions/artists';
 import Show from "./Show";
 import {addArtistToRedux} from '../models/helpers'
 

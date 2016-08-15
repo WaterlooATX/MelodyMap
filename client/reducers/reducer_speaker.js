@@ -1,4 +1,4 @@
-import { SET_SPEAKER } from '../actions/speaker'
+import { SET_SPEAKER } from '../actions/actions'
 
 export default function(state = {songPlayed: false, songButton: null}, action) {
   switch (action.type) {

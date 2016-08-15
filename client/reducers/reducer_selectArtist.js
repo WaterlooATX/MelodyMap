@@ -1,4 +1,4 @@
-import { SELECT_ARTIST } from '../actions/select_artist'
+import { SELECT_ARTIST } from '../actions/actions'
 
 export default function(state = null, action) {
   switch (action.type) {

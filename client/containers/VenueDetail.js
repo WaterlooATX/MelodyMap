@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import NavBar from './NavBar';
 import UpcomingShows from '../components/UpcomingShows.js'
 import { Songkick_getVenueCalendarAPI, Google_placeIdAPI, Google_photoAPI } from '../models/api'
-import {redux_Venues} from '../actions/venues';
+import {redux_Venues} from '../actions/actions';
 import _ from 'lodash';
 
 // cron-job: make sure that upcoming show data does not persist for too long in db

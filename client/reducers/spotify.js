@@ -1,6 +1,4 @@
-import {
-  SPOTIFY_TOKENS, SPOTIFY_ME_BEGIN, SPOTIFY_ME_SUCCESS, SPOTIFY_ME_FAILURE
-} from '../actions/spotify';
+import {SPOTIFY_TOKENS, SPOTIFY_ME_BEGIN, SPOTIFY_ME_SUCCESS, SPOTIFY_ME_FAILURE} from '../actions/spotify';
 
 /** The initial state; no tokens and no user info */
 const initialState = {

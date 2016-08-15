@@ -1,4 +1,4 @@
-import { FETCH_SHOWS } from '../actions/shows';
+import { FETCH_SHOWS } from '../actions/actions';
 
 export default function(state = {}, action) {
   switch (action.type) {

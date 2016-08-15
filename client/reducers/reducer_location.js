@@ -1,4 +1,4 @@
-import { LOCATION } from '../actions/location'
+import { LOCATION } from '../actions/actions'
 
 export default function(state = [], action) {
   switch (action.type) {

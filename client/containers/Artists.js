@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import {redux_Artists} from '../actions/artists';
+import {redux_Artists} from '../actions/actions';
 import {fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api'
 import ArtistList from '../components/ArtistList'
 import {isReduxLoaded} from '../models/helpers'

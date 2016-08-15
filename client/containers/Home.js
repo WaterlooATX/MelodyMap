@@ -2,10 +2,7 @@ import React, {Component} from "react"
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {geolocationAPI, ipLocationAPI} from '../models/api'
-import {fetchShows} from '../actions/shows'
-import {setLocation} from '../actions/location'
-import {selectShow} from '../actions/select_show'
-import {getMyInfo, setTokens} from '../actions/spotify'
+import {getMyInfo, setTokens,selectShow,fetchShows,setLocation} from '../actions/actions'
 import ShowList from './ShowList'
 import DrawMap from '../components/DrawMap'
 import DrawNavigation from '../components/DrawNavigation'

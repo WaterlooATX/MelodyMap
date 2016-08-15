@@ -1,4 +1,4 @@
-import { SELECT_SHOW } from '../actions/select_show'
+import { SELECT_SHOW } from '../actions/actions'
 
 export default function(state = null, action) {
   switch (action.type) {

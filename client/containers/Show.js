@@ -4,9 +4,7 @@ import {connect} from "react-redux"
 import {Link} from 'react-router';
 import moment from 'moment';
 import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
-import {selectShow} from '../actions/select_show'
-import {redux_Artists} from '../actions/artists'
-import {redux_Venues} from '../actions/venues'
+import {redux_Artists, redux_Venues, selectShow} from '../actions/actions'
 import Speaker from './Speaker'
 import {topTrack, toggleSound} from '../models/helpers'
 import DropdownArtists from '../components/DropdownArtists'
