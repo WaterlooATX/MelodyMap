@@ -8,7 +8,6 @@ import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
 import UpcomingShows from '../components/UpcomingShows'
 import {getAlbumArt, topTrack, getBio, getArtistImg} from '../models/helpers'
-import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
 import {redux_Artists} from '../actions/actions';
 
@@ -48,6 +47,7 @@ class ArtistDetail extends Component {
           </div>
         </div>
         <div className="col-sm-offset-2 col-sm-8">
+          {this._isShow(this.state.shows)}
           <div className="media-container">
             <VideoDetail video={this.state.selectedVideo} />
           </div>
