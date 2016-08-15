@@ -17,9 +17,16 @@ export default class GenVenue extends Component {
           </Link>
         </h1>
         <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-        <h4>{venue.address}</h4>
+        <h4><a className = "venueAddress" 
+               onClick={this._confirmPageLeave.bind(this,null)} 
+               href={`http://maps.google.com/?q=${venue.address}`}>{venue.address}</a></h4>
       </div>
     )
+  }
+
+
+  _confirmPageLeave(){
+    return confirm("Are you sure you want to leave this site and head to Google Maps?")
   }
 
 }
