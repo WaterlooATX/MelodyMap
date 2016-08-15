@@ -7,7 +7,6 @@ import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
 import {getAlbumArt, topTrack, getBio} from '../models/helpers'
-
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
@@ -24,7 +23,7 @@ export default class ArtistDetail extends Component {
       artistBlocks: []
     }
   }
-  
+
   componentDidMount() {
     this._videoSearch(this.props.params.artistName)
     this._getArtist(this.props.params.artistName)
@@ -104,50 +103,49 @@ export default class ArtistDetail extends Component {
     }
   }
 
-  _similarArtists(artists){
-    if(!artists){
-      return null
-    }
-    else{
-      return artists.map(artist => {
-        return artist.image.map(image => {
-          if(image.size === "large"){
-            if(image["#text"] === ""){
-              return <div className='similar-artist'>
-                <img className ="img-circle" src = "http://assets.audiomack.com/default-artist-image.jpg" />
-                <Link className ="genArtist"
-                        to={ `/artist/${artist.name}`}
-                                activeClassName='active'>{artist.name}
+  _similarArtists(artists) {
+      if (!artists) {
+          return null
+      } else {
+          return artists.map(artist => {
+              return artist.image.map(image => {
+                  if (image.size === "large") {
+                      if (image["#text"] === "") {
+                          return <div className="similar-artist">
+                              <img
+                                  className="img-circle"
+                                  src="http://assets.audiomack.com/default-artist-image.jpg"/>
+                              <Link
+                                  className="genArtist"
+                                  to={`/artist/${artist.name}`}
+                                  activeClassName="active">{artist.name}
 
-                </Link>
-                </div>
-            }
-            else{
-            return <div className="similar-artist">
-              <img className = "img-circle" src = {image["#text"]}/>
-              <Link className = "genArtist"
-                        to={ `/artist/${artist.name}`}
-                        activeClassName='active'>{artist.name}
+                              </Link>
+                          </div>
+                      } else {
+                          return <div className="similar-artist">
+                              <img className="img-circle" src={image["#text"]}/>
+                              <Link
+                                  className="genArtist"
+                                  to={`/artist/${artist.name}`}
+                                  activeClassName="active">{artist.name}
 
-              </Link>
-            </div>
-          }
-          }
-         else{
-          return null;
-         }
-        })
-      })
-    }
+                              </Link>
+                          </div>
+                      }
+                  } else {
+                      return null;
+                  }
+              })
+          })
+      }
   }
 
   _getTopTracks(tracks) {
     if (!tracks) {
       return null;
     } else {
-      return tracks.map(track => {
-        return track.id
-      })
+      return tracks.map(track => track.id)
     }
   }
 
@@ -159,43 +157,46 @@ export default class ArtistDetail extends Component {
       return shows.map(show => {
         return <div className="list-group">
           <div className = "list-group-item" key ={show.id}>
-          <p>{show.displayName}</p>
-          <p>{show.location.city}</p>
+            <p>{show.displayName}</p>
+            <p>{show.location.city}</p>
           </div>
-          <div></div>
         </div>
       })
     }
   }
 
-  _getArtist(artist){
+  _getArtist(artist) {
     let artistsArr = []
-      fetchArtistsAPI(artist).then(data => {
-        var mapped = data.data.map(artistData => {
-        return { name:artistData.displayName, id:artistData.id }
-        })
-      mapped.forEach((artist)=>{
-      Spotify_searchArtistsAPI(artist).then((spotify)=>{
-        if(spotify.data){
-          this.setState({
-        artistBio: getBio(spotify.data.fullBio),
-        artistName: spotify.data.name,
-        artistImg: spotify.data.img,
-        artistID: spotify.data.id,
-        artistGenre: spotify.data.genre,
-        artistTopTracks: spotify.data.topTracks,
-        artistTour: spotify.data.onTour,
-        artistSimilar: spotify.data.relatedArtists[0].artist
-      })
-
-          artistsArr.push(spotify.data)
-          this.setState({artistBlocks: artistsArr})
+    fetchArtistsAPI(artist).then(data => {
+      var mapped = data.data.map(artistData => {
+        return {
+          name: artistData.displayName,
+          id: artistData.id
         }
       })
-     })
+      mapped.forEach((artist) => {
+        Spotify_searchArtistsAPI(artist).then((spotify) => {
+          if (spotify.data) {
+            this.setState({
+              artistBio: getBio(spotify.data.fullBio),
+              artistName: spotify.data.name,
+              artistImg: spotify.data.img,
+              artistID: spotify.data.id,
+              artistGenre: spotify.data.genre,
+              artistTopTracks: spotify.data.topTracks,
+              artistTour: spotify.data.onTour,
+              artistSimilar: spotify.data.relatedArtists[0].artist
+            })
+
+            artistsArr.push(spotify.data)
+            this.setState({
+              artistBlocks: artistsArr
+            })
+          }
+        })
+      })
     })
   }
-
 }
 
 const mapStateToProps = (state) => {return {artists: state.artists}};
