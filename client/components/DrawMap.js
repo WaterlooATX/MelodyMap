@@ -4,6 +4,19 @@ import {getDistanceFromLatLonInKm} from "../models/getDistanceFromLatLonInKm"
 
 const DrawMap = (props) => {
   let _Map;
+  var content = '<div id="iw-container">' +
+                    '<div class="iw-title">Porcelain Factory of Vista Alegre</div>' +
+                    '<div class="iw-content">' +
+                      '<div class="iw-subTitle">History</div>' +
+                      '<img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83"/>' +
+                      '<p>Founded in 1824, the Porcelain Factory of Vista Alegre was the first industrial unit dedicated to porcelain production in Portugal. For the foundation and success of this risky industrial development was crucial the spirit of persistence of its founder, José Ferreira Pinto Basto. Leading figure in Portuguese society of the nineteenth century farm owner, daring dealer, wisely incorporated the liberal ideas of the century, having become "the first example of free enterprise" in Portugal.</p>' +
+                      '<div class="iw-subTitle">Contacts</div>' +
+                      '<p>VISTA ALEGRE ATLANTIS, SA<br>3830-292 Ílhavo - Portugal'+
+                      'Phone. +351 234 320 600 e-mail: geral@vaa.pt www: www.myvistaalegre.com</p>'+
+                    '</div>' +
+                    '<div class="iw-bottom-gradient"></div>' +
+                  '</div>';
+
 
   function _findClosestShow() {
     const location = props.location;
@@ -33,6 +46,7 @@ const DrawMap = (props) => {
   function _createMarkers() {
     if (Array.isArray(props.shows)) {
       return props.shows.map((show, index) => {
+        console.log("SHOW STUFF",show)
         return (
           <Marker
             key={ index }
@@ -41,7 +55,18 @@ const DrawMap = (props) => {
             onClick={ (marker) => _onMarkerClickHandler(marker, show) }
             defaultAnimation= { 2 }
            >
-            {props.selectedShow === show ? <InfoWindow><div>{ show.displayName }&nbsp;&nbsp;<a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></div></InfoWindow> : null }
+            {props.selectedShow === show ? <InfoWindow maxWidth = {800}><div id="iw-container">
+                    <div className="iw-title">{show.performance[0].displayName}</div>
+                    <div className="iw-content">
+                      <div className="iw-subTitle">{show.venue.displayName}</div>
+                      <img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83"/>
+                      <p>Founded in 1824, the Porcelain Factory of Vista Alegre was the first industrial unit dedicated to porcelain production in Portugal. For the foundation and success of this risky industrial development was crucial the spirit of persistence of its founder, José Ferreira Pinto Basto. Leading figure in Portuguese society of the nineteenth century farm owner, daring dealer, wisely incorporated the liberal ideas of the century, having become "the first example of free enterprise" in Portugal.</p>
+                      <div className="iw-subTitle">Contacts</div>
+                      <p>VISTA ALEGRE ATLANTIS, SA 3830-292 Ílhavo - Portugal
+                      Phone. +351 234 320 600 e-mail: geral@vaa.pt www: www.myvistaalegre.com</p>
+                    </div>  
+                  <a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></div></InfoWindow> : null }
+                    <div className="iw-bottom-gradient"></div>
          </Marker>
         )
       })
