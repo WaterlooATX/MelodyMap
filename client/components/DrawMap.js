@@ -72,7 +72,7 @@ const DrawMap = (props) => {
             // console.log("VENUEID SHOW",show.venue.id)
             // console.log("KEY",key)
           if(key == show.venue.id){
-            console.log(key, show.venue.id)
+            
           }
         }
     _Map.panTo(marker.latLng);
