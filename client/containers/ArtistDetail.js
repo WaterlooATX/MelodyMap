@@ -51,7 +51,7 @@ class ArtistDetail extends Component {
           <VideoDetail video={this.state.selectedVideo} />
         </div>
           <div className="container-similar">
-            <p className="text-muted credit">{this._similarArtists(this.state.artistSimilar)}</p>
+            <p className="text-muted credit">{this._similarArtists(artist.relatedArtists)}</p>
           </div>
       </div>
     )
@@ -88,41 +88,34 @@ class ArtistDetail extends Component {
     }
   }
 
+  _similarArtistsImg(img) {
+    if(img["#text"] === "") {
+      return "http://assets.audiomack.com/default-artist-image.jpg"
+    } else {
+      return img["#text"]
+    }
+  }
+
+
   _similarArtists(artists) {
       if (!artists) {
           return null
       } else {
-          return artists.map(artist => {
-              return artist.image.map(image => {
-                  if (image.size === "large") {
-                      if (image["#text"] === "") {
-                          return <div className="similar-artist">
-                              <img
-                                  className="img-circle"
-                                  src="http://assets.audiomack.com/default-artist-image.jpg"/>
-                              <Link
-                                  className="genArtist"
-                                  to={`/artist/${artist.name}`}
-                                  activeClassName="active">{artist.name}
-
-                              </Link>
-                          </div>
-                      } else {
-                          return <div className="similar-artist">
-                              <img className="img-circle" src={image["#text"]}/>
-                              <Link
-                                  className="genArtist"
-                                  to={`/artist/${artist.name}`}
-                                  activeClassName="active">{artist.name}
-
-                              </Link>
-                          </div>
-                      }
-                  } else {
-                      return null;
-                  }
-              })
-          })
+        const mapped = artists[0].artist.map(artist => {
+          return {name: artist.name, image: this._similarArtistsImg(artist.image[0])}
+        })
+        return mapped.map(artist => {
+          return (
+            <div className="similar-artist" key={artist.name}>
+                <img className="img-circle" src={artist.image}/>
+                <Link
+                    className="genArtist"
+                    to={`/artist/${artist.name}`}
+                    activeClassName="active">{artist.name}
+                </Link>
+            </div>
+          )
+        })
       }
   }
 
