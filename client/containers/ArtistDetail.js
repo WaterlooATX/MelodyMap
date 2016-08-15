@@ -48,7 +48,6 @@ class ArtistDetail extends Component {
           </div>
         </div>
         <div className="col-sm-offset-2 col-sm-8">
-          {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null}
           <div className="media-container">
             <VideoDetail video={this.state.selectedVideo} />
           </div>
@@ -56,6 +55,21 @@ class ArtistDetail extends Component {
         </div>
       </div>
     )
+  }
+
+  _isShow(show){
+    if(show) {
+      return (
+        <div className = "upcoming-shows">
+          <h3>Upcoming Shows</h3>
+          <div className="scrollable-menu">
+            {this._getShows(this.state.shows)}
+          </div>
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 
   render() {
