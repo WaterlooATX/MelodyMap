@@ -18,8 +18,43 @@
 
 .genvenue-venue {
   padding: 10px !important;
+  cursor: default;
 }
 
-.genvenue-name-link {
+.genvenue-name-link:hover {
+  text-decoration: none;
+}
 
+.genvenue-venue i {
+  cursor: pointer;
+  position: absolute;
+  top: 68px;
+  left: 18px;
+}
+
+.genvenue-venue h4 {
+  margin-left: 37px;
+}
+
+@media screen and (max-width: 767px) {
+  .genvenue-venue h1 {
+  font-size: 1.3em;
+  margin-top: 0;
+  margin-bottom: 0;
+  }
+
+  .genvenue-venue i {
+    top: 28px;
+  }
+
+  .genvenue-venue .fa-map-marker:before {
+    font-size: 27px;
+  }
+
+  .genvenue-venue h4 {
+  font-size: 0.9em;
+  margin-top: 5px;
+  margin-bottom: 0;
+  margin-left: 31px;
+  }
 }
