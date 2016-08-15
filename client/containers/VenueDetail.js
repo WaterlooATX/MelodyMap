@@ -24,7 +24,8 @@ class VenueDetail extends Component {
       placeIdObj: null,
       placeId: null,
       photoReference: null,
-      photo: null
+      photo: null,
+      location: false
     }
   }
 
@@ -135,6 +136,10 @@ class VenueDetail extends Component {
       })
   }
 
+  _confirmPageLeave(){
+    confirm("Are you sure you want to leave this site and head to Google Maps?") ? this.setState({location: true}) : null
+  }
+
 
 
   render() {
@@ -162,8 +167,8 @@ class VenueDetail extends Component {
           <div className="jumbotron venue-detail-jumbotron">
             <h1>{venue.name}</h1>
             <ul className="venue-basic-info">
-              {venue.website ? <li>Website: <a href={`${venue.website}`} target="_blank">{`${website}`}</a></li> : null}
-              {venue.address ? <li>{ `Address: ${venue.address}` }</li> : null}
+              {venue.website ? <li><a href={`${venue.website}`} target="_blank">{`${venue.website}`}</a></li> : null}
+              {venue.address ? <li><a onClick={this._confirmPageLeave.bind(this,null)} href={this.state.location ? `http://maps.google.com/?q=${venue.address}` : null}>{venue.address}</a></li> : null}
               {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
               {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
               {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}

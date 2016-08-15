@@ -4,6 +4,12 @@ import {Songkick_getVenueAPI} from '../models/api';
 import Venues from '../containers/Venues';
 
 export default class GenVenue extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      location: false,
+    }
+  }
 
   render() {
     let venue = this.props.venue
@@ -19,14 +25,14 @@ export default class GenVenue extends Component {
         <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
         <h4><a className = "venueAddress" 
                onClick={this._confirmPageLeave.bind(this,null)} 
-               href={`http://maps.google.com/?q=${venue.address}`}>{venue.address}</a></h4>
+               href={this.state.location ? `http://maps.google.com/?q=${venue.address}` : null}>{venue.address}</a></h4>
       </div>
     )
   }
 
 
   _confirmPageLeave(){
-    return confirm("Are you sure you want to leave this site and head to Google Maps?")
+    confirm("Are you sure you want to leave this site and head to Google Maps?") ? this.setState({location: true}) : null
   }
 
 }
