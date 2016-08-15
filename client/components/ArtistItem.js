@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router';
-import Speaker from './Speaker'
+import Speaker from '../containers/Speaker'
 import {getAlbumArt, getRandomAlbumArt, topTrack} from '../models/helpers'
 
 export default class ArtistItem extends Component {

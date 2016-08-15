@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import React, {Component} from 'react';
 import {getAlbumArt, getBio, getRandomAlbumArt, topTrack} from '../models/helpers'
-import Speaker from './Speaker'
+import Speaker from '../containers/Speaker'
 
 export default class DropdownArtist extends Component {
 
