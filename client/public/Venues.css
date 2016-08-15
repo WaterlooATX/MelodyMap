@@ -1,3 +1,7 @@
-h1 .venues-header {
-  font-size: 30px;
+.venues-header h1 {
+  font-size: 38px;
+}
+
+.page-header.venues-header {
+    padding-bottom: 20px;
 }

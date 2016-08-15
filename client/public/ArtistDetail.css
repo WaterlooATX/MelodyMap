@@ -71,13 +71,13 @@
 }
 
 .scrollable-menu {
-    height: auto;
-    max-height: 400px;
-    overflow-x: hidden;
-    width: 800px;
-    height: 400px;
-    margin-left: 250px;
-    margin-right: 134px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+  height: auto;
+  max-height: 400px;
+  overflow-x: hidden;
+  width: 800px;
+  height: 400px;
+  margin-left: 250px;
+  margin-right: 134px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

@@ -56,7 +56,7 @@ class VenueDetail extends Component {
     })
   }
 
-  // to encode photo data to base64
+// to encode photo data to base64
   // _base64_encode (stringToEncode) {
   //   if (typeof window !== 'undefined') {
   //     if (typeof window.btoa !== 'undefined') {
