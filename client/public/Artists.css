@@ -8,14 +8,11 @@
 
 .page-header > h1 {
   display: inline;
-}
-
-.artists-header h1 {
   font-size: 38px;
 }
 
 .page-header.artists-header {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .search-bar {

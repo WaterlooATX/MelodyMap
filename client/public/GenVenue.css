@@ -17,8 +17,8 @@
 }*/
 
 .genvenue-venue {
-  padding: 10px !important;
-  cursor: default;
+  padding: 10px 10px 20px 10px;
+  border-bottom: 1px solid #eee;
 }
 
 
