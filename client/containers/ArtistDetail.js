@@ -6,6 +6,7 @@ import YTSearch from 'youtube-api-search';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
+import {getAlbumArt, topTrack, getBio} from '../models/helpers'
 
 import VideoList from '../components/VideoList';
 import VideoDetail from '../components/VideoDetail';
@@ -62,8 +63,7 @@ export default class ArtistDetail extends Component {
           <iframe src={`https://embed.spotify.com/?uri=spotify:trackset:TopTracks:${this.getTopTracks(this.state.artistTopTracks)}`} width="370px" height= "510px" frameBorder="0" allowTransparency="true"></iframe>
         </div>
           <div className="container-similar">
-            <h3> Similar Artists </h3>
-            <p className="text-muted credit">{this.similarArtists(this.state.artistSimilar)}</p>
+            <p className="text-muted credit">{this._similarArtists(this.state.artistSimilar)}</p>
           </div>
       </div>
     )
@@ -80,23 +80,6 @@ videoSearch(term){
     })
   }
 
-  shortenBio(bio){
-    for(var i = 0;i<bio.length;i++){
-      if(bio[i] === "<"){
-        var newBio = bio.slice(0,i)
-        if(newBio.length > 400){
-          var bioSnippit = newBio.slice(0,400)
-          var bioFull = newBio.slice(400,bio.length)
-          this.setState({bio: bioFull})
-          return bioSnippit + "..."
-        }
-        else{
-          return newBio
-        }
-      }
-    }
-  }
-
   onTour(tour){
     if(tour === "1"){
       return <div className = "text-muted">ON TOUR NOW!</div>
@@ -105,6 +88,7 @@ videoSearch(term){
       return null
     }
   }
+
   getGenre(genres){
     if(!genres){
       return null
@@ -115,7 +99,8 @@ videoSearch(term){
       })
     }
   }
-  similarArtists(artists){
+
+  _similarArtists(artists){
     if(!artists){
       return null
     }
@@ -189,7 +174,7 @@ videoSearch(term){
       Spotify_searchArtistsAPI(artist).then((spotify)=>{
         if(spotify.data){
           this.setState({
-        artistBio: this.shortenBio(spotify.data.fullBio),
+        artistBio: getBio(spotify.data.fullBio),
         artistName: spotify.data.name,
         artistImg: spotify.data.img,
         artistID: spotify.data.id,
@@ -211,4 +196,3 @@ videoSearch(term){
 
 const mapStateToProps = (state) => {return {artists: state.artists}};
 export default connect(mapStateToProps)(ArtistDetail);
-
