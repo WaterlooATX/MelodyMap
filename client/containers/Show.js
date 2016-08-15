@@ -7,7 +7,7 @@ import {Spotify_searchArtistsAPI, Songkick_getVenueAPI} from '../models/api';
 import {selectShow} from '../actions/select_show'
 import {redux_Artists} from '../actions/artists'
 import {redux_Venues} from '../actions/venues'
-import Speaker from '../components/Speaker'
+import Speaker from './Speaker'
 import {topTrack, toggleSound} from '../models/helpers'
 import DropdownArtists from '../components/DropdownArtists'
 
