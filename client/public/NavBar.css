@@ -87,6 +87,8 @@ input.input-city {
   .songkick-search {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
+    align-items: baseline;
   }
 
   .songkick-search input, .songkick-search button {
