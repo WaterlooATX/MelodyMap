@@ -24,6 +24,7 @@ export default class ArtistDetail extends Component {
       artistBlocks: []
     }
   }
+  
   componentDidMount() {
     this._videoSearch(this.props.params.artistName)
     this._getArtist(this.props.params.artistName)
@@ -46,12 +47,14 @@ export default class ArtistDetail extends Component {
                 {this._getGenre(this.state.artistGenre)}
                 </ul>
                 <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${this.state.artistID}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe>
+
                 {this.state.artistBio !== "" ? <div>{this.state.artistBio}  <div id="bio" className="collapse">{this.state.bio}</div></div> :
                 <p> The music sails alive with the compelling combination of rich
                 layers among mixed styles of rhythm that hit the soul.
                 By melding hook-filled melody within hard and heavy beats,
                 has the ability to compact a vast array of influence and experience
                 into a singular song</p>}
+
                 <button type="button" className="btn btn-info" data-toggle="collapse" data-target="#bio">Show More</button>
             </div>
           </div>
@@ -70,11 +73,14 @@ export default class ArtistDetail extends Component {
 
 
 
-_videoSearch(term){
-    YTSearch({key: API_KEY, term: term}, (videos) => {
+  _videoSearch(term) {
+    YTSearch({
+      key: API_KEY,
+      term: term
+    }, (videos) => {
       this.setState({
-          videos: videos,
-          selectedVideo: videos[0]
+        videos: videos,
+        selectedVideo: videos[0]
       })
     })
   }
@@ -82,8 +88,7 @@ _videoSearch(term){
   _onTour(tour){
     if(tour === "1"){
       return <div className = "text-muted">ON TOUR NOW!</div>
-    }
-    else{
+    }else{
       return null
     }
   }
@@ -136,11 +141,10 @@ _videoSearch(term){
     }
   }
 
-  _getTopTracks(tracks){
-      if(!tracks){
-        return null;
-      }
-      else{
+  _getTopTracks(tracks) {
+    if (!tracks) {
+      return null;
+    } else {
       return tracks.map(track => {
         return track.id
       })
