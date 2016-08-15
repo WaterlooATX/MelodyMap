@@ -48,6 +48,11 @@ class NavBar extends Component {
   }
 
   render () {
+    // have NavLinks comes back in after a specified Timeout to prevent pre-load erros
+    setTimeout(function(){
+      $('li a').css('z-index', 10);
+    }, 7000);
+
     return (
       <div>
         <nav className="navbar navbar-default home-navbar">
@@ -63,8 +68,8 @@ class NavBar extends Component {
             </div>
             <div className="collapse navbar-collapse" id="myNavbar">
               <ul className="nav navbar-nav">
-                <li><NavLink to="/artists" activeClassName="active" onClick={ this.props.onLink.bind(this, false) }>Artists</NavLink></li>
-                <li><NavLink to="/venues" activeClassName="active" onClick={ this.props.onLink.bind(this, false) }>Venues</NavLink></li>
+                <li><NavLink to="/artists" activeClassName="active" onClick={ this.props.onLink.bind(this, false) } style={{ zIndex: -10 }}>Artists</NavLink></li>
+                <li><NavLink to="/venues" activeClassName="active" onClick={ this.props.onLink.bind(this, false) } style={{ zIndex: -10 }}>Venues</NavLink></li>
                 {/* <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
                 <li><NavLink to="/about" activeClassName="active">About</NavLink></li> */}
               </ul>
