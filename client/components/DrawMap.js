@@ -4,6 +4,7 @@ import {getDistanceFromLatLonInKm} from "../models/getDistanceFromLatLonInKm"
 
 const DrawMap = (props) => {
   let _Map;
+  let venues = props.venues
   
   function _findClosestShow() {
     const location = props.location;
@@ -31,10 +32,17 @@ const DrawMap = (props) => {
   }
 
   function _createMarkers() {
+    // console.log("VENUES",venues)
     if (Array.isArray(props.shows)) {
       return props.shows.map((show, index) => {
-         props.venues.map(venue => {
-          console.log("Venues", venue)
+        // for(var key in venues){
+        //   // console.log("VENUEID SHOW",show.venue.id)
+        //   // console.log("KEY",key)
+        //   if(key == show.venue.id){
+        //     console.log(key, show.venue.id)
+        // }
+        // }
+
         return (
           <Marker
             key={ index }
@@ -43,10 +51,10 @@ const DrawMap = (props) => {
             onClick={ (marker) => _onMarkerClickHandler(marker, show) }
             defaultAnimation= { 2 }
            >
-            {props.selectedShow === show ? <InfoWindow maxWidth = {800}><div id="iw-container">
-                    <div className="iw-title">{show.performance[0].displayName}</div>
+            {props.selectedShow === show ? <InfoWindow maxWidth = { 300 }><div id="iw-container">
+                    <div className="iw-title">{show.venue.displayName}</div>
                     <div className="iw-content">
-                      <div className="iw-subTitle">{show.venue.displayName}</div>
+                      <div className="iw-subTitle">{show.performance[0].displayName}</div>
                       <div className="iw-subTitle">Contacts</div>
                       <p>VISTA ALEGRE ATLANTIS, SA 3830-292 Ílhavo - Portugal
                       Phone. +351 234 320 600 e-mail: geral@vaa.pt www: www.myvistaalegre.com</p>
@@ -55,12 +63,18 @@ const DrawMap = (props) => {
                     <div className="iw-bottom-gradient"></div>
          </Marker>
         )
-        })
       })
     }
   }
 
   function _onMarkerClickHandler(marker, show) {
+      for(var key in venues){
+            // console.log("VENUEID SHOW",show.venue.id)
+            // console.log("KEY",key)
+          if(key == show.venue.id){
+            console.log(key, show.venue.id)
+          }
+        }
     _Map.panTo(marker.latLng);
     props.selectShow(show);
     $(`#heading${show.id}`)[0].scrollIntoView( true );
