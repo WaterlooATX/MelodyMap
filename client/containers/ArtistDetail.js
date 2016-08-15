@@ -33,7 +33,6 @@ class ArtistDetail extends Component {
   render() {
     const artist = this._getArtist(this.props.params.artistName)
     return (
-        <div>
           <div className="container">
             <div className="jumbotron">
                 <img className = "detailImage img-circle" src = {getArtistImg(artist)}/>
@@ -45,15 +44,12 @@ class ArtistDetail extends Component {
                 {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
                 <div id="bio" className="collapse">{getBio(artist)}</div>
             </div>
+            {/* {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null} */}
+            <div className="media-container">
+              <VideoDetail video={this.state.selectedVideo} />
+            </div>
+              {this._similarArtists(artist.relatedArtists)}
           </div>
-        {/* {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null} */}
-        <div className="media-container">
-          <VideoDetail video={this.state.selectedVideo} />
-        </div>
-          <div className="container-similar">
-            <p className="text-muted credit">{this._similarArtists(this.state.artistSimilar)}</p>
-          </div>
-      </div>
     )
   }
 
@@ -88,41 +84,33 @@ class ArtistDetail extends Component {
     }
   }
 
+  _similarArtistsImg(img) {
+    if(img["#text"] === "") {
+      return "http://assets.audiomack.com/default-artist-image.jpg"
+    } else {
+      return img["#text"]
+    }
+  }
+
   _similarArtists(artists) {
       if (!artists) {
           return null
       } else {
-          return artists.map(artist => {
-              return artist.image.map(image => {
-                  if (image.size === "large") {
-                      if (image["#text"] === "") {
-                          return <div className="similar-artist">
-                              <img
-                                  className="img-circle"
-                                  src="http://assets.audiomack.com/default-artist-image.jpg"/>
-                              <Link
-                                  className="genArtist"
-                                  to={`/artist/${artist.name}`}
-                                  activeClassName="active">{artist.name}
-
-                              </Link>
-                          </div>
-                      } else {
-                          return <div className="similar-artist">
-                              <img className="img-circle" src={image["#text"]}/>
-                              <Link
-                                  className="genArtist"
-                                  to={`/artist/${artist.name}`}
-                                  activeClassName="active">{artist.name}
-
-                              </Link>
-                          </div>
-                      }
-                  } else {
-                      return null;
-                  }
-              })
-          })
+        const mapped = artists[0].artist.map(artist => {
+          return {name: artist.name, image: this._similarArtistsImg(artist.image[1])}
+        })
+        return mapped.map(artist => {
+          return (
+            <div className="similar-artist" key={artist.name}>
+                <img className="img-circle" src={artist.image}/>
+                <Link
+                    className="text-center"
+                    to={`/artist/${artist.name}`}
+                    activeClassName="active">{artist.name}
+                </Link>
+            </div>
+          )
+        })
       }
   }
 
