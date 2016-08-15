@@ -22,35 +22,44 @@ class ArtistDetail extends Component {
     this.state = {
       videos: [],
       selectedVideo: null,
-      shows : null
+      shows : null,
+      artist: null
     }
   }
 
   componentDidMount() {
     this._videoSearch(this.props.params.artistName)
+    this.setState({artist: this._getArtist(this.props.params.artistName)})
   }
 
-  render() {
-    const artist = this._getArtist(this.props.params.artistName)
+  _render(artist){
     return (
           <div className="container">
             <div className="jumbotron">
-                <img className = "detailImage img-circle" src = {getArtistImg(artist)}/>
+                <img className = "detailImage img-circle" src={getArtistImg(artist)}/>
                 <h1>{`${artist.name}`}</h1>
                 <h3>{this._onTour(artist.onTour)}</h3>
                 <ul>
                 {this._getGenre(artist.genre)}
                 </ul>
                 {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
-                <div id="bio" className="collapse">{getBio(artist)}</div>
+                {getBio(artist)}
             </div>
-            {/* {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null} */}
+            {this.state.shows ? <div className = "upcoming-shows"> <h3>Upcoming Shows</h3> <div className="scrollable-menu">{this._getShows(this.state.shows)} </div></div>: null}
             <div className="media-container">
               <VideoDetail video={this.state.selectedVideo} />
             </div>
               {this._similarArtists(artist.relatedArtists)}
           </div>
     )
+  }
+
+  render() {
+    if(this.state.artist) {
+      return this._render(this.state.artist)
+    } else {
+      return <div>Loading</div>
+    }
   }
 
   _videoSearch(term) {
@@ -126,7 +135,8 @@ class ArtistDetail extends Component {
       if (!shows) {
           return null;
       } else {
-          return shows.data.map(show => {
+          return shows.map(show => {
+            console.log(show)
               return <UpcomingShows show={show} key={show.id} source="VenueDetail"/>
           })
       }
@@ -136,9 +146,16 @@ class ArtistDetail extends Component {
     return this.props.artists[name] ? true : false
   }
 
+  _getArtistCalendar(id) {
+    Songkick_getArtistCalendarAPI(id).then(shows => {
+      this.setState({shows: shows.data})
+    })
+  }
+
   _getArtist(name) {
     // all arist can be redux state, but similar-artist
     if(this._isAristInRedux(name)) {
+      this._getArtistCalendar(this.props.artists[name].songKickID)
       return this.props.artists[name]
     } else {
       // fetchArtistsAPI(name) -> Spotify_searchArtistsAPI(id)
