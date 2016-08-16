@@ -87,25 +87,33 @@ class Artists extends Component {
 
   render() {
       return(
-        <div className="container">
-          <div className="row">
-            <div className='col-md-1'></div>
-              <div className='col-md-10'>
-                <div className="page-header artists-header">
-                  <h1>Artists</h1>
-                  <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
-                    <input
-                      className="form-control"
-                      value={ this.state.term }
-                      placeholder='Search Artists'
-                      onChange={ event => this._onInputChange(event.target.value) }
-                    />
-                  </form>
+        <div>
+          <div className="container">
+            <div className="row">
+              <div className='col-md-1'></div>
+                <div className='col-md-10'>
+                  <div className="page-header artists-header">
+                    <h1>Artists</h1>
+                    <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+                      <input
+                        className="form-control"
+                        value={ this.state.term }
+                        placeholder='Search Artists'
+                        onChange={ event => this._onInputChange(event.target.value) }
+                      />
+                    </form>
+                  </div>
                 </div>
-              </div>
-            <div className='col-md-1'></div>
+              <div className='col-md-1'></div>
+            </div>
+            <ArtistList artists={this._artistList()} />
+            <br/>
           </div>
-          <ArtistList artists={this._artistList()} />
+            <footer className='footer'>
+              <div className='container songkickFoot'>
+                <h5 className='songkickEndorse'>Brought to you by SongKick</h5>
+              </div>
+            </footer>
         </div>
       )
    }
