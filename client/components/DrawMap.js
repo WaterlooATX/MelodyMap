@@ -57,10 +57,12 @@ const DrawMap = (props) => {
                       <div className="iw-subTitle">{show.performance[0].displayName}</div>
                       <div className="iw-subTitle">Contacts</div>
                       <p>VISTA ALEGRE ATLANTIS, SA 3830-292 Ílhavo - Portugal
-                      Phone. +351 234 320 600 e-mail: geral@vaa.pt www: www.myvistaalegre.com</p>
+                      Phone. +351 234 320 600 e-mail: geral@vaa.pt www: www.myvistaalegre.com
+                      <a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></p>
                     </div>  
-                  <a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></div></InfoWindow> : null }
-                    <div className="iw-bottom-gradient"></div>
+                  
+                  <div className="iw-bottom-gradient"></div>
+                  </div></InfoWindow> : null }
          </Marker>
         )
       })
