@@ -34,15 +34,19 @@ class ArtistDetail extends Component {
     return (
       <div>
         <div className="jumbotron">
-          <div className=" col-sm-offset-2 col-sm-8">
-            <img className = "detailImage img-circle" src={getArtistImg(artist)}/>
-            <h1>{`${artist.name}`}</h1>
-            <h3>{this._onTour(artist.onTour)}</h3>
-            <ul>
+          <div className="col-sm-offset-2 col-sm-8">
+            <img className="detailImage img-circle" src={getArtistImg(artist)}/>
+            <div className="artistDetail-title">
+              <div className="artistDetail-name">{`${artist.name}`}</div>
+              <div className="artistDetail-ontour">{this._onTour(artist.onTour)}</div>
+            </div>
+            {/* <ul>
             {this._getGenre(artist.genre)}
-            </ul>
+            </ul> */}
             {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
-            {getBio(artist)}
+            <div className="artistDetail-bio">
+              {getBio(artist)}
+            </div>
           </div>
         </div>
         <div className="col-sm-offset-2 col-sm-8">
@@ -93,7 +97,7 @@ class ArtistDetail extends Component {
 
   _onTour(tour){
     if(tour === "1"){
-      return <div className = "text-muted">ON TOUR NOW!</div>
+      return "ON TOUR"
     }else{
       return null
     }

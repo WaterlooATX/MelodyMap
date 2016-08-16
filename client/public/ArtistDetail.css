@@ -28,7 +28,25 @@
   flex-direction: column;
   background-color: #f5f5f5;
 }
-
+.artistDetail-bio {
+  overflow-y: scroll;
+  height: 240px;
+}
+.artistDetail-title {
+  display: inline-block;
+}
+.artistDetail-name {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+}
+.artistDetail-ontour {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  padding-left: 20px;
+  font-size: 22px;
+}
 .container-similar p {
   display: flex;
   flex-direction: row;
