@@ -13,15 +13,23 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: SPOTIFY_CLIENTSECRET
 })
 
-const catchedArtists = {}
+const cachedArtists = {}
 let Spotify_searchArtists = 0;
 exports.searchArtists = (name, songKickID) => {
+  // check catched artists
+    console.log(`${++Spotify_searchArtists} found cachedArtists ${name}`)
+    //return catchArtist
+    return new Promise( function(resolve, reject) {
+    })
+  }
+
   return ArtistModel.findOne({
       "songKickID": songKickID
     })
     .then(artist => {
       if (artist) {
         console.log(`${++Spotify_searchArtists} found ${name}`)
+        cachedArtists[songKickID] = artist
         return artist
       } else {
         return addToDataBase(name)
@@ -30,7 +38,6 @@ exports.searchArtists = (name, songKickID) => {
 
   // artist whos names dont match will always make a new api call!
   function addToDataBase(Name) {
-    catchedArtists[songKickID] = true
 
     return spotifyApi.searchArtists(Name)
       .then(data => {
@@ -91,7 +98,7 @@ exports.searchArtists = (name, songKickID) => {
               Artist.save(function(err) {
                 if (err) return console.log(err);
               });
-
+              cachedArtists[songKickID] = Artist
             }, 2000)
             return Artist
           }
@@ -99,21 +106,3 @@ exports.searchArtists = (name, songKickID) => {
       }).catch(err => console.log("ERROR", Name));
   }
 }
-
-// exports.getArtistTopTracks = (artistID, countryCode) => {
-//   return spotifyApi.getArtistTopTracks(artistID, countryCode)
-//     .then(data => data.body)
-//     .catch(err => console.error(err));
-// }
-//
-// exports.getArtistAlbums = (artistID) => {
-//   return spotifyApi.getArtistAlbums(artistID)
-//     .then(data => data.body)
-//     .catch(err => console.error(err));
-// }
-//
-// exports.getArtistRelatedArtists = (artistID) => {
-//   return spotifyApi.getArtistRelatedArtists(artistID)
-//     .then(data => data.body)
-//     .catch(err => console.error(err));
-// }
