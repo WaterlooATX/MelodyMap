@@ -101,9 +101,9 @@ class Show extends Component {
       // add bandMembers names to array
       bandMembers.push(Artist.displayName)
       count++
-       if(count === showArtists.length) {
-         this.setState({bands: bandMembers})
-       }
+      if (count === showArtists.length) {
+        this.setState({bands: bandMembers})
+      }
     })
   }
 

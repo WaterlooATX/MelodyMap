@@ -24,7 +24,6 @@ const spotifyApi = new SpotifyWebApi({
 const generateRandomString = function(length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
   for (var i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
@@ -92,13 +91,6 @@ const LastFM = require("./models/m_lastFM")
 const Artist = require("./models/m_artist")
 const Google = require("./models/m_google")
 
-//
-// let bands = "chris,Björk,Nicki Minaj,Dnce,kiiara,R.E.M.,Marilyn Manson, Jonas Blue, Katy Perry, System of a Down, Massive Attack, Foo Fighters, Meghan Trainor, Marvin Gaye, Jimi Hendrix, Oasis, Tame Impala, Kings of Leon"
-// bands.split(',').forEach(name => {
-//   Spotify.searchArtists(name)
-//   .then(data => console.log(data))
-//   .catch(error => console.log("error", error))
-// })
 
 // let AlbumsCount = 0;
 // router.post('/getArtistAlbums', function(req, res) {
@@ -196,7 +188,6 @@ router.post('/Songkick_getArtistCalendar', function(req, res) {
     .then(data => res.send(data))
     .catch(error => console.log("error", error))
 })
-
 
 router.post('/Songkick_getVenue', function(req, res) {
   Songkick.getVenue(req.body.id)

@@ -13,7 +13,6 @@ import {redux_Artists} from '../actions/actions';
 
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 
-
 class ArtistDetail extends Component {
 
   constructor(props){
