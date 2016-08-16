@@ -30,6 +30,12 @@ class ArtistDetail extends Component {
     this.setState({artist: this._getArtist(this.props.params.artistName)})
   }
 
+  componentWillRecieveProps(){
+    this.setState({artist: this._getArtist(this.props.params.artistName)})
+  }
+
+  
+
   _render(artist){
     return (
       <div>
@@ -157,7 +163,6 @@ class ArtistDetail extends Component {
           return null;
       } else {
           return shows.map(show => {
-            console.log(show)
               return <UpcomingShows show={show} key={show.id} source="VenueDetail"/>
           })
       }
@@ -173,13 +178,31 @@ class ArtistDetail extends Component {
     })
   }
 
+  _addArtistToRedux(artist) {
+    const artists = this.props.artists
+    artists[artist.name] = artist
+    // update redux state with new artist
+    this.setState({artist: artists[artist.name]})
+    redux_Artists(artists)
+    return artists[artist.name]
+  }
+
   _getArtist(name) {
     // all arist can be redux state, but similar-artist
     if(this._isAristInRedux(name)) {
       this._getArtistCalendar(this.props.artists[name].songKickID)
       return this.props.artists[name]
     } else {
-      // fetchArtistsAPI(name) -> Spotify_searchArtistsAPI(id)
+      fetchArtistsAPI(name).then(artist=>{
+        return artist.data[0].id
+      })
+      .then(id =>{
+        Spotify_searchArtistsAPI({name:name,id: id}).then(artistInfo =>{
+          return this._addArtistToRedux(artistInfo.data)
+        })
+      })
+        
+      
     }
   }
 }

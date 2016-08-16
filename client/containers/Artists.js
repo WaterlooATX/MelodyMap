@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactCSSTransitionGroup from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {redux_Artists} from '../actions/actions'
@@ -12,15 +13,23 @@ class Artists extends Component {
     super(props)
     this.state = {
       searchedArtists: {},
-      term: ''
+      term: '',
+      notFound: false,
+      showError: false,
     }
   }
 
   _artistSearch(term) {
     this.setState({searchedArtists: {}})
     fetchArtistsAPI(term).then(artists => {
-      const mappedArtists = this._mapData(artists)
-      mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist))
+      if(artists.data.length){
+        this.setState({notFound: false, showError: false})
+        var mappedArtists;
+        mappedArtists = this._mapData(artists)
+        mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist));
+      } else{
+         this.setState({notFound: true, showError: true})
+      }
     })
   }
 
@@ -81,26 +90,39 @@ class Artists extends Component {
     })
   }
 
+  _errorFade(){
+    var This = this;
+     setTimeout(function(){
+        This.setState({notFound: false, showError: false});
+        $('#artist-search-bar').find('input').val('');
+      }, 3000)
+  }
+
   _artistList() {
     return isReduxLoaded(this.state.searchedArtists) ? this.state.searchedArtists : this.props.artists
   }
 
   render() {
+    this.state.showError ? this._errorFade() : null
       return(
         <div>
           <div className="container">
             <div className="row">
                 <div className='col-md-10'>
                   <div className="page-header artists-header">
-                  <div className="artist-title">Artists</div>
-                    <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
-                      <input
-                        className="form-control"
-                        value={ this.state.term }
-                        placeholder='Search Artists'
-                        onChange={ event => this._onInputChange(event.target.value) }
-                      />
-                    </form>
+                    <div className="artist-title">Artists</div>
+                      {!this.state.notFound ?
+                         <form name='artistForm' id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+                          <input
+                            className="form-control"
+                            value={this.state.term}
+                            placeholder='Search Artists'
+                            onChange={ event => this._onInputChange(event.target.value) }
+                          />
+                        </form>
+                      :
+                        <p className='searchError'>Search Not Found</p>
+                      }
                   </div>
                 </div>
             </div>
