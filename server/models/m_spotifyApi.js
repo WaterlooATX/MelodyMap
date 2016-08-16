@@ -17,9 +17,12 @@ const cachedArtists = {}
 let Spotify_searchArtists = 0;
 exports.searchArtists = (name, songKickID) => {
   // check catched artists
+  const cacheArtist = cachedArtists[songKickID]
+  if(cacheArtist) {
     console.log(`${++Spotify_searchArtists} found cachedArtists ${name}`)
     //return catchArtist
     return new Promise( function(resolve, reject) {
+      resolve(cacheArtist)
     })
   }
 
