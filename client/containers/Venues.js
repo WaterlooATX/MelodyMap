@@ -18,9 +18,9 @@ class Venues extends Component {
               <h1>Venues</h1>
               <SearchBar />
             </div>
-              <div className="">
+            <div className="">
               {Venues}
-              </div>
+            </div>
           </div>
         <div className="col col-md-1"></div>
       </div>
