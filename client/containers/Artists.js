@@ -92,7 +92,7 @@ class Artists extends Component {
             <div className="row">
                 <div className='col-md-10'>
                   <div className="page-header artists-header">
-                    <h1>Artists</h1>
+                  <div className="artist-title">Artists</div>
                     <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
                       <input
                         className="form-control"
