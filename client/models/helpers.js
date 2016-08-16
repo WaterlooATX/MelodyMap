@@ -19,7 +19,7 @@ export const getBio = (Artist) => {
 
   const checkBio = (fullBio) => {
     if (fullBio && fullBio.length) {
-      return fullBio.slice(0, 290).split('/').join(' /').split('%').join('% ').split('<a')[0] + '...'
+      return fullBio.split('/').join(' /').split('%').join('% ').split('<a')[0]
     } else {
       return randomBio
     }

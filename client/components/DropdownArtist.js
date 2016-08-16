@@ -41,7 +41,7 @@ export default class DropdownArtist extends Component {
           <div className='right popularity'>
             <div className="text-center">
               <Link to={`artist/${name}`} activeClassName='active'><b style={{fontSize: "20px"}}>{name}   </b></Link>
-              <Speaker track={topTrack(artist)} size={2}/>
+              <Speaker track={topTrack(artist)} size={1}/>
             </div>
             <div className="text-center">{`Popularity`}</div>
             <div className="progress" style={{marginBottom: "5px"}}>
@@ -55,6 +55,9 @@ export default class DropdownArtist extends Component {
               </div>
             </div>
             <div className="accordion-text">{getBio(artist)}</div>
+            <div className="accordion-text-bottom-gradient"></div>
+
+
           </div>
         </div>
       </div>
