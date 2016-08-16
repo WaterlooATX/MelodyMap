@@ -7,6 +7,27 @@ import _ from 'lodash';
 
 class Venues extends Component {
 
+  constructor(props){
+    super(props);
+    this.state={
+      term: '',
+      notFound: false,
+      showError: false,
+      searchedVenues: {},
+    }
+  }
+
+  _handleSubmit(event) {
+      event.preventDefault()
+      this._artistSearch(this.state.term)
+  }
+
+  _onInputChange(term) {
+    this.setState({
+      term: term
+    })
+  }
+
   render() {
     const Venues = this._createVenues();
     return (
