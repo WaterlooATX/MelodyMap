@@ -24,23 +24,15 @@ class Venues extends Component {
       console.log(venues)
       if(venues.data.length){
          this.setState({notFound: false, showError: false})
-      //   var mappedVenues;
-      //   mappedVenues = this._mapData(venues)
-      //   mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._spotifySearch(artist));        
+         var mappedVenues;
+         mappedVenues = this._mapData(venues)
+        console.log(mappedVenues)
+         //mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._spotifySearch(artist));        
        } else{       
           this.setState({notFound: true, showError: true})
        }
     })
   }
-
-  _isInRedux(venue) {
-    if (this.props.venues && !this.props.venues[venue.name]) {
-      return false
-    } else {
-      return true
-    }
-  }
-
 
   _mapData(venues) {
     return venues.data.map(venue => {
@@ -48,27 +40,37 @@ class Venues extends Component {
         address: venue.street,
         name: venue.displayName,
         city: venue.city.displayName,
+        state: venue.city.state.displayName,
+        website: venue.website,
         id: venue.id
       }
     })
   }
 
-  _getRedux(venue) {
-    const searchedVenues = this.state.searchedVenues
-    searchedVenues[venue.name] = this.props.venues[venue.name]
-    this.setState({
-      searchedVenues: searchedVenues
-    })
-  }
+  // _isInRedux(venue) {
+  //   if (this.props.venues && !this.props.venues[venue.name]) {
+  //     return false
+  //   } else {
+  //     return true
+  //   }
+  // }
 
-  _addRedux(spotify, venue) {
-    const Venues = this.props.venues
-    const searchedVenues = this.state.searchedVenues
-    this.setState({
-      searchedVenues: searchedVenues
-    })
-    //redux_Artists(Artists)
-  }
+  // _getRedux(venue) {
+  //   const searchedVenues = this.state.searchedVenues
+  //   searchedVenues[venue.name] = this.props.venues[venue.name]
+  //   this.setState({
+  //     searchedVenues: searchedVenues
+  //   })
+  // }
+
+  // _addRedux(spotify, venue) {
+  //   const Venues = this.props.venues
+  //   const searchedVenues = this.state.searchedVenues
+  //   this.setState({
+  //     searchedVenues: searchedVenues
+  //   })
+  //   //redux_Artists(Artists)
+  // }
 
   _handleSubmit(event) {
       event.preventDefault()
