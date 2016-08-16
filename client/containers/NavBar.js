@@ -48,7 +48,7 @@ class NavBar extends Component {
 
     return (
       <div>
-        <nav className="navbar navbar-default home-navbar">
+        <nav className="navbar navbar-default home-navbar navbar-fixed-top">
           <div className="container-fluid">
             <div className="navbar-header">
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
