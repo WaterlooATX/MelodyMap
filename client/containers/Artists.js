@@ -104,7 +104,9 @@ class Artists extends Component {
                   </div>
                 </div>
             </div>
-            <ArtistList artists={this._artistList()} />
+            <div className="ArtistList">
+              <ArtistList artists={this._artistList()} />
+            </div>
             <br/>
           </div>
             <footer className='footer'>
@@ -118,5 +120,5 @@ class Artists extends Component {
 }
 
 const mapStateToProps = (state) => {return {artists: state.artists }}
-const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({redux_Artists}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Artists)

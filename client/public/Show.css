@@ -151,6 +151,7 @@ div.panel-top {
   height: 135px;
   overflow-y: scroll;
   position: relative;
+  padding-bottom: 20px;
 }
 
 .accordion-text-bottom-gradient {

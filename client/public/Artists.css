@@ -20,7 +20,10 @@
 .page-header.artists-header {
   padding-bottom: 20px;
 }
-
+.ArtistList {
+  overflow-y: scroll;
+  height: 80vh;
+}
 .search-bar {
     margin: 20px;
     text-align: center;
