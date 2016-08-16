@@ -93,7 +93,11 @@ class Artists extends Component {
   _errorFade(){
     var This = this;
      setTimeout(function(){
-        This.setState({notFound: false})       
+        This.setState({notFound: false});
+        //document.getElementById('artist-search-bar').value=null; 
+        //document.forms['artistForm'].reset() 
+        //document.artistForm.value=null;
+        $('#artist-search-bar').find('input').val('');     
         }, 3000)     
   }
 
@@ -111,10 +115,10 @@ class Artists extends Component {
                   <div className="page-header artists-header">
                     <h1>Artists</h1>
                       {!this.state.notFound ? 
-                         <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+                         <form name='artistForm' id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
                           <input
                             className="form-control"
-                            value={ this.state.term }
+                            value={this.state.term}
                             placeholder='Search Artists'
                             onChange={ event => this._onInputChange(event.target.value) }
                           />
