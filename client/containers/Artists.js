@@ -102,6 +102,21 @@ class Artists extends Component {
     return isReduxLoaded(this.state.searchedArtists) ? this.state.searchedArtists : this.props.artists
   }
 
+  _artistForm() {
+    if(this.state.notFound) {
+      return <p className='searchError'>Search Not Found</p>
+    } else return (
+      <form name='artistForm' id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+       <input
+         className="form-control"
+         value={this.state.term}
+         placeholder='Search Artists'
+         onChange={ event => this._onInputChange(event.target.value) }
+       />
+     </form>
+    )
+  }
+
   render() {
     this.state.showError ? this._errorFade() : null
       return(
@@ -111,18 +126,7 @@ class Artists extends Component {
                 <div className='col-md-10'>
                   <div className="page-header artists-header">
                     <div className="artist-title">Artists</div>
-                      {!this.state.notFound ?
-                         <form name='artistForm' id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
-                          <input
-                            className="form-control"
-                            value={this.state.term}
-                            placeholder='Search Artists'
-                            onChange={ event => this._onInputChange(event.target.value) }
-                          />
-                        </form>
-                      :
-                        <p className='searchError'>Search Not Found</p>
-                      }
+                      {this._artistForm()}
                   </div>
                 </div>
             </div>
