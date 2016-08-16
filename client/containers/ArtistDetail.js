@@ -26,15 +26,12 @@ class ArtistDetail extends Component {
   }
 
   componentDidMount() {
-    this._videoSearch(this.props.params.artistName)
     this.setState({artist: this._getArtist(this.props.params.artistName)})
   }
 
-  componentWillRecieveProps(){
+  componentWillReceiveProps(){
     this.setState({artist: this._getArtist(this.props.params.artistName)})
   }
-
-  
 
   _render(artist){
     return (
@@ -46,9 +43,6 @@ class ArtistDetail extends Component {
               <div className="artistDetail-name">{`${artist.name}`}</div>
               <div className="artistDetail-ontour">{this._onTour(artist.onTour)}</div>
             </div>
-            {/* <ul>
-            {this._getGenre(artist.genre)}
-            </ul> */}
             {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
             <div className="artistDetail-bio">
               {getBio(artist)}
@@ -181,6 +175,7 @@ class ArtistDetail extends Component {
   _addArtistToRedux(artist) {
     const artists = this.props.artists
     artists[artist.name] = artist
+    this._getArtistCalendar(artists[artist.name].songKickID)
     // update redux state with new artist
     this.setState({artist: artists[artist.name]})
     redux_Artists(artists)
@@ -188,21 +183,23 @@ class ArtistDetail extends Component {
   }
 
   _getArtist(name) {
+    this._videoSearch(name)
     // all arist can be redux state, but similar-artist
-    if(this._isAristInRedux(name)) {
+    if (this._isAristInRedux(name)) {
       this._getArtistCalendar(this.props.artists[name].songKickID)
       return this.props.artists[name]
     } else {
-      fetchArtistsAPI(name).then(artist=>{
-        return artist.data[0].id
-      })
-      .then(id =>{
-        Spotify_searchArtistsAPI({name:name,id: id}).then(artistInfo =>{
-          return this._addArtistToRedux(artistInfo.data)
+      fetchArtistsAPI(name).then(artist => {
+          return artist.data[0].id
         })
-      })
-        
-      
+        .then(id => {
+          Spotify_searchArtistsAPI({
+            name: name,
+            id: id
+          }).then(artistInfo => {
+            return this._addArtistToRedux(artistInfo.data)
+          })
+        })
     }
   }
 }

@@ -5,7 +5,6 @@ import SearchBar from '../components/SearchBar'
 import GenVenue from '../components/GenVenue'
 import _ from 'lodash';
 
-
 class Venues extends Component {
 
   render() {
