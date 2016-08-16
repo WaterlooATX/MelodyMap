@@ -94,11 +94,8 @@ class Artists extends Component {
     var This = this;
      setTimeout(function(){
         This.setState({notFound: false, showError: false}); 
-        //document.getElementById('artist-search-bar').value=null; 
-        //document.forms['artistForm'].reset() 
-        //document.artistForm.value=null;
         $('#artist-search-bar').find('input').val('');     
-        }, 3000)  
+      }, 3000)  
   }
 
   _artistList() {
@@ -106,7 +103,7 @@ class Artists extends Component {
   }
 
   render() {
-    this.state.showError ? this._errorFade() : console.log("dont show error")
+    this.state.showError ? this._errorFade() : null
       return(
         <div>
           <div className="container">
