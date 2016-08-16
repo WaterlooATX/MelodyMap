@@ -12,15 +12,23 @@ class Artists extends Component {
     super(props)
     this.state = {
       searchedArtists: {},
-      term: ''
+      term: '',
+      notFound: false,
     }
   }
 
-  _artistSearch(term) {
+  _artistSearch(term) {    
     this.setState({searchedArtists: {}})
     fetchArtistsAPI(term).then(artists => {
-      const mappedArtists = this._mapData(artists)
-      mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist))
+      if(artists.data.length){
+        this.setState({notFound: false})
+        var mappedArtists;
+        mappedArtists = this._mapData(artists)
+        mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist));        
+      } else{       
+         console.log(this.state.searchedArtists);
+         this.setState({notFound: true})
+      }
     })
   }
 
@@ -93,6 +101,7 @@ class Artists extends Component {
                 <div className='col-md-10'>
                   <div className="page-header artists-header">
                     <h1>Artists</h1>
+                    {this.state.notFound ? <p> Search not found </p> : null}                   
                     <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
                       <input
                         className="form-control"
