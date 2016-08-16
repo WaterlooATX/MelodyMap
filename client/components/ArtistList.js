@@ -20,20 +20,23 @@ export default class ArtistList extends Component {
 
   _createArtists() {
     const artists = this.props.artists
-    const mapped = []
-    for (let artist in artists) {
-      mapped.push(
-        <ArtistItem
-          artist={artists[artist]}
-          key={artists[artist].id}
-          name={artists[artist].name}
-          songPlayed={ this.state.songPlayed }
-          songButton={ this.state.songButton }
-          songPlayToggle={ this._songPlayToggle.bind(this) }
-        />
-      )
-    }
-    return mapped
+    const sorted = this._sortArtistsByPopularity(artists);
+    return sorted.map(artist =>
+      <ArtistItem
+        artist={artist}
+        key={artist.id}
+        name={artist.name}
+        songPlayed={ this.state.songPlayed }
+        songButton={ this.state.songButton }
+        songPlayToggle={ this._songPlayToggle.bind(this) }
+      />
+    )
+  }
+
+  _sortArtistsByPopularity(artists) {
+    let sorted = [];
+    for (let artist in artists) sorted.push(artists[artist]);
+    return sorted.sort((a,b) => b.popularity - a.popularity);
   }
 
   render() {

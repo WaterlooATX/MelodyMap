@@ -44,7 +44,7 @@ class NavBar extends Component {
     // have NavLinks comes back in after a specified Timeout to prevent pre-load erros
     setTimeout(function(){
       $('li a').css('z-index', 10);
-    }, 5000);
+    }, 4500);
 
     return (
       <div>
