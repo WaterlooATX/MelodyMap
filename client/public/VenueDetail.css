@@ -1,14 +1,14 @@
 .upcoming-shows-container {
-  margin: 15px;
+/*  margin: 15px;
   width: 90%;
   border: 3px;
   padding: 22px;
-  /*border: 2px solid #eee;*/
+  border: 2px solid #eee;
   border-radius: 2px;
-}
+*/}
 
 .upcoming-shows-header  {
-
+  padding-bottom: 20px;
 }
 
 .venue-basic-info {
