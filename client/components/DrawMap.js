@@ -67,7 +67,8 @@ const DrawMap = (props) => {
                     <div className="iw-content">
                       <div className="iw-subTitle">{show.performance[0].displayName}</div>
                       <div className="iw-subTitle"></div>
-                      <p>{_getVenueInfo(show)}<a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a></p>
+                      <p>{_getVenueInfo(show)}</p>
+                    <a onClick={ props.onNavigateClick.bind(this) }>(Directions to here)</a>  
                     </div>  
                     
                   <div className="iw-bottom-gradient"></div>
