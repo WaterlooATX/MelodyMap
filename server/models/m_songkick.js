@@ -23,6 +23,12 @@ exports.getShows = (data) => {
     artists.forEach(artist => Spotify.searchArtists(artist.name, artist.id))
   }
 
+  exports.searchVenues = (query) => {
+    return client.searchVenues(query)
+      .then(data => data)
+      .catch(err => console.error(err));
+  }
+
   mapVenues = shows => {
       let venues = []
       venues = _.uniq(venues.map(show => {
