@@ -38,7 +38,7 @@ export default class UpcomingShows extends Component {
 
           <div className='upcoming-show-buttons'>
             {show.status !== 'ok' ?
-              <div><span className="label label-danger upcoming-show-status">{show.status}</span></div> :
+              <span className="label label-danger upcoming-show-status">{show.status}</span> :
               <a href={this.props.show.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>}
           </div>
 
