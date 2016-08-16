@@ -6,6 +6,8 @@ import selectArtistReducer from './reducer_selectArtist'
 import artistReducer from './reducer_artists'
 import venuesReducer from './reducer_venues'
 import spekaerReducer from './reducer_speaker'
+import spotifyUser from './spotify'
+
 
 const rootReducer = combineReducers({
   shows: showReducer,
@@ -13,7 +15,8 @@ const rootReducer = combineReducers({
   location: locationReducer,
   artists: artistReducer,
   venues: venuesReducer,
-  speaker: spekaerReducer
+  speaker: spekaerReducer,
+  spotifyUser: spotifyUser
 })
 
 export default rootReducer;

@@ -11,7 +11,7 @@ export default class UpcomingShows extends Component {
       return <Link to={`/artist/${artist.displayName}`} className="" key={artist.id}> {artist.displayName} </Link>
     })
     let additionalArtists = artistArr.slice(2).map(function(artist){
-      return (<span key={artist.id}><a>,</a> {artist}</span>)
+      return (<span key={artist.key}><a>,</a> {artist}</span>)
     })
 
 //flexbox flex direction right
