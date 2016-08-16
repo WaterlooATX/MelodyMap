@@ -42,7 +42,7 @@ class ArtistDetail extends Component {
             <div className="artistDetail-title">
               <div className="artistDetail-name">{`${artist.name}`}</div>
               <div className="artistDetail-ontour">{this._onTour(artist.onTour)}</div>
-             {this.props.spotifyUser.accessToken ? <div className="artistDetail-followButton"><iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe></div> : null}
+              {this._spotifyFollow(this.props.spotifyUser.accessToken, artist.id)}
             </div>
             <div className="artistDetail-bio">
               {getBio(artist)}
@@ -58,6 +58,26 @@ class ArtistDetail extends Component {
         </div>
       </div>
     )
+  }
+
+  _spotifyFollow(token, id) {
+    const url = `https://embed.spotify.com/follow/1/?uri=spotify:artist:${id}&size=basic&theme=light&show-count=0`
+    if(token) {
+      return (
+        <div className="artistDetail-followButton">
+          <iframe
+            src={url}
+            width="200"
+            height="25"
+            scrolling="no"
+            frameBorder="0"
+            allowTransparency="true">
+          </iframe>
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 
   _isShow(show){
