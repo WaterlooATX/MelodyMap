@@ -6,6 +6,12 @@
   float: right;
 }
 
+.searchError{
+  float: right;
+  color: red;
+  font-weight: bold;
+
+}
 .songkickEndorse{
   float: right;
   color: grey;

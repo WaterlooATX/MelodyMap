@@ -101,8 +101,8 @@ class Artists extends Component {
                 <div className='col-md-10'>
                   <div className="page-header artists-header">
                     <h1>Artists</h1>
-                    {this.state.notFound ? <p> Search not found </p> : null}                   
                     <form id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+                    {this.state.notFound ? <p className='searchError'> Search not found </p> : null}                   
                       <input
                         className="form-control"
                         value={ this.state.term }
