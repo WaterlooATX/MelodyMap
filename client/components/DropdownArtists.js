@@ -13,7 +13,8 @@ export default class DropdownArtists extends Component {
   }
 
   _mappedArtists(bands) {
-    return bands.map((name, index) => {
+    const artist = bands.filter(name => this.props.artists[name])
+    return artist.map((name, index) => {
       return (
         <DropdownArtist
           key ={index}
