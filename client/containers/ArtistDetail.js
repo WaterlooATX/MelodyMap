@@ -193,11 +193,13 @@ class ArtistDetail extends Component {
       return this.props.artists[name]
     } else {
       fetchArtistsAPI(name).then(artist=>{
+        console.log("fetchArtistsAPI",artist.data[0].id)
         return artist.data[0].id
       })
       .then(id =>{
-        
-        Spotify_searchArtistsAPI(id).then(artistInfo =>{
+        console.log("id", id)
+        Spotify_searchArtistsAPI({name:name,id: id}).then(artistInfo =>{
+          console.log("Spotify_searchArtistsAPI",artistInfo)
           return this._addArtistToRedux(artistInfo.data)
         })
       })
