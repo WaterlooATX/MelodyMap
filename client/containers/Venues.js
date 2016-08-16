@@ -12,17 +12,15 @@ class Venues extends Component {
     const Venues = this._createVenues();
     return (
       <div className="container">
-        <div className="col col-md-1"></div>
           <div className="col col-md-10">
             <div className="page-header venues-header">
               <h1>Venues</h1>
               <SearchBar />
             </div>
-            <div className="">
+            <div className="Venues-list">
               {Venues}
             </div>
           </div>
-        <div className="col col-md-1"></div>
       </div>
     )
   }
@@ -41,4 +39,3 @@ class Venues extends Component {
 const mapStateToProps = (state) => {return {shows: state.shows, venues: state.venues}};
 // const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps)(Venues);
-

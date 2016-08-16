@@ -11,3 +11,7 @@
 .artist-search-bar input {
   padding-bottom: 0px;
 }
+.Venues-list {
+  overflow-y: scroll;
+  height: 80vh;
+}
