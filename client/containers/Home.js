@@ -23,8 +23,12 @@ class Home extends Component {
   }
 
   _setNewCoords(location, type) {
-    if (location.data) var { long, lat } = { long: location.data.lon , lat: location.data.lat };
-    else if (location.coords) var { long, lat } = { long: location.coords.longitude, lat: location.coords.latitude };
+    if (location.data) {
+      var { long, lat } = { long: location.data.lon , lat: location.data.lat };
+    } else if (location.coords) {
+      var { long, lat } = { long: location.coords.longitude, lat: location.coords.latitude };
+    }
+
     this.props.setLocation({ long, lat });
     if (type !== 'geo') this.props.fetchShows(this.props.location);
   }
@@ -38,30 +42,46 @@ class Home extends Component {
     )
   }
 
+  _displayShowList(shows) {
+    if(shows) {
+      return <ShowList onNavigateClick={ this._onNavigateClick.bind(this)} shows={ this.props.shows }/>
+    } else {
+      return this._spinner()
+    }
+  }
+
+  _displayMap(nav) {
+    if(nav) {
+      return (
+        <DrawNavigation
+          location={ this.props.location }
+          selectedShow={ this.props.selectedShow }
+          onCloseNavigate={ this._onCloseNavigate.bind(this) }
+        />
+      )
+    } else {
+      return (
+        <DrawMap
+          shows={ this.props.shows }
+          location={ this.props.location }
+          selectedShow={ this.props.selectedShow }
+          selectShow={ this.props.selectShow }
+          onNavigateClick={ this._onNavigateClick.bind(this) }
+          venues = {this.props.venues}
+        />
+      )
+    }
+  }
+
   render() {
     return (
       <div className="container-fluid text-center">
         <div className='row content'>
           <div className="col-sm-4 text-left Main">
-            {this.props.shows.length ? <ShowList onNavigateClick={ this._onNavigateClick.bind(this)} shows={ this.props.shows }/> : this._spinner() }
+            {this._displayShowList(this.props.shows.length)}
           </div>
           <div className="col-sm-8 sidenav">
-            {
-              this.state.navigating ?
-              <DrawNavigation
-                location={ this.props.location }
-                selectedShow={ this.props.selectedShow }
-                onCloseNavigate={ this._onCloseNavigate.bind(this) }
-              /> :
-              <DrawMap
-                shows={ this.props.shows }
-                location={ this.props.location }
-                selectedShow={ this.props.selectedShow }
-                selectShow={ this.props.selectShow }
-                onNavigateClick={ this._onNavigateClick.bind(this) }
-                venues = {this.props.venues}
-              />
-            }
+          {this._displayMap(this.state.navigating)}
           </div>
         </div>
       </div>
