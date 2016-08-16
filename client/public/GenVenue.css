@@ -17,13 +17,19 @@
 }*/
 
 
-
-
-.genvenue-venue {
-  padding: 10px 10px 20px 10px;
-  border-bottom: 1px solid #eee;
+a.addressVenue {
+  padding-top: 10px
 }
 
+.genvenue-venue {
+  padding: 03px 10px 20px 10px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.genvenue-address {
+  margin-top: 12px;
+}
 
 .genvenue-name-link:hover {
   text-decoration: none;
@@ -35,13 +41,18 @@ a.genvenue-name-link {
 .genvenue-venue i {
   cursor: pointer;
   position: absolute;
-  top: 68px;
+  top: 63px;
   left: 18px;
 }
 
 .genvenue-venue h4 {
-  margin-left: 37px;
+  margin-left: 40px;
   font-size: 18px;
+  margin-top: 0px;
+}
+
+.genvenue-venue h1 {
+  margin-bottom: 0px;
 }
 
 @media screen and (max-width: 767px) {
