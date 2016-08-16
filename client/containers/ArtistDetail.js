@@ -209,17 +209,10 @@ class ArtistDetail extends Component {
       this._getArtistCalendar(this.props.artists[name].songKickID)
       return this.props.artists[name]
     } else {
-      fetchArtistsAPI(name).then(artist => {
-          return artist.data[0].id
-        })
-        .then(id => {
-          Spotify_searchArtistsAPI({
-            name: name,
-            id: id
-          }).then(artistInfo => {
-            return this._addArtistToRedux(artistInfo.data)
-          })
-        })
+      fetchArtistsAPI(name)
+        .then(artist => artist.data[0].id)
+        .then(id => Spotify_searchArtistsAPI({name, id})
+        .then(artistInfo => this._addArtistToRedux(artistInfo.data)))
     }
   }
 }
