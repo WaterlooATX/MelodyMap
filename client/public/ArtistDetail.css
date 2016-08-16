@@ -45,7 +45,7 @@
 }
 .similar-artist {
     display: inline-block;
-    margin: 10px;
+    margin: 25px;
     align-items: center;
 }
 
@@ -57,13 +57,17 @@
   -webkit-box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
   -moz-box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
   box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
+
 }
 .similar-artist a {
-   color: #93c54b;
-   text-decoration: none;
-   display: block;
-   font-size: 20px;
-   font-weight: 500;
+  color: #93c54b;
+  text-decoration: none;
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  width: 180px;
+  height: 56px;
+  text-align: center;
 }
 
 .genre-item{
