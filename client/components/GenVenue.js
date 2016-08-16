@@ -17,7 +17,7 @@ export default class GenVenue extends Component {
           </Link>
         </h1>
 
-<div className="genvenue-address">
+        <div className="genvenue-address">
           <h4>
             <a className = "venueAddress"
                href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
@@ -25,11 +25,10 @@ export default class GenVenue extends Component {
                  {venue.address}
             </a>
           </h4>
-</div>
-</div>
+        </div>
+      </div>
     )
   }
-
 }
 
 

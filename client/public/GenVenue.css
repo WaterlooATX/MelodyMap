@@ -1,22 +1,3 @@
-/*.genImage{
-    padding: 5px;
-    border-radius: 100%;
-    height: 90px;
-    width: 90px;
-}
-*/
-/*h3{
-    margin: 0;
-    border: 1px solid white;
-    font-weight: bold;
-}*/
-/*#speaker {
-    margin-top: 8px !important;
-    margin-right: 12px !important;
-    float: right !important;
-}*/
-
-
 a.addressVenue {
   padding-top: 10px
 }
@@ -71,10 +52,10 @@ a.genvenue-name-link {
   }
 
   .genvenue-venue h4 {
-  font-size: 0.9em;
-  margin-top: 5px;
-  margin-bottom: 0;
-  margin-left: 31px;
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-bottom: 0;
+    margin-left: 31px;
   }
 
 }
