@@ -59,6 +59,7 @@ class Home extends Component {
                 selectedShow={ this.props.selectedShow }
                 selectShow={ this.props.selectShow }
                 onNavigateClick={ this._onNavigateClick.bind(this) }
+                venues = {this.props.venues}
               />
             }
           </div>
@@ -77,6 +78,6 @@ class Home extends Component {
 
 }
 
-const mapStateToProps = (state) => {return { shows: state.shows, selectedShow: state.selectedShow, selectShow: state.selectShow, location: state.location }};
+const mapStateToProps = (state) => {return { venues : state.venues, shows: state.shows, selectedShow: state.selectedShow, selectShow: state.selectShow, location: state.location }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchShows, setLocation, selectShow }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
