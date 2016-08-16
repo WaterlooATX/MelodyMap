@@ -38,13 +38,8 @@ export default class ShowList extends Component {
     this.props.selectShow(showWithId[0]);
   }
 
-  _sortShowsByPopularity(shows) {
-    return shows.sort((a,b) => b.popularity - a.popularity)
-  }
-
   _createShows(shows) {
-    const sorted = this._sortShowsByPopularity(shows)
-    return sorted.map(show => {
+    return shows.map(show => {
       return <Show
         songkick={ show }
         ageRestriction={ show.ageRestriction }
