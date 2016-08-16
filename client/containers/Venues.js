@@ -14,7 +14,14 @@ class Venues extends Component {
           <div className="col col-md-10">
             <div className="page-header venues-header">
               <h1>Venues</h1>
-              <SearchBar />
+              <form name='venueForm' id='venue-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+                <input
+                  className="form-control"
+                  value={this.state.term}
+                  placeholder='Search Venues'
+                  onChange={ event => this._onInputChange(event.target.value) }
+                />
+              </form>  
             </div>
             <div className="Venues-list">
               {Venues}

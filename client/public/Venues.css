@@ -15,3 +15,12 @@
   overflow-y: scroll;
   height: 80vh;
 }
+
+
+#venue-search-bar{
+  display: inline ;
+  width: 30%;
+  position: relative;
+  float: right;	
+}
+
