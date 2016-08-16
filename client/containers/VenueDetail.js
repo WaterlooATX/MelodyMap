@@ -10,10 +10,6 @@ import _ from 'lodash';
 
 // cron-job: make sure that upcoming show data does not persist for too long in db
 
-// look for it in redux state
-  // if it doesn't have it, put it in redux state
-  // get it off redux state
-
 class VenueDetail extends Component {
 
   constructor(props) {
