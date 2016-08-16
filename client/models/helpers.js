@@ -1,5 +1,12 @@
 import _ from 'lodash';
-export const topTrack = (Artist) => Artist ? Artist.topTracks[0] ? Artist.topTracks[0].preview_url : null : null
+export const topTrack = (Artist) => {
+  if(Artist) {
+    let topTracks = Artist.topTracks ? Artist.topTracks[0] : null
+    return topTracks = topTracks ? Artist.topTracks[0].preview_url : null
+  } else {
+    return null
+  }
+}
 export const getArtistImg = (Artist) => Artist ? Artist.img : "http://assets.audiomack.com/default-artist-image.jpg"
 export const getAlbumArt = (Artist) => {
   let albumArt = Artist ? Artist.albumsImages : null
