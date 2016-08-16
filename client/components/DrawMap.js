@@ -21,7 +21,6 @@ const DrawMap = (props) => {
   function _getVenueInfo(show){
     for(var key in venues){
           if(key == show.venue.id){
-            console.log("VENUE",venues[key].address)
             return venues[key].address 
           }
         }
