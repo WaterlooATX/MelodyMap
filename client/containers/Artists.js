@@ -93,12 +93,12 @@ class Artists extends Component {
   _errorFade(){
     var This = this;
      setTimeout(function(){
-        This.setState({notFound: false});
+        This.setState({notFound: false, showError: false}); 
         //document.getElementById('artist-search-bar').value=null; 
         //document.forms['artistForm'].reset() 
         //document.artistForm.value=null;
         $('#artist-search-bar').find('input').val('');     
-        }, 3000)     
+        }, 3000)  
   }
 
   _artistList() {
