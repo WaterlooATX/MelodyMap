@@ -1,5 +1,6 @@
 .container-fluid.text-center {
     position: fixed;
+    margin-top: 67px;
 }
 /* Remove the navbar's default margin-bottom and rounded borders */
 
