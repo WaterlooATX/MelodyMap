@@ -30,6 +30,10 @@ class ArtistDetail extends Component {
     this.setState({artist: this._getArtist(this.props.params.artistName)})
   }
 
+  componentWillRecieveProps(){
+    this.setState({artist: this._getArtist(this.props.params.artistName)})
+  }
+
   
 
   _render(artist){
@@ -175,31 +179,25 @@ class ArtistDetail extends Component {
   }
 
   _addArtistToRedux(artist) {
-    console.log("ARTISTADD", artist)
     const artists = this.props.artists
     artists[artist.name] = artist
     // update redux state with new artist
     this.setState({artist: artists[artist.name]})
-    console.log(artist.name, this.state.artist.name)
     redux_Artists(artists)
     return artists[artist.name]
   }
 
   _getArtist(name) {
-    console.log("_getArtist",name)
     // all arist can be redux state, but similar-artist
     if(this._isAristInRedux(name)) {
       this._getArtistCalendar(this.props.artists[name].songKickID)
       return this.props.artists[name]
     } else {
       fetchArtistsAPI(name).then(artist=>{
-        console.log("fetchArtistsAPI",artist.data[0].id)
         return artist.data[0].id
       })
       .then(id =>{
-        console.log("id", id)
         Spotify_searchArtistsAPI({name:name,id: id}).then(artistInfo =>{
-          console.log("Spotify_searchArtistsAPI",artistInfo)
           return this._addArtistToRedux(artistInfo.data)
         })
       })
