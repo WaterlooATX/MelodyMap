@@ -1,4 +1,4 @@
-import {SPOTIFY_TOKENS, SPOTIFY_ME_BEGIN, SPOTIFY_ME_SUCCESS, SPOTIFY_ME_FAILURE} from '../actions/spotify';
+import {SPOTIFY_TOKENS, SPOTIFY_ME_BEGIN, SPOTIFY_ME_SUCCESS, SPOTIFY_ME_FAILURE} from '../actions/actions';
 
 /** The initial state; no tokens and no user info */
 const initialState = {
@@ -28,7 +28,6 @@ export default function reduce(state = initialState, action) {
   // when we get the tokens... set the tokens!
   case SPOTIFY_TOKENS:
     const {accessToken, refreshToken} = action;
-    console.log("accessToken", accessToken)
     return Object.assign({}, state, {accessToken, refreshToken});
 
   // set our loading property when the loading begins

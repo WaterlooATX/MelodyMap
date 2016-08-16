@@ -42,8 +42,8 @@ class ArtistDetail extends Component {
             <div className="artistDetail-title">
               <div className="artistDetail-name">{`${artist.name}`}</div>
               <div className="artistDetail-ontour">{this._onTour(artist.onTour)}</div>
+             {this.props.spotifyUser.accessToken ? <div className="artistDetail-followButton"><iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe></div> : null}
             </div>
-            {/* <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:artist:${artist.id}&size=basic&theme=light&show-count=0`} width="200" height="25" scrolling="no" frameBorder="0" allowTransparency="true"></iframe> */}
             <div className="artistDetail-bio">
               {getBio(artist)}
             </div>
@@ -203,6 +203,6 @@ class ArtistDetail extends Component {
     }
   }
 }
-const mapStateToProps = (state) => {return {artists: state.artists }};
+const mapStateToProps = (state) => {return {artists: state.artists, spotifyUser: state.spotifyUser }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistDetail);
