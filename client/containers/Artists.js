@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from "react-redux";
-import {redux_Artists} from '../actions/actions';
+import React, {Component} from 'react'
+import {bindActionCreators} from 'redux'
+import {connect} from "react-redux"
+import {redux_Artists} from '../actions/actions'
 import {fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api'
 import ArtistList from '../components/ArtistList'
 import {isReduxLoaded} from '../models/helpers'
-import _ from 'lodash';
+import _ from 'lodash'
 
 class Artists extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       searchedArtists: {},
       term: ''
@@ -71,7 +71,7 @@ class Artists extends Component {
   }
 
   _handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
     this._artistSearch(this.state.term)
   }
 
@@ -90,7 +90,6 @@ class Artists extends Component {
         <div>
           <div className="container">
             <div className="row">
-              <div className='col-md-1'></div>
                 <div className='col-md-10'>
                   <div className="page-header artists-header">
                     <h1>Artists</h1>
@@ -104,14 +103,13 @@ class Artists extends Component {
                     </form>
                   </div>
                 </div>
-              <div className='col-md-1'></div>
             </div>
             <ArtistList artists={this._artistList()} />
             <br/>
           </div>
             <footer className='footer'>
               <div className='container songkickFoot'>
-                <h5 className='songkickEndorse'>Brought to you by SongKick</h5>
+                <h5 className='songkickEndorse'>Brought to you by SongKick and Spotify</h5>
               </div>
             </footer>
         </div>
@@ -119,6 +117,6 @@ class Artists extends Component {
    }
 }
 
-const mapStateToProps = (state) => {return {artists: state.artists }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(Artists);
+const mapStateToProps = (state) => {return {artists: state.artists }}
+const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Artists)
