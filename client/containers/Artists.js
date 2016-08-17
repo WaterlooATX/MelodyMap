@@ -123,11 +123,9 @@ class Artists extends Component {
         <div>
           <div className="container">
             <div className="row">
-                <div className='col-md-10'>
-                  <div className="page-header artists-header">
+                <div className="page-header artists-header">
                     <div className="artist-title">Artists</div>
-                      {this._artistForm()}
-                  </div>
+                    {this._artistForm()}
                 </div>
             </div>
             <div className="ArtistList">

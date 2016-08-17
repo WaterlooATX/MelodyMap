@@ -19,6 +19,9 @@
   font-weight: 800;
   border: 2px solid #dfd7ca;
 }
+.page-header {
+  border-bottom: 2px solid #f8f5f0;
+}
 .row.content {
     min-width: 100vw;
     height: 94vh;
