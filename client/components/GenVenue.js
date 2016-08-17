@@ -5,8 +5,25 @@ import Venues from '../containers/Venues';
 
 export default class GenVenue extends Component {
 
+  _createVenues(){
+    const venues = this.props.venues
+    const mapped = []
+    for (let venueId in venues) {
+      mapped.push(<GenVenue venue={venues[venueId]} key={venueId}  />)
+    }
+    return mapped;
+  }
+
   render() {
-    let venue = this.props.venue
+    //let venue = this.props.venue
+    const Venues = this._createVenues()
+    return(
+      <div>
+        {Venues}
+      </div>
+    )
+
+
 
     return (
       <div className="genvenue-venue" id={`heading${venue.id}`}>

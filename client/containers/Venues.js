@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
+import {redux_Venues} from '../actions/actions'
 import {fetchVenuesAPI} from '../models/api'
 import GenVenue from '../components/GenVenue'
 import _ from 'lodash';
+import {isReduxLoaded} from '../models/helpers';
+
 
 class Venues extends Component {
 
@@ -27,7 +30,7 @@ class Venues extends Component {
          var mappedVenues;
          mappedVenues = this._mapData(venues)
         console.log(mappedVenues)
-         //mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._spotifySearch(artist));        
+         mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._addRedux(venue));        
        } else{       
           this.setState({notFound: true, showError: true})
        }
@@ -37,40 +40,36 @@ class Venues extends Component {
   _mapData(venues) {
     return venues.data.map(venue => {
       return {
-        address: venue.street,
         name: venue.displayName,
-        city: venue.city.displayName,
-        state: venue.city.state.displayName,
-        website: venue.website,
         id: venue.id
       }
     })
   }
 
-  // _isInRedux(venue) {
-  //   if (this.props.venues && !this.props.venues[venue.name]) {
-  //     return false
-  //   } else {
-  //     return true
-  //   }
-  // }
+  _isInRedux(venue) {
+    if (this.props.venues && !this.props.venues[venue.id]) {
+      return false
+    } else {
+      return true
+    }
+  }
 
-  // _getRedux(venue) {
-  //   const searchedVenues = this.state.searchedVenues
-  //   searchedVenues[venue.name] = this.props.venues[venue.name]
-  //   this.setState({
-  //     searchedVenues: searchedVenues
-  //   })
-  // }
+  _getRedux(venue) {
+    const searchedVenues = this.state.searchedVenues
+    searchedVenues[venue.id] = this.props.venues[venue.id]
+    this.setState({
+      searchedVenues: searchedVenues
+    })
+  }
 
-  // _addRedux(spotify, venue) {
-  //   const Venues = this.props.venues
-  //   const searchedVenues = this.state.searchedVenues
-  //   this.setState({
-  //     searchedVenues: searchedVenues
-  //   })
-  //   //redux_Artists(Artists)
-  // }
+  _addRedux(spotify, venue) {
+    const Venues = this.props.venues
+    const searchedVenues = this.state.searchedVenues
+    this.setState({
+      searchedVenues: searchedVenues
+    })
+    redux_Venues(Venues)
+  }
 
   _handleSubmit(event) {
       event.preventDefault()
@@ -81,6 +80,10 @@ class Venues extends Component {
     this.setState({
       term: term
     })
+  }
+
+  _venueList(){
+    return isReduxLoaded(this.state.searchedVenues) ? this.state.searchedVenues : this.props.venues
   }
 
   render() {
@@ -107,17 +110,17 @@ class Venues extends Component {
     )
   }
 
-  _createVenues() {
-    const venues = this.props.venues
-    const mapped = []
-    for (let venueId in venues) {
-      mapped.push(<GenVenue venue={venues[venueId]} key={venueId} />)
-    }
-    return mapped;
-  }
+  // _createVenues() {
+  //   const venues = this.props.venues
+  //   const mapped = []
+  //   for (let venueId in venues) {
+  //     mapped.push(<GenVenue venue={venues[venueId]} key={venueId}  />)
+  //   }
+  //   return mapped;
+  // }
 
 }
 
 const mapStateToProps = (state) => {return {shows: state.shows, venues: state.venues}};
-// const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Artists: redux_Artists}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({redux_Venues: redux_Venues}, dispatch);
 export default connect(mapStateToProps)(Venues);

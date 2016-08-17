@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactCSSTransitionGroup from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {redux_Artists} from '../actions/actions'
