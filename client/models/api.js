@@ -63,6 +63,12 @@ export function fetchArtistsAPI(query){
   });
 }
 
+export function fetchVenuesAPI(query){
+  return axios.post('/fetchVenues', {
+    query: query
+  });
+}
+
 export function getArtistAlbumsAPI(artistID) {
   return axios.post('/getArtistAlbums', {
     id: artistID

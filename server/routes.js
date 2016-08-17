@@ -179,4 +179,11 @@ router.post('/fetchArtists', function(req,res){
     .catch(error => console.log("error", error))
 })
 
+router.post('/fetchVenues', function(req,res){
+  console.log("/fetchVenues", req.body)
+  Songkick.searchVenues(req.body)
+  .then(data => res.send(data))
+  .catch(error => console.log("error", error))
+})
+
 module.exports = router;
