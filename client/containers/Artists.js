@@ -25,6 +25,7 @@ class Artists extends Component {
         this.setState({notFound: false, showError: false})
         var mappedArtists;
         mappedArtists = this._mapData(artists)
+        console.log(mappedArtists)
         mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist));
       } else{
          this.setState({notFound: true, showError: true})
@@ -69,6 +70,7 @@ class Artists extends Component {
   _addRedux(spotify, artist) {
     const Artists = this.props.artists
     const searchedArtists = this.state.searchedArtists
+    console.log("searched artists", searchedArtists)
     spotify["onTourUntil"] = artist.onTourUntil
     searchedArtists[spotify.name] = spotify
     Artists[spotify.name] = spotify

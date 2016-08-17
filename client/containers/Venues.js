@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
 import {redux_Venues} from '../actions/actions'
-import {fetchVenuesAPI} from '../models/api'
+import {fetchVenuesAPI, Songkick_getVenueAPI} from '../models/api'
 import GenVenue from '../components/GenVenue'
 import _ from 'lodash';
 import {isReduxLoaded} from '../models/helpers';
@@ -22,29 +22,27 @@ class Venues extends Component {
 
 
   _venueSearch(term) {    
+    var mappedVenues = []
     this.setState({searchedVenues: {}})
     fetchVenuesAPI(term).then(venues => {
-      console.log(venues)
       if(venues.data.length){
          this.setState({notFound: false, showError: false})
-         var mappedVenues;
-         mappedVenues = this._mapData(venues)
-        console.log(mappedVenues)
-         mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._addRedux(venue));        
+          venues.data.forEach((venue) =>{
+            mappedVenues.push(venue)             
+          })    
+        mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._songkickSearch(venue));        
        } else{       
           this.setState({notFound: true, showError: true})
        }
     })
   }
 
-  _mapData(venues) {
-    return venues.data.map(venue => {
-      return {
-        name: venue.displayName,
-        id: venue.id
-      }
+  _songkickSearch(venue){
+    Songkick_getVenueAPI(venue.id).then(venues=>{
+      this._addRedux(venues.data)
     })
   }
+
 
   _isInRedux(venue) {
     if (this.props.venues && !this.props.venues[venue.id]) {
@@ -62,9 +60,11 @@ class Venues extends Component {
     })
   }
 
-  _addRedux(spotify, venue) {
+  _addRedux(venue) {
     const Venues = this.props.venues
     const searchedVenues = this.state.searchedVenues
+    searchedVenues[venue.id] = venue
+    Venues[venue.id] = venue
     this.setState({
       searchedVenues: searchedVenues
     })
@@ -87,7 +87,6 @@ class Venues extends Component {
   }
 
   render() {
-    const Venues = this._createVenues();
     return (
       <div className="container">
           <div className="col col-md-10">
@@ -103,21 +102,12 @@ class Venues extends Component {
               </form>  
             </div>
             <div className="Venues-list">
-              {Venues}
+              <GenVenue venues={this._venueList()} />
             </div>
           </div>
       </div>
     )
   }
-
-  // _createVenues() {
-  //   const venues = this.props.venues
-  //   const mapped = []
-  //   for (let venueId in venues) {
-  //     mapped.push(<GenVenue venue={venues[venueId]} key={venueId}  />)
-  //   }
-  //   return mapped;
-  // }
 
 }
 
