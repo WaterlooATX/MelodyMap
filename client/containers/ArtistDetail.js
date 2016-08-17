@@ -60,7 +60,10 @@ class ArtistDetail extends Component {
             <VideoDetail video={this.state.selectedVideo} />
             <AudioPlayer artist={artist} key ={artist.id}/>
           </div>
-            {this._similarArtists(artist.relatedArtists)}
+            <div className = 'container-similar'>
+            <h3>Similar Artists</h3>
+            <div>{this._similarArtists(artist.relatedArtists)}</div>
+            </div>
         </div>
       </div>
     )
@@ -161,13 +164,15 @@ class ArtistDetail extends Component {
         })
         return mapped.map(artist => {
           return (
-            <div className="similar-artist" key={artist.name}>
-                <img className="img-circle" src={artist.image}/>
-                <Link
-                    className="text-center"
-                    to={`/artist/${artist.name}`}
-                    activeClassName="active">{artist.name}
-                </Link>
+            <div>
+              <div className="similar-artist" key={artist.name}>
+                  <img className="img-circle" src={artist.image}/>
+              <Link
+                  className="text-center"
+                  to={`/artist/${artist.name}`}
+                  activeClassName="active">{artist.name}
+              </Link>
+              </div>
             </div>
           )
         })
