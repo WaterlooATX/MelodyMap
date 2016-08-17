@@ -1,7 +1,5 @@
 import axios from 'axios'
-
-var googleAPI = 'AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew';
-
+import {GOOGLE_MAP_KEY} from '../../server/models/api_keys'
 
 
 export function Google_placeIdAPI(name, lat, long) {
@@ -27,7 +25,7 @@ export function ipLocationAPI() {
 }
 
 export function Google_geocoder(city) {
-  return axios(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=AIzaSyBJ8mgAx4EEDwXqJcDKsE996qbtAu0kQ2o`);
+  return axios(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${GOOGLE_MAP_KEY}`);
 }
 
 export function Spotify_searchArtistsAPI(artist) {

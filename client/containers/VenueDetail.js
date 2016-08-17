@@ -7,6 +7,7 @@ import UpcomingShows from '../components/UpcomingShows.js'
 import { Songkick_getVenueCalendarAPI, Google_placeIdAPI, Google_photoAPI } from '../models/api'
 import {redux_Venues} from '../actions/actions';
 import _ from 'lodash';
+import {GOOGLE_PLACES_API_KEY} from '../../server/models/api_keys'
 
 // cron-job: make sure that upcoming show data does not persist for too long in db
 
@@ -122,7 +123,7 @@ class VenueDetail extends Component {
             <iframe
               className=""
               width="600" height="450"
-              src={`//www.google.com/maps/embed/v1/place?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+              src={`//www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES_API_KEY}
               &q=${venueNameForMap},${venue.city}+${venue.state}
               &zoom=17`}>
             </iframe>
@@ -130,7 +131,7 @@ class VenueDetail extends Component {
             <iframe
               className=""
               width="600" height="450"
-              src={`//www.google.com/maps/embed/v1/streetview?key=AIzaSyC0pNgm6l6mEWEfBNNyuDAr-wIpoHuHNew
+              src={`//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_PLACES_API_KEY}
               &location=${venue.geo.lat},${venue.geo.long}`}>
             </iframe>
           </div>
