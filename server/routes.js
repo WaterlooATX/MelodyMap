@@ -91,32 +91,6 @@ const LastFM = require("./models/m_lastFM")
 const Artist = require("./models/m_artist")
 const Google = require("./models/m_google")
 
-
-// let AlbumsCount = 0;
-// router.post('/getArtistAlbums', function(req, res) {
-//   console.log(`/getArtistAlbums ${++AlbumsCount}`)
-//   Spotify.getArtistAlbums(req.body.id)
-//     .then(albums => res.send(albums))
-//     .catch(error => console.log("error", error))
-// })
-
-
-// let Spotify_getArtistTopTracks = 0;
-// router.post('/Spotify_getArtistTopTracks', function(req, res) {
-//   console.log(`/Spotify_getArtistTopTracks ${++Spotify_getArtistTopTracks}`)
-//   Spotify.getArtistTopTracks(req.body.id, req.body.code)
-//     .then(data => res.send(data))
-//     .catch(error => console.log("error", error))
-// })
-
-// let LastFM_getInfos = 0;
-// router.post('/LastFM_getInfo', function(req, res) {
-//   console.log(`/LastFM_getInfo ${++LastFM_getInfos}`)
-//   LastFM.getInfo(req.body.name)
-//     .then(data => res.send(data))
-//     .catch(error => console.log("error", error))
-// })
-
 router.post('/Google_placeIdAPI', function(req, res) {
   Google.placeIdAPI(req.body.name, req.body.lat, req.body.long)
     .then(data => res.send(data))
