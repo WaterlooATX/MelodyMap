@@ -7,7 +7,9 @@ export default class GenVenue extends Component {
     const venues = this.props.venues
     const mapped = []
     for (let venueId in venues) {
-      mapped.push(<VenueItem venue={venues[venueId]} key={venueId} />)
+      if(venues[venueId]) {
+        mapped.push(<VenueItem venue={venues[venueId]} key={venueId} />)
+      }
     }
     return mapped;
   }
@@ -21,5 +23,3 @@ export default class GenVenue extends Component {
     )
   }
 }
-
-
