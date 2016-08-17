@@ -10,6 +10,7 @@ import UpcomingShows from '../components/UpcomingShows'
 import {getAlbumArt, topTrack, getBio, getArtistImg, getRandomAlbumArt} from '../models/helpers'
 import VideoDetail from '../components/VideoDetail';
 import {redux_Artists} from '../actions/actions';
+import AudioPlayer from '../components/AudioPlayer'
 
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 
@@ -36,6 +37,7 @@ class ArtistDetail extends Component {
   }
 
   _render(artist){
+    console.log(artist)
     const albumArt = this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
     return (
       <div>
@@ -56,6 +58,7 @@ class ArtistDetail extends Component {
           <div className="media-container">
             <VideoDetail video={this.state.selectedVideo} />
             {this._isShow(this.state.shows)}
+            <AudioPlayer artist={artist} />
           </div>
             {this._similarArtists(artist.relatedArtists)}
         </div>
@@ -169,14 +172,6 @@ class ArtistDetail extends Component {
           )
         })
       }
-  }
-
-  _getTopTracks(tracks) {
-    if (!tracks) {
-      return null;
-    } else {
-      return tracks.map(track => track.id)
-    }
   }
 
   _getShows(shows) {
