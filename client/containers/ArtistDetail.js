@@ -10,6 +10,7 @@ import UpcomingShows from '../components/UpcomingShows'
 import {getAlbumArt, topTrack, getBio, getArtistImg, getRandomAlbumArt} from '../models/helpers'
 import VideoDetail from '../components/VideoDetail';
 import {redux_Artists} from '../actions/actions';
+import AudioPlayer from '../components/AudioPlayer'
 
 const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
 
@@ -53,11 +54,15 @@ class ArtistDetail extends Component {
           </div>
         </div>
         <div className="col-sm-offset-2 col-sm-8">
-          {this._isShow(this.state.shows)}
+            {this._isShow(this.state.shows)}
           <div className="media-container">
             <VideoDetail video={this.state.selectedVideo} />
+            <AudioPlayer artist={artist} key ={artist.id}/>
           </div>
-            {this._similarArtists(artist.relatedArtists)}
+            <div className = 'container-similar'>
+            <h3>Similar Artists</h3>
+            <div>{this._similarArtists(artist.relatedArtists)}</div>
+            </div>
         </div>
       </div>
     )
@@ -154,29 +159,23 @@ class ArtistDetail extends Component {
           return null
       } else {
         const mapped = artists[0].artist.map(artist => {
-          return {name: artist.name, image: this._similarArtistsImg(artist.image[1])}
+          return {name: artist.name, image: this._similarArtistsImg(artist.image[3])}
         })
         return mapped.map(artist => {
           return (
-            <div className="similar-artist" key={artist.name}>
-                <img className="img-circle" src={artist.image}/>
-                <Link
-                    className="text-center"
-                    to={`/artist/${artist.name}`}
-                    activeClassName="active">{artist.name}
-                </Link>
+            <div>
+              <div className="similar-artist" key={artist.name}>
+                  <img className="img-circle" src={artist.image}/>
+              <Link
+                  className="text-center"
+                  to={`/artist/${artist.name}`}
+                  activeClassName="active">{artist.name}
+              </Link>
+              </div>
             </div>
           )
         })
       }
-  }
-
-  _getTopTracks(tracks) {
-    if (!tracks) {
-      return null;
-    } else {
-      return tracks.map(track => track.id)
-    }
   }
 
   _getShows(shows) {
