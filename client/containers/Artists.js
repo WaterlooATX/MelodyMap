@@ -122,10 +122,14 @@ class Artists extends Component {
         <div>
           <div className="container">
             <div className="row">
-                <div className="page-header artists-header">
-                    <div className="artist-title">Artists</div>
-                    {this._artistForm()}
+              <div className="col col-md-1"></div>
+                <div className="col col-md-10">
+                  <div className="page-header artists-header">
+                      <div className="artist-title">Artists</div>
+                      {this._artistForm()}
+                  </div>
                 </div>
+              <div className="col col-md-1"></div>
             </div>
             <div className="ArtistList">
               <ArtistList artists={this._artistList()} />
