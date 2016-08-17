@@ -14,6 +14,11 @@
 }*/
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 
+.form-control {
+  font-size: 17px;
+  font-weight: 800;
+  border: 2px solid #dfd7ca;
+}
 .row.content {
     min-width: 100vw;
     height: 94vh;
