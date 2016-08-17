@@ -20,17 +20,17 @@ class Venues extends Component {
     }
   }
 
-  _venueSearch(term) {    
+  _venueSearch(term) {
     var mappedVenues = []
     this.setState({searchedVenues: {}})
     fetchVenuesAPI(term).then(venues => {
       if(venues.data.length){
          this.setState({notFound: false, showError: false})
           venues.data.forEach((venue) =>{
-            mappedVenues.push(venue)             
-          })    
-        mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._songkickSearch(venue));        
-       } else{       
+            mappedVenues.push(venue)
+          })
+        mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._songkickSearch(venue));
+       } else{
           this.setState({notFound: true, showError: true})
        }
     })
@@ -39,7 +39,7 @@ class Venues extends Component {
   _songkickSearch(venue){
     Songkick_getVenueAPI(venue.id).then(venues=>{
       if(venues.data.address){
-        this._addRedux(venues.data)       
+        this._addRedux(venues.data)
       }
     })
   }
@@ -106,7 +106,7 @@ class Venues extends Component {
           placeholder='Search Venues'
           onChange={ event => this._onInputChange(event.target.value) }
         />
-      </form>  
+      </form>
     )
   }
 
@@ -114,6 +114,7 @@ class Venues extends Component {
     this.state.showError ? this._errorFade() : null
       return (
         <div className="container">
+          <div className="col col-md-1"></div>
             <div className="col col-md-10">
               <div className="page-header venues-header">
                 <h1>Venues</h1>
@@ -123,6 +124,7 @@ class Venues extends Component {
                 <GenVenue venues={this._venueList()} />
               </div>
             </div>
+          <div className="col col-md-1"></div>
         </div>
       )
   }

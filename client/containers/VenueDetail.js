@@ -102,22 +102,31 @@ class VenueDetail extends Component {
         website = website.slice(0, -1)
       }
     }
+    console.log(this.state.photo)
+
 
     return (
       <div>
-      <div className="jumbotron venue-detail-jumbotron">
+        <div className="jumbotron venue-detail-jumbotron">
+          <div className="container">
+            <div className="row">
+
+            <div className="col-sm-offset-2 col-sm-8">
+              <div className="venue-detail-name">{venue.name}</div>
+              <ul className="venue-basic-info">
+                {venue.website ? <li><a href={`${venue.website}`} target="_blank">{`${venue.website}`}</a></li> : null}
+                {venue.address ? <li><a href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}</a></li> : null}
+                {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
+                {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
+                {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
+              </ul>
+            </div>
+
+            </div>
+          </div>
+        </div>
+
         <div className="container">
-          {/* img tag to display photo from state */}
-          {/* {this.state.photo ? <img width="200" height="200" src={`data:image/jpg;base64,${this.state.photo}`} />: <div>no state image yet</div>} */}
-          <div className="row">
-          <h1>{venue.name}</h1>
-          <ul className="venue-basic-info">
-            {venue.website ? <li><a href={`${venue.website}`} target="_blank">{`${venue.website}`}</a></li> : null}
-            {venue.address ? <li><a href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}</a></li> : null}
-            {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
-            {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
-            {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
-          </ul>
           <div className="media-container venue-media">
             {/* Google Places Venue */}
             <iframe
@@ -136,8 +145,7 @@ class VenueDetail extends Component {
             </iframe>
           </div>
         </div>
-      </div>
-        </div>
+
         <div className="container">
           <div className="upcoming-shows-container">
             <h1 className="page-header upcoming-shows-header">Upcoming Shows</h1>
