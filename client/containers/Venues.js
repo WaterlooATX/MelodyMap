@@ -13,10 +13,10 @@ class Venues extends Component {
   constructor(props){
     super(props);
     this.state={
+      searchedVenues: {},
       term: '',
       notFound: false,
       showError: false,
-      searchedVenues: {},
     }
   }
 
