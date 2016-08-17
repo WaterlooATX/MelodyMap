@@ -6,10 +6,10 @@ export default class AudioPlayer extends Component {
 	render(){
 		return(
 			<div className = "audioPlayer-container">
-				<div className ="audioPlayer-name"> 
-				{this.props.artist.name} 
-				</div>
+				<div className ="audioPlayer-name list-group"> 
+				Top Tracks By {this.props.artist.name}
 				<div>{this._getTopTracks(this.props.artist.topTracks)}</div>
+				</div>
 			</div>
 			
 		)
@@ -20,10 +20,10 @@ export default class AudioPlayer extends Component {
     } else {
     	console.log("tracks",tracks)
       return tracks.map(track => {
-      	<div>{track.name}</div>
-      	<Speaker track ={track.preview_url}/>
-  		}
+      	return <div className= "list-group-item">{track.name}
+      	<Speaker track ={track.preview_url} key={track.id}/>
+      	</div>
+  		})
     }
   }
 }
-<Speaker track={topTrack(artist)} size={2}/>

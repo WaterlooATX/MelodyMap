@@ -58,7 +58,7 @@ class ArtistDetail extends Component {
           <div className="media-container">
             <VideoDetail video={this.state.selectedVideo} />
             {this._isShow(this.state.shows)}
-            <AudioPlayer artist={artist} />
+            <AudioPlayer artist={artist} key ={artist.id}/>
           </div>
             {this._similarArtists(artist.relatedArtists)}
         </div>
