@@ -11,6 +11,19 @@
   padding-bottom: 20px;
 }
 
+.venue-detail-jumbotron {
+  padding-top: 48px;
+  margin-top: 67px;
+  min-height: 0px;
+}
+
+.venue-detail-name {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+}
+
 .venue-basic-info {
   margin: 5px;
 }
@@ -20,7 +33,3 @@
   margin-top: 20px;
 }
 
-.venue-detail-jumbotron {
-  margin-top: 67px;
-  min-height: 0px;
-}
