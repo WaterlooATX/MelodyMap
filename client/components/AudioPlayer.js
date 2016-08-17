@@ -18,7 +18,6 @@ export default class AudioPlayer extends Component {
     if (!tracks) {
       return null;
     } else {
-    	console.log("tracks",tracks)
       return tracks.map(track => {
       	return <div className= "list-group-item">{track.name}
       	<Speaker track ={track.preview_url} key={track.id}/>

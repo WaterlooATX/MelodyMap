@@ -37,7 +37,6 @@ class ArtistDetail extends Component {
   }
 
   _render(artist){
-    console.log(artist)
     const albumArt = this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
     return (
       <div>
