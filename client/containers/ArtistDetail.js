@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
 import UpcomingShows from '../components/UpcomingShows'
-import {getAlbumArt, topTrack, getBio, getArtistImg} from '../models/helpers'
+import {getAlbumArt, topTrack, getBio, getArtistImg, getRandomAlbumArt} from '../models/helpers'
 import VideoDetail from '../components/VideoDetail';
 import {redux_Artists} from '../actions/actions';
 
@@ -21,12 +21,14 @@ class ArtistDetail extends Component {
       videos: [],
       selectedVideo: null,
       shows : null,
-      artist: null
+      artist: null,
+      albumArt: null
     }
   }
 
   componentDidMount() {
     this.setState({artist: this._getArtist(this.props.params.artistName)})
+    this._randomAlbumArt()
   }
 
   componentWillReceiveProps(){
@@ -34,11 +36,12 @@ class ArtistDetail extends Component {
   }
 
   _render(artist){
+    const albumArt = this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
     return (
       <div>
         <div className="jumbotron">
           <div className="col-sm-offset-2 col-sm-8">
-            <img className="detailImage img-circle" src={getArtistImg(artist)}/>
+            <img className="detailImage img-circle" src={albumArt} onClick={this._randomAlbumArt.bind(this)}/>
             <div className="artistDetail-title">
               <div className="artistDetail-name">{`${artist.name}`}</div>
               <div className="artistDetail-ontour">{this._onTour(artist.onTour)}</div>
@@ -58,6 +61,10 @@ class ArtistDetail extends Component {
         </div>
       </div>
     )
+  }
+
+  _randomAlbumArt() {
+    this.setState({albumArt: getRandomAlbumArt(this.state.artist)})
   }
 
   _spotifyFollow(token, id) {
@@ -173,13 +180,13 @@ class ArtistDetail extends Component {
   }
 
   _getShows(shows) {
-      if (!shows) {
-          return null;
-      } else {
-          return shows.map(show => {
-              return <UpcomingShows show={show} key={show.id} source="VenueDetail"/>
-          })
-      }
+    if (!shows) {
+      return null;
+    } else {
+      return shows.map(show => {
+        return <UpcomingShows show={show} key={show.id} source="VenueDetail"/>
+      })
+    }
   }
 
   _isAristInRedux(name) {
