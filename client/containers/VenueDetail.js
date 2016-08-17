@@ -17,9 +17,7 @@ class VenueDetail extends Component {
     this.state = {
       upcomingShows: null,
       currVenue: this.props.venues[this.props.params.venueId],
-      placeIdObj: null,
-      placeId: null,
-      photoReference: null,
+      place: null,
       photo: null,
       location: false
     }
@@ -53,27 +51,38 @@ class VenueDetail extends Component {
   }
 
   _getPlaceInfo(name, lat, long) {
+
     let formattedName = name.split(' ').join('%20')
     Google_placeIdAPI(formattedName, lat, long)
       .then((resp) => {
         if (resp.data[0] && resp.data[0].id) {
-          this.setState({
-            placeIdObj: resp.data[0],
-            placeId: resp.data[0].id,
-            photoReference: resp.data[0].photos[0].photo_reference || null
-          })
-          // this._getPlacePhoto(this._base64_encode(this.state.photoReference))
+          const venue = resp.data[0]
+          const place = {
+            id: venue.id,
+            icon: venue.icon,
+            name: venue.name,
+            placeId: venue.place_id,
+            price: venue.price_level,
+            rating: venue.rating,
+            reference: venue.reference,
+            photos: venue.photos
+          }
+          this.setState({place})
+          if(place.photos[0]) this._getPlacePhoto(place.photos[0].photo_reference)
         }
       })
+      .catch(err => console.log(err))
   }
 
   _getPlacePhoto(photoReference) {
     Google_photoAPI(photoReference)
       .then((resp) => {
+        console.log(resp.data)
         this.setState({
           photo: resp.data
         })
       })
+      .catch(err => console.log(err))
   }
 
 
