@@ -20,7 +20,6 @@ class Venues extends Component {
     }
   }
 
-
   _venueSearch(term) {    
     var mappedVenues = []
     this.setState({searchedVenues: {}})
@@ -39,10 +38,11 @@ class Venues extends Component {
 
   _songkickSearch(venue){
     Songkick_getVenueAPI(venue.id).then(venues=>{
-      this._addRedux(venues.data)
+      if(venues.data.address){
+        this._addRedux(venues.data)       
+      }
     })
   }
-
 
   _isInRedux(venue) {
     if (this.props.venues && !this.props.venues[venue.id]) {
@@ -82,31 +82,49 @@ class Venues extends Component {
     })
   }
 
+
+  _errorFade(){
+    var This = this;
+     setTimeout(function(){
+        This.setState({notFound: false, showError: false});
+        $('#venue-search-bar').find('input').val('');
+      }, 3000)
+  }
+
   _venueList(){
     return isReduxLoaded(this.state.searchedVenues) ? this.state.searchedVenues : this.props.venues
   }
 
-  render() {
-    return (
-      <div className="container">
-          <div className="col col-md-10">
-            <div className="page-header venues-header">
-              <h1>Venues</h1>
-              <form name='venueForm' id='venue-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
-                <input
-                  className="form-control"
-                  value={this.state.term}
-                  placeholder='Search Venues'
-                  onChange={ event => this._onInputChange(event.target.value) }
-                />
-              </form>  
-            </div>
-            <div className="Venues-list">
-              <GenVenue venues={this._venueList()} />
-            </div>
-          </div>
-      </div>
+  _venueForm(){
+    if(this.state.notFound){
+      return <p className='searchError'> Search Not Found</p>
+    } else return (
+      <form name='venueForm' id='venue-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+        <input
+          className="form-control"
+          value={this.state.term}
+          placeholder='Search Venues'
+          onChange={ event => this._onInputChange(event.target.value) }
+        />
+      </form>  
     )
+  }
+
+  render() {
+    this.state.showError ? this._errorFade() : null
+      return (
+        <div className="container">
+            <div className="col col-md-10">
+              <div className="page-header venues-header">
+                <h1>Venues</h1>
+                {this._venueForm()}
+              </div>
+              <div className="Venues-list">
+                <GenVenue venues={this._venueList()} />
+              </div>
+            </div>
+        </div>
+      )
   }
 
 }
