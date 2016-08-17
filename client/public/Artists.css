@@ -6,6 +6,10 @@
   float: right;
 }
 
+.artist-item-name {
+  padding-top: 8px;
+}
+
 .searchError{
   float: right;
   color: #f75a50;

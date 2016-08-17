@@ -34,7 +34,9 @@ export default class ArtistItem extends Component {
               width="105"
             />
             <br/>
-            {artist.name}
+            <div className="artist-item-name">
+              {artist.name}
+            </div>
           </Link>
           <Speaker track={topTrack(artist)} size={2}/>
         </div>
