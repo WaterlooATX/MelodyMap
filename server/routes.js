@@ -117,20 +117,15 @@ const Google = require("./models/m_google")
 //     .catch(error => console.log("error", error))
 // })
 
-router.get('/Google_placeIdAPI', function(req, res) {
-  // dont use req.param
-  Google.placeIdAPI(req.param('name'), req.param('lat'), req.param('long'))
+router.post('/Google_placeIdAPI', function(req, res) {
+  Google.placeIdAPI(req.body.name, req.body.lat, req.body.long)
     .then(data => res.send(data))
     .catch(error => console.log('error', error))
 })
 
 router.get('/Google_photoAPI', function(req, res) {
-  // console.log('routes Google_photoAPI photoReference', req.param('photoReference'));
-  //   // dont use req.param
   Google.photoAPI(req.param('photoReference'))
-    .then((data) => {
-      res.send(data)
-    })
+    .then(data => res.send(data))
     .catch(error => console.log('BOOM', error))
 })
 

@@ -20,7 +20,6 @@ exports.photoAPI = (photoreference) => {
   return new Promise( function(resolve, reject) {
     Places.imageFetch(parameters, (error, response) => {
       if (error) throw error;
-      console.log(response)
       resolve(response)
     })
   })
