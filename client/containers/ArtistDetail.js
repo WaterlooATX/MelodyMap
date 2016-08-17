@@ -53,9 +53,9 @@ class ArtistDetail extends Component {
           </div>
         </div>
         <div className="col-sm-offset-2 col-sm-8">
-          {this._isShow(this.state.shows)}
           <div className="media-container">
             <VideoDetail video={this.state.selectedVideo} />
+            {this._isShow(this.state.shows)}
           </div>
             {this._similarArtists(artist.relatedArtists)}
         </div>
@@ -154,7 +154,7 @@ class ArtistDetail extends Component {
           return null
       } else {
         const mapped = artists[0].artist.map(artist => {
-          return {name: artist.name, image: this._similarArtistsImg(artist.image[1])}
+          return {name: artist.name, image: this._similarArtistsImg(artist.image[3])}
         })
         return mapped.map(artist => {
           return (
