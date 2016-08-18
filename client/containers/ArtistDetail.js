@@ -51,7 +51,7 @@ class ArtistDetail extends Component {
     return (
       <div>
         <div className="jumbotron">
-          <div className="col-sm-offset-2 col-sm-8">
+          <div className="col-sm-offset-1 col-sm-10">
             <img className="detailImage img-circle" src={albumArt} onClick={this._randomAlbumArt.bind(this)}/>
             <div className="display-title">
               <div className="display-title-name">{`${artist.name}`}</div>
@@ -63,16 +63,13 @@ class ArtistDetail extends Component {
             </div>
           </div>
         </div>
-        <div className="col-sm-offset-2 col-sm-8">
-            {this._isShow(this.state.shows)}
-          <div className="media-container">
-            <VideoDetail video={this.state.selectedVideo} />
-            <AudioPlayer artist={artist} key ={artist.id}/>
-          </div>
-            <div className = 'container-similar'>
-              <h1 className="page-header">Similar Artists</h1>
-              <div>{this._similarArtists(artist.relatedArtists)}</div>
-            </div>
+        {/*this._isShow(this.state.shows)*/}
+        <div className="artist-video col-sm-offset-1 col-sm-6"><VideoDetail video={this.state.selectedVideo} /></div>
+        <div className="artist-upcoming col-sm-2">Upcoming Shows Here.</div>
+        <div className="artist-audio col-sm-2"><AudioPlayer artist={artist} key ={artist.id}/></div>
+        <div className = 'container-similar col-sm-offset-1 col-sm-10'>
+          <h1 className="page-header">Similar Artists</h1>
+          <div>{this._similarArtists(artist.relatedArtists)}</div>
         </div>
       </div>
     )
@@ -98,20 +95,20 @@ class ArtistDetail extends Component {
     }
   }
 
-  _isShow(show) {
-    if (show) {
-      return (
-        <div className = "upcoming-shows">
-          <h1 className="page-header">Upcoming Shows</h1>
-          <div className="scrollable-menu">
-            {this._getShows(this.state.shows)}
-          </div>
-        </div>
-      )
-    } else {
-      return null
-    }
-  }
+  // _isShow(show) {
+  //   if (show) {
+  //     return (
+  //       <div className = "upcoming-shows">
+  //         <h1 className="page-header">Upcoming Shows</h1>
+  //         <div className="scrollable-menu">
+  //           {this._getShows(this.state.shows)}
+  //         </div>
+  //       </div>
+  //     )
+  //   } else {
+  //     return null
+  //   }
+  // }
 
   _getShows(shows) {
     if (!shows) {

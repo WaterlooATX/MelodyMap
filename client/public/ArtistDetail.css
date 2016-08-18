@@ -9,11 +9,18 @@
   margin-top: 0;
 }
 
-.media-container {
-  display: flex;
-  flex-direction: row;
-  margin-left: 134px;
-  margin-right: 134px;
+.artist-video {
+  padding: 0;
+}
+
+.artist-audio {
+  padding: 0;
+  margin: 10px 0;
+}
+
+.artist-upcoming {
+  text-align: center;
+  margin: 10px 0;
 }
 
 .container-similar {
@@ -35,6 +42,7 @@
 
 .container-similar div {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .video-detail .details {
@@ -43,7 +51,7 @@
 }
 
 .video-detail {
-  margin-bottom: 15px;
+  width: 100%;
 }
 
 .similar-artist {
