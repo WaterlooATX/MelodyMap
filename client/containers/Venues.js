@@ -125,18 +125,18 @@ class Venues extends Component {
     this.state.showError ? this._errorFade() : null
     return (
       <div className="container">
-          <div className="col col-md-1"></div>
-            <div className="col col-md-10">
-              <div className="page-header venues-header">
-                <div className="artist-title">Venues</div>
-                {this._venueForm()}
-              </div>
-              <div className="Venues-list">
-                <GenVenue venues={this._venueList()} />
-              </div>
+        <div className="col col-md-1"></div>
+          <div className="col col-md-10">
+            <div className="page-header venues-header">
+              <div className="artist-title">Venues</div>
+              {this._venueForm()}
             </div>
-          <div className="col col-md-1"></div>
-        </div>
+            <div className="Venues-list">
+              <GenVenue venues={this._venueList()} />
+            </div>
+          </div>
+        <div className="col col-md-1"></div>
+      </div>
     )
   }
 

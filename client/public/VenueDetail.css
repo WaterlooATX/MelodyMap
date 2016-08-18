@@ -1,30 +1,3 @@
-.upcoming-shows-container {
-/*  margin: 15px;
-  width: 90%;
-  border: 3px;
-  padding: 22px;
-  border: 2px solid #eee;
-  border-radius: 2px;
-*/}
-
-/*.upcoming-shows-header  {
-  padding-bottom: 20px;
-}*/
-
-/*.venue-detail-jumbotron {
-  padding-top: 48px;
-  margin-top: 67px;
-  min-height: 0px;
-}*/
-
-.venue-detail-name {
-  display: inline-block;
-  font-family: 'Oswald', sans-serif;
-  font-size: 50px;
-  font-weight: 700;
-  overflow-y: scroll;
-}
-
 .venue-basic-info {
   margin: 5px;
 }
@@ -32,5 +5,6 @@
 .venue-media {
   margin: 0px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 

@@ -28,25 +28,19 @@
   display: flex;
   flex-direction: column;
 }
+
 .artistDetail-bio {
   overflow-y: scroll;
   height: 240px;
 }
-.artistDetail-title {
-  display: block;
-}
-.artistDetail-name {
-  display: block;
-  font-family: 'Oswald', sans-serif;
-  font-size: 50px;
-  font-weight: 700;
-}
+
 .artistDetail-ontour {
   display: inline-block;
   font-family: 'Oswald', sans-serif;
   padding-left: 20px;
   font-size: 22px;
 }
+
 .container-similar div {
   display: flex;
   flex-direction: row;
@@ -55,24 +49,27 @@
 }
 
 .video-detail .details {
-    /*hides the video-detail*/
-    margin-top: -150px;
+  /*hides the video-detail*/
+  margin-top: -150px;
 }
+
 .video-detail {
   margin-bottom: 15px;
 }
+
 .similar-artist {
 display: flex;
 flex-direction: column;
 margin: 10px;
 align-items: center;
 }
+
 .similar-artist img {
-height: 100;
-width: 100px;
--webkit-box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
--moz-box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
-box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
+  height: 100;
+  width: 100px;
+  -webkit-box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
+  -moz-box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
+  box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
 }
 
 .similar-artist a {
@@ -95,11 +92,12 @@ box-shadow: 7px -7px 14px 0px rgba(0,0,0,0.84);
 }
 
 .scrollable-menu {
-    height: auto;
-    max-height: 400px;
-    overflow-x: hidden;
-    margin-bottom: 50px;
+  height: auto;
+  max-height: 400px;
+  overflow-x: hidden;
+  margin-bottom: 50px;
 }
+
 .audioPlayer-container{
   display: inline-block;
 }
