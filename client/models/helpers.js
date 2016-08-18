@@ -40,7 +40,7 @@ export const getRandomAlbumArt = (Artist) => {
 
   if (albumArt && Artist) {
     const albumsImages = Artist.albumsImages.map(album => {
-      return album.images ? album.images[1].url : null
+      return album.images.length ? album.images[1].url : null
     })
 
     if (albumsImages) {

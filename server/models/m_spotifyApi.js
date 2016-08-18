@@ -48,10 +48,12 @@ exports.searchArtists = (name, songKickID) => {
       spotifyApi.searchArtists(Name)
         .then(data => {
           let artist_return = null
+          let foundName = false;
           data.body.artists.items.forEach((artist, i) => {
 
               // if songkick name is spotify name
               if (Name == artist.name) {
+                foundName = true
                 console.log(`${++Spotify_searchArtists} adding ${Name}`)
                 const Artist = new ArtistModel();
 
@@ -110,7 +112,9 @@ exports.searchArtists = (name, songKickID) => {
               }
             })
             // found no name matches
-          resolve()
+          if(!foundName) {
+            resolve()
+          }
         }).catch(err => console.log("ERROR", Name));
     })
   }
