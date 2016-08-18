@@ -171,8 +171,8 @@ class ArtistDetail extends Component {
       })
       return mapped.map(artist => {
         return (
-          <div>
-              <div className="similar-artist" key={artist.name}>
+          <div key={artist.name}>
+              <div className="similar-artist" >
                   <img className="img-circle" src={artist.image}/>
               <Link
                   className="text-center"
