@@ -15,27 +15,31 @@ import {YOUTUBE_KEY} from '../../server/models/api_keys'
 
 class ArtistDetail extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       videos: [],
       selectedVideo: null,
-      shows : null,
+      shows: null,
       artist: null,
       albumArt: null
     }
   }
 
   componentDidMount() {
-    this.setState({artist: this._getArtist(this.props.params.artistName)})
+    this.setState({
+      artist: this._getArtist(this.props.params.artistName)
+    })
     this._randomAlbumArt()
   }
 
-  componentWillReceiveProps(){
-    this.setState({artist: this._getArtist(this.props.params.artistName)})
+  componentWillReceiveProps() {
+    this.setState({
+      artist: this._getArtist(this.props.params.artistName)
+    })
   }
 
-  _render(artist){
+  _render(artist) {
     const albumArt = this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
     return (
       <div>
@@ -68,12 +72,14 @@ class ArtistDetail extends Component {
   }
 
   _randomAlbumArt() {
-    this.setState({albumArt: getRandomAlbumArt(this.state.artist)})
+    this.setState({
+      albumArt: getRandomAlbumArt(this.state.artist)
+    })
   }
 
   _spotifyFollow(token, id) {
     const url = `https://embed.spotify.com/follow/1/?uri=spotify:artist:${id}&size=basic&theme=light&show-count=0`
-    if(token) {
+    if (token) {
       return (
         <div className="artistDetail-followButton">
           <iframe
@@ -91,8 +97,8 @@ class ArtistDetail extends Component {
     }
   }
 
-  _isShow(show){
-    if(show) {
+  _isShow(show) {
+    if (show) {
       return (
         <div className = "upcoming-shows">
           <h3>Upcoming Shows</h3>
@@ -107,7 +113,7 @@ class ArtistDetail extends Component {
   }
 
   render() {
-    if(this.state.artist) {
+    if (this.state.artist) {
       return this._render(this.state.artist)
     } else {
       return <div>Loading</div>
@@ -126,19 +132,19 @@ class ArtistDetail extends Component {
     })
   }
 
-  _onTour(tour){
-    if(tour === "1"){
+  _onTour(tour) {
+    if (tour === "1") {
       return "ON TOUR"
-    }else{
+    } else {
       return null
     }
   }
 
-  _getGenre(genres){
-    if(!genres){
+  _getGenre(genres) {
+    if (!genres) {
       return null
     }
-    else{
+    else {
       return genres.map(genre => {
         return <li className= "genre-item" key ={genre.url}>{genre.name}</li>
       })
@@ -146,7 +152,7 @@ class ArtistDetail extends Component {
   }
 
   _similarArtistsImg(img) {
-    if(img["#text"] === "") {
+    if (img["#text"] === "") {
       return "http://assets.audiomack.com/default-artist-image.jpg"
     } else {
       return img["#text"]
@@ -154,15 +160,18 @@ class ArtistDetail extends Component {
   }
 
   _similarArtists(artists) {
-      if (!artists) {
-          return null
-      } else {
-        const mapped = artists[0].artist.map(artist => {
-          return {name: artist.name, image: this._similarArtistsImg(artist.image[3])}
-        })
-        return mapped.map(artist => {
-          return (
-            <div>
+    if (!artists) {
+      return null
+    } else {
+      const mapped = artists[0].artist.map(artist => {
+        return {
+          name: artist.name,
+          image: this._similarArtistsImg(artist.image[3])
+        }
+      })
+      return mapped.map(artist => {
+        return (
+          <div>
               <div className="similar-artist" key={artist.name}>
                   <img className="img-circle" src={artist.image}/>
               <Link
@@ -172,9 +181,9 @@ class ArtistDetail extends Component {
               </Link>
               </div>
             </div>
-          )
-        })
-      }
+        )
+      })
+    }
   }
 
   _getShows(shows) {
@@ -193,7 +202,9 @@ class ArtistDetail extends Component {
 
   _getArtistCalendar(id) {
     Songkick_getArtistCalendarAPI(id).then(shows => {
-      this.setState({shows: shows.data})
+      this.setState({
+        shows: shows.data
+      })
     })
   }
 
@@ -201,23 +212,25 @@ class ArtistDetail extends Component {
     const artists = this.props.artists
     artists[artist.name] = artist
     this._getArtistCalendar(artists[artist.name].songKickID)
-    // update redux state with new artist
-    this.setState({artist: artists[artist.name]})
+      // update redux state with new artist
+    this.setState({
+      artist: artists[artist.name]
+    })
     redux_Artists(artists)
     return artists[artist.name]
   }
 
   _getArtist(name) {
     this._videoSearch(name)
-    // all arist can be redux state, but similar-artist
+      // all arist can be redux state, but similar-artist
     if (this._isAristInRedux(name)) {
       this._getArtistCalendar(this.props.artists[name].songKickID)
       return this.props.artists[name]
     } else {
       fetchArtistsAPI(name)
         .then(artist => artist.data[0].id)
-        .then(id => Spotify_searchArtistsAPI({name, id})
-        .then(artistInfo => this._addArtistToRedux(artistInfo.data)))
+        .then(id => Spotify_searchArtistsAPI({name,id})
+          .then(artistInfo => this._addArtistToRedux(artistInfo.data)))
     }
   }
 }

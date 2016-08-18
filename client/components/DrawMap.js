@@ -11,40 +11,45 @@ export default class DrawMap extends Component {
     this._Map = null;
     this.venues = props.venues;
   }
-  
+
   _findClosestShow() {
     const location = this.props.location;
     const shows = this.props.shows;
 
     if (Array.isArray(shows)) {
       let array = shows.map(show => getDistanceFromLatLonInKm(+location.lat, +location.long, +show.venue.lat, +show.venue.lng));
-      let sorted = array.slice().sort((a,b) => a - b)
+      let sorted = array.slice().sort((a, b) => a - b)
       return shows[array.indexOf(sorted[0])];
     } else return null;
   }
 
 
-  _getVenueInfo(show){
-    for(var key in this.venues){
-      if(key == show.venue.id){
-        return this.venues[key].address 
+  _getVenueInfo(show) {
+    for (var key in this.venues) {
+      if (key == show.venue.id) {
+        return this.venues[key].address
       }
     }
   }
 
 
-
-  _setCenter(){
+  _setCenter() {
     const locA = this.props.selectedShow;
     // Loc B commented out because centering map on closest show hurts UX more than it helps
     //const locB = this._findClosestShow();
     const locC = this.props.location;
     let center;
 
-    if (locA) center = {lat: +locA.venue.lat, lng: +locA.venue.lng};
+    if (locA) center = {
+      lat: +locA.venue.lat,
+      lng: +locA.venue.lng
+    };
     // Loc B commented out because centering map on closest show hurts UX more than it helps
     //else if (locB) center = {lat: +locB.venue.lat, lng: +locB.venue.lng};
-    else center = {lat: +locC.lat, lng: +locC.long};
+    else center = {
+      lat: +locC.lat,
+      lng: +locC.long
+    };
     return center;
   }
 
@@ -68,15 +73,15 @@ export default class DrawMap extends Component {
             defaultAnimation= { 2 }
            >
 
-            { this.props.selectedShow === show ? 
+            { this.props.selectedShow === show ?
               <InfoWindow maxWidth = { 300 }>
                 <div id="iw-container">
                   <div className="iw-title">{ show.venue.displayName }</div>
                   <div className="iw-content">
                     <div className="iw-subTitle">{show.performance[0].displayName}</div>
                     <div className="iw-address">{ this._getVenueInfo(show) }</div>
-                    <a onClick={ this.props.onNavigateClick.bind(this) }>(Directions to here)</a>  
-                  </div>    
+                    <a onClick={ this.props.onNavigateClick.bind(this) }>(Directions to here)</a>
+                  </div>
                   <div className="iw-bottom-gradient"></div>
                 </div>
               </InfoWindow> : null }

@@ -11,7 +11,9 @@ export default class App extends Component {
   }
 
   _onLink(bool) {
-    this.setState({ visibleSearch: bool });
+    this.setState({
+      visibleSearch: bool
+    });
   }
 
   render() {

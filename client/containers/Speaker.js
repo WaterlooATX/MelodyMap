@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
 import {setSpeaker} from '../actions/actions'
+
 class Speaker extends Component {
 
   render() {
-    if(this.props.track) {
+    if (this.props.track) {
       return (
         <i
           className={`speaker fa fa-volume-up fa-${this.props.size}x`}
@@ -22,7 +23,10 @@ class Speaker extends Component {
   }
 
   _songPlayToggle(songPlayed, songButton) {
-    this.props.setSpeaker({songPlayed, songButton})
+    this.props.setSpeaker({
+      songPlayed,
+      songButton
+    })
   }
 
   _toggleSound(event) {

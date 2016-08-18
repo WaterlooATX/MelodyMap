@@ -36,17 +36,21 @@ class VenueDetail extends Component {
     if (!this.props.venues[venueId].upcomingShows.length) {
       Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
         redux_Venue[venue.id].upcomingShows = gotshows.data
-        this.setState({upcomingShows: gotshows.data})
+        this.setState({
+          upcomingShows: gotshows.data
+        })
         redux_Venues(redux_Venue)
       })
     } else {
-      this.setState({upcomingShows: redux_Venue[venue.id].upcomingShows})
+      this.setState({
+        upcomingShows: redux_Venue[venue.id].upcomingShows
+      })
     }
   }
 
   _displayUpcomingShows() {
     const showObjs = this.state.upcomingShows
-    return showObjs.map(function(show, index){
+    return showObjs.map(function(show, index) {
       return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
   }
@@ -68,8 +72,10 @@ class VenueDetail extends Component {
             reference: venue.reference,
             photos: venue.photos
           }
-          this.setState({place})
-          if(place.photos[0]) this._getPlacePhoto(place.photos[0].photo_reference)
+          this.setState({
+            place
+          })
+          if (place.photos[0]) this._getPlacePhoto(place.photos[0].photo_reference)
         }
       })
       .catch(err => console.log(err))
@@ -157,7 +163,6 @@ class VenueDetail extends Component {
   }
 
 }
-
 const mapStateToProps = (state) => {return { venues: state.venues }};
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Venues }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(VenueDetail);

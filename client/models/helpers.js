@@ -1,6 +1,6 @@
 import _ from 'lodash';
 export const topTrack = (Artist) => {
-  if(Artist) {
+  if (Artist) {
     let topTracks = Artist.topTracks ? Artist.topTracks[0] : null
     return topTracks = topTracks ? Artist.topTracks[0].preview_url : null
   } else {

@@ -10,9 +10,9 @@ import {isReduxLoaded} from '../models/helpers';
 
 class Venues extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       searchedVenues: {},
       term: '',
       notFound: false,
@@ -22,23 +22,31 @@ class Venues extends Component {
 
   _venueSearch(term) {
     var mappedVenues = []
-    this.setState({searchedVenues: {}})
+    this.setState({
+      searchedVenues: {}
+    })
     fetchVenuesAPI(term).then(venues => {
-      if(venues.data.length){
-         this.setState({notFound: false, showError: false})
-          venues.data.forEach((venue) =>{
-            mappedVenues.push(venue)
-          })
+      if (venues.data.length) {
+        this.setState({
+          notFound: false,
+          showError: false
+        })
+        venues.data.forEach((venue) => {
+          mappedVenues.push(venue)
+        })
         mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._songkickSearch(venue));
-       } else{
-          this.setState({notFound: true, showError: true})
-       }
+      } else {
+        this.setState({
+          notFound: true,
+          showError: true
+        })
+      }
     })
   }
 
-  _songkickSearch(venue){
-    Songkick_getVenueAPI(venue.id).then(venues=>{
-      if(venues.data.address){
+  _songkickSearch(venue) {
+    Songkick_getVenueAPI(venue.id).then(venues => {
+      if (venues.data.address) {
         this._addRedux(venues.data)
       }
     })
@@ -72,8 +80,8 @@ class Venues extends Component {
   }
 
   _handleSubmit(event) {
-      event.preventDefault()
-      this._venueSearch(this.state.term)
+    event.preventDefault()
+    this._venueSearch(this.state.term)
   }
 
   _onInputChange(term) {
@@ -83,20 +91,23 @@ class Venues extends Component {
   }
 
 
-  _errorFade(){
+  _errorFade() {
     var This = this;
-     setTimeout(function(){
-        This.setState({notFound: false, showError: false});
-        $('#venue-search-bar').find('input').val('');
-      }, 3000)
+    setTimeout(function() {
+      This.setState({
+        notFound: false,
+        showError: false
+      });
+      $('#venue-search-bar').find('input').val('');
+    }, 3000)
   }
 
-  _venueList(){
+  _venueList() {
     return isReduxLoaded(this.state.searchedVenues) ? this.state.searchedVenues : this.props.venues
   }
 
-  _venueForm(){
-    if(this.state.notFound){
+  _venueForm() {
+    if (this.state.notFound) {
       return <p className='searchError'> Search Not Found</p>
     } else return (
       <form name='venueForm' id='venue-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
@@ -112,8 +123,8 @@ class Venues extends Component {
 
   render() {
     this.state.showError ? this._errorFade() : null
-      return (
-        <div className="container">
+    return (
+      <div className="container">
           <div className="col col-md-1"></div>
             <div className="col col-md-10">
               <div className="page-header venues-header">
@@ -126,7 +137,7 @@ class Venues extends Component {
             </div>
           <div className="col col-md-1"></div>
         </div>
-      )
+    )
   }
 
 }

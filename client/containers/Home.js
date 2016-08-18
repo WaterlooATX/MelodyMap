@@ -23,10 +23,7 @@ class Home extends Component {
   }
 
   _setNewCoords(lat, long) {
-    this.props.setLocation({
-      lat,
-      long
-    });
+    this.props.setLocation({lat,long});
     this.props.fetchShows(this.props.location);
   }
 

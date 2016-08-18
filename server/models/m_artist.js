@@ -5,22 +5,6 @@ const db = require("../db")
 const ArtistModel = require("../ARTISTS_Schema")
 const mongoose = require('mongoose');
 
-// Instances of Models are documents.
-
-
-// addArtist()
-//  - check if in db
-//  - create artist if not
-//  - return artist data
-//  - update data if old
-
-
-
-
-
-// isArtist = (name) => findArtist(name).then(data => data ? true : false)
-// findArtist = (name) => Artist.findOne({name: name})
-
 exports.artistInfo = (name) => {
 
   return Spotify.searchArtists(name)
@@ -45,40 +29,3 @@ exports.artistInfo = (name) => {
     })
 
 }
-
-// Spotify.getArtistRelatedArtists(artist.id)
-//   .then(artist => {
-//     return {
-//       relatedArtists: datdata[0].artists
-//     }
-//   })
-//
-//   Spotify.getArtistAlbums(artist.id)
-//     .then(albums => {
-//       return {
-//         albums: albums.items.map(album => {
-//           return {
-//             name: album.name,
-//             images: album.images,
-//             id: album.id
-//           }
-//         })
-//       }
-//     })
-//
-// Spotify.getArtistTopTracks(artist.id, countryCode = "us")
-//   .then(artist => {
-//     return {
-//       topTracks: artist.tracks
-//     }
-//   })
-//
-// LastFM.getInfo(name)
-//   .then(data => {
-//     return {
-//       summaryBio: datdata[0].artist.bio.summary,
-//       fullBio: datdata[0].artist.bio.content
-//     }
-//   })
-
-//.catch(error => console.log("error", error))

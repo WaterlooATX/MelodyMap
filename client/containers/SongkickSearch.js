@@ -21,10 +21,10 @@ class SongkickSearch extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <div className="songkick-search">
-      { 
+      {
         this.props.visibleSearch ?
         this.state.search ?
         <form className="songkick-search">
@@ -58,26 +58,34 @@ class SongkickSearch extends Component {
               Advanced Search
             </a>
           </div>
-        : <div className="songkick-search"></div> 
+        : <div className="songkick-search"></div>
       }
       </div>
     )
   }
 
   _onSearchClick() {
-    this.setState({ search: true });
+    this.setState({
+      search: true
+    });
   }
 
   _onStartChange(startDate) {
-    this.setState({startDate});
+    this.setState({
+      startDate
+    });
   }
 
   _onEndChange(endDate) {
-    this.setState({endDate});
+    this.setState({
+      endDate
+    });
   }
 
   _onCityChange(city) {
-    this.setState({city});
+    this.setState({
+      city
+    });
   }
 
   _onSubmit(event) {
@@ -87,18 +95,33 @@ class SongkickSearch extends Component {
     // get coordinate from city name
     if (this.state.city) {
       Google_geocoder(this.state.city).then(resp => {
-      console.log('resp from navbar' , resp);
+        console.log('resp from navbar', resp);
         let lat = resp.data.results[0].geometry.location.lat;
         let long = resp.data.results[0].geometry.location.lng;
-        this.props.fetchShows({long, lat, startDate, endDate});
-        this.props.setLocation({long, lat});
+        this.props.fetchShows({
+          long,
+          lat,
+          startDate,
+          endDate
+        });
+        this.props.setLocation({
+          long,
+          lat
+        });
       })
     } else {
       let lat = this.props.location.lat;
       let long = this.props.location.long;
-      this.props.fetchShows({long, lat, startDate, endDate});
+      this.props.fetchShows({
+        long,
+        lat,
+        startDate,
+        endDate
+      });
     }
-    this.setState({ search: false });
+    this.setState({
+      search: false
+    });
   }
 
 }

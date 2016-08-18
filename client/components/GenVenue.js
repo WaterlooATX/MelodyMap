@@ -3,11 +3,11 @@ import VenueItem from '../components/VenueItem';
 
 export default class GenVenue extends Component {
 
-  _createVenues(){
+  _createVenues() {
     const venues = this.props.venues
     const mapped = []
     for (let venueId in venues) {
-      if(venues[venueId]) {
+      if (venues[venueId]) {
         mapped.push(<VenueItem venue={venues[venueId]} key={venueId} />)
       }
     }
@@ -16,7 +16,7 @@ export default class GenVenue extends Component {
 
   render() {
     const Venues = this._createVenues()
-    return(
+    return (
       <div>
         {Venues}
       </div>

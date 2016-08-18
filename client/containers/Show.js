@@ -14,8 +14,8 @@ class Show extends Component {
 
   constructor(props) {
     super(props)
-    this.state ={
-      bands : [],
+    this.state = {
+      bands: [],
       clicked: false,
       venueInfo: null
     }
@@ -68,8 +68,10 @@ class Show extends Component {
   }
 
   _getVenue(id) {
-    if(this.props.venues[id]) {
-      this.setState({venueInfo: this.props.venues[id]})
+    if (this.props.venues[id]) {
+      this.setState({
+        venueInfo: this.props.venues[id]
+      })
     } else {
       Songkick_getVenueAPI(id).then(venue => this._addVenueRedux(venue.data))
     }
@@ -77,11 +79,13 @@ class Show extends Component {
 
   _addVenueRedux(venue) {
     const reduxVenues = this.props.venues
-    // Build venue entry in redux state
+      // Build venue entry in redux state
     reduxVenues[venue.id] = venue
-    // add to redux venues
+      // add to redux venues
     redux_Venues(reduxVenues)
-    this.setState({venueInfo: venue})
+    this.setState({
+      venueInfo: venue
+    })
   }
 
 
@@ -102,7 +106,9 @@ class Show extends Component {
       bandMembers.push(Artist.displayName)
       count++
       if (count === showArtists.length) {
-        this.setState({bands: bandMembers})
+        this.setState({
+          bands: bandMembers
+        })
       }
     })
   }
@@ -118,10 +124,12 @@ class Show extends Component {
     event.preventDefault();
     this.props.sendToState(this.props.id);
     // get tracks only on click
-    if(!this.state.clicked) {
-      this.setState({clicked: true});
+    if (!this.state.clicked) {
+      this.setState({
+        clicked: true
+      });
     }
-    setTimeout(function(){
+    setTimeout(function() {
       $('.Main').scrollTo(`#${DOMString}`, 250);
     }, 400);
   }

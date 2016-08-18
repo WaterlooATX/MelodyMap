@@ -19,15 +19,23 @@ class Artists extends Component {
   }
 
   _artistSearch(term) {
-    this.setState({searchedArtists: {}})
+    this.setState({
+      searchedArtists: {}
+    })
     fetchArtistsAPI(term).then(artists => {
-      if(artists.data.length){
-        this.setState({notFound: false, showError: false})
+      if (artists.data.length) {
+        this.setState({
+          notFound: false,
+          showError: false
+        })
         var mappedArtists;
         mappedArtists = this._mapData(artists)
         mappedArtists.forEach(artist => this._isInRedux(artist) ? this._getRedux(artist) : this._spotifySearch(artist));
-      } else{
-         this.setState({notFound: true, showError: true})
+      } else {
+        this.setState({
+          notFound: true,
+          showError: true
+        })
       }
     })
   }
@@ -89,12 +97,15 @@ class Artists extends Component {
     })
   }
 
-  _errorFade(){
+  _errorFade() {
     var This = this;
-     setTimeout(function(){
-        This.setState({notFound: false, showError: false});
-        $('#artist-search-bar').find('input').val('');
-      }, 3000)
+    setTimeout(function() {
+      This.setState({
+        notFound: false,
+        showError: false
+      });
+      $('#artist-search-bar').find('input').val('');
+    }, 3000)
   }
 
   _artistList() {
@@ -102,7 +113,7 @@ class Artists extends Component {
   }
 
   _artistForm() {
-    if(this.state.notFound) {
+    if (this.state.notFound) {
       return <p className='searchError'>Search Not Found</p>
     } else return (
       <form name='artistForm' id='artist-search-bar' className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
@@ -118,8 +129,8 @@ class Artists extends Component {
 
   render() {
     this.state.showError ? this._errorFade() : null
-      return(
-        <div>
+    return (
+      <div>
           <div className="container">
             <div className="row">
               <div className="col col-md-1"></div>
@@ -142,8 +153,8 @@ class Artists extends Component {
               </div>
             </footer>
         </div>
-      )
-   }
+    )
+  }
 }
 
 const mapStateToProps = (state) => {return {artists: state.artists }}

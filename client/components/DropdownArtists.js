@@ -7,7 +7,7 @@ export default class DropdownArtists extends Component {
 
   _createBand() {
     const bands = this.props.bands;
-    if(isReduxLoaded(this.props.artists) && bands) {
+    if (isReduxLoaded(this.props.artists) && bands) {
       return this._mappedArtists(bands)
     }
   }

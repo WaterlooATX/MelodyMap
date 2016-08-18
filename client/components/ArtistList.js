@@ -36,13 +36,13 @@ export default class ArtistList extends Component {
   _sortArtistsByPopularity(artists) {
     let sorted = [];
     for (let artist in artists) sorted.push(artists[artist]);
-    return sorted.sort((a,b) => b.popularity - a.popularity);
+    return sorted.sort((a, b) => b.popularity - a.popularity);
   }
 
   render() {
     const Artists = this._createArtists()
     return (
-        <div>
+      <div>
           {Artists}
         </div>
     )

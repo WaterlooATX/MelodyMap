@@ -7,14 +7,14 @@ export default class UpcomingShows extends Component {
   _createArtistList() {
     var show = this.props.show
     let artists = this.props.show.performance
-    let artistArr = artists.map(function(artist){
+    let artistArr = artists.map(function(artist) {
       return <Link to={`/artist/${artist.displayName}`} className="" key={artist.id}> {artist.displayName} </Link>
     })
-    let additionalArtists = artistArr.slice(2).map(function(artist){
+    let additionalArtists = artistArr.slice(2).map(function(artist) {
       return (<span key={artist.key}><a>,</a> {artist}</span>)
     })
 
-//flexbox flex direction right
+    //flexbox flex direction right
     return (
       <div className='upcoming-show'>
 

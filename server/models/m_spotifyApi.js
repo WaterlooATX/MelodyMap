@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const db = require('../db');
 const ArtistModel = require('../ARTISTS_Schema');
 const lastFM = require('./m_lastFM');
-const { SPOTIFY_CLIENTID, SPOTIFY_CLIENTSECRET } = require('./api_keys');
+const {
+  SPOTIFY_CLIENTID,
+  SPOTIFY_CLIENTSECRET
+} = require('./api_keys');
 
 // credentials are optional
 const spotifyApi = new SpotifyWebApi({
@@ -18,10 +21,10 @@ let Spotify_searchArtists = 0;
 exports.searchArtists = (name, songKickID) => {
   // check catched artists
   const cacheArtist = cachedArtists[songKickID]
-  if(cacheArtist) {
+  if (cacheArtist) {
     console.log(`${++Spotify_searchArtists} found cachedArtists ${name}`)
-    //return catchArtist
-    return new Promise( function(resolve, reject) {
+      //return catchArtist
+    return new Promise(function(resolve, reject) {
       resolve(cacheArtist)
     })
   }

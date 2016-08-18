@@ -3,7 +3,11 @@ import {GOOGLE_MAP_KEY, GOOGLE_GEOLOCATION_KEY} from '../../server/models/api_ke
 
 
 export function Google_placeIdAPI(name, lat, long) {
-  return axios.post('/Google_placeIdAPI', {name, lat, long})
+  return axios.post('/Google_placeIdAPI', {
+    name,
+    lat,
+    long
+  })
 }
 
 export function Google_photoAPI(photoReference) {
@@ -59,13 +63,13 @@ export function fetchShowsAPI(long, lat, dateA, dateB) {
   });
 }
 
-export function fetchArtistsAPI(query){
+export function fetchArtistsAPI(query) {
   return axios.post('/fetchArtists', {
     query: query
   });
 }
 
-export function fetchVenuesAPI(query){
+export function fetchVenuesAPI(query) {
   return axios.post('/fetchVenues', {
     query: query
   });
@@ -122,7 +126,7 @@ export function Songkick_getArtistCalendarAPI(venueID) {
 }
 
 export function Artist_artistInfoAPI(name) {
-  if(name.length > 2) {
+  if (name.length > 2) {
     return axios.post('/Artist_artistInfo', {
       name: name
     });

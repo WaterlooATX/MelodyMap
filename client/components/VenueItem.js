@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router';
 
-export default class VenueItem extends Component{
-	constructor(props){
-		super(props);
-	}
+export default class VenueItem extends Component {
+  constructor(props) {
+    super(props);
+  }
 
 
-	render(){
-		const venue = this.props.venue
-		return (
-	      <div className="genvenue-venue" id={`heading${venue.id}`}>
+  render() {
+    const venue = this.props.venue
+    return (
+      <div className="genvenue-venue" id={`heading${venue.id}`}>
 	        <h1>
 	           <Link className = "genvenue-name-link"
 	              to={ `/venue/${venue.name}/${venue.id}`}
@@ -28,6 +28,6 @@ export default class VenueItem extends Component{
 	          </h4>
 	        </div>
 	      </div>
-    	)
-	}
+    )
+  }
 }

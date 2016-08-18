@@ -4,21 +4,21 @@ import Speaker from '../containers/Speaker'
 import {getAlbumArt, getRandomAlbumArt, topTrack} from '../models/helpers'
 
 export default class ArtistItem extends Component {
-  constructor(props){
-		super(props);
-		this.state={
-			albumArt: null
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      albumArt: null
+    }
+  }
 
-	componentDidMount(){
-		this._randomAlbumArt()
-	}
+  componentDidMount() {
+    this._randomAlbumArt()
+  }
 
   render() {
     const artist = this.props.artist
     const albumArt = this.state.albumArt ? this.state.albumArt : getAlbumArt(artist)
-	  return (
+    return (
       <div key={artist.id} className="col-md-4 gridding">
         <div className = "artist-label" id="selected">
           <Link
@@ -40,10 +40,12 @@ export default class ArtistItem extends Component {
         </div>
           {artist.onTour == "1" || artist.onTourUntil ? <p className=" tour">ON TOUR</p> : null}
       </div>
-	  )
-	}
+    )
+  }
 
   _randomAlbumArt() {
-    this.setState({albumArt: getRandomAlbumArt(this.props.artist)})
+    this.setState({
+      albumArt: getRandomAlbumArt(this.props.artist)
+    })
   }
 }

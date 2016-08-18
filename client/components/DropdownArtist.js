@@ -17,7 +17,9 @@ export default class DropdownArtist extends Component {
   }
 
   _randomAlbumArt() {
-    this.setState({albumArt: getRandomAlbumArt(this.props.artist)})
+    this.setState({
+      albumArt: getRandomAlbumArt(this.props.artist)
+    })
   }
 
   render() {
