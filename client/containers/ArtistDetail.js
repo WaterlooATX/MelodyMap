@@ -171,7 +171,7 @@ class ArtistDetail extends Component {
   }
 
   _similarArtists(artists) {
-    if (!artists) {
+    if (!artists || !artists[0]) {
       return null
     } else {
       const mapped = artists[0].artist.map(artist => {
