@@ -3,6 +3,10 @@
     margin-top: 67px;
 }
 
+.jumbotron{
+  background: linear-gradient(to right, #d0cac0, #fffefd);
+}
+
 .detailImage {
    float: right;
    top: -16px;
