@@ -171,8 +171,8 @@ class ArtistDetail extends Component {
       })
       return mapped.map(artist => {
         return (
-          <div>
-              <div className="similar-artist" key={artist.name}>
+          <div key={artist.name}>
+              <div className="similar-artist" >
                   <img className="img-circle" src={artist.image}/>
               <Link
                   className="text-center"
@@ -230,7 +230,7 @@ class ArtistDetail extends Component {
       fetchArtistsAPI(name)
         .then(artist => artist.data[0].id)
         .then(id => Spotify_searchArtistsAPI({name,id})
-          .then(artistInfo => this._addArtistToRedux(artistInfo.data)))
+        .then(artistInfo => this._addArtistToRedux(artistInfo.data)))
     }
   }
 }
