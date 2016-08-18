@@ -18,7 +18,8 @@ export default class UpcomingShows extends Component {
 
         <div className='upcoming-show-info'>
           <div className='upcoming-show-artists'>
-            <h1>{ artistArr[0] } { artistArr[1] ? <span> with {artistArr[1]}</span> : null }
+            <h1>
+              {artistArr[0] } { artistArr[1] ? <span> with {artistArr[1]}</span> : null}
               {artistArr[2] ? <span>, {artistArr[2]}</span> : null}
             </h1>
           </div>
