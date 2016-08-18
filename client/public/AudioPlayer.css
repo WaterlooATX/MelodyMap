@@ -1,15 +1,15 @@
 .audioPlayer-container {
     width: 300px;
     border: 1px solid black;
-    overflow: scroll; /* add this to contain floated children */
+    overflow: scroll; 
     height: 382px;
 }
 .audioPlayer-list-item {
     width: 300px;
-    float:left; /* add this */
+    float:left; 
     border: 1px solid #93c54b;
 }
 .audioPlayer-speaker {
-    float: left; /* add this */
+    float: left; 
     padding-right: 20px;
 }
