@@ -100,7 +100,7 @@ class VenueDetail extends Component {
     const venue = redux_Venue[params.venueId]
     const venueNameForMap = venue.name.split(' ').join('+')
     // const state = this.state
-
+    // console.log(venue.website)
     // formatting for venue website link
     if (venue.website) {
       let website = venue.website.slice(7)
@@ -113,24 +113,22 @@ class VenueDetail extends Component {
       <div>
         <div className="jumbotron venue-detail-jumbotron">
 
-              <div className="col-sm-offset-2 col-sm-8">
-                {this.state.photo ? <img className="detailImage img-circle" src={this.state.photo} /> : null}
-                <div className="venue-detail-name">{venue.name}</div>
-                <ul className="venue-basic-info">
-                  {venue.website ? <li><a href={`${venue.website}`} target="_blank">{`${venue.website}`}</a></li> : null}
-                  {venue.address ? <li><a href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}</a></li> : null}
-                  {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
-                  {this.state.place && this.state.place.price ? <li>{ `Price: ${this.state.place.price}` }</li> : null}
-                  {this.state.place && this.state.place.rating ? <li>{ `Rating: ${this.state.place.rating}` }</li> : null}
-                  {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
-                  {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
-                </ul>
-              </div>
+          <div className="col-sm-offset-2 col-sm-8">
+            {this.state.photo ? <img className="detailImage img-circle" src={this.state.photo} /> : null}
+            <div className="display-title">
+              <div className="display-title-name">{venue.name}</div>
+            </div>
+            <ul className="venue-basic-info">
+              {venue.website ? <li><a href={`${venue.website}`} target="_blank">{`${venue.website}`}</a></li> : null}
+              {venue.address ? <li><a href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}</a></li> : null}
+              {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
+              {this.state.place && this.state.place.price ? <li>{ `Price: ${this.state.place.price}` }</li> : null}
+              {this.state.place && this.state.place.rating ? <li>{ `Rating: ${this.state.place.rating}` }</li> : null}
+              {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
+              {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
+            </ul>
+          </div>
 
-
-        </div>
-
-        <div>
         </div>
 
         <div className="container">
@@ -161,6 +159,7 @@ class VenueDetail extends Component {
             </div>
           <div className="col col-md-1"></div>
         </div>
+
       </div>
     )
   }

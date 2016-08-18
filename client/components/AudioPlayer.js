@@ -19,9 +19,13 @@ export default class AudioPlayer extends Component {
       return null;
     } else {
       return tracks.map(track => {
-        return <div className= "audioPlayer-list-item list-group-item" key={track.id}>{track.name}
-      	<div className ="audioPlayer-speaker"> <Speaker track ={track.preview_url} size = {2}/> </div>
-      	</div>
+        return (
+          <div className="audioPlayer-list-item list-group-item" key={track.id}>{track.name}
+          	<div className="audioPlayer-speaker" key={track.id}>
+              <Speaker track ={track.preview_url} key={track.id} size = {2}/>
+            </div>
+        	</div>
+        )
       })
     }
   }
