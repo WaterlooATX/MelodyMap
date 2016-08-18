@@ -82,7 +82,6 @@ export default class DrawMap extends Component {
                     <div className="iw-address">{ this._getVenueInfo(show) }</div>
                     <a onClick={ this.props.onNavigateClick.bind(this) }>(Directions to here)</a>
                   </div>
-                  <div className="iw-bottom-gradient"></div>
                 </div>
               </InfoWindow> : null }
           </Marker>
