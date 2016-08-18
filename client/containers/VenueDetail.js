@@ -9,9 +9,7 @@ import {redux_Venues} from '../actions/actions';
 import _ from 'lodash';
 import {GOOGLE_PLACES_API_KEY} from '../../server/models/api_keys'
 
-// cron-job: make sure that upcoming show data does not persist for too long in db
-
-class VenueDetail extends Component {
+export default class VenueDetail extends Component {
 
   constructor(props) {
     super(props)
@@ -19,28 +17,18 @@ class VenueDetail extends Component {
       upcomingShows: null,
       currVenue: this.props.venues[this.props.params.venueId],
       place: null,
-      photo: null,
       location: false
     }
   }
 
   componentDidMount() {
     this._updateVenueObj(this.props.params.venueId)
-    this._getPlaceInfo(this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long)
   }
 
   _updateVenueObj(venueId) {
-    let redux_Venue = this.props.venues
-    let venue = redux_Venue[this.props.params.venueId]
-
-    if (!this.props.venues[venueId].upcomingShows.length) {
-      Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
-        redux_Venue[venue.id].upcomingShows = gotshows.data
+      Songkick_getVenueCalendarAPI(venueId)
+      .then(gotshows => {
         this.setState({upcomingShows: gotshows.data})
-        redux_Venues(redux_Venue)
-      })
-    } else {
-      this.setState({upcomingShows: redux_Venue[venue.id].upcomingShows})
     }
   }
 
@@ -50,42 +38,6 @@ class VenueDetail extends Component {
       return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
     })
   }
-
-  _getPlaceInfo(name, lat, long) {
-
-    let formattedName = name.split(' ').join('%20')
-    Google_placeIdAPI(formattedName, lat, long)
-      .then((resp) => {
-        if (resp.data[0] && resp.data[0].id) {
-          const venue = resp.data[0]
-          const place = {
-            id: venue.id,
-            icon: venue.icon,
-            name: venue.name,
-            placeId: venue.place_id,
-            price: venue.price_level,
-            rating: venue.rating,
-            reference: venue.reference,
-            photos: venue.photos
-          }
-          this.setState({place})
-          if(place.photos[0]) this._getPlacePhoto(place.photos[0].photo_reference)
-        }
-      })
-      .catch(err => console.log(err))
-  }
-
-  _getPlacePhoto(photoReference) {
-    Google_photoAPI(photoReference)
-      .then((resp) => {
-        console.log(resp.data)
-        this.setState({
-          photo: resp.data
-        })
-      })
-      .catch(err => console.log(err))
-  }
-
 
   render() {
     window.scrollTo(0, 0);
@@ -147,9 +99,4 @@ class VenueDetail extends Component {
       </div>
     )
   }
-
 }
-
-const mapStateToProps = (state) => {return { venues: state.venues }};
-const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Venues }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(VenueDetail);

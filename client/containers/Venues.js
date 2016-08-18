@@ -16,30 +16,63 @@ class Venues extends Component {
       searchedVenues: {},
       term: '',
       notFound: false,
-      showError: false,
+      showError: false
     }
   }
 
-  _venueSearch(term) {    
-    var mappedVenues = []
+  _getPlaceInfo(name, lat, long) {
+
+    let formattedName = name.split(' ').join('%20')
+    Google_placeIdAPI(formattedName, lat, long)
+      .then((resp) => {
+        if (resp.data[0] && resp.data[0].id) {
+          const venue = resp.data[0]
+          const place = {
+            id: venue.id,
+            icon: venue.icon,
+            name: venue.name,
+            placeId: venue.place_id,
+            price: venue.price_level,
+            rating: venue.rating,
+            reference: venue.reference,
+            photos: venue.photos
+          }
+          this.setState({place})
+          if(place.photos[0]) this._getPlacePhoto(place.photos[0].photo_reference)
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
+  _getPlacePhoto(photoReference) {
+    Google_photoAPI(photoReference)
+      .then((resp) => {
+        console.log(resp.data)
+        this.setState({
+          photo: resp.data
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  _venueSearch(term) {
+    const mappedVenues = []
     this.setState({searchedVenues: {}})
     fetchVenuesAPI(term).then(venues => {
       if(venues.data.length){
-         this.setState({notFound: false, showError: false})
-          venues.data.forEach((venue) =>{
-            mappedVenues.push(venue)             
-          })    
-        mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._songkickSearch(venue));        
-       } else{       
+        this.setState({notFound: false, showError: false})
+        venues.data.forEach(venue => mappedVenues.push(venue))
+        mappedVenues.forEach(venue => this._isInRedux(venue) ? this._getRedux(venue) : this._songkickSearch(venue));
+       } else{
           this.setState({notFound: true, showError: true})
        }
     })
   }
 
   _songkickSearch(venue){
-    Songkick_getVenueAPI(venue.id).then(venues=>{
+    Songkick_getVenueAPI(venue.id).then(venues => {
       if(venues.data.address){
-        this._addRedux(venues.data)       
+        this._addRedux(venues.data)
       }
     })
   }
@@ -53,8 +86,11 @@ class Venues extends Component {
   }
 
   _getRedux(venue) {
+
     const searchedVenues = this.state.searchedVenues
     searchedVenues[venue.id] = this.props.venues[venue.id]
+    const venue = searchedVenues[venue.id]
+    this._getPlaceInfo(venue.name, venue.geo.lat, venue.geo.long)
     this.setState({
       searchedVenues: searchedVenues
     })
@@ -65,6 +101,8 @@ class Venues extends Component {
     const searchedVenues = this.state.searchedVenues
     searchedVenues[venue.id] = venue
     Venues[venue.id] = venue
+    const venue = Venues[venue.id]
+    this._getPlaceInfo(venue.name, venue.geo.lat, venue.geo.long)
     this.setState({
       searchedVenues: searchedVenues
     })
@@ -81,7 +119,6 @@ class Venues extends Component {
       term: term
     })
   }
-
 
   _errorFade(){
     var This = this;
@@ -106,7 +143,7 @@ class Venues extends Component {
           placeholder='Search Venues'
           onChange={ event => this._onInputChange(event.target.value) }
         />
-      </form>  
+      </form>
     )
   }
 
