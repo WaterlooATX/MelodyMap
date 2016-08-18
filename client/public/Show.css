@@ -28,9 +28,25 @@
 .panel-group .panel+.panel {
   margin-top: -1px;
 }
-
+#venueAdress, #doorsOpen {
+  font-size: 14px;
+  display: inline-block;
+  float: right;
+  font-weight: 500;
+}
 div.panel-top {
-  padding: 10px;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.venue-marker{
+  display: inline-block;
+  margin-right: 8px;
+}
+#venueName {
+  font-size: 1.7em;
+  font-weight: 800;
+  display: inline-block;
 }
 
 #accordion .panel-title > a {
@@ -68,21 +84,12 @@ div.panel-top {
   float: right;
 }
 
-.panel-top {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-}
 
 .accordion-venue {
   margin: 5px 0;
   font-size: 2em;
 }
 
-#venueAdress, #doorsOpen {
-  font-size: 14px;
-}
 
 .accordion-band {
   display: flex;
@@ -152,9 +159,6 @@ div.panel-top {
   width: 105% !important;
 }
 
-#venueName {
-  font-size: 1.7em;
-}
 
 .band-info {
   display: flex;
