@@ -1,11 +1,3 @@
-.detailImage {
-   float: right;
-   top: -16px;
-   right: -706px;
-   width: 350px;
-   display:inline-block;
-}
-
 .jumbotron {
   min-height:380px;
   padding-top: 24px;

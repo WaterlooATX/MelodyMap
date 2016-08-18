@@ -2,6 +2,16 @@
     position: fixed;
     margin-top: 67px;
 }
+
+.detailImage {
+   float: right;
+   top: -16px;
+   right: -706px;
+
+   display: inline-block;
+   max-height: 300px;
+   max-width: auto;
+}
 /* Remove the navbar's default margin-bottom and rounded borders */
 
 /*.navbar {
