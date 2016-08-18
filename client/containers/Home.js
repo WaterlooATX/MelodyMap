@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {bindActionCreators} from 'redux'
 import {connect} from "react-redux"
-import {geolocationAPI, ipLocationAPI} from '../models/api'
+import {geolocationAPI, ipLocationAPI, googleapis_geolocation} from '../models/api'
 import {getMyInfo, setTokens,selectShow,fetchShows,setLocation} from '../actions/actions'
 import ShowList from './ShowList'
 import DrawMap from '../components/DrawMap'
@@ -18,19 +18,16 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    ipLocationAPI().then(location => this._setNewCoords.call(this, location, 'ip'))
-    geolocationAPI(location => this._setNewCoords.call(this, location, 'geo'))
+    googleapis_geolocation()
+      .then(l => this._setNewCoords(l.data.location.lat, l.data.location.lng))
   }
 
-  _setNewCoords(location, type) {
-    if (location.data) {
-      var { long, lat } = { long: location.data.lon , lat: location.data.lat };
-    } else if (location.coords) {
-      var { long, lat } = { long: location.coords.longitude, lat: location.coords.latitude };
-    }
-
-    this.props.setLocation({ long, lat });
-    if (type !== 'geo') this.props.fetchShows(this.props.location);
+  _setNewCoords(lat, long) {
+    this.props.setLocation({
+      lat,
+      long
+    });
+    this.props.fetchShows(this.props.location);
   }
 
   _spinner() {
@@ -43,7 +40,7 @@ class Home extends Component {
   }
 
   _displayShowList(shows) {
-    if(shows) {
+    if (shows) {
       return <ShowList onNavigateClick={ this._onNavigateClick.bind(this)} shows={ this.props.shows }/>
     } else {
       return this._spinner()
@@ -51,7 +48,7 @@ class Home extends Component {
   }
 
   _displayMap(nav) {
-    if(nav) {
+    if (nav) {
       return (
         <DrawNavigation
           location={ this.props.location }
@@ -89,11 +86,15 @@ class Home extends Component {
   }
 
   _onNavigateClick() {
-    this.setState({ navigating: true });
+    this.setState({
+      navigating: true
+    });
   }
 
   _onCloseNavigate() {
-    this.setState({ navigating: false });
+    this.setState({
+      navigating: false
+    });
   }
 
 }

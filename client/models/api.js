@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GOOGLE_MAP_KEY} from '../../server/models/api_keys'
+import {GOOGLE_MAP_KEY, GOOGLE_GEOLOCATION_KEY} from '../../server/models/api_keys'
 
 
 export function Google_placeIdAPI(name, lat, long) {
@@ -14,7 +14,9 @@ export function Google_photoAPI(photoReference) {
   })
 }
 
-
+export function googleapis_geolocation() {
+  return axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${GOOGLE_GEOLOCATION_KEY}`);
+}
 
 export function geolocationAPI(success, fail, options) {
   return navigator.geolocation.getCurrentPosition(success, fail, options);
