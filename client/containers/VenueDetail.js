@@ -115,7 +115,9 @@ class VenueDetail extends Component {
 
               <div className="col-sm-offset-2 col-sm-8">
                 {this.state.photo ? <img className="detailImage img-circle" src={this.state.photo} /> : null}
-                <div className="venue-detail-name">{venue.name}</div>
+                <div className="display-title">
+                  <div className="display-title-name">{venue.name}</div>
+                </div>
                 <ul className="venue-basic-info">
                   {venue.website ? <li><a href={`${venue.website}`} target="_blank">{`${venue.website}`}</a></li> : null}
                   {venue.address ? <li><a href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}</a></li> : null}
@@ -124,6 +126,7 @@ class VenueDetail extends Component {
                   {this.state.place && this.state.place.rating ? <li>{ `Rating: ${this.state.place.rating}` }</li> : null}
                   {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
                   {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
+
                 </ul>
               </div>
 

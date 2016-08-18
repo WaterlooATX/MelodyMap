@@ -42,6 +42,17 @@
     overflow-y: scroll;
     height: 94vh;
 }
+
+.detail-title {
+  display: block;
+}
+
+.display-title-name {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+}
 /* On small screens, set height to 'auto' for sidenav and grid */
 
 @media screen and (max-width: 767px) {

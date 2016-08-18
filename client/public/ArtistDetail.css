@@ -33,10 +33,10 @@
   height: 240px;
 }
 .artistDetail-title {
-  display: inline-block;
+  display: block;
 }
 .artistDetail-name {
-  display: inline-block;
+  display: block;
   font-family: 'Oswald', sans-serif;
   font-size: 50px;
   font-weight: 700;

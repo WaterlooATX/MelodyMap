@@ -46,8 +46,8 @@ class ArtistDetail extends Component {
         <div className="jumbotron">
           <div className="col-sm-offset-2 col-sm-8">
             <img className="detailImage img-circle" src={albumArt} onClick={this._randomAlbumArt.bind(this)}/>
-            <div className="artistDetail-title">
-              <div className="artistDetail-name">{`${artist.name}`}</div>
+            <div className="display-title">
+              <div className="display-title-name">{`${artist.name}`}</div>
               <div className="artistDetail-ontour">{this._onTour(artist.onTour)}</div>
               {this._spotifyFollow(this.props.spotifyUser.accessToken, artist.id)}
             </div>
