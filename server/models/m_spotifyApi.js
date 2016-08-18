@@ -44,71 +44,74 @@ exports.searchArtists = (name, songKickID) => {
 
   // artist whos names dont match will always make a new api call!
   function addToDataBase(Name) {
+    return new Promise(function(resolve, reject) {
+      spotifyApi.searchArtists(Name)
+        .then(data => {
+          let artist_return = null
+          data.body.artists.items.forEach((artist, i) => {
 
-    return spotifyApi.searchArtists(Name)
-      .then(data => {
-        let artist_return = null
-        data.body.artists.items.forEach((artist, i) => {
+              // if songkick name is spotify name
+              if (Name == artist.name) {
+                console.log(`${++Spotify_searchArtists} adding ${Name}`)
+                const Artist = new ArtistModel();
 
-          // if songkick name is spotify name
-          if (Name == artist.name) {
-            console.log(`${++Spotify_searchArtists} adding ${Name}`)
-            const Artist = new ArtistModel();
+                Artist.songKickID = songKickID
+                Artist.spotifyURL = artist.external_urls.spotify
+                Artist.id = artist.id
+                Artist.name = artist.name
+                Artist.images = artist.images
+                Artist.img = artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
+                Artist.popularity = artist.popularity
+                Artist.followers = artist.followers.total
 
-            Artist.songKickID = songKickID
-            Artist.spotifyURL = artist.external_urls.spotify
-            Artist.id = artist.id
-            Artist.name = artist.name
-            Artist.images = artist.images
-            Artist.img = artist.images.length ? artist.images[1].url : "http://assets.audiomack.com/default-artist-image.jpg"
-            Artist.popularity = artist.popularity
-            Artist.followers = artist.followers.total
+                // Add Top Tracks
+                spotifyApi.getArtistTopTracks(artist.id, "US").then(data => {
+                  Artist.topTracks = data.body.tracks.map(track => {
+                    return {
+                      preview_url: track.preview_url,
+                      popularity: track.popularity,
+                      name: track.name,
+                      id: track.id
+                    }
+                  })
 
-            // Add Top Tracks
-            spotifyApi.getArtistTopTracks(artist.id, "US").then(data => {
-              Artist.topTracks = data.body.tracks.map(track => {
-                return {
-                  preview_url: track.preview_url,
-                  popularity: track.popularity,
-                  name: track.name,
-                  id: track.id
-                }
-              })
+                }).catch(err => console.log(err))
 
-            }).catch(err => console.log(err))
+                // Add Alubm cover images
+                spotifyApi.getArtistAlbums(artist.id).then(data => {
+                  Artist.albumsImages = data.body.items.map(album => {
+                    return {
+                      images: album.images,
+                      name: album.name
+                    }
+                  })
+                }).catch(err => console.log(err))
 
-            // Add Alubm cover images
-            spotifyApi.getArtistAlbums(artist.id).then(data => {
-              Artist.albumsImages = data.body.items.map(album => {
-                return {
-                  images: album.images,
-                  name: album.name
-                }
-              })
-            }).catch(err => console.log(err))
+                // Add Bio
+                lastFM.getInfo(Name).then(data => {
+                  if (data.artist) {
+                    Artist.lastFM_imgs = data.artist.image
+                    Artist.summaryBio = data.artist.bio.summary
+                    Artist.fullBio = data.artist.bio.content
+                    Artist.onTour = data.artist.ontour
+                    Artist.genre = data.artist.tags.tag
+                    Artist.relatedArtists = data.artist.similar
+                  }
+                }).catch(err => console.log(err))
 
-            // Add Bio
-            lastFM.getInfo(Name).then(data => {
-              if (data.artist) {
-                Artist.lastFM_imgs = data.artist.image
-                Artist.summaryBio = data.artist.bio.summary
-                Artist.fullBio = data.artist.bio.content
-                Artist.onTour = data.artist.ontour
-                Artist.genre = data.artist.tags.tag
-                Artist.relatedArtists = data.artist.similar
+                // give API calls 2 secs
+                setTimeout(function() {
+                  Artist.save(function(err) {
+                    if (err) return console.log(err);
+                  });
+                  cachedArtists[songKickID] = Artist
+                  resolve(Artist)
+                }, 2000)
               }
-            }).catch(err => console.log(err))
-
-            // give API calls 2 secs
-            setTimeout(function() {
-              Artist.save(function(err) {
-                if (err) return console.log(err);
-              });
-              cachedArtists[songKickID] = Artist
-            }, 2000)
-            return Artist
-          }
-        })
-      }).catch(err => console.log("ERROR", Name));
+            })
+            // found no name matches
+          resolve()
+        }).catch(err => console.log("ERROR", Name));
+    })
   }
 }
