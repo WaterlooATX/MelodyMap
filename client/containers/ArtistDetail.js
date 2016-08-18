@@ -230,7 +230,7 @@ class ArtistDetail extends Component {
       fetchArtistsAPI(name)
         .then(artist => artist.data[0].id)
         .then(id => Spotify_searchArtistsAPI({name,id})
-          .then(artistInfo => this._addArtistToRedux(artistInfo.data)))
+        .then(artistInfo => this._addArtistToRedux(artistInfo.data)))
     }
   }
 }
