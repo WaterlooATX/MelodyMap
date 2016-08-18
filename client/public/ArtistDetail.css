@@ -82,6 +82,7 @@ align-items: center;
 
 .text-center {
   display: inline-block;
+  cursor: pointer;
 }
 
 .scrollable-menu {

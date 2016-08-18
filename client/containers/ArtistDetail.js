@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
-import NavBar from './NavBar';
-import {Songkick_getArtistCalendarAPI, fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api';
-import _ from 'lodash';
-import YTSearch from 'youtube-api-search';
-import {connect} from "react-redux";
 import {bindActionCreators} from 'redux'
-import {Link} from 'react-router';
-import UpcomingShows from '../components/UpcomingShows'
-import {getAlbumArt, topTrack, getBio, getArtistImg, getRandomAlbumArt} from '../models/helpers'
+import {connect} from "react-redux";
+import {Link, browserHistory} from 'react-router';
+import YTSearch from 'youtube-api-search';
+import _ from 'lodash';
+import NavBar from './NavBar';
+import UpcomingShows from '../components/UpcomingShows';
 import VideoDetail from '../components/VideoDetail';
+import AudioPlayer from '../components/AudioPlayer';
 import {redux_Artists} from '../actions/actions';
-import AudioPlayer from '../components/AudioPlayer'
-import {YOUTUBE_KEY} from '../../server/models/api_keys'
+import {Songkick_getArtistCalendarAPI, fetchArtistsAPI, Spotify_searchArtistsAPI} from '../models/api';
+import {getAlbumArt, topTrack, getBio, getArtistImg, getRandomAlbumArt} from '../models/helpers';
+import {YOUTUBE_KEY} from '../../server/models/api_keys';
+
 
 class ArtistDetail extends Component {
 
@@ -31,6 +32,12 @@ class ArtistDetail extends Component {
       artist: this._getArtist(this.props.params.artistName)
     })
     this._randomAlbumArt()
+  }
+
+  _randomAlbumArt() {
+    this.setState({
+      albumArt: getRandomAlbumArt(this.state.artist)
+    })
   }
 
   componentWillReceiveProps() {
@@ -71,12 +78,6 @@ class ArtistDetail extends Component {
     )
   }
 
-  _randomAlbumArt() {
-    this.setState({
-      albumArt: getRandomAlbumArt(this.state.artist)
-    })
-  }
-
   _spotifyFollow(token, id) {
     const url = `https://embed.spotify.com/follow/1/?uri=spotify:artist:${id}&size=basic&theme=light&show-count=0`
     if (token) {
@@ -109,6 +110,16 @@ class ArtistDetail extends Component {
       )
     } else {
       return null
+    }
+  }
+
+  _getShows(shows) {
+    if (!shows) {
+      return null;
+    } else {
+      return shows.map(show => {
+        return <UpcomingShows show={ show } key={ show.id } source="VenueDetail"/>
+      })
     }
   }
 
@@ -171,27 +182,20 @@ class ArtistDetail extends Component {
       })
       return mapped.map(artist => {
         return (
-              <div className="similar-artist" key={artist.name}>
-                    <img className="img-circle" src={artist.image}/>
-                <Link
-                    className="similar-artist-text"
-                    to={`/artist/${artist.name}`}
-                    activeClassName="active">{artist.name}
-                </Link>
-              </div>
+          <div className="similar-artist" key={ artist.name }>
+            <img className="img-circle" src={ artist.image }/>
+            <a className="text-center" onClick={() => this._onSimilarClick.call(this, artist.name)}>{ artist.name }</a>
+          </div>
         )
       })
     }
   }
 
-  _getShows(shows) {
-    if (!shows) {
-      return null;
-    } else {
-      return shows.map(show => {
-        return <UpcomingShows show={show} key={show.id} source="VenueDetail"/>
-      })
-    }
+  _onSimilarClick(name) {
+    browserHistory.push(`/artist/${name}`);
+    setTimeout(function(){
+      browserHistory.push(`/artist/${name}`);
+    }, 50);
   }
 
   _isAristInRedux(name) {
