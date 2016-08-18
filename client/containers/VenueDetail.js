@@ -100,7 +100,7 @@ class VenueDetail extends Component {
     const venue = redux_Venue[params.venueId]
     const venueNameForMap = venue.name.split(' ').join('+')
     // const state = this.state
-    console.log(venue.website)
+    // console.log(venue.website)
     // formatting for venue website link
     if (venue.website) {
       let website = venue.website.slice(7)

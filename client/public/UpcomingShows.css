@@ -16,11 +16,12 @@
   padding-top: 7px;
 }
 
-.upcoming-show-artists a {
+.upcoming-show-artists {
   font-size: 30px;
 }
 
 .upcoming-show-artists h1 {
+  font-size: 30px;
   margin-top: 0px;
 }
 
