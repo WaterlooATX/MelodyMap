@@ -135,7 +135,6 @@ class VenueDetail extends Component {
           <div className="media-container venue-media">
             {/* Google Places Venue */}
             <iframe
-              className=""
               width="600" height="450"
               src={`//www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES_API_KEY}
               &q=${venueNameForMap},${venue.city}+${venue.state}
@@ -143,7 +142,6 @@ class VenueDetail extends Component {
             </iframe>
             {/* Google Street View Venue */}
             <iframe
-              className=""
               width="600" height="450"
               src={`//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_PLACES_API_KEY}
               &location=${venue.geo.lat},${venue.geo.long}`}>
