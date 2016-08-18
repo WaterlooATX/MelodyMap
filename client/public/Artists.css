@@ -24,7 +24,7 @@
 }
 .artist-title {
   display: inline-block;
-  font-weight: 800;
+  /*font-weight: 800;*/
   font-size: 38px;
 }
 .page-header > h1 {

@@ -63,8 +63,8 @@ class ArtistDetail extends Component {
             <AudioPlayer artist={artist} key ={artist.id}/>
           </div>
             <div className = 'container-similar'>
-            <h3>Similar Artists</h3>
-            <div>{this._similarArtists(artist.relatedArtists)}</div>
+              <h1 className="page-header">Similar Artists</h1>
+              <div>{this._similarArtists(artist.relatedArtists)}</div>
             </div>
         </div>
       </div>
@@ -101,7 +101,7 @@ class ArtistDetail extends Component {
     if (show) {
       return (
         <div className = "upcoming-shows">
-          <h3>Upcoming Shows</h3>
+          <h1 className="page-header">Upcoming Shows</h1>
           <div className="scrollable-menu">
             {this._getShows(this.state.shows)}
           </div>
