@@ -171,16 +171,14 @@ class ArtistDetail extends Component {
       })
       return mapped.map(artist => {
         return (
-          <div key={artist.name}>
-              <div className="similar-artist" >
-                  <img className="img-circle" src={artist.image}/>
-              <Link
-                  className="text-center"
-                  to={`/artist/${artist.name}`}
-                  activeClassName="active">{artist.name}
-              </Link>
+              <div className="similar-artist" key={artist.name}>
+                    <img className="img-circle" src={artist.image}/>
+                <Link
+                    className="similar-artist-text"
+                    to={`/artist/${artist.name}`}
+                    activeClassName="active">{artist.name}
+                </Link>
               </div>
-            </div>
         )
       })
     }
