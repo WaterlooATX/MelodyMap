@@ -128,7 +128,7 @@ class Venues extends Component {
           <div className="col col-md-1"></div>
             <div className="col col-md-10">
               <div className="page-header venues-header">
-                <h1>Venues</h1>
+                <div className="artist-title">Venues</div>
                 {this._venueForm()}
               </div>
               <div className="Venues-list">

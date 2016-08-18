@@ -156,7 +156,7 @@ class VenueDetail extends Component {
         <div className="container upcoming-shows-container">
           <div className="col col-md-1"></div>
             <div className="col col-md-10">
-              <h1 className="page-header upcoming-shows-header">Upcoming Shows</h1>
+              <h1 className="page-header">Upcoming Shows</h1>
               {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
             </div>
           <div className="col col-md-1"></div>
