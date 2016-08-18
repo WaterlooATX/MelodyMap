@@ -11,8 +11,7 @@ import {getAlbumArt, topTrack, getBio, getArtistImg, getRandomAlbumArt} from '..
 import VideoDetail from '../components/VideoDetail';
 import {redux_Artists} from '../actions/actions';
 import AudioPlayer from '../components/AudioPlayer'
-
-const API_KEY = "AIzaSyAjnuL1a-NSl5B0Kw44-Sd6tgLhQ96R018"
+import {YOUTUBE_KEY} from '../../server/models/api_keys'
 
 class ArtistDetail extends Component {
 
@@ -117,7 +116,7 @@ class ArtistDetail extends Component {
 
   _videoSearch(term) {
     YTSearch({
-      key: API_KEY,
+      key: YOUTUBE_KEY,
       term: term
     }, (videos) => {
       this.setState({
