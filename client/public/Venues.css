@@ -1,17 +1,14 @@
-.venues-header h1 {
+.page-header > h1 {
+  display: inline;
   font-size: 38px;
-  /*font-weight: 800;*/
 }
 
 .page-header.venues-header {
+  margin-top: 110px;
   padding-bottom: 20px;
-  margin: 110px 0 10px 0;
 }
 
-.artist-search-bar input {
-  padding-bottom: 0px;
-}
-.Venues-list {
+.venueList {
   overflow-y: scroll;
   height: 80vh;
 }
@@ -24,3 +21,34 @@
   float: right;
 }
 
+.venueName {
+  padding-top: 8px;
+  
+}
+
+.venue-title {
+  display: inline-block;
+  /*font-weight: 800;*/
+  font-size: 38px;
+}
+
+.search-bar {
+    margin: 20px;
+    text-align: center;
+}
+.search-bar input {
+    width: 75%;
+}
+
+.songkickEndorse{
+  float: right;
+  color: grey;
+  font-weight: bold;
+}
+
+.searchError{
+  float: right;
+  color: #f75a50;
+  font-weight: bold;
+  font-size: 20px;
+}

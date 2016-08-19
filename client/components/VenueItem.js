@@ -7,7 +7,8 @@ export default class VenueItem extends Component {
     const venue = this.props.venue
     const image = venue.photo ? venue.photo : "/assets/venue-image.jpg"
     return (
-      <div className="col-md-4 VenueItem" id={`heading${venue.id}`}>
+      <div className="col-md-4 gridding" id={`heading${venue.id}`}>
+        <div className = "venue-label" id="selected">
         <Link
           className="venueLink"
           id="venueLink"
@@ -20,9 +21,8 @@ export default class VenueItem extends Component {
             </div>
           </div>
         </Link>
-        <div className="text-center venueStreetAddress">
-          {venue.city + ", " + venue.state}
-        </div>
+      </div>
+        <p className="text-center venueStreetAddress">{venue.city + ", " + venue.state}</p>
       </div>
     )
   }

@@ -11,14 +11,6 @@
 .VenueItem{
   height: 350px;
 }
-
-
-.venueStreetAddress{
-  display: inline-block;
-  font-size: 15px;
-  font-weight: 800;
-  margin-left: 25%;
-}
 .venueAddressLink {
   color: #3e3f3a !important;
 }
@@ -45,3 +37,56 @@
     margin-left: 10%;
   }
 }
+
+.gridding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid white;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    height: 375px;
+    width: 375px;
+}
+
+.genImage{
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+    -webkit-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
+    -moz-box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
+    box-shadow: 7px -2px 25px -1px rgba(0,0,0,1);
+}
+
+.gridding .venue-label {
+    position: relative;
+    display: flex;
+    /*height: 48px;*/
+    width: 300px;
+    justify-content: center;
+    /*padding-bottom: 1px;*/
+}
+
+.gridding .venue-label .venueLink {
+    margin: 0;
+    font-size: 24px;
+    text-align: center;
+    width: 75%;
+    /*padding-bottom: 2px;*/
+}
+
+
+.gridding .venue-label .fa {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+.venueStreetAddress {
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+}
+
