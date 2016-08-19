@@ -94,7 +94,7 @@ class VenueDetail extends Component {
         </div>
 
         <div className="container-fluid">
-          <div className="row">
+          <div className="row venue-detail-row">
 
 
             <div className="col-md-6">
@@ -113,7 +113,7 @@ class VenueDetail extends Component {
             </div>
 
 
-            <div className="col-md-6">
+            <div className="col-md-6 upcoming-shows-container">
               <h1 className="page-header">Upcoming Shows</h1>
               {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
             </div>
