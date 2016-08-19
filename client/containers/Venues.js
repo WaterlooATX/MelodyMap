@@ -126,17 +126,25 @@ class Venues extends Component {
     return (
       <div className="container">
         <div className ='row'>
+          <div className = 'col col-md-1'></div>
             <div className="col col-md-10">
               <div className="page-header venues-header">
-                <div className="artist-title">Venues</div>
+                <div className="venue-title">Venues</div>
                 {this._venueForm()}
               </div>
+              </div>
+              <div className="col col-md-1"></div>
             </div>
-            <div className="Artistlist">
+            <div className="venueList">
               <GenVenue venues={this._venueList()} />
             </div>
-          </div>
-      </div>
+            <br/>
+          <footer className='footer'>
+              <div className='container songkickFoot'>
+                <h5 className='songkickEndorse'>Brought to you by SongKick and Spotify</h5>
+              </div>
+        </footer>
+        </div>
     )
   }
 
