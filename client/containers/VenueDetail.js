@@ -93,33 +93,35 @@ class VenueDetail extends Component {
 
         </div>
 
-        <div className="container">
-          <div className="media-container venue-media">
-            {/* Google Places Venue */}
-            <iframe
-              width="600" height="450"
-              src={`//www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES_API_KEY}
-              &q=${venueNameForMap},${venue.city}+${venue.state}
-              &zoom=17`}>
-            </iframe>
-            {/* Google Street View Venue */}
-            <iframe
-              width="600" height="450"
-              src={`//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_PLACES_API_KEY}
-              &location=${venue.geo.lat},${venue.geo.long}`}>
-            </iframe>
-          </div>
-        </div>
+        <div className="container-fluid">
+          <div className="row">
 
-        <div className="container upcoming-shows-container">
-          <div className="col col-md-1"></div>
-            <div className="col col-md-10">
+
+            <div className="col-md-6">
+              {/* Google Places Venue */}
+              <iframe
+                className="iframe-google"
+                src={`//www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES_API_KEY}
+                &q=${venueNameForMap},${venue.city}+${venue.state}&zoom=17`}>
+              </iframe>
+              {/* Google Street View Venue */}
+              <iframe
+                className="iframe-google"
+                src={`//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_PLACES_API_KEY}
+                &location=${venue.geo.lat},${venue.geo.long}`}>
+              </iframe>
+            </div>
+
+
+            <div className="col-md-6">
               <h1 className="page-header">Upcoming Shows</h1>
               {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
             </div>
-          <div className="col col-md-1"></div>
-        </div>
 
+
+
+          </div>
+        </div>
       </div>
     )
   }
