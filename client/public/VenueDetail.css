@@ -15,8 +15,8 @@
 .iframe-google {
   width: 100%;
   height: 60vh;
+  pointer-events: none;
   /*border: none;*/
-/*  pointer-events: none*/
 }
 
 .venue-detail-row {

@@ -54,6 +54,14 @@ class VenueDetail extends Component {
     })
   }
 
+  _embedGoogleClick(e) {
+    $(e.target).children('iframe').css("pointer-events", "auto");
+  }
+
+  _embedGoogleLeave(e) {
+    $(e.target).children('iframe').css("pointer-events", "none");
+  }
+
   render() {
     window.scrollTo(0, 0);
 
@@ -97,7 +105,7 @@ class VenueDetail extends Component {
           <div className="row venue-detail-row">
 
 
-            <div className="col-md-6">
+            <div className="col-md-6" onClick={this._embedGoogleClick.bind(this)} onMouseLeave={this._embedGoogleLeave.bind(this)}>
               {/* Google Places Venue */}
               <iframe
                 className="iframe-google"
