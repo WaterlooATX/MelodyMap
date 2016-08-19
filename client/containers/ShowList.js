@@ -34,11 +34,36 @@ export default class ShowList extends Component {
   // on click and then use it to update selectedShow on state
   _sendToState(arg) {
     const shows = this.props.shows;
-    let showWithId = shows.filter((show) => show.id === arg);
+    let showWithId = shows.filter(show => show.id === arg);
     this.props.selectShow(showWithId[0]);
   }
 
+  _sortShowsPopulartyDate(shows) {
+    const dates = {}
+    const sortedDates = []
+    const sortedShows = []
+
+    // group arrays of shows in obj with key set to date
+    shows.forEach(show => {
+        if (!dates[show.start.date]) {
+          sortedDates.push(show.start.date)
+          dates[show.start.date] = [show]
+        } else {
+          dates[show.start.date].push(show)
+        }
+      })
+    // sort the date strings
+    sortedDates.sort()
+    // sort each array of shows by popularty for the selected date
+    const sortPop = (items) => items.sort((a, b) => b.popularity - a.popularity)
+    // create new array with shows sorted by date and then subsorted by popularity
+    sortedDates.forEach(date => sortedShows.push(...sortPop(dates[date])))
+    return sortedShows
+  }
+
+
   _createShows(shows) {
+    shows = this._sortShowsPopulartyDate(shows)
     return shows.map(show => {
       return <Show
         songkick={ show }
