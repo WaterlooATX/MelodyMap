@@ -90,8 +90,8 @@ exports.searchArtists = (name, songKickID) => {
                 }).catch(err => console.log(err))
 
                 // Add Bio
-                lastFM.getInfo(Name).then(data => {
-                  if (data.artist) {
+                lastFM.getInfo(Name.toString()).then(data => {
+                  if (data && data.artist) {
                     Artist.lastFM_imgs = data.artist.image
                     Artist.summaryBio = data.artist.bio.summary
                     Artist.fullBio = data.artist.bio.content
