@@ -5,7 +5,7 @@ import {Link, browserHistory} from 'react-router';
 import YTSearch from 'youtube-api-search';
 import _ from 'lodash';
 import NavBar from './NavBar';
-import UpcomingShows from '../components/UpcomingShows';
+import UpcomingShowsDetail from '../components/UpcomingShowsDetail';
 import VideoDetail from '../components/VideoDetail';
 import AudioPlayer from '../components/AudioPlayer';
 import {redux_Artists} from '../actions/actions';
@@ -63,9 +63,8 @@ class ArtistDetail extends Component {
             </div>
           </div>
         </div>
-        {/*this._isShow(this.state.shows)*/}
         <div className="artist-video col-sm-offset-1 col-sm-6"><VideoDetail video={this.state.selectedVideo} /></div>
-        <div className="artist-upcoming col-sm-2">Upcoming Shows Here.</div>
+        <div className="artist-upcoming col-sm-2"><UpcomingShowsDetail shows={this.state.shows}/></div>
         <div className="artist-audio col-sm-2"><AudioPlayer artist={artist} key ={artist.id}/></div>
         <div className = 'container-similar col-sm-offset-1 col-sm-10'>
           <h1 className="page-header">Similar Artists</h1>
@@ -92,31 +91,6 @@ class ArtistDetail extends Component {
       )
     } else {
       return null
-    }
-  }
-
-  // _isShow(show) {
-  //   if (show) {
-  //     return (
-  //       <div className = "upcoming-shows">
-  //         <h1 className="page-header">Upcoming Shows</h1>
-  //         <div className="scrollable-menu">
-  //           {this._getShows(this.state.shows)}
-  //         </div>
-  //       </div>
-  //     )
-  //   } else {
-  //     return null
-  //   }
-  // }
-
-  _getShows(shows) {
-    if (!shows) {
-      return null;
-    } else {
-      return shows.map(show => {
-        return <UpcomingShows show={ show } key={ show.id } source="VenueDetail"/>
-      })
     }
   }
 

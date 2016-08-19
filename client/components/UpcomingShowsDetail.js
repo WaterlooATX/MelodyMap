@@ -3,11 +3,10 @@ import React, {Component} from 'react'
 
 export default class UpcomingShowsDetail extends Component {
   render() {
+    console.log(this.props.shows)
     return (
-      <div className = "audioPlayer-container">
-				<div className ="audioPlayer-name list-group">
-				    {this._checkShows(this.props.artist.topTracks)}
-				</div>
+      <div className = "UpcomingShowsDetail-container">
+				    {this._checkShows(this.props.shows)}
 			</div>
     )
   }
@@ -23,9 +22,12 @@ export default class UpcomingShowsDetail extends Component {
 }
 
 class Show extends Component {
+
   render() {
+    const show = this.props.show
     return (
-      <div className="audioPlayer-list-item list-group-item">
+      <div className="UpcomingShowsDetail-list-item list-group-item">
+        {show.venue.displayName}
       </div>
     )
   }
