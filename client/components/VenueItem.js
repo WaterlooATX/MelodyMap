@@ -7,12 +7,10 @@ export default class VenueItem extends Component {
   render() {
     const venue = this.props.venue
     const image = venue.photo ? venue.photo : '/assets/venue-image.jpg'
-    console.log(image)
     return (
-      <div className="col-md-4 gridding" id={`heading${venue.id}`}>
-	        <div className ="artist-label" id='selected'>
-		        <Link className = "selArtist"
-		           	  id='selArtist'
+      <div className="col-md-4 VenueItem" id={`heading${venue.id}`}>
+		        <Link className = "venueLink"
+		           	  id='venueLink'
 		              to={ `/venue/${venue.name}/${venue.id}`}
 		              activeClassName='active'>
 			     	<img
@@ -21,23 +19,18 @@ export default class VenueItem extends Component {
 		              height="105"
 		              width="105"
 	            	/>
-	            	<br/>
-		            <div className="venue-item-name">
-				        {venue.name}
-				    </div>
-		        </Link>
-	        </div>
-        	<div className="genvenue-address">
-                <div className = "venueAddressLink"
-                   href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
-                   	<div className="mapIcon">
-                     	<i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-                    </div>
-                </div>	            
-                <div className='venueStreetAddress'>
-                    {venue.city + ', ' + venue.state}
+                <div className="venueNameAndMaker">
+                  {/* <div id="venueMarker" href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
+                     <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
+                  </div> */}
+                  <div className="text-center venueName">{venue.name}</div>
                 </div>
-            </div>
+
+		        </Link>
+
+                  <div className='text-center venueStreetAddress'>
+                      {venue.city + ', ' + venue.state}
+                  </div>
 	  </div>
     )
   }

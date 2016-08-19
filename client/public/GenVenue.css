@@ -3,30 +3,45 @@
   margin-top: -10px;
   margin-right: 5px;
   padding: 0;
-  display: inline-block; 
-  float: left; 
+  display: inline-block;
+  float: left;
   margin-left: 10px;
 }
 
-.venue-item-name{
-  padding-top: 8px;
-  width: 230px;
-  margin: 0 auto;
-  margin-bottom: -10px;
-  margin-right: -10px;
+.VenueItem{
+  height: 350px;
 }
+
+
 .venueStreetAddress{
   display: inline-block;
-  padding-top: 10px;
-  margin-left: 20%;
-  /*margin: 0 auto;*/
+  font-size: 15px;
+  font-weight: 800;
+  margin-left: 25%;
+}
+.venueNameAndMaker {
+
 }
 .venueAddressLink {
-    color: #3e3f3a !important;
+  color: #3e3f3a !important;
 }
 .genvenue-address{
-  width: 265px;
+ margin-bottom: 25px;
 }
+
+#venueMarker {
+  display: inline-block;
+  position: absolute;
+}
+.venueName {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 800;
+  overflow-x: hidden;
+  width: 250px;
+  padding-left: 10px
+}
+
 /*.genvenue-name-link:hover {
   text-decoration: none;
 }
