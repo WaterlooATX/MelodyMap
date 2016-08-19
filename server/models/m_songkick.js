@@ -174,7 +174,7 @@ function getPlacePhoto(photoReference, Venue, resolve) {
       });
       resolve(Venue)
     })
-    .catch(err => console.log(err))
+    .catch(err => resolve(Venue))
 }
 
 exports.getArtistCalendar = (artistID) => {
