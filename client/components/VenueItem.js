@@ -22,19 +22,14 @@ export default class VenueItem extends Component {
 			              width="105"
 		            	/>
             	<br/>
+                <a className = "venueAddress"
+                   href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
+                     <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
+                </a>
 	            	<div className="artist-tem-name">
 	            		{venue.name}
 	            	</div>
 		        </Link>
-	        </div>
-	        <div className="genvenue-address">
-	          <h4>
-	            <a className = "venueAddress"
-	               href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
-	                 <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-	                 {venue.address}
-	            </a>
-	          </h4>
 	        </div>
 	  </div>
     )
