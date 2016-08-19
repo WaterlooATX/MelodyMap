@@ -123,7 +123,7 @@ class VenueDetail extends Component {
 
             <div className="col-md-6 upcoming-shows-container">
               <h1 className="page-header">Upcoming Shows</h1>
-              {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'Grabbing Shows...'}
+              {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'No Shows...?'}
             </div>
 
 
