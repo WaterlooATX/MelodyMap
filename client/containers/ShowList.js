@@ -10,23 +10,19 @@ export default class ShowList extends Component {
 
   render() {
     const shows = this.props.shows;
-    if (shows.length > 0) {
-      if (typeof shows === "string") {
-        return (
-          <div className="show-error">{shows}</div>
-        )
-      } else {
-        addArtistToRedux(shows, this.props.artists, Spotify_searchArtistsAPI, redux_Artists)
-        return (
-          <div
+    if (shows.length && typeof shows === "string") {
+      return <div className="show-error">{shows}</div>
+    } else {
+      addArtistToRedux(shows, this.props.artists, Spotify_searchArtistsAPI, redux_Artists)
+      return (
+        <div
             className="panel-group"
             id="accordion"
             role="tablist"
             aria-multiselectable="true">
             { this._createShows(shows) }
           </div>
-        )
-      }
+      )
     }
   }
 
