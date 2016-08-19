@@ -102,7 +102,7 @@ class VenueDetail extends Component {
         </div>
 
         <div className="container-fluid">
-          <div className="row venue-detail-row upcoming-show">
+          <div className="row venue-detail-row">
 
 
             <div className="col-xs-12 col-md-6 google-embeds"
@@ -127,7 +127,6 @@ class VenueDetail extends Component {
               <h1 className="page-header upcoming-shows-header">Upcoming Shows</h1>
               {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'No Shows...?'}
             </div>
-
 
 
           </div>

@@ -14,7 +14,7 @@ export default class UpcomingShows extends Component {
 
 
     return (
-      <div className=''>
+      <div className='upcoming-show'>
 
         <div className='upcoming-show-info col-xs-12 col-md-10'>
           <div className='upcoming-show-artists'>

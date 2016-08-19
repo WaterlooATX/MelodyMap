@@ -58,10 +58,10 @@
 }
 
 .similar-artist {
-display: flex;
-flex-direction: column;
-margin: 10px;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  align-items: center;
 }
 
 .similar-artist img {
