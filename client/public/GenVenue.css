@@ -24,7 +24,7 @@
 }
 .venueName {
   display: inline-block;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 800;
   overflow-x: hidden;
   width: 250px;
@@ -89,4 +89,3 @@
     display: inline-block;
     text-align: center;
 }
-
