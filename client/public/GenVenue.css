@@ -2,9 +2,10 @@
   margin: 0;
   margin-top: -10px;
   margin-right: 5px;
-  margin-left: -10px;
   padding: 0;
-  display: inline-block;  
+  display: inline-block; 
+  float: left; 
+  margin-left: 10px;
 }
 
 .venue-item-name{
@@ -12,12 +13,13 @@
   width: 230px;
   margin: 0 auto;
   margin-bottom: -10px;
+  margin-right: -10px;
 }
 .venueStreetAddress{
   display: inline-block;
   padding-top: 10px;
-  /*margin-left: 15px;*/
-  margin: 0 auto;
+  margin-left: 25%;
+  /*margin: 0 auto;*/
 }
 .venueAddressLink {
     color: #3e3f3a !important;

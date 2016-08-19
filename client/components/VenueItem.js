@@ -21,19 +21,21 @@ export default class VenueItem extends Component {
 			              height="105"
 			              width="105"
 		            	/>
-            	<br/>
-                <div className = "venueAddressLink"
-                   href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
-                   	<div className="mapIcon">
-                     	<i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-                    </div>
-                </div>
-	            	<div className="venue-item-name">
-	            		{venue.name}
-                  <br/>
-                  {venue.city + ', ' + venue.state}
-	            	</div>
 		        </Link>
+            	<br/>
+            	<div className="genvenue-address">
+	                <div className = "venueAddressLink"
+	                   href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
+	                   	<div className="mapIcon">
+	                     	<i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
+	                    </div>
+	                </div>
+		            <div className="venue-item-name">
+		            	{venue.name}
+	                <br/>
+	                    {venue.city + ', ' + venue.state}
+		            </div>
+	            </div>
 	        </div>
 	  </div>
     )
