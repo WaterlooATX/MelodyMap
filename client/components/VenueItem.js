@@ -10,33 +10,32 @@ export default class VenueItem extends Component {
       <div className="col-md-4 gridding" id={`heading${venue.id}`}>
 	        <div className ="artist-label" id='selected'>
 		        <Link className = "selArtist"
-		           		 id='selArtist'
-		              	 to={ `/venue/${venue.name}/${venue.id}`}
-		              	 activeClassName='active'>
-
-				     	<img
-			              className="genImage"
-			              src={image}
-			              //onMouseOver={this._randomAlbumArt.bind(this)}
-			              height="105"
-			              width="105"
-		            	/>
-		        </Link>
-            	<br/>
-            	<div className="genvenue-address">
-	                <div className = "venueAddressLink"
-	                   href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
-	                   	<div className="mapIcon">
-	                     	<i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-	                    </div>
-	                </div>
+		           	  id='selArtist'
+		              to={ `/venue/${venue.name}/${venue.id}`}
+		              activeClassName='active'>
+			     	<img
+		              className="genImage"
+		              src={image}
+		              height="105"
+		              width="105"
+	            	/>
+	            	<br/>
 		            <div className="venue-item-name">
-		            	{venue.name}
-	                <br/>
-	                    {venue.city + ', ' + venue.state}
-		            </div>
-	            </div>
+				        {venue.name}
+				    </div>
+		        </Link>
 	        </div>
+        	<div className="genvenue-address">
+                <div className = "venueAddressLink"
+                   href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
+                   	<div className="mapIcon">
+                     	<i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
+                    </div>
+                </div>	            
+                <div className='venueStreetAddress'>
+                    {venue.city + ', ' + venue.state}
+                </div>
+            </div>
 	  </div>
     )
   }
