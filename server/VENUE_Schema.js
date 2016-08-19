@@ -14,7 +14,13 @@ const venueSchema = new mongoose.Schema({
   address: String,
   phone: String,
   upcomingShows: Array,
-  updated_at: { type: Date, default: Date.now }
+  updated_at: { type: Date, default: Date.now },
+  google: Object,
+  photo: String,
+  rating: String,
+  icon: String,
+  googleID: String,
+  price: String
 });
 
 // Created a Mongoose schema which maps to a MongoDB collection and defines
