@@ -18,21 +18,36 @@ export default class AudioPlayer extends Component {
   }
 
   _tracks(tracks) {
-    return tracks.map(track => <Tracks track={track} key={track.id}/>)
+    return tracks.map(track => {
+      return (
+        <Track
+          track={track}
+          artist={this.props.artist}
+          youtubeSearch={this.props.youtubeSearch}
+          key={track.id}
+        />
+      )
+    })
   }
 
 }
 
-class Tracks extends Component {
+class Track extends Component {
+
+  _search(trackName) {
+    this.props.youtubeSearch(this.props.artist.name + ' ' + trackName)
+  }
+
   render() {
     const track = this.props.track
+
     return (
-      <div className="audioPlayer-list-item list-group-item">
+      <a className="audioPlayer-list-item list-group-item" onClick={this._search.bind(this, track.name)}>
         <div className="audioPlayer-trackName">{track.name.slice(0,30)}</div>
-        <div className="audioPlayer-speaker">
+        <div className="audioPlayer-speaker" >
           <Speaker track ={track.preview_url} key={track.id} size = {1}/>
         </div>
-      </div>
+      </a>
     )
   }
 }

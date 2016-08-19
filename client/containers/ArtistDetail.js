@@ -65,7 +65,7 @@ class ArtistDetail extends Component {
         </div>
         <div className="artist-video col-sm-offset-1 col-sm-6"><VideoDetail video={this.state.selectedVideo} /></div>
         <div className="artist-upcoming col-sm-2"><UpcomingShowsDetail shows={this.state.shows}/></div>
-        <div className="artist-audio col-sm-2"><AudioPlayer artist={artist} key ={artist.id}/></div>
+        <div className="artist-audio col-sm-2"><AudioPlayer artist={artist} key ={artist.id} youtubeSearch={this._videoSearch.bind(this)}/></div>
         <div className = 'container-similar col-sm-offset-1 col-sm-10'>
           <h1 className="page-header">Similar Artists</h1>
           <div>{this._similarArtists(artist.relatedArtists)}</div>
