@@ -7,11 +7,11 @@ export const topTrack = (Artist) => {
     return null
   }
 }
-export const getArtistImg = (Artist) => Artist ? Artist.img : "http://assets.audiomack.com/default-artist-image.jpg"
+export const getArtistImg = (Artist) => Artist ? Artist.img : "/assets/artist-image.jpg"
 export const getAlbumArt = (Artist) => {
   let albumArt = Artist ? Artist.albumsImages : null
   albumArt = albumArt ? albumArt[0] : null
-  albumArt = albumArt ? albumArt.images[1].url : 'http://assets.audiomack.com/default-album-image.jpg'
+  albumArt = albumArt ? albumArt.images[1].url : '/assets/album-image.jpg'
   return albumArt || Artist.img
 }
 export const getBio = (Artist) => {

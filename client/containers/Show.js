@@ -30,7 +30,7 @@ class Show extends Component {
   render() {
     const props = this.props;
     const thisArtist = props.artists[props.showArtists[0].displayName];
-    const img = thisArtist ? thisArtist.img ? thisArtist.img : "http://assets.audiomack.com/default-artist-image.jpg" : "http://assets.audiomack.com/default-artist-image.jpg";
+    const img = thisArtist ? thisArtist.img ? thisArtist.img : "/assets/artist-image.jpg" : "/assets/artist-image.jpg";
     return (
       <div className="panel panel-default">
         <div className="panel-heading show-panel-heading" role="tab" id={`heading${props.id}`}>

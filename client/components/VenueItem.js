@@ -6,7 +6,7 @@ export default class VenueItem extends Component {
 
   render() {
     const venue = this.props.venue
-    const image = venue.photo ? venue.photo : '/assets/defaultImage.jpg'
+    const image = venue.photo ? venue.photo : '/assets/venue-image.jpg'
     console.log(image)
     return (
       <div className="col-md-4 gridding" id={`heading${venue.id}`}>
