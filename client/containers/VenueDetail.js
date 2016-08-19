@@ -102,10 +102,10 @@ class VenueDetail extends Component {
         </div>
 
         <div className="container-fluid">
-          <div className="row venue-detail-row">
+          <div className="row venue-detail-row upcoming-show">
 
 
-            <div className="col-sm-6 google-embeds"
+            <div className="col-xs-12 col-md-6 google-embeds"
                  onClick={this._embedGoogleClick.bind(this)}
                  onMouseLeave={this._embedGoogleLeave.bind(this)}>
               {/* Google Places Venue */}
@@ -123,7 +123,7 @@ class VenueDetail extends Component {
             </div>
 
 
-            <div className="col-sm-6 upcoming-shows-container">
+            <div className="col-xs-12 col-md-6 upcoming-shows-container">
               <h1 className="page-header upcoming-shows-header">Upcoming Shows</h1>
               {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'No Shows...?'}
             </div>
