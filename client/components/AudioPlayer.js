@@ -28,7 +28,7 @@ class Tracks extends Component {
     const track = this.props.track
     return (
       <div className="audioPlayer-list-item list-group-item">
-        {track.name}
+        <div className="audioPlayer-trackName">{track.name.slice(0,30)}</div>
         <div className="audioPlayer-speaker">
           <Speaker track ={track.preview_url} key={track.id} size = {2}/>
         </div>
