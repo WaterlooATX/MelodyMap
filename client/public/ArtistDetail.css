@@ -21,6 +21,8 @@
 .artist-upcoming {
   text-align: center;
   margin: 10px 0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .container-similar {

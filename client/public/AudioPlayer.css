@@ -2,7 +2,7 @@
 .audioPlayer-container {
     display: inline-block;
     overflow: scroll;
-    max-height: 407px;
+    max-height: 408px;
 }
 .audioPlayer-list-item {
     float:left;
