@@ -28,6 +28,8 @@ export default class VenueItem extends Component {
                 </div>
 	            	<div className="artist-tem-name">
 	            		{venue.name}
+                  <br/>
+                  {venue.city + ', ' + venue.state}
 	            	</div>
 		        </Link>
 	        </div>
