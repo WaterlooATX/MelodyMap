@@ -126,7 +126,6 @@ class Venues extends Component {
     return (
       <div className="container">
         <div className ='row'>
-          <div className="col col-md-1"></div>
             <div className="col col-md-10">
               <div className="page-header venues-header">
                 <div className="artist-title">Venues</div>
@@ -137,7 +136,6 @@ class Venues extends Component {
               <GenVenue venues={this._venueList()} />
             </div>
           </div>
-        <div className="col col-md-1"></div>
       </div>
     )
   }
