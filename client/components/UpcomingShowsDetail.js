@@ -27,7 +27,9 @@ class Show extends Component {
     const show = this.props.show
     return (
       <div className="UpcomingShowsDetail-list-item list-group-item">
-        {show.venue.displayName}
+        <div className="UpcomingShowsDetail-Name">
+          {show.venue.displayName}
+        </div>
       </div>
     )
   }

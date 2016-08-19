@@ -1,0 +1,18 @@
+
+.UpcomingShowsDetail-container {
+    display: inline-block;
+    border: 1px solid black;
+    overflow: scroll;
+}
+.UpcomingShowsDetail-list-item {
+    float:left;
+    border: 1px solid #93c54b;
+    width: 100%;
+}
+
+.UpcomingShowsDetail-Name {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 16px;
+  font-family: 'Oswald', sans-serif;
+}
