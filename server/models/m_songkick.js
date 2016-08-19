@@ -162,7 +162,7 @@ function getPlaceInfo(name, lat, long, Venue, resolve) {
         resolve(Venue)
       }
     })
-    .catch(err => console.log("Google.placeIdAPI ERR", err))
+    .catch(err => resolve(Venue))
 }
 
 function getPlacePhoto(photoReference, Venue, resolve) {
