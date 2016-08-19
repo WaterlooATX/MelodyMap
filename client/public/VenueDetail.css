@@ -2,13 +2,31 @@
   margin: 5px;
 }
 
-.venue-media {
-  margin: 0px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .venue-detail-jumbotron {
   height: auto;
 }
 
+.venue-detail-row {
+  padding: 0px 30px;
+}
+
+.google-embeds {
+  padding: 30px;
+}
+
+.google-iframe {
+  width: 100%;
+  height: 60vh;
+  pointer-events: none;
+  /*border: none;*/
+}
+
+.upcoming-shows-container {
+  overflow: scroll;
+  height: 120vh;
+  padding: 30px;
+}
+
+.upcoming-shows-header {
+  margin: 0 0 20px;
+}
