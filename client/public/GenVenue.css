@@ -1,18 +1,33 @@
-a.addressVenue {
-  padding-top: 10px
+.mapIcon {
+  margin: 0;
+  margin-top: -10px;
+  margin-right: 5px;
+  padding: 0;
+  display: inline-block; 
+  float: left; 
+  margin-left: 10px;
 }
 
-.genvenue-venue {
-  padding: 03px 10px 20px 10px;
-  border-bottom: 1px solid #eee;
-  position: relative;
+.venue-item-name{
+  padding-top: 8px;
+  width: 230px;
+  margin: 0 auto;
+  margin-bottom: -10px;
+  margin-right: -10px;
 }
-
-.genvenue-address {
-  margin-top: 12px;
+.venueStreetAddress{
+  display: inline-block;
+  padding-top: 10px;
+  margin-left: 20%;
+  /*margin: 0 auto;*/
 }
-
-.genvenue-name-link:hover {
+.venueAddressLink {
+    color: #3e3f3a !important;
+}
+.genvenue-address{
+  width: 265px;
+}
+/*.genvenue-name-link:hover {
   text-decoration: none;
 }
 
@@ -35,8 +50,8 @@ a.genvenue-name-link {
 .genvenue-venue h1 {
   margin-bottom: 0px;
 }
-
-@media screen and (max-width: 767px) {
+*/
+/*@media screen and (max-width: 767px) {
   .genvenue-venue h1 {
     font-size: 1.3em;
     margin-top: 0;
@@ -58,8 +73,4 @@ a.genvenue-name-link {
     margin-left: 31px;
   }
 
-}
-
-.venueAddress {
-    color: #3e3f3a !important;
-}
+}*/
