@@ -105,24 +105,26 @@ class VenueDetail extends Component {
           <div className="row venue-detail-row">
 
 
-            <div className="col-md-6" onClick={this._embedGoogleClick.bind(this)} onMouseLeave={this._embedGoogleLeave.bind(this)}>
+            <div className="col-sm-6 google-embeds"
+                 onClick={this._embedGoogleClick.bind(this)}
+                 onMouseLeave={this._embedGoogleLeave.bind(this)}>
               {/* Google Places Venue */}
               <iframe
-                className="iframe-google"
+                className="google-iframe"
                 src={`//www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES_API_KEY}
                 &q=${venueNameForMap},${venue.city}+${venue.state}&zoom=17`}>
               </iframe>
               {/* Google Street View Venue */}
               <iframe
-                className="iframe-google"
+                className="google-iframe"
                 src={`//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_PLACES_API_KEY}
                 &location=${venue.geo.lat},${venue.geo.long}`}>
               </iframe>
             </div>
 
 
-            <div className="col-md-6 upcoming-shows-container">
-              <h1 className="page-header">Upcoming Shows</h1>
+            <div className="col-sm-6 upcoming-shows-container">
+              <h1 className="page-header upcoming-shows-header">Upcoming Shows</h1>
               {this.state.upcomingShows ? <div>{this._displayUpcomingShows()}</div> : 'No Shows...?'}
             </div>
 
