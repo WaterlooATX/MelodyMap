@@ -26,9 +26,7 @@
   display: inline-block;
   font-size: 21px;
   font-weight: 800;
-  overflow-x: hidden;
   width: 250px;
-  padding-left: 10px
 }
 
 @media screen and (max-width: 767px) {
@@ -72,8 +70,6 @@
     margin: 0;
     font-size: 24px;
     text-align: center;
-    width: 75%;
-    /*padding-bottom: 2px;*/
 }
 
 
@@ -85,7 +81,6 @@
     z-index: 10;
 }
 .venueStreetAddress {
-    font-size: 16px;
-    display: inline-block;
-    text-align: center;
+  font-size: 16px;
+  text-align: center;
 }
