@@ -26,7 +26,6 @@ class VenueDetail extends Component {
 
   componentDidMount() {
     this._updateVenueObj(this.props.params.venueId)
-    this._getPlaceInfo(this.state.currVenue.name, this.state.currVenue.geo.lat, this.state.currVenue.geo.long)
   }
 
   _updateVenueObj(venueId) {
@@ -55,43 +54,6 @@ class VenueDetail extends Component {
     })
   }
 
-  _getPlaceInfo(name, lat, long) {
-
-    let formattedName = name.split(' ').join('%20')
-    Google_placeIdAPI(formattedName, lat, long)
-      .then((resp) => {
-        if (resp.data[0] && resp.data[0].id) {
-          const venue = resp.data[0]
-          const place = {
-            id: venue.id,
-            icon: venue.icon,
-            name: venue.name,
-            placeId: venue.place_id,
-            price: venue.price_level,
-            rating: venue.rating,
-            reference: venue.reference,
-            photos: venue.photos
-          }
-
-          this.setState({place})
-          if(place.photos && place.photos[0]) this._getPlacePhoto(place.photos[0].photo_reference)
-        }
-      })
-      .catch(err => console.log(err))
-  }
-
-  _getPlacePhoto(photoReference) {
-    Google_photoAPI(photoReference)
-      .then((resp) => {
-        console.log(resp.data)
-        this.setState({
-          photo: resp.data
-        })
-      })
-      .catch(err => console.log(err))
-  }
-
-
   render() {
     window.scrollTo(0, 0);
 
@@ -114,7 +76,7 @@ class VenueDetail extends Component {
         <div className="jumbotron venue-detail-jumbotron">
 
           <div className="col-sm-offset-2 col-sm-8">
-            {this.state.photo ? <img className="detailImage img-circle" src={this.state.photo} /> : null}
+            {venue.photo ? <img className="detailImage img-circle" src={venue.photo} /> : null}
             <div className="display-title">
               <div className="display-title-name">{venue.name}</div>
             </div>
@@ -122,8 +84,8 @@ class VenueDetail extends Component {
               {venue.website ? <li><a href={`${venue.website}`} target="_blank">{`${venue.website}`}</a></li> : null}
               {venue.address ? <li><a href={`http://maps.google.com/?q=${venue.address}`} target="_blank">{venue.address}</a></li> : null}
               {venue.phone ? <li>{ `Phone: ${venue.phone}` }</li> : null}
-              {this.state.place && this.state.place.price ? <li>{ `Price: ${this.state.place.price}` }</li> : null}
-              {this.state.place && this.state.place.rating ? <li>{ `Rating: ${this.state.place.rating}` }</li> : null}
+              {venue.price ? <li>{ `Price: ${venue.price}` }</li> : null}
+              {venue.rating ? <li>{ `Rating: ${venue.rating}` }</li> : null}
               {venue.capactiy && venue.capacity !== 'N/A' ? <li>{ `Capactiy: ${venue.capactiy}` }</li> : null}
               {venue.ageRestriction && venue.ageRestriction !== 'N/A' ? <li>{ `Age Restriction: ${venue.ageRestriction}` }</li> : null}
             </ul>
