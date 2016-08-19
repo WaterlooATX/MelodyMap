@@ -22,10 +22,10 @@ export default class VenueItem extends Component {
 			              width="105"
 		            	/>
             	<br/>
-                <a className = "venueAddress"
+                <div className = "venueAddress"
                    href={`http://maps.google.com/?q=${venue.address}`} target='_blank'>
                      <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"></i>
-                </a>
+                </div>
 	            	<div className="artist-tem-name">
 	            		{venue.name}
 	            	</div>
