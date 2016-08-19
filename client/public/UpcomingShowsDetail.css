@@ -1,5 +1,5 @@
 .UpcomingShowsDetail-container {
-  max-height: 392px;
+  max-height: 393px;
   overflow-y: scroll;
 }
 
@@ -19,27 +19,40 @@
   flex-direction: row;
   border: 1px solid #93c54b;
   padding: 1px;
+  cursor: default;
 }
 
 .UpcomingShowsDetail-date {
   display: inline-flex;
+  position: relative;
+  margin: 0 2px;
+  width: 20px;
+}
+
+.fa-calendar-o:before {
+  position: absolute;
+  left: 2px;
+  top: 16px;
+  font-size: 21px;
 }
 
 .UpcomingShowsDetail-name-location {
   display: inline-flex;
   flex-direction: column;
   flex-grow: 1;
+  padding-top: 6px;
 }
 
 .UpcomingShowsDetail-Name {
   font-weight: 400;
   font-size: 12px;
   font-family: 'Oswald', sans-serif;
+  color: #98978b;
 }
 
 .UpcomingShowsDetail-location {
   font-weight: 400;
-  font-size: 12px;
+  font-size: 10px;
   font-family: 'Oswald', sans-serif;
 }
 

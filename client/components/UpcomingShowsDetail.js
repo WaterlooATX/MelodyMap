@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import moment from 'moment';
 
 
 export default class UpcomingShowsDetail extends Component {
@@ -28,12 +29,15 @@ class Show extends Component {
     const show = this.props.show
     return (
       <div className="UpcomingShowsDetail-list-item list-group-item">
-        <div className="UpcomingShowsDetail-date"></div>
+        <div className="UpcomingShowsDetail-date">
+          { moment(show.start.date).format('ll').split(',')[0] }
+          <i className="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
         <div className="UpcomingShowsDetail-name-location">
           <div className="UpcomingShowsDetail-Name">
             {show.venue.displayName}
           </div>
-          <div className="UpcomingShowsDetail-location"></div>
+          <div className="UpcomingShowsDetail-location">{ show.location.city }</div>
         </div>
         <div className="UpcomingShowsDetail-buy">
           <button type="button" className="btn btn-success" aria-label="Right Align" onClick={function() { window.open(show.uri,'_blank'); }}>
