@@ -6,7 +6,8 @@ export default class UpcomingShowsDetail extends Component {
     console.log(this.props.shows)
     return (
       <div className = "UpcomingShowsDetail-container">
-				    {this._checkShows(this.props.shows)}
+		    {this._checkShows(this.props.shows)}
+        <div className="UpcomingShowsDetail-bottom-gradient"></div>
 			</div>
     )
   }

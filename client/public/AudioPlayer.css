@@ -1,13 +1,15 @@
 
 .audioPlayer-container {
     display: inline-block;
-    border: 1px solid black;
     overflow: scroll;
+    max-height: 407px;
 }
 .audioPlayer-list-item {
     float:left;
     border: 1px solid #93c54b;
     width: 100%;
+    text-align: center;
+    padding: 9px 20px;
 }
 .audioPlayer-speaker {
     display: inline-block;
@@ -16,7 +18,7 @@
 }
 .audioPlayer-trackName {
   display: inline-block;
-  font-weight: 800;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 12px;
   font-family: 'Oswald', sans-serif;
 }
