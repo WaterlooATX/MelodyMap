@@ -1,7 +1,8 @@
 .upcoming-show {
   display: flex;
   flex-direction: row;
-  margin: 17px 0px;
+  margin: 0px;
+  padding: 20px 0;
   border-bottom: 1px solid #eee;
 }
 
@@ -11,13 +12,8 @@
   padding-bottom: 18px;
 }
 
-.upcoming-show-buttons {
-  /*float: right;*/
-  padding-top: 7px;
-}
-
 .upcoming-show-artists {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .upcoming-show-artists h1 {
@@ -31,11 +27,15 @@
   margin-bottom: 08px;
 }
 
+.upcoming-show-info {
+  margin: 0px;
+  padding: 0px;
+
+}
+
 .upcoming-show-venue-info h3 {
   font-size: 18px;
   margin-top: 0px;
   margin-bottom: 08px;
 }
-.upcoming-show-status {
 
-}
