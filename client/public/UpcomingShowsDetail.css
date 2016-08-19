@@ -3,17 +3,6 @@
   overflow-y: scroll;
 }
 
-.UpcomingShowsDetail-list-item {
-  border: 1px solid #93c54b;  
-}
-
-.UpcomingShowsDetail-Name {
-  display: inline-block;
-  font-weight: 400;
-  font-size: 12px;
-  font-family: 'Oswald', sans-serif;
-}
-
 .UpcomingShowsDetail-bottom-gradient {
   position: absolute;
   width: 100%;
@@ -23,4 +12,53 @@
   background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
   background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
   background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+}
+
+.UpcomingShowsDetail-list-item {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #93c54b;
+  padding: 1px;
+}
+
+.UpcomingShowsDetail-date {
+  display: inline-flex;
+}
+
+.UpcomingShowsDetail-name-location {
+  display: inline-flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.UpcomingShowsDetail-Name {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.UpcomingShowsDetail-location {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.UpcomingShowsDetail-buy {
+  display: inline-flex;
+}
+
+.UpcomingShowsDetail-buy button {
+  background-color: #93c54b;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 5px;
+}
+
+.fa-usd:before {
+  color: black;
+  font-size: 21px
+}
+
+.UpcomingShowsDetail-buy button:hover, .UpcomingShowsDetail-buy button:focus, .UpcomingShowsDetail-buy button:active {
+  background-color: #79a736;
 }
