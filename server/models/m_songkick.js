@@ -1,8 +1,10 @@
 const _ = require('lodash');
 const Songkick = require('songkick-api');
 const Spotify = require('./m_spotifyApi');
-const {SONGKICK_FM_APIKEY} = require('./api_keys');
-
+const {
+  SONGKICK_FM_APIKEY
+} = require('./api_keys');
+const Google = require('./m_google')
 const client = new Songkick(SONGKICK_FM_APIKEY)
 
 // When specifying min_date or max_date, you need to use both parameters.
@@ -90,7 +92,6 @@ let getVenue = 0;
 const VenueModel = require('../VENUE_Schema');
 exports.getVenue = (venueId) => {
 
-
   return VenueModel.findOne({
       "id": venueId
     })
@@ -110,26 +111,70 @@ exports.getVenue = (venueId) => {
   }
 
   function addToDatabase(venue) {
-    const Venue = new VenueModel();
-    console.log(`${++getVenue} adding ${venueId}`)
-    Venue.id = venueId
-    Venue.capacity = venue.capacity || 'N/A'
-    Venue.street = venue.street
-    Venue.geo = {
-      lat: venue.lat,
-      long: venue.lng
-    }
-    Venue.city = venue.city.displayName
-    Venue.state = venue.city.state ? venue.city.state.displayName : null
-    Venue.website = venue.website
-    Venue.name = venue.displayName
-    Venue.address = venue.city.state ? `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}` : null
-    Venue.phone = venue.phone
-    Venue.save(function(err) {
-      if (err) return console.log(err);
-    });
-    return Venue
+    return new Promise(function(resolve, reject) {
+      const Venue = new VenueModel();
+      console.log(`${++getVenue} adding ${venueId}`)
+      Venue.id = venueId
+      Venue.capacity = venue.capacity || 'N/A'
+      Venue.street = venue.street
+      Venue.geo = {
+        lat: venue.lat,
+        long: venue.lng
+      }
+      Venue.city = venue.city.displayName
+      Venue.state = venue.city.state ? venue.city.state.displayName : null
+      Venue.website = venue.website
+      Venue.name = venue.displayName
+      Venue.address = venue.city.state ? `${venue.street} St, ${venue.city.displayName}, ${venue.city.state.displayName}` : null
+      Venue.phone = venue.phone
+      getPlaceInfo(Venue.name, Venue.geo.lat, Venue.geo.long, Venue, resolve)
+    })
   }
+
+}
+
+function getPlaceInfo(name, lat, long, Venue, resolve) {
+  //console.log(name, lat, long)
+  Google.placeIdAPI(name, +lat, +long)
+    .then(resp => {
+
+      if (resp[0] && resp[0].id) {
+        const venue = resp[0]
+        Venue.rating = venue.rating
+        Venue.icon = venue.icon
+        Venue.googleID = venue.placeId
+        Venue.price = venue.price_level
+
+        if (venue.photos && venue.photos[0]) {
+          //console.log(Venue.google.photos[0].photo_reference)
+          getPlacePhoto(venue.photos[0].photo_reference, Venue, resolve)
+        } else {
+          Venue.save(function(err) {
+            if (err) return console.log(err);
+          });
+          resolve(Venue)
+        }
+
+      } else {
+        Venue.save(function(err) {
+          if (err) return console.log(err);
+        });
+        resolve(Venue)
+      }
+    })
+    .catch(err => console.log("Google.placeIdAPI ERR", err))
+}
+
+function getPlacePhoto(photoReference, Venue, resolve) {
+  Google.photoAPI(photoReference)
+    .then(photo => {
+      Venue.photo = photo
+      Venue.save(function(err) {
+        if (err) return console.log(err);
+      });
+      resolve(Venue)
+    })
+    .catch(err => console.log(err))
 }
 
 exports.getArtistCalendar = (artistID) => {
