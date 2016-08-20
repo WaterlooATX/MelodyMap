@@ -23,11 +23,13 @@
   color: grey;
   font-weight: bold;
 }
+
 .artist-title {
   display: inline-block;
   /*font-weight: 800;*/
   font-size: 38px;
 }
+
 .page-header > h1 {
   display: inline;
   font-size: 38px;
@@ -37,29 +39,36 @@
   margin-top: 110px;
   padding-bottom: 20px;
 }
+
 .ArtistList {
   overflow-y: scroll;
   height: 80vh;
 }
+
 .search-bar {
     margin: 20px;
     text-align: center;
 }
+
 .search-bar input {
     width: 75%;
 }
+
 .video-detail img {
     max-width: 64px;
 }
+
 .video-detail .details {
     margin-top: 10px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
 .list-group-item {
     cursor: pointer;
 }
+
 .list-group-item:hover {
     background-color: #eee;
 }
