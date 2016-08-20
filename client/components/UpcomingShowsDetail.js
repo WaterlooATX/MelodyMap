@@ -1,23 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 
 
 export default class UpcomingShowsDetail extends Component {
   render() {
     return (
-      <div className = "UpcomingShowsDetail-container">
+      <div className="UpcomingShowsDetail-container">
 		    {this._checkShows(this.props.shows)}
         <div className="UpcomingShowsDetail-bottom-gradient"></div>
 			</div>
-    )
+    );
   }
 
   _checkShows(shows) {
-    return shows ? this._shows(shows) : null
+    return shows ? this._shows(shows) : null;
   }
 
   _shows(shows) {
-    return shows.map(show => <Show show={show} key={show.id}/>)
+    return shows.map(show => <Show show={show} key={show.id} />);
   }
 
 }
@@ -25,7 +25,7 @@ export default class UpcomingShowsDetail extends Component {
 class Show extends Component {
 
   render() {
-    const show = this.props.show
+    const show = this.props.show;
     return (
       <div className="UpcomingShowsDetail-list-item list-group-item">
         <div className="UpcomingShowsDetail-date">
@@ -39,11 +39,11 @@ class Show extends Component {
           <div className="UpcomingShowsDetail-location">{ show.location.city }</div>
         </div>
         <div className="UpcomingShowsDetail-buy">
-          <button type="button" className="btn btn-success" aria-label="Right Align" onClick={function() { window.open(show.uri,'_blank'); }}>
+          <button type="button" className="btn btn-success" aria-label="Right Align" onClick={function () { window.open(show.uri, '_blank'); }}>
             <i className="fa fa-usd" aria-hidden="true"></i>
           </button>
         </div>
       </div>
-    )
+    );
   }
 }

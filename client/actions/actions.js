@@ -12,56 +12,56 @@ export const SPOTIFY_TOKENS = 'SPOTIFY_TOKENS';
 export const VENUES = 'VENUES';
 
 import Spotify from 'spotify-web-api-js';
-import {fetchShowsAPI} from "../models/api"
+import { fetchShowsAPI } from '../models/api';
 const spotifyApi = new Spotify();
 
 export function setSpeaker(speaker) {
   return {
     type: SET_SPEAKER,
-    payload :  speaker
-  }
+    payload: speaker,
+  };
 }
 
 export function redux_Artists(artist) {
   return {
     type: FETCH_ARTIST,
-    payload: artist
-  }
+    payload: artist,
+  };
 }
 
 export function setLocation(location) {
   return {
     type: LOCATION,
-    payload: location
-  }
+    payload: location,
+  };
 }
 
 export function selectArtist(artist) {
   return {
     type: SELECT_ARTIST,
-    payload: artist
-  }
+    payload: artist,
+  };
 }
 
 export function selectShow(show) {
   return {
     type: SELECT_SHOW,
-    payload: show
-  }
+    payload: show,
+  };
 }
 
 export function selectVenue(venue) {
   return {
     type: SELECT_VENUE,
-    payload: venue
-  }
+    payload: venue,
+  };
 }
 
 export function fetchShows(data) {
   return {
     type: FETCH_SHOWS,
-    payload: fetchShowsAPI(data.long, data.lat, data.startDate, data.endDate)
-  }
+    payload: fetchShowsAPI(data.long, data.lat, data.startDate, data.endDate),
+  };
 }
 
 /** set the app's access and refresh tokens */
@@ -72,7 +72,7 @@ export function setTokens(accessToken, refreshToken) {
   return {
     type: SPOTIFY_TOKENS,
     accessToken,
-    refreshToken
+    refreshToken,
   };
 }
 
@@ -80,15 +80,15 @@ export function getMyInfo() {
   return {
     type: SPOTIFY_ME_BEGIN,
     payload: spotifyApi.getMe().then(data => {
-      return data
-    })
-  }
+      return data;
+    }),
+  };
 }
 
 
 export function redux_Venues(venue) {
   return {
     type: VENUES,
-    payload: venue
-  }
+    payload: venue,
+  };
 }

@@ -1,24 +1,24 @@
-import {Link} from 'react-router'
-import React, {Component} from 'react'
+import { Link } from 'react-router';
+import React, { Component } from 'react';
 
 export default class DropdownArtistsTitle extends Component {
 
   render() {
-    return this.props.venue ? this._renderVenue() : null
+    return this.props.venue ? this._renderVenue() : null;
   }
 
   _doorsOpen() {
-    return !this.props.doorsOpen.includes('Invalid date') ? `Doors open ${this.props.doorsOpen}` : null
+    return !this.props.doorsOpen.includes('Invalid date') ? `Doors open ${this.props.doorsOpen}` : null;
   }
 
   _renderVenue() {
     return (
       <div className="panel-top">
-        <div className="venue-marker" onClick={ this.props.onNavigateClick.bind(this) }>
-          <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true"/>
+        <div className="venue-marker" onClick={this.props.onNavigateClick.bind(this)}>
+          <i id="marker" className="fa fa-map-marker fa-4" aria-hidden="true" />
         </div>
         <div id="venueName">
-          <Link to={`/venue/${this.props.venue.name}/${this.props.venue.id}`} activeClassName='active'>
+          <Link to={`/venue/${this.props.venue.name}/${this.props.venue.id}`} activeClassName="active">
             {this.props.venue.name}
           </Link>
         </div>
@@ -26,6 +26,6 @@ export default class DropdownArtistsTitle extends Component {
           {this._doorsOpen()}
         </div>
       </div>
-    )
+    );
   }
 }
