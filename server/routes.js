@@ -10,7 +10,7 @@ const router = new express.Router();
 //-----------------------------------------------------//
 const client_id = SPOTIFYWEB_CLIENTID;
 const client_secret = SPOTIFYWEB_CLIENTSECRET;
-const redirect_uri = 'http://melody-map.com'; // Your redirect uri
+const redirect_uri = 'http://melody-map.com/callback'; // Your redirect uri
 const stateKey = 'spotify_auth_state';
 // your application requests authorization
 const scopes = ['user-read-private', 'user-read-email'];
