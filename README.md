@@ -1,54 +1,17 @@
 # Melody Map
-Easily locate live music shows in your area tonight. Search for future shows at location.
-Designedto keep you informed when your favorite bands come to your area
-and also to help you discover new artists that you might enjoy.
+Discover live music in your area tonight. With Melody Map, you can easily explore artists, venues, and shows happening in your city and beyond. See when your favorite bands are playing, check out that new venue, or give a listen and discover new artists. 
 
 ## Features
-- Pre-listen to artists through Spotify
-- Local, which populates any shows in the area based on your GPS location
-- Artists, which lists your favorites as well as recommendations based on your musical tastes
-- Venues, which shows upcoming concerts at your favorite spots
-- Once you dive down into individual concerts, you can mark favorites,
-  save concerts to your calendar, share over social networking
-  (Facebook, Twitter, email), and map the location
-- RSVP to shows, purchase tickets via Songkick
-- Provides a useful Spotify plug-in that provides a personalized concert calendar based on your playlists.
-- Inspire spontaneity by providing exclusive deals on last-minute concert tickets.
-- Provides sample songs from artists
-- show off which concerts they’ve attended will dig the built in Foursquare functionality,
-  which handily keeps track of all past shows for future reminiscing.
+- Listen to Spotify artist preview tracks
+- Use the map feature to explore shows by location (populated by default with your GPS location) and get simple visual directions or extensive Google directions at the touch of a button
+- Search for artists or venues in their respective pages
+- Use the 'advanced search' feature to populate map with shows for a given date range and location
+- Explore artists: see bios, pictures, album art, YouTube videos, popularity, upcoming shows, similar artists and sample top ten tracks
+- Explore venues: see basic venue information, pictures, street view, map of location, upcoming shows, and click to buy tickets for upcoming shows
 
-## Motivation
-Users benefit from quickly finding local live music shows playing tonight and on future dates.
-
-## Vision
-Songkick with streamlined UX and a focus on visualizing map features and listening to the music.
-
-
-## User Stories
-
-
-## Stack
-React, redux, immutable.js, express.js
-
-## React/Redux Application Design Lessons
-***http://www.jeremyzerr.com/sites/default/files/React-Redux-Design-Lessons-Learned.pdf***
-
-***http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html***
-
-***https://www.toptal.com/react/react-redux-and-immutablejs***
-
-***http://survivejs.com/react/***
-
-***https://www.udemy.com/react-redux***
-
-***https://github.com/tomchentw/react-google-maps***
-
-This example includes reading from an asynchronous API, fetching data in response to user input,
-showing loading indicators, caching the response, and invalidating the cache
-***https://github.com/reactjs/redux/blob/master/docs/introduction/Examples.md***
-
-
+## Built with:
+-React, Redux, Axios, MongoDB + Mongoose, Bootstrap, and Browserify
+-APIs: Songkick, Spotify, LastFM, Google Maps and Places and YouTube
 
 ## Installation
 
@@ -63,11 +26,7 @@ $ npm install
 ## To start the server
 > npm start
 
-## To lint the client folder
-> npm run lint
-
-
-Open your browser to ***http://localhost:1337*** to view!
+Open your browser to ***http://localhost:4000*** to view!
 
 ## API Reference
 
@@ -83,21 +42,10 @@ A Node.js wrapper for Spotify's Web API.
 A small javascript library (for NodeJS) to interface with the SongKick API
 ***https://github.com/MrJaeger/songkick-api***
 
-## Style Guide
 
-Please reference ***https://github.com/airbnb/javascript*** for style.
+## Contribution and Style Guides
+Please check out the [Git Workflow](https://github.com/WaterlooATX/MelodyMap/blob/master/git_workflow.md) in the MelodyMap repo to learn more about how you can contribute!
 
-## Contribution Guide
-
-Open up a new branch for fixing bugs and adding new features, remember to use camelCase while naming your branch.
-
-```
-git checkout -b fix/yourBugFix
-```
-
-```
-git checkout -b feature/yourNewFeature
-```
 
 ## Authors
 - [Amanda Fillip](https://github.com/afillip)
