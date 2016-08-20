@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {bindActionCreators} from 'redux'
-import {connect} from "react-redux"
-import {setSpeaker} from '../actions/actions'
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { setSpeaker } from '../actions/actions';
 
 class Speaker extends Component {
 
@@ -13,37 +13,38 @@ class Speaker extends Component {
           id="speaker"
           aria-hidden="true"
           type="button"
-          onClick={this._toggleSound.bind(this)}>
-          <audio src={ this.props.track }></audio>
+          onClick={this._toggleSound.bind(this)}
+        >
+          <audio src={this.props.track}></audio>
         </i>
-      )
+      );
     } else {
-      return null
+      return null;
     }
   }
 
   _songPlayToggle(songPlayed, songButton) {
     this.props.setSpeaker({
       songPlayed,
-      songButton
-    })
+      songButton,
+    });
   }
 
   _toggleSound(event) {
-    let songPlayed = this.props.speaker.songPlayed;
-    let playButton = event.target;
-    let parent = playButton.parentElement;
-    let audioElem = parent.getElementsByTagName('audio')[0];
+    const songPlayed = this.props.speaker.songPlayed;
+    const playButton = event.target;
+    const parent = playButton.parentElement;
+    const audioElem = parent.getElementsByTagName('audio')[0];
     if (!songPlayed) {
-      this._songPlayToggle(audioElem, playButton)
+      this._songPlayToggle(audioElem, playButton);
       playButton.className = `fa fa-pause fa-${this.props.size}x`;
       audioElem.play();
     } else if (songPlayed === audioElem) {
       audioElem.pause();
       playButton.className = `fa fa-volume-up fa-${this.props.size}x`;
-      this._songPlayToggle(false, null)
+      this._songPlayToggle(false, null);
     } else if (songPlayed !== audioElem) {
-      songPlayed.pause()
+      songPlayed.pause();
       this.props.speaker.songButton.className = `fa fa-volume-up fa-${this.props.size}x`;
       this._songPlayToggle(audioElem, playButton);
       playButton.className = `fa fa-pause fa-${this.props.size}x`;
@@ -52,6 +53,6 @@ class Speaker extends Component {
   }
 }
 
-const mapStateToProps = (state) => {return { speaker: state.speaker }};
+const mapStateToProps = (state) => { return { speaker: state.speaker }; };
 const mapDispatchToProps = (dispatch) => bindActionCreators({ setSpeaker }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Speaker);

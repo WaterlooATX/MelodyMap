@@ -1,18 +1,18 @@
-import React, {Component} from "react"
-import NavBar from "../containers/NavBar"
+import React, { Component } from 'react';
+import NavBar from '../containers/NavBar';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      visibleSearch: true
-    }
+      visibleSearch: true,
+    };
   }
 
   _onLink(bool) {
     this.setState({
-      visibleSearch: bool
+      visibleSearch: bool,
     });
   }
 
@@ -20,14 +20,14 @@ export default class App extends Component {
     return (
       <div>
         <NavBar
-          onLink={ this._onLink.bind(this) }
-          visibleSearch={ this.state.visibleSearch }
+          onLink={this._onLink.bind(this)}
+          visibleSearch={this.state.visibleSearch}
         />
         <div className="temp">
           {this.props.children}
         </div>
       </div>
-    )
+    );
   }
 
 }

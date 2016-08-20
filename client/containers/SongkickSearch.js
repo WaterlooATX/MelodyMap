@@ -1,24 +1,24 @@
-import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import {setLocation, fetchShows} from '../actions/actions';
-import {Google_geocoder, Songkick_getShows} from '../models/api';
+import { setLocation, fetchShows } from '../actions/actions';
+import { Google_geocoder, Songkick_getShows } from '../models/api';
 
 
 class SongkickSearch extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       startDate: moment(),
       endDate: moment(),
       city: '',
-      search: false
-    }
+      search: false,
+    };
   }
 
   render() {
@@ -31,29 +31,29 @@ class SongkickSearch extends Component {
           <DatePicker
             minDate={moment()}
             todayButton={'Today'}
-            selected={ this.state.startDate }
+            selected={this.state.startDate}
             startDate={this.state.startDate}
             endDate={this.state.endDate}
-            onChange={ this._onStartChange.bind(this) }
+            onChange={this._onStartChange.bind(this)}
           />
           <DatePicker
             minDate={moment()}
             todayButton={'Today'}
-            selected={ this.state.endDate }
+            selected={this.state.endDate}
             startDate={this.state.startDate}
             endDate={this.state.endDate}
-            onChange={ this._onEndChange.bind(this) }
+            onChange={this._onEndChange.bind(this)}
           />
           <input
             className="input-city"
             placeholder="City"
-            value={ this.state.city }
-            onChange={ event => this._onCityChange(event.target.value) }
+            value={this.state.city}
+            onChange={event => this._onCityChange(event.target.value)}
           />
           <button type="submit" onClick={this._onSubmit.bind(this)}>Search</button>
         </form>
         : <div className="songkick-search">
-            <a onClick={ this._onSearchClick.bind(this) }>
+            <a onClick={this._onSearchClick.bind(this)}>
               <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
               Advanced Search
             </a>
@@ -61,62 +61,62 @@ class SongkickSearch extends Component {
         : <div className="songkick-search"></div>
       }
       </div>
-    )
+    );
   }
 
   _onSearchClick() {
     this.setState({
-      search: true
+      search: true,
     });
   }
 
   _onStartChange(startDate) {
     this.setState({
-      startDate
+      startDate,
     });
   }
 
   _onEndChange(endDate) {
     this.setState({
-      endDate
+      endDate,
     });
   }
 
   _onCityChange(city) {
     this.setState({
-      city
+      city,
     });
   }
 
   _onSubmit(event) {
     event.preventDefault();
-    let startDate = this.state.startDate.toISOString().slice(0, 10);
-    let endDate = this.state.endDate.toISOString().slice(0, 10);
+    const startDate = this.state.startDate.toISOString().slice(0, 10);
+    const endDate = this.state.endDate.toISOString().slice(0, 10);
     // get coordinate from city name
     if (this.state.city) {
       Google_geocoder(this.state.city).then(resp => {
         console.log('resp from navbar', resp);
-        let lat = resp.data.results[0].geometry.location.lat;
-        let long = resp.data.results[0].geometry.location.lng;
+        const lat = resp.data.results[0].geometry.location.lat;
+        const long = resp.data.results[0].geometry.location.lng;
         this.props.fetchShows({
           long,
           lat,
           startDate,
-          endDate
+          endDate,
         });
         this.props.setLocation({
           long,
-          lat
+          lat,
         });
-      })
+      });
     } else {
-      let lat = this.props.location.lat;
-      let long = this.props.location.long;
+      const lat = this.props.location.lat;
+      const long = this.props.location.long;
       this.props.fetchShows({
         long,
         lat,
         startDate,
-        endDate
+        endDate,
       });
     }
   // code below hides advanced search view after a submit
@@ -127,6 +127,6 @@ class SongkickSearch extends Component {
 
 }
 
-const mapStateToProps = (state) => {return { location: state.location }};
+const mapStateToProps = (state) => { return { location: state.location }; };
 const mapDispatchToProps = (dispatch) => bindActionCreators({ setLocation, fetchShows }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(SongkickSearch);

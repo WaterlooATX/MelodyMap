@@ -1,81 +1,81 @@
-import React, {Component} from 'react';
-import {bindActionCreators} from 'redux'
-import {connect} from "react-redux";
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import NavBar from './NavBar';
-import UpcomingShows from '../components/UpcomingShows.js'
-import { Songkick_getVenueCalendarAPI, Google_placeIdAPI, Google_photoAPI } from '../models/api'
-import {redux_Venues} from '../actions/actions';
+import UpcomingShows from '../components/UpcomingShows.js';
+import { Songkick_getVenueCalendarAPI, Google_placeIdAPI, Google_photoAPI } from '../models/api';
+import { redux_Venues } from '../actions/actions';
 import _ from 'lodash';
-import {GOOGLE_PLACES_API_KEY} from '../../server/models/api_keys'
+import { GOOGLE_PLACES_API_KEY } from '../../server/models/api_keys';
 
 // cron-job: make sure that upcoming show data does not persist for too long in db
 
 class VenueDetail extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       upcomingShows: null,
       currVenue: this.props.venues[this.props.params.venueId],
       place: null,
       photo: null,
-      location: false
-    }
+      location: false,
+    };
   }
 
   componentDidMount() {
-    this._updateVenueObj(this.props.params.venueId)
+    this._updateVenueObj(this.props.params.venueId);
   }
 
   _updateVenueObj(venueId) {
-    let redux_Venue = this.props.venues
-    let venue = redux_Venue[this.props.params.venueId]
+    const redux_Venue = this.props.venues;
+    const venue = redux_Venue[this.props.params.venueId];
 
     if (!this.props.venues[venueId].upcomingShows.length) {
       Songkick_getVenueCalendarAPI(venueId).then((gotshows) => {
-        redux_Venue[venue.id].upcomingShows = gotshows.data
+        redux_Venue[venue.id].upcomingShows = gotshows.data;
         this.setState({
-          upcomingShows: gotshows.data
-        })
-        redux_Venues(redux_Venue)
-      })
+          upcomingShows: gotshows.data,
+        });
+        redux_Venues(redux_Venue);
+      });
     } else {
       this.setState({
-        upcomingShows: redux_Venue[venue.id].upcomingShows
-      })
+        upcomingShows: redux_Venue[venue.id].upcomingShows,
+      });
     }
   }
 
   _displayUpcomingShows() {
-    const showObjs = this.state.upcomingShows
-    return showObjs.map(function(show, index) {
-      return (<UpcomingShows show={show} key={show.id} source="VenueDetail"/>)
-    })
+    const showObjs = this.state.upcomingShows;
+    return showObjs.map(function (show, index) {
+      return (<UpcomingShows show={show} key={show.id} source="VenueDetail" />);
+    });
   }
 
   _embedGoogleClick(e) {
-    $(e.target).children('iframe').css("pointer-events", "auto");
+    $(e.target).children('iframe').css('pointer-events', 'auto');
   }
 
   _embedGoogleLeave(e) {
-    $(e.target).children('iframe').css("pointer-events", "none");
+    $(e.target).children('iframe').css('pointer-events', 'none');
   }
 
   render() {
     window.scrollTo(0, 0);
 
-    const params = this.props.params
-    const redux_Venue = this.props.venues
-    const venue = redux_Venue[params.venueId]
-    const venueNameForMap = venue.name.split(' ').join('+')
+    const params = this.props.params;
+    const redux_Venue = this.props.venues;
+    const venue = redux_Venue[params.venueId];
+    const venueNameForMap = venue.name.split(' ').join('+');
     // const state = this.state
     // console.log(venue.website)
     // formatting for venue website link
     if (venue.website) {
-      let website = venue.website.slice(7)
+      let website = venue.website.slice(7);
       if (website.charAt(website.length - 1) === '/') {
-        website = website.slice(0, -1)
+        website = website.slice(0, -1);
       }
     }
 
@@ -106,19 +106,22 @@ class VenueDetail extends Component {
 
 
             <div className="col-xs-12 col-md-6 google-embeds"
-                 onClick={this._embedGoogleClick.bind(this)}
-                 onMouseLeave={this._embedGoogleLeave.bind(this)}>
+              onClick={this._embedGoogleClick.bind(this)}
+              onMouseLeave={this._embedGoogleLeave.bind(this)}
+            >
               {/* Google Places Venue */}
               <iframe
                 className="google-iframe"
                 src={`//www.google.com/maps/embed/v1/place?key=${GOOGLE_PLACES_API_KEY}
-                &q=${venueNameForMap},${venue.city}+${venue.state}&zoom=17`}>
+                &q=${venueNameForMap},${venue.city}+${venue.state}&zoom=17`}
+              >
               </iframe>
               {/* Google Street View Venue */}
               <iframe
                 className="google-iframe"
                 src={`//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_PLACES_API_KEY}
-                &location=${venue.geo.lat},${venue.geo.long}`}>
+                &location=${venue.geo.lat},${venue.geo.long}`}
+              >
               </iframe>
             </div>
 
@@ -132,10 +135,10 @@ class VenueDetail extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
 }
-const mapStateToProps = (state) => {return { venues: state.venues }};
+const mapStateToProps = (state) => { return { venues: state.venues }; };
 const mapDispatchToProps = (dispatch) => bindActionCreators({ redux_Venues }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(VenueDetail);

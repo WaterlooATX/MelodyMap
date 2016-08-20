@@ -1,9 +1,9 @@
-import { LOCATION } from '../actions/actions'
+import { LOCATION } from '../actions/actions';
 
-export default function(state = [], action) {
+export default function (state = [], action) {
   switch (action.type) {
     case LOCATION:
-    return action.payload
+      return action.payload;
   }
-  return state
+  return state;
 }
