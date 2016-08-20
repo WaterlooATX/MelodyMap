@@ -25,7 +25,11 @@ exports.searchArtists = (name, songKickID) => {
     console.log(`${++Spotify_searchArtists} found cachedArtists ${name}`)
       //return catchArtist
     return new Promise(function(resolve, reject) {
-      resolve(cacheArtist)
+      if(cacheArtist === "SongkickIDnotFound") {
+        resolve()
+      } else {
+        resolve(cacheArtist)
+      }
     })
   }
 
@@ -100,7 +104,7 @@ exports.searchArtists = (name, songKickID) => {
                     Artist.genre = data.artist.tags.tag
                     Artist.relatedArtists = data.artist.similar
                   }
-                }).catch(err => console.log(err))
+                }).catch(err => console.log("ERROR: lastFM.getInfo"))
 
                 // give API calls 2 secs
                 setTimeout(function() {
@@ -115,7 +119,7 @@ exports.searchArtists = (name, songKickID) => {
             })
             // found no name matches
           if(!foundName) {
-            cachedArtists[songKickID] = true
+            cachedArtists[songKickID] = "SongkickIDnotFound"
             resolve()
           }
         }).catch(err => console.log("ERROR", Name));
