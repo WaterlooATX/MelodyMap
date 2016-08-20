@@ -31,3 +31,22 @@
   margin: 0px;
   padding-bottom: 20px;
 }
+
+@media screen and (max-width: 767px) {
+    .google-embeds {
+      padding: 0;
+    }
+
+    .btn {
+      width: 23px;
+      padding: 0 0 0 1px;
+    }
+
+    .upcoming-show h1 {
+      font-size: 17px;
+    }
+
+    .upcoming-show div {
+      font-size: 13px;
+    }
+}
