@@ -1,14 +1,14 @@
 # Contributing
 
-## General Workflow
+## General Git Workflow
 
 1. Clone down the master directly (do not fork):
 
   -> git clone masterURL yourdirectory
 
-2. Create a new feature branch from master, If it's a new feature, name the branch "feat#". If it's a bug fix, name the branch "bug#". # should be the associated issue number on the GitHub repo.
+2. Create a new feature/issue branch from master and name the branch "issue#". If it's a bug fix, name the branch "bug#". # should be the associated issue number on the GitHub repo.
 
-  -> git checkout -b feat3
+  -> git checkout -b issue3
 
   OR
 
@@ -16,9 +16,9 @@
 
 3. Make changes and commit to your feature branch.
 
-  -> git add -p
+  -> git add .
 
-4. Sync up with latest master before pushing to remote feature branch:
+4. ALWAYS sync up with latest master before pushing to remote feature branch:
 
   -> git pull --rebase origin master
 
@@ -46,11 +46,8 @@
 ### Cut a namespaced feature branch from master
 
 Your branch should follow this naming convention:
+  - issue#
   - bug#
-  - feat#
-  - test#
-  - doc#
-  - refactor#
 
   Where # associates directly with the issue number in the GitHub repo
 
@@ -108,9 +105,8 @@ and picking the versions you want. Be aware that these changes will show
 up in your pull request, so try and incorporate upstream changes as much
 as possible.
 
-You pick a file by `git add`ing it - you do not make commits during a
-rebase.
-
+When resolving conflicts, you will need to edit the appropriate files and
+`git add` them. However, you should not commit during the rebase process. 
 Once you are done fixing conflicts for a specific commit, run:
 
 git rebase --continue
@@ -145,14 +141,11 @@ Thanks for contributing!
 
 ### Guidelines
 
-1. Uphold the current code standard:
+   Uphold the current code standard:
     - Keep your code [DRY][].
     - Apply the [boy scout rule][].
-    - Follow [STYLE-GUIDE.md](STYLE-GUIDE.md)
-1. Run the [tests][] before submitting a pull request.
-1. Tests are very, very important. Submit tests if your pull request contains
-   new, testable behavior.
-1. Your pull request is comprised of a single ([squashed][]) commit.
+    - Follow the [Airbnb JS Style Guide](https://github.com/airbnb/javascript)
+
 
 ## Checklist:
 
