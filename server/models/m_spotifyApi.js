@@ -54,8 +54,9 @@ exports.searchArtists = (name, songKickID) => {
               // if songkick name is spotify name
               if (Name == artist.name) {
                 foundName = true
-                console.log(`${++Spotify_searchArtists} adding ${Name}`)
                 const Artist = new ArtistModel();
+                console.log(`${++Spotify_searchArtists} adding ${Name}`)
+
 
                 Artist.songKickID = songKickID
                 Artist.spotifyURL = artist.external_urls.spotify
@@ -109,10 +110,12 @@ exports.searchArtists = (name, songKickID) => {
                   cachedArtists[songKickID] = Artist
                   resolve(Artist)
                 }, 2000)
+                cachedArtists[songKickID] = Artist
               }
             })
             // found no name matches
           if(!foundName) {
+            cachedArtists[songKickID] = true
             resolve()
           }
         }).catch(err => console.log("ERROR", Name));
