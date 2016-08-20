@@ -119,9 +119,10 @@ class SongkickSearch extends Component {
         endDate
       });
     }
-    this.setState({
-      search: false
-    });
+  // code below hides advanced search view after a submit
+    // this.setState({
+    //   search: false
+    // });
   }
 
 }

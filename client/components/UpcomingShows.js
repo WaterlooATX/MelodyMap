@@ -12,11 +12,11 @@ export default class UpcomingShows extends Component {
       return <Link to={`/artist/${artist.displayName}`} key={artist.id}> {artist.displayName}</Link>
     })
 
-    //flexbox flex direction right
+
     return (
       <div className='upcoming-show'>
 
-        <div className='upcoming-show-info'>
+        <div className='upcoming-show-info col-xs-12 col-md-10'>
           <div className='upcoming-show-artists'>
             <h1>
               {artistArr[0] } { artistArr[1] ? <span> with {artistArr[1]}</span> : null}
@@ -36,9 +36,9 @@ export default class UpcomingShows extends Component {
           </div>
         </div>
 
-        <div className='upcoming-show-buttons'>
+        <div className='upcoming-show-buttons col-xs-12 col-md-2'>
           {show.status !== 'ok' ?
-            <span className="label label-danger upcoming-show-status">{show.status}</span> :
+            <h4><span className="label label-danger upcoming-show-status">{show.status}</span></h4> :
             <a href={this.props.show.uri} target="_blank" className="btn btn-success" role="button">BUY TICKETS</a>}
         </div>
 
