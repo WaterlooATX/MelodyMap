@@ -1,9 +1,7 @@
 const _ = require('lodash');
 const Songkick = require('songkick-api');
 const Spotify = require('./m_spotifyApi');
-const {
-  SONGKICK_FM_APIKEY
-} = require('./api_keys');
+const {SONGKICK_FM_APIKEY} = require('./api_keys');
 const Google = require('./m_google')
 const client = new Songkick(SONGKICK_FM_APIKEY)
 

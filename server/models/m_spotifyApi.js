@@ -5,10 +5,7 @@ const mongoose = require('mongoose');
 const db = require('../db');
 const ArtistModel = require('../ARTISTS_Schema');
 const lastFM = require('./m_lastFM');
-const {
-  SPOTIFY_CLIENTID,
-  SPOTIFY_CLIENTSECRET
-} = require('./api_keys');
+const {SPOTIFY_CLIENTID, SPOTIFY_CLIENTSECRET} = require('./api_keys');
 
 // credentials are optional
 const spotifyApi = new SpotifyWebApi({
