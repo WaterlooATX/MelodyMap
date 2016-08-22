@@ -163,6 +163,7 @@ div.panel-top {
 .band-info {
   display: flex;
   flex-direction: column;
+  min-width: 202px;
 }
 
 .accordion-text {
@@ -210,14 +211,17 @@ div.panel-top {
     -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
     box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 1);
   }
-  }
 
-  .accordion-album-band-name {
+  .band-info {
+    min-width: 77px;
+  }
+}
+
+/*  .accordion-album-band-name {
     width: 100px;
   }
 
   .popularity {
     position: relative;
     padding: 10px;
-  }
-}
+  }*/
