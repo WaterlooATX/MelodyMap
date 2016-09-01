@@ -13,22 +13,23 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: SPOTIFY_CLIENTSECRET
 })
 
-const cachedArtists = {}
+//const cachedArtists = {};
 let Spotify_searchArtists = 0;
 exports.searchArtists = (name, songKickID) => {
   // check catched artists
-  const cacheArtist = cachedArtists[songKickID]
-  if (cacheArtist) {
-    console.log(`${++Spotify_searchArtists} found cachedArtists ${name}`)
-      //return catchArtist
-    return new Promise(function(resolve, reject) {
-      if(cacheArtist === "SongkickIDnotFound") {
-        resolve()
-      } else {
-        resolve(cacheArtist)
-      }
-    })
-  }
+
+  // const cacheArtist = cachedArtists[songKickID];
+  // if (cacheArtist) {
+  //   console.log(`${++Spotify_searchArtists} found cachedArtists ${name}`)
+  //     //return catchArtist
+  //   return new Promise(function(resolve, reject) {
+  //     if(cacheArtist === "SongkickIDnotFound") {
+  //       resolve()
+  //     } else {
+  //       resolve(cacheArtist)
+  //     }
+  //   })
+  // }
 
   return ArtistModel.findOne({
       "songKickID": songKickID
@@ -36,7 +37,7 @@ exports.searchArtists = (name, songKickID) => {
     .then(artist => {
       if (artist) {
         console.log(`${++Spotify_searchArtists} found ${name}`)
-        cachedArtists[songKickID] = artist
+        //cachedArtists[songKickID] = artist
         return artist
       } else {
         return addToDataBase(name)
@@ -108,15 +109,15 @@ exports.searchArtists = (name, songKickID) => {
                   Artist.save(function(err) {
                     if (err) return console.log(err);
                   });
-                  cachedArtists[songKickID] = Artist
+                  //cachedArtists[songKickID] = Artist
                   resolve(Artist)
                 }, 2000)
-                cachedArtists[songKickID] = Artist
+                //cachedArtists[songKickID] = Artist
               }
             })
             // found no name matches
           if(!foundName) {
-            cachedArtists[songKickID] = "SongkickIDnotFound"
+            //cachedArtists[songKickID] = "SongkickIDnotFound"
             resolve()
           }
         }).catch(err => console.log("ERROR", Name));
