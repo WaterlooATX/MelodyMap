@@ -1,5 +1,5 @@
 # Melody Map
-Discover live music in your area tonight. With Melody Map, you can easily explore artists, venues, and shows happening in your city and beyond. See when your favorite bands are playing, check out that new venue, or give a listen and discover new artists. 
+Discover live music in your area tonight. With Melody Map, you can easily explore artists, venues, and shows happening in your city and beyond. See when your favorite bands are playing, check out that new venue, or give a listen and discover new artists.
 
 ## Features
 - Listen to Spotify artist preview tracks
@@ -36,7 +36,7 @@ Refer to ***http://www.songkick.com/developer*** for documentation.
 
 ***https://developer.spotify.com/web-api/***
 
-A Node.js wrapper for Spotify's Web API. 
+A Node.js wrapper for Spotify's Web API.
 ***https://github.com/thelinmichael/spotify-web-api-node***
 
 A small javascript library (for NodeJS) to interface with the SongKick API
@@ -53,3 +53,5 @@ Please check out the [Git Workflow](https://github.com/WaterlooATX/MelodyMap/blo
 - [Chris Wiles](https://github.com/ChrisWiles)
 - [Ricardo D'Alessandro](https://github.com/rgdalessandro)
 - [Shane McQuerter](https://github.com/Shanetou)
+
+![http://i.imgur.com/ruYOFwT.gif](http://i.imgur.com/ruYOFwT.gif)
