@@ -6,7 +6,7 @@ import { Spotify_searchArtistsAPI } from '../models/api';
 import Show from './Show';
 import { addArtistToRedux } from '../models/helpers';
 
-export default class ShowList extends Component {
+export class ShowList extends Component {
 
   render() {
     const shows = this.props.shows;
@@ -60,7 +60,11 @@ export default class ShowList extends Component {
 
 
   _createShows(shows) {
-    shows = this._sortShowsPopulartyDate(shows);
+    shows = this._sortShowsPopulartyDate(shows).filter(show => {
+      if(show.performance.length >0){
+        return show;
+      }
+    });
     return shows.map(show => {
       return (<Show
         songkick={show}
